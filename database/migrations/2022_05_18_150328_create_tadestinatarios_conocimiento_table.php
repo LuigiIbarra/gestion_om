@@ -14,7 +14,11 @@ class CreateTadestinatariosConocimientoTable extends Migration
     public function up()
     {
         Schema::create('tadestinatarios_conocimiento', function (Blueprint $table) {
-            $table->id();
+            $table->increments('iid_destinatario_conocimiento');
+            $table->integer('iid_documento')->unsigned()->nullable();
+            $table->integer('iid_adscripcion')->unsigned()->nullable();
+            $table->integer('iestatus')->default(1);
+            $table->integer('iid_usuario')->nullable();
             $table->timestamps();
         });
     }

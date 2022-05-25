@@ -7,11 +7,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Control de Gestión Oficialía Mayor</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}" defer></script>
+    <script type="text/javascript" src="{{ asset('js/mistablas.js') }}" ></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,23 +21,41 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{{asset('css/customize-navbar.css')}}}">
+    <link rel="stylesheet" type="text/css" href="{{{asset('css/datatables.min.css')}}}">
+
 </head>
 <body>
     <div id="app">
+        <div>
+            <header>
+            </header>
+        </div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <br>
             <div class="container">
+                <!--
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
+                    @auth
+                        <div class="dropdown">
+                          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('bootstrap-icons-1.5.0/file-text.svg') }}" width="18" height="18">
+                            Documentos
+                          </a>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#"><img src="{{ asset('bootstrap-icons-1.5.0/search.svg') }}" width="18" height="18">Lista de Documentos</a></li>
+                          </ul>
+                        </div>
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -76,9 +96,29 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <br>
+        <div class="container col-md-10">
+            <div class="container container-fluid h-100">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary-sin text-center">@yield('titulo')</h4>
+                    </div>
+                    <div class="card-body">
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+                        @yield('panel')
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <br>
+    <footer class="footer">
+        <img src="{{URL::asset('/images/footer.png')}}"width="900" align="center" style="width: 100%; height: 60px;" />
+    </footer>
 </body>
 </html>

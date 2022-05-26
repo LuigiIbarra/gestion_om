@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-    var numFilas = [ 5, 10, 15, 20, 25, 50, -1 ];
-    var filas    = [ '5 filas','10 filas','15 filas','20 filas','25 filas','50 filas','Todas' ];
+    var numFilas = [ 10, 15, 20, 25, 50, -1 ];
+    var filas    = [ '10 filas','15 filas','20 filas','25 filas','50 filas','Todas' ];
     var botones  = ['pageLength','copy', 'excel', 'pdf', 'print'];
     var idioma   = "/js/Spanish.json";
 
@@ -19,7 +19,35 @@ $(document).ready(function() {
         buttons: botones
     } );
 
-    $('#MyTableAcuerdos').DataTable( {
+    $('#MyTablePuestos').DataTable( {
+        language: {
+             //"url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+             "url": idioma
+             },
+        responsive: "true",
+        //dom: 'Bfrtip',
+        lengthMenu: [
+        numFilas,
+        filas
+       ],
+        buttons: botones
+    } );
+
+    $('#MyTableAdscripciones').DataTable( {
+        language: {
+             //"url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+             "url": idioma
+             },
+        responsive: "true",
+        //dom: 'Bfrtip',
+        lengthMenu: [
+        numFilas,
+        filas
+       ],
+        buttons: botones
+    } );
+
+    $('#MyTablePersonal').DataTable( {
         language: {
              //"url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
              "url": idioma
@@ -34,34 +62,6 @@ $(document).ready(function() {
     } );
 
     $('#MyTableDocumentos').DataTable( {
-        language: {
-             //"url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-             "url": idioma
-             },
-        responsive: "true",
-        //dom: 'Bfrtip',
-        lengthMenu: [
-        numFilas,
-        filas
-       ],
-        buttons: botones
-    } );
-
-    $('#MyTableSellos').DataTable( {
-        language: {
-             //"url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-             "url": idioma
-             },
-        responsive: "true",
-        //dom: 'Bfrtip',
-        lengthMenu: [
-        numFilas,
-        filas
-       ],
-        buttons: botones
-    } );
-
-    $('#MyTableLibros').DataTable( {
         language: {
              //"url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
              "url": idioma

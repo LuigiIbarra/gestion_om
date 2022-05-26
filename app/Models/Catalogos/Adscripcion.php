@@ -15,6 +15,10 @@ class Adscripcion extends Model
         return $this->belongsTo('App\Models\Catalogos\Personal');
     }
 
+    public function tipoarea(){
+        return $this->hasOne('App\Models\Catalogos\TipoArea','iid_tipo_area','iid_tipo_area');
+    }
+
     public function destinatarioatencion(){
         return $this->hasMany('App\Models\Gestion\DestinatarioAtencion','iid_adscripcion','iid_adscripcion');
     }

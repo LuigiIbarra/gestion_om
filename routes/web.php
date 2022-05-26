@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Gestion\DocumentosController;
+use App\Http\Controllers\Catalogos\PuestosController;
+use App\Http\Controllers\Catalogos\AdscripcionesController;
+use App\Http\Controllers\Catalogos\PersonalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +25,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+//Rutas de Documentos
+Route::get('documentos/index',    [DocumentosController::class, 'index'])->name('documentos.index');
+Route::get('documentos/nuevo',    [DocumentosController::class, 'nuevo_documento']);
+
+//Rutas de Puestos
+Route::get('puestos/index',       [PuestosController::class, 'index'])->name('puestos.index');
+
+//Rutas de Adscripciones
+Route::get('adscripciones/index', [AdscripcionesController::class, 'index'])->name('adscripciones.index');
+
+//Rutas de Personal
+Route::get('personal/index',      [PersonalController::class, 'index'])->name('personal.index');

@@ -14,7 +14,10 @@ class CreateTcpermisosTable extends Migration
     public function up()
     {
         Schema::create('tcpermisos', function (Blueprint $table) {
-            $table->id();
+            $table->increments('iid_permiso');
+            $table->string('cnombre_permiso',20)->nullable();
+            $table->integer('iestatus')->default(1);
+            $table->integer('iid_usuario')->nullable();
             $table->timestamps();
         });
     }

@@ -32,6 +32,30 @@ class PuestosController extends Controller
         return view('puestos.index',$data);
     }
 
+    public function nuevo_puesto()
+    {
+        $puesto = new Puesto();
+        //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
+        $noeditar = '';
+        return view('puestos.nuevo',compact('puesto','noeditar'));
+    }
+
+    public function guardar_puesto(Request $request)
+    {
+        $now = new \DateTime();
+        $puesto                      = new Puesto();
+        $jsonBefore                  = "NEW INSERT PUESTO";
+        $puesto->cdescripcion_puesto = $request->descripcion_puesto;
+        $puesto->iestatus            = 1;
+        $puesto->iid_usuario         = auth()->user()->id;
+        $puesto->save();
+        $jsonAfter                   = json_encode($puesto);
+        PuestosController::bitacora($jsonBefore,$jsonAfter);
+
+        return redirect()->route('puestos.index')
+                         ->with('success','Puesto guardado satisfactoriamente');
+    }
+
     public static function bitacora(string $jsonBefore,string $jsonAfter){
         $bitacora = new Bitacora();
         $bitacora->cjson_antes   = ($jsonBefore==null ? 'NEW INSERT': $jsonBefore);

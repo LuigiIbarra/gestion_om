@@ -32,6 +32,8 @@ Route::get('documentos/nuevo',    [DocumentosController::class, 'nuevo_documento
 
 //Rutas de Puestos
 Route::get('puestos/index',       [PuestosController::class, 'index'])->name('puestos.index');
+Route::get('puestos/nuevo',       [PuestosController::class, 'nuevo_puesto']);
+Route::post('puestos/guardar',    [PuestosController::class, 'guardar_puesto']);
 
 //Rutas de Adscripciones
 Route::get('adscripciones/index', [AdscripcionesController::class, 'index'])->name('adscripciones.index');

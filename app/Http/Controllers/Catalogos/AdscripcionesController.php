@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Catalogos\Adscripcion;
+use App\Models\Catalogos\TipoArea;
 use App\Models\Gestion\Bitacora;
 
 use Mpdf\Mpdf;
@@ -30,6 +31,33 @@ class AdscripcionesController extends Controller
             $data['adscripciones'] = Adscripcion::with('tipoarea')->where('iestatus','=',1)->get();
         }
         return view('adscripciones.index',$data);
+    }
+
+    public function nueva_adscripcion()
+    {
+        $adscripcion  = new Adscripcion();
+        $listTipoArea = TipoArea::where('iestatus','=',1)->get();
+        //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
+        $noeditar = '';
+        return view('adscripciones.nueva',compact('adscripcion','listTipoArea','noeditar'));
+    }
+
+    public function guardar_adscripcion(Request $request)
+    {
+        $now = new \DateTime();
+        $adscripcion                           = new Adscripcion();
+        $jsonBefore                            = "NEW INSERT ADSCRIPCION";
+        $adscripcion->cdescripcion_adscripcion = $request->descripcion_adscripcion;
+        $adscripcion->csiglas                  = $request->siglas;
+        $adscripcion->iid_tipo_area            = $request->tipo_adscripcion;
+        $adscripcion->iestatus                 = 1;
+        $adscripcion->iid_usuario              = auth()->user()->id;
+        $adscripcion->save();
+        $jsonAfter                             = json_encode($adscripcion);
+        PuestosController::bitacora($jsonBefore,$jsonAfter);
+
+        return redirect()->route('adscripciones.index')
+                         ->with('success','Adscripción guardada satisfactoriamente');
     }
 
     public static function bitacora(string $jsonBefore,string $jsonAfter){

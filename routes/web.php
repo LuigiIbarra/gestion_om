@@ -27,16 +27,18 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //Rutas de Documentos
-Route::get('documentos/index',    [DocumentosController::class, 'index'])->name('documentos.index');
-Route::get('documentos/nuevo',    [DocumentosController::class, 'nuevo_documento']);
+Route::get('documentos/index',       [DocumentosController::class, 'index'])->name('documentos.index');
+Route::get('documentos/nuevo',       [DocumentosController::class, 'nuevo_documento']);
 
 //Rutas de Puestos
-Route::get('puestos/index',       [PuestosController::class, 'index'])->name('puestos.index');
-Route::get('puestos/nuevo',       [PuestosController::class, 'nuevo_puesto']);
-Route::post('puestos/guardar',    [PuestosController::class, 'guardar_puesto']);
+Route::get('puestos/index',          [PuestosController::class, 'index'])->name('puestos.index');
+Route::get('puestos/nuevo',          [PuestosController::class, 'nuevo_puesto']);
+Route::post('puestos/guardar',       [PuestosController::class, 'guardar_puesto']);
 
 //Rutas de Adscripciones
-Route::get('adscripciones/index', [AdscripcionesController::class, 'index'])->name('adscripciones.index');
+Route::get('adscripciones/index',    [AdscripcionesController::class, 'index'])->name('adscripciones.index');
+Route::get('adscripciones/nueva',    [AdscripcionesController::class, 'nueva_adscripcion']);
+Route::post('adscripciones/guardar', [AdscripcionesController::class, 'guardar_adscripcion']);
 
 //Rutas de Personal
-Route::get('personal/index',      [PersonalController::class, 'index'])->name('personal.index');
+Route::get('personal/index',         [PersonalController::class, 'index'])->name('personal.index');

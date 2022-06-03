@@ -8,7 +8,7 @@
     <div class="table-responsive">
         <div class="row">
             <div class="col col-form-label text-md-right">
-                    <a href="{{ url('adscripciones/nuevo') }}" data-toggle="tooltip" data-html="true" title="Nuevo">
+                    <a href="{{ url('adscripciones/nueva') }}" data-toggle="tooltip" data-html="true" title="Nuevo">
                         + Nueva Adscripción
                     </a>
             </div>

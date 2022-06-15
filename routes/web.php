@@ -42,3 +42,5 @@ Route::post('adscripciones/guardar', [AdscripcionesController::class, 'guardar_a
 
 //Rutas de Personal
 Route::get('personal/index',         [PersonalController::class, 'index'])->name('personal.index');
+Route::get('personal/nuevo',         [PersonalController::class, 'nuevo_personal']);
+Route::post('personal/guardar',      [PersonalController::class, 'guardar_personal']);

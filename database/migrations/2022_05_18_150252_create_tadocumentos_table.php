@@ -15,8 +15,7 @@ class CreateTadocumentosTable extends Migration
     {
         Schema::create('tadocumentos', function (Blueprint $table) {
             $table->increments('iid_documento');
-            $table->integer('ifolio')->nullable();
-            $table->integer('ianio')->nullable();
+            $table->string('cfolio')->nullable();
             $table->date('dfecha_recepcion')->nullable();
             $table->string('cnumero_documento',100)->nullable();
             $table->date('dfecha_documento')->nullable();
@@ -25,10 +24,8 @@ class CreateTadocumentosTable extends Migration
             $table->integer('iid_personal_remitente')->unsigned()->nullable();
             $table->integer('iid_estatus_documento')->unsigned()->nullable();
             $table->integer('iid_prioridad_documento')->unsigned()->nullable();
-            $table->integer('ifolio_relacionado')->unsigned()->nullable();
-            $table->integer('ianio_relacionado')->unsigned()->nullable();
+            $table->string('cfolio_relacionado')->nullable();
             $table->string('cnomenclatura_archivistica',100)->nullable();
-            $table->integer('iid_personal_conocimiento')->unsigned()->nullable();
             $table->integer('iid_importancia_contenido')->unsigned()->nullable();
             $table->integer('iid_tema')->unsigned()->nullable();
             $table->integer('iid_tipo_asunto')->unsigned()->nullable();

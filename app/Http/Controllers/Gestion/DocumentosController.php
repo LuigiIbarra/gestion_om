@@ -18,6 +18,7 @@ use App\Models\Catalogos\ImportanciaContenido;
 use App\Models\Catalogos\Tema;
 use App\Models\Catalogos\TipoAsunto;
 use App\Models\Catalogos\Instruccion;
+use App\Models\Catalogos\Parametros;
 use App\Models\Gestion\DestinatarioAtencion;
 use App\Models\Gestion\DestinatarioConocimiento;
 use App\Models\Gestion\Bitacora;
@@ -47,6 +48,7 @@ class DocumentosController extends Controller
     public function nuevo_documento()
     {
         $documento         = new Documento();
+        $parametros        = Parametros::where('ianio','=','2022')->first();
         $listTipoDocumento = TipoDocumento::where('iestatus','=',1)->get();
         $listTipoAnexo     = TipoAnexo::where('iestatus','=',1)->get();
         $listEstatus       = EstatusDocumento::where('iestatus','=',1)->get();
@@ -60,15 +62,48 @@ class DocumentosController extends Controller
         $listInstruccion   = Instruccion::where('iestatus','=',1)->get();
         $listDestinAtn     = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
         $listDestinConoc   = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
+        $newfolio          = $parametros->iultimo_folio + 1;
         //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
         $noeditar = '';
-        return view('documentos.nuevo',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','noeditar'));
+        return view('documentos.nuevo',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','parametros','newfolio','noeditar'));
     }
 
     public function guardar_documento(Request $request)
     {
         $now = new \DateTime();
+        $documento                              = new Documento();
+        $jsonBefore                             = "NEW INSERT DOCUMENTO";
+        $documento->cfolio                      = $request->folio_documento;
+        $documento->dfecha_recepcion            = $request->recepcion_documento;
+        $documento->cnumero_documento           = $request->numero_documento;
+        $documento->dfecha_documento            = $request->fecha_documento;
+        $documento->iid_tipo_documento          = $request->tipo_documento;
+        $documento->iid_tipo_anexo              = $request->tipo_anexo;
+        $documento->iid_personal_remitente      = $request->nombre_remitente;
+        $documento->iid_estatus_documento       = $request->estatus_documento;
+        $documento->iid_prioridad_documento     = $request->prioridad_documento;
+        $documento->cfolio_relacionado          = $request->folio_relacionado;
+        $documento->cnomenclatura_archivistica  = $request->nomenclatura_archivistica;
+        $documento->iid_importancia_contenido   = $request->importancia_contenido;
+        $documento->iid_tema                    = $request->tema;
+        $documento->iid_tipo_asunto             = $request->tipo_asunto;
+        $documento->iid_instruccion             = $request->instruccion;
+        $documento->dfecha_termino              = $request->fecha_termino;
+        $documento->casunto                     = $request->asunto;
+        $documento->cobservaciones              = $request->observaciones;
+        $documento->cruta_archivo_documento     = $request->archivo;
+        $documento->iestatus                    = 1;
+        $documento->iid_usuario                 = auth()->user()->id;
+        $documento->save();
+        $jsonAfter                              = json_encode($documento);
+        DocumentosController::bitacora($jsonBefore,$jsonAfter);
 
+        $parametros                             = Parametros::where('ianio','=','2022')->first();
+        $parametros->iultimo_folio              = $request->folio;
+        $parametros->save();
+
+        return redirect()->route('documentos.index')
+                         ->with('success','Documento guardado satisfactoriamente');
     }
 
     public static function bitacora(string $jsonBefore,string $jsonAfter){

@@ -48,7 +48,7 @@ class Documento extends Model
     }
 
     public function personalconocimiento(){
-        return $this->hasOne('App\Models\Catalogos\Personal','iid_personal_conocimiento','iid_personal');
+        return $this->hasMany('App\Models\Gestion\PersonalConocimiento','iid_documento','iid_documento');
     }
 
     public function destinatarioatencion(){

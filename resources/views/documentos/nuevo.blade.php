@@ -4,7 +4,10 @@
     Nuevo Documento
 @endsection
 @section('panel')
+    <!--
     <form method="POST" action="{{ url('/documentos/guardar') }}" id="formNuevoDocumento">
+    -->
+    <form method="POST" action="#" id="formNuevoDocumento">
     	@csrf
 
         @if($errors->any())
@@ -20,6 +23,9 @@
                 </button>
             </div>
         @endif
+        <!--Auxiliar para el año-->
+        <input type="hidden" id="anio"  name="anio"  value="{{$parametros->ianio}}"/>
+        <input type="hidden" id="folio" name="folio" value="{{$newfolio}}"/>
         <!--Inputs de Documento-->
         @include('documentos.datos_documento')
     

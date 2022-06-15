@@ -29,6 +29,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 //Rutas de Documentos
 Route::get('documentos/index',       [DocumentosController::class, 'index'])->name('documentos.index');
 Route::get('documentos/nuevo',       [DocumentosController::class, 'nuevo_documento']);
+Route::post('documentos/guardar',     [DocumentosController::class, 'guardar_documento']);
 
 //Rutas de Puestos
 Route::get('puestos/index',          [PuestosController::class, 'index'])->name('puestos.index');

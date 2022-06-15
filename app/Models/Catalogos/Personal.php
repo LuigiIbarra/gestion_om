@@ -23,7 +23,7 @@ class Personal extends Model
         return $this->hasMany('App\Models\Gestion\Documento','iid_personal','iid_personal_remitente');
     }
 
-    public function conocimiento(){
-        return $this->hasMany('App\Models\Gestion\Documento','iid_personal','iid_personal_conocimiento');
+    public function personalconocimiento(){
+        return $this->hasMany('App\Models\Gestion\PersonalConocimiento','iid_personal','iid_personal');
     }
 }

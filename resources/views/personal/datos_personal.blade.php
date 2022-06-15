@@ -47,7 +47,7 @@
                         <label for="correo_electronico" class="col-form-label text-md-right">Correo electrónico:</label>
                         <input id="correo_electronico" type="email" class="form-control @error('correo_electronico') is-invalid @enderror" name="correo_electronico" value="{{ $personal->ccorreo_electronico }}" required autocomplete="email" autofocus>
 
-                        @error('email')
+                        @error('correo_electronico')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

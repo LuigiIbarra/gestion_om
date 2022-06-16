@@ -32,16 +32,25 @@ Route::get('documentos/nuevo',       [DocumentosController::class, 'nuevo_docume
 Route::post('documentos/guardar',     [DocumentosController::class, 'guardar_documento']);
 
 //Rutas de Puestos
-Route::get('puestos/index',          [PuestosController::class, 'index'])->name('puestos.index');
-Route::get('puestos/nuevo',          [PuestosController::class, 'nuevo_puesto']);
-Route::post('puestos/guardar',       [PuestosController::class, 'guardar_puesto']);
+Route::get('puestos/index',                  [PuestosController::class, 'index'])->name('puestos.index');
+Route::get('puestos/nuevo',                  [PuestosController::class, 'nuevo_puesto']);
+Route::post('puestos/guardar',               [PuestosController::class, 'guardar_puesto']);
+Route::get('puestos/editar/{id_puesto}',     [PuestosController::class, 'editar_puesto']);
+Route::post('puestos/actualizar',            [PuestosController::class, 'actualizar_puesto']);
+Route::get('puestos/inhabilitar/{id_puesto}',[PuestosController::class, 'confirmainhabilitar_puesto']);
 
 //Rutas de Adscripciones
-Route::get('adscripciones/index',    [AdscripcionesController::class, 'index'])->name('adscripciones.index');
-Route::get('adscripciones/nueva',    [AdscripcionesController::class, 'nueva_adscripcion']);
-Route::post('adscripciones/guardar', [AdscripcionesController::class, 'guardar_adscripcion']);
+Route::get('adscripciones/index',                   [AdscripcionesController::class, 'index'])->name('adscripciones.index');
+Route::get('adscripciones/nueva',                   [AdscripcionesController::class, 'nueva_adscripcion']);
+Route::post('adscripciones/guardar',                [AdscripcionesController::class, 'guardar_adscripcion']);
+Route::get('adscripciones/editar/{id_adsc}',        [AdscripcionesController::class, 'editar_adscripcion']);
+Route::post('adscripciones/actualizar',             [AdscripcionesController::class, 'actualizar_adscripcion']);
+Route::get('adscripciones/inhabilitar/{id_adsc}',   [AdscripcionesController::class, 'confirmainhabilitar_adscripcion']);
 
 //Rutas de Personal
-Route::get('personal/index',         [PersonalController::class, 'index'])->name('personal.index');
-Route::get('personal/nuevo',         [PersonalController::class, 'nuevo_personal']);
-Route::post('personal/guardar',      [PersonalController::class, 'guardar_personal']);
+Route::get('personal/index',                        [PersonalController::class, 'index'])->name('personal.index');
+Route::get('personal/nuevo',                        [PersonalController::class, 'nuevo_personal']);
+Route::post('personal/guardar',                     [PersonalController::class, 'guardar_personal']);
+Route::get('personal/editar/{id_personal}',         [PersonalController::class, 'editar_personal']);
+Route::post('personal/actualizar',                  [PersonalController::class, 'actualizar_personal']);
+Route::get('personal/inhabilitar/{id_personal}',    [PersonalController::class, 'confirmainhabilitar_personal']);

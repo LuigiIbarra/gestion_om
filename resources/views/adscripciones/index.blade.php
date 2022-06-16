@@ -30,14 +30,14 @@
                     <td class="text-center">{{ $adscripcion['tipoarea']['cdescripcion_tipo_area'] }}</td>
                     <td class="text-center col-actions">
                     @if ($adscripcion->iestatus == 1)
-                            <a href="#" data-toggle="tooltip" data-html="true" title="Actualizar">
+                            <a href="{{ url('adscripciones/editar/'.$adscripcion->iid_adscripcion) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
                             </a>
-                            <a href="#" data-toggle="tooltip" data-html="true" title="Borrar">
+                            <a href="{{ url('adscripciones/inhabilitar/'.$adscripcion->iid_adscripcion) }}" data-toggle="tooltip" data-html="true" title="Borrar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
                             </a>
                     @else
-                            <a href="#" data-toggle="tooltip" data-html="true" title="Recuperar">
+                            <a href="{{ url('adscripciones/inhabilitar/'.$adscripcion->iid_adscripcion) }}" data-toggle="tooltip" data-html="true" title="Recuperar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/check-lg.svg') }}" width="18" height="18">
                             </a>
                     @endif

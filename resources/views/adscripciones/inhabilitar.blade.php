@@ -1,11 +1,18 @@
 @extends('layouts.app')
 
 @section('titulo')
-    Nuevo Personal
+    @if($adscripcion->iestatus == 1)
+        Borrar Adscripción
+    @else
+        Recuperar Adscripción
+    @endif
 @endsection
 @section('panel')
-    <form method="POST" action="{{ url('/personal/guardar') }}" id="formNuevoPersonal">
+    <form method="POST" action="{{ url('/adscripciones/actualizar') }}" id="formInhabilitarAdscripcion">
     	@csrf
+
+        <input type="hidden" name="id_adscripcion" id="id_adscripcion" value="{{ $adscripcion->iid_adscripcion }}">
+        <input type="hidden" name="noeditar"       id="noeditar"       value="{{ $noeditar }}">
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -20,14 +27,19 @@
                 </button>
             </div>
         @endif
-        <!--Inputs de Personal-->
-        @include('personal.datos_personal')
+        <!--Inputs de Adscripción-->
+        @include('adscripciones.datos_adscripcion')
     
         <div class="row text-center">
             <div class="col-6">                        
                 <button type="submit" class="btn btn-primary">
-                    <img src="{{ asset('bootstrap-icons-1.5.0/save.svg') }}" width="18" height="18">
-                    <span>&nbsp;Guardar</span>
+                    @if($adscripcion->iestatus == 1)
+                        <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
+                        <span>&nbsp;Borrar</span>
+                    @else
+                        <img src="{{ asset('bootstrap-icons-1.5.0/check-lg.svg') }}" width="18" height="18">
+                        <span>&nbsp;Recuperar</span>
+                    @endif
                 </button>
             </div>
             <div class="col-6">

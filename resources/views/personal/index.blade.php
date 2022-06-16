@@ -36,14 +36,14 @@
                     <td class="text-center">{{ $persona['ccorreo_electronico'] }}</td>
                     <td class="text-center col-actions">
                     @if ($persona->iestatus == 1)
-                            <a href="#" data-toggle="tooltip" data-html="true" title="Actualizar">
+                            <a href="{{ url('personal/editar/'.$persona->iid_personal) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
                             </a>
-                            <a href="#" data-toggle="tooltip" data-html="true" title="Borrar">
+                            <a href="{{ url('personal/inhabilitar/'.$persona->iid_personal) }}" data-toggle="tooltip" data-html="true" title="Borrar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
                             </a>
                     @else
-                            <a href="#" data-toggle="tooltip" data-html="true" title="Recuperar">
+                            <a href="{{ url('personal/inhabilitar/'.$persona->iid_personal) }}" data-toggle="tooltip" data-html="true" title="Recuperar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/check-lg.svg') }}" width="18" height="18">
                             </a>
                     @endif

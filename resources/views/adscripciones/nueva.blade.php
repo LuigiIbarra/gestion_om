@@ -20,7 +20,7 @@
                 </button>
             </div>
         @endif
-        <!--Inputs de Mediador-->
+        <!--Inputs de Adscripción-->
         @include('adscripciones.datos_adscripcion')
     
         <div class="row text-center">

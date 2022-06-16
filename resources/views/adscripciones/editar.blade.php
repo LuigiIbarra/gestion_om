@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
 @section('titulo')
-    Nuevo Personal
+    Actualizar Adscripción
 @endsection
 @section('panel')
-    <form method="POST" action="{{ url('/personal/guardar') }}" id="formNuevoPersonal">
+    <form method="POST" action="{{ url('/adscripciones/actualizar') }}" id="formEditarAdscripcion">
     	@csrf
+
+        <input type="hidden" name="id_adscripcion" id="id_adscripcion" value="{{ $adscripcion->iid_adscripcion }}">
+        <input type="hidden" name="noeditar"       id="noeditar"       value="{{ $noeditar }}">
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -20,14 +23,14 @@
                 </button>
             </div>
         @endif
-        <!--Inputs de Personal-->
-        @include('personal.datos_personal')
+        <!--Inputs de Adscripción-->
+        @include('adscripciones.datos_adscripcion')
     
         <div class="row text-center">
             <div class="col-6">                        
                 <button type="submit" class="btn btn-primary">
                     <img src="{{ asset('bootstrap-icons-1.5.0/save.svg') }}" width="18" height="18">
-                    <span>&nbsp;Guardar</span>
+                    <span>&nbsp;Actualizar</span>
                 </button>
             </div>
             <div class="col-6">

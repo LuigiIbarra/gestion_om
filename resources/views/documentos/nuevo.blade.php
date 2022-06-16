@@ -9,6 +9,9 @@
     -->
     <form method="POST" action="#" id="formNuevoDocumento">
     	@csrf
+        <!--Auxiliar para el año-->
+        <input type="hidden" id="anio"  name="anio"  value="{{$parametros->ianio}}"/>
+        <input type="hidden" id="folio" name="folio" value="{{$newfolio}}"/>
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -23,9 +26,6 @@
                 </button>
             </div>
         @endif
-        <!--Auxiliar para el año-->
-        <input type="hidden" id="anio"  name="anio"  value="{{$parametros->ianio}}"/>
-        <input type="hidden" id="folio" name="folio" value="{{$newfolio}}"/>
         <!--Inputs de Documento-->
         @include('documentos.datos_documento')
     

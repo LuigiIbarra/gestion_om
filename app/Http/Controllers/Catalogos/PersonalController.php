@@ -46,7 +46,7 @@ class PersonalController extends Controller
 
     public function guardar_personal(Request $request)
     {
-        $now = new \DateTime();
+        $now                           = new \DateTime();
         $personal                      = new Personal();
         $jsonBefore                    = "NEW INSERT PERSONAL";
         $personal->cnombre_personal    = $request->nombre_personal;
@@ -63,6 +63,61 @@ class PersonalController extends Controller
 
         return redirect()->route('personal.index')
                          ->with('success','Personal guardado satisfactoriamente');
+    }
+
+    public function editar_personal($id_personal)
+    {
+        $personal     = Personal::where('iid_personal','=',$id_personal)->first();
+        $listPuestos  = Puesto::where('iestatus','=',1)->get();
+        $listAdscrips = Adscripcion::where('iestatus','=',1)->get();
+        //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
+        $noeditar = '';
+        return view('personal.editar',compact('personal','listPuestos','listAdscrips','noeditar'));
+    }
+
+    public function actualizar_personal(Request $request)
+    {
+        $now                               = new \DateTime();
+        $personal                          = Personal::where('iid_personal','=',$request->id_personal)->first();
+        $jsonBefore                        = json_encode($personal);
+        //Se Habilita o Inhabilita el Puesto
+        if ($request->noeditar == "disabled") {
+            if ($personal->iestatus == 0) {
+                $operacion                 = "RECUPERADO";
+                $personal->iestatus        = 1;
+            } else {
+                $operacion                 = "BORRADO";
+                $personal->iestatus        = 0;
+            }
+        } else {
+            //Se actualizan los datos del Puesto
+            $operacion                     = "ACTUALIZADO";
+            $personal->cnombre_personal    = $request->nombre_personal;
+            $personal->cpaterno_personal   = $request->paterno_personal;
+            $personal->cmaterno_personal   = $request->materno_personal;
+            $personal->iid_puesto          = $request->puesto;
+            $personal->iid_adscripcion     = $request->adscripcion;
+            $personal->ccorreo_electronico = $request->correo_electronico;
+            $personal->iestatus            = 1;
+        }
+        $personal->iid_usuario             = auth()->user()->id;
+        $personal->save();
+        $jsonAfter                         = json_encode($personal);
+        PersonalController::bitacora($jsonBefore,$jsonAfter);
+
+        return redirect()->route('personal.index')
+                         ->with('success','Personal '.$operacion.' satisfactoriamente');
+    }
+
+    //Esta misma función se utiliza para Inhabilitar/Habilitar el Personal
+    public function confirmainhabilitar_personal($id_personal)
+    {
+        $personal     = Personal::where('iid_personal','=',$id_personal)->first();
+        $listPuestos  = Puesto::where('iestatus','=',1)->get();
+        $listAdscrips = Adscripcion::where('iestatus','=',1)->get();
+        //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
+        $noeditar     = 'disabled';
+        return view('personal.inhabilitar',compact('personal','listPuestos','listAdscrips','noeditar'));
     }
 
     public static function bitacora(string $jsonBefore,string $jsonAfter){

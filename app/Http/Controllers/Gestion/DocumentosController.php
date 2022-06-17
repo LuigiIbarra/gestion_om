@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Gestion;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Gestion\PersonalConocimientoController;
 
 use App\Models\Gestion\Documento;
 use App\Models\Catalogos\Puesto;
@@ -21,6 +22,7 @@ use App\Models\Catalogos\Instruccion;
 use App\Models\Catalogos\Parametros;
 use App\Models\Gestion\DestinatarioAtencion;
 use App\Models\Gestion\DestinatarioConocimiento;
+use App\Models\Gestion\PersonalConocimiento;
 use App\Models\Gestion\Bitacora;
 
 use Mpdf\Mpdf;
@@ -72,8 +74,11 @@ class DocumentosController extends Controller
     {
         $now = new \DateTime();
         $documento                              = new Documento();
+        $parametros                             = Parametros::where('ianio','=','2022')->first();
+        $newfolio                               = $parametros->iultimo_folio + 1;
+        $newfolio                               = $newfolio.'-'.substr($parametros->ianio,2,2);
         $jsonBefore                             = "NEW INSERT DOCUMENTO";
-        $documento->cfolio                      = $request->folio_documento;
+        $documento->cfolio                      = $newfolio;
         $documento->dfecha_recepcion            = $request->recepcion_documento;
         $documento->cnumero_documento           = $request->numero_documento;
         $documento->dfecha_documento            = $request->fecha_documento;
@@ -95,12 +100,19 @@ class DocumentosController extends Controller
         $documento->iestatus                    = 1;
         $documento->iid_usuario                 = auth()->user()->id;
         $documento->save();
+        //Obtener el último registro guardado en Documentos
+        $idDocumento                            = $documento->iid_documento;
+        $idPersonalCC                           = $request->nombre_destinatariocc;
         $jsonAfter                              = json_encode($documento);
         DocumentosController::bitacora($jsonBefore,$jsonAfter);
 
-        $parametros                             = Parametros::where('ianio','=','2022')->first();
-        $parametros->iultimo_folio              = $request->folio;
+        $parametros->iultimo_folio              = $parametros->iultimo_folio + 1;
         $parametros->save();
+
+        //Destinatarios de Conocimiento
+        //dd($idDocumento,$idPersonalCC);
+        if($request->nombre_destinatariocc>0)
+            PersonalConocimientoController::guarda_personal_conoc($idDocumento, $idPersonalCC);
 
         return redirect()->route('documentos.index')
                          ->with('success','Documento guardado satisfactoriamente');

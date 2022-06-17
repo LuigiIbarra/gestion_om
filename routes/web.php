@@ -27,17 +27,17 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //Rutas de Documentos
-Route::get('documentos/index',       [DocumentosController::class, 'index'])->name('documentos.index');
-Route::get('documentos/nuevo',       [DocumentosController::class, 'nuevo_documento']);
-Route::post('documentos/guardar',     [DocumentosController::class, 'guardar_documento']);
+Route::get('documentos/index',                      [DocumentosController::class, 'index'])->name('documentos.index');
+Route::get('documentos/nuevo',                      [DocumentosController::class, 'nuevo_documento']);
+Route::post('documentos/guardar',                   [DocumentosController::class, 'guardar_documento']);
 
 //Rutas de Puestos
-Route::get('puestos/index',                  [PuestosController::class, 'index'])->name('puestos.index');
-Route::get('puestos/nuevo',                  [PuestosController::class, 'nuevo_puesto']);
-Route::post('puestos/guardar',               [PuestosController::class, 'guardar_puesto']);
-Route::get('puestos/editar/{id_puesto}',     [PuestosController::class, 'editar_puesto']);
-Route::post('puestos/actualizar',            [PuestosController::class, 'actualizar_puesto']);
-Route::get('puestos/inhabilitar/{id_puesto}',[PuestosController::class, 'confirmainhabilitar_puesto']);
+Route::get('puestos/index',                         [PuestosController::class, 'index'])->name('puestos.index');
+Route::get('puestos/nuevo',                         [PuestosController::class, 'nuevo_puesto']);
+Route::post('puestos/guardar',                      [PuestosController::class, 'guardar_puesto']);
+Route::get('puestos/editar/{id_puesto}',            [PuestosController::class, 'editar_puesto']);
+Route::post('puestos/actualizar',                   [PuestosController::class, 'actualizar_puesto']);
+Route::get('puestos/inhabilitar/{id_puesto}',       [PuestosController::class, 'confirmainhabilitar_puesto']);
 
 //Rutas de Adscripciones
 Route::get('adscripciones/index',                   [AdscripcionesController::class, 'index'])->name('adscripciones.index');

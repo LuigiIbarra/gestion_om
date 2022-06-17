@@ -20,7 +20,7 @@ class Personal extends Model
     }
     
     public function remitente(){
-        return $this->hasMany('App\Models\Gestion\Documento','iid_personal','iid_personal_remitente');
+        return $this->hasMany('App\Models\Gestion\Documento','iid_personal_remitente','iid_personal');
     }
 
     public function personalconocimiento(){

@@ -44,7 +44,7 @@ class Documento extends Model
     }
 
     public function personalremitente(){
-        return $this->hasOne('App\Models\Catalogos\Personal','iid_personal_remitente','iid_personal');
+        return $this->hasOne('App\Models\Catalogos\Personal','iid_personal','iid_personal_remitente');
     }
 
     public function personalconocimiento(){

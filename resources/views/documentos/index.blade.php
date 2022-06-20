@@ -20,14 +20,13 @@
                 <th class="text-center">Folio</th>
                 <th class="text-center">Fecha de Recepción</th>
                 <th class="text-center">Número de Documento</th>
-                <th class="text-center">Fecha del Documento</th>
                 <th class="text-center">Tipo de Documento</th> 
-                <th class="text-center">Tipo de Anexo</th> 
                 <th class="text-center">Remitente</th> 
                 <th class="text-center">Estatus</th> 
                 <th class="text-center">Prioridad</th> 
                 <th class="text-center">Importancia</th> 
                 <th class="text-center">Tema</th> 
+                <th class="text-center">Fecha de Término</th>
                 <th class="text-center">Acciones</th>
             </tr>
           </thead>
@@ -38,14 +37,13 @@
                     <td class="text-center">{{ $documento['cfolio'] }}</td>
                     <td class="text-center">{{ $documento['dfecha_recepcion'] }}</td>
                     <td class="text-center">{{ $documento['cnumero_documento'] }}</td>
-                    <td class="text-center">{{ $documento['dfecha_documento'] }}</td>
                     <td class="text-center">{{ $documento['tipodocumento']['cdescripcion_tipo_documento'] }}</td>
-                    <td class="text-center">{{ $documento['tipoanexo']['cdescripcion_tipo_anexo'] }}</td>
                     <td class="text-center">{{ $documento['personalremitente']['cnombre_personal'].' '.$documento['personalremitente']['cpaterno_personal'].' '.$documento['personalremitente']['cmaterno_personal'] }}</td>
                     <td class="text-center">{{ $documento['estatusdocumento']['cdescripcion_estatus_documento'] }}</td>
                     <td class="text-center">{{ $documento['prioridaddocumento']['cdescripcion_prioridad_documento'] }}</td>
                     <td class="text-center">{{ $documento['importanciacontenido']['cdescripcion_importancia_contenido'] }}</td>
                     <td class="text-center">{{ $documento['tema']['cdescripcion_tema'] }}</td>
+                    <td class="text-center">{{ $documento['dfecha_termino'] }}</td>
                     <td class="text-center col-actions">
                     @if ($documento->iestatus == 1)
                             <a href="#" data-toggle="tooltip" data-html="true" title="Actualizar">

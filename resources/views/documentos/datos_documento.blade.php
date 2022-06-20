@@ -243,11 +243,17 @@
                     </div>
                     <div class="col" id="divasunto">
                         <label for="asunto" class="col-form-label text-md-right">Asunto:</label>
+                        <!--
                         <input type="text" onkeypress="return textonly(event);" id="asunto" name="asunto" class="form-control" data-target="#asunto" value="{{ $documento->casunto }}" maxlength="500" required {{ $noeditar }} />
+                            -->
+                        <textarea name="asunto" class="form-control" data-target="#asunto" required {{ $noeditar }}>{{ $documento->casunto }}</textarea>
                     </div>
                     <div class="col" id="divobservaciones">
                         <label for="observaciones" class="col-form-label text-md-right">Observaciones:</label>
+                        <!--
                         <input type="text" onkeypress="return textonly(event);" id="observaciones" name="observaciones" class="form-control" data-target="#observaciones" value="{{ $documento->cobservaciones }}" maxlength="500" {{ $noeditar }} />
+                            -->
+                        <textarea name="observaciones" class="form-control" data-target="#observaciones" {{ $noeditar }}>{{ $documento->cobservaciones }}</textarea>
                     </div>
                 </div>
                 <br>

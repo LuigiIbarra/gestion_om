@@ -183,7 +183,7 @@
                 <div class="row">
                     <div class="col-4" id="divimportancia">
                         <label for="importancia_contenido" class="col-form-label text-md-right">Importancia del Contenido:</label>
-                        <select class="form-control m-bot15" name="importancia_contenido" required {{ $noeditar }}>
+                        <select class="form-control m-bot15" name="importancia_contenido" {{ $noeditar }}>
                             <option value="">Elija una Importancia...</option>
                             @foreach($listImportancia as $indice=>$importancia)
                                 @if($importancia->iid_importancia_contenido==$documento->iid_importancia_contenido)
@@ -196,7 +196,7 @@
                     </div>
                     <div class="col-4" id="divtema">
                         <label for="tema" class="col-form-label text-md-right">Tema:</label>
-                        <select class="form-control m-bot15" name="tema" required {{ $noeditar }}>
+                        <select class="form-control m-bot15" name="tema" {{ $noeditar }}>
                             <option value="">Elija un Tema...</option>
                             @foreach($listTema as $indice=>$tema)
                                 @if($tema->iid_tema==$documento->iid_tema)
@@ -254,8 +254,7 @@
                 <div class="row">
                     <div class="col-4" id="divdestinatn">
                         <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
-                        <select class="form-control m-bot15" name="destinatario_atencion" {{ $noeditar }}>
-                        <option value="">Elija Destinatarios Atención...</option>
+                        <select class="form-control m-bot15" name="destinatario_atencion[]" multiple="" {{ $noeditar }}>
                         @foreach($listDestinAtn as $indice=>$atencion)
                             @if($atencion->iid_adscripcion==$documento->iid_adscripcion)
                                 <option value="{{$atencion->iid_adscripcion}}" selected>{{$atencion->cdescripcion_adscripcion}}</option>
@@ -268,8 +267,7 @@
                     </div>
                     <div class="col-4" id="divdestinconoc">
                         <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
-                        <select class="form-control m-bot15" name="destinatario_conocimiento" {{ $noeditar }}>
-                        <option value="">Elija Destinatarios Conocimiento...</option>
+                        <select class="form-control m-bot15" name="destinatario_conocimiento[]" multiple="" {{ $noeditar }}>
                         @foreach($listDestinConoc as $indice=>$conocimiento)
                             @if($conocimiento->iid_adscripcion==$documento->iid_adscripcion)
                                 <option value="{{$conocimiento->iid_adscripcion}}" selected>{{$conocimiento->cdescripcion_adscripcion}}</option>

@@ -40,7 +40,7 @@ class DocumentosController extends Controller
     {
         $folio = $request->folio;
         if ($folio != "") {
-            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('ifolio','=',$folio)->where('iestatus','=',1)->get();
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cfolio','=',$folio)->where('iestatus','=',1)->get();
         } else {
             $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iestatus','=',1)->get();
         }
@@ -50,7 +50,8 @@ class DocumentosController extends Controller
     public function nuevo_documento()
     {
         $documento         = new Documento();
-        $parametros        = Parametros::where('ianio','=','2022')->first();
+        $anio              = Date('Y');
+        $parametros        = Parametros::where('ianio','=',$anio)->first();
         $listTipoDocumento = TipoDocumento::where('iestatus','=',1)->get();
         $listTipoAnexo     = TipoAnexo::where('iestatus','=',1)->get();
         $listEstatus       = EstatusDocumento::where('iestatus','=',1)->get();
@@ -72,9 +73,10 @@ class DocumentosController extends Controller
 
     public function guardar_documento(Request $request)
     {
-        $now = new \DateTime();
+        $now  = new \DateTime();
+        $anio = Date('Y');
         $documento                              = new Documento();
-        $parametros                             = Parametros::where('ianio','=','2022')->first();
+        $parametros                             = Parametros::where('ianio','=',$anio)->first();
         $newfolio                               = $parametros->iultimo_folio + 1;
         $newfolio                               = $newfolio.'-'.substr($parametros->ianio,2,2);
         $jsonBefore                             = "NEW INSERT DOCUMENTO";
@@ -102,17 +104,25 @@ class DocumentosController extends Controller
         $documento->save();
         //Obtener el último registro guardado en Documentos
         $idDocumento                            = $documento->iid_documento;
-        $idPersonalCC                           = $request->nombre_destinatariocc;
         $jsonAfter                              = json_encode($documento);
         DocumentosController::bitacora($jsonBefore,$jsonAfter);
 
         $parametros->iultimo_folio              = $parametros->iultimo_folio + 1;
         $parametros->save();
 
-        //Destinatarios de Conocimiento
-        //dd($idDocumento,$idPersonalCC);
+        //Destinatarios de Copia de Conocimiento
         if($request->nombre_destinatariocc>0)
-            PersonalConocimientoController::guarda_personal_conoc($idDocumento, $idPersonalCC);
+            PersonalConocimientoController::guarda_personal_conoc($idDocumento, $request->nombre_destinatariocc);
+
+        //Destinatarios para Atención
+        if($request->destinatario_atencion>0)
+            foreach($request->destinatario_atencion as $indice=>$dest_at)
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, $dest_at);
+
+        //Destinatarios para Conocimiento
+        if($request->destinatario_conocimiento>0)
+            foreach($request->destinatario_conocimiento as $indice=>$dest_conoc)
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, $dest_conoc);
 
         return redirect()->route('documentos.index')
                          ->with('success','Documento guardado satisfactoriamente');

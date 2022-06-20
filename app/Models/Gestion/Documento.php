@@ -20,7 +20,7 @@ class Documento extends Model
     }
 
     public function estatusdocumento(){
-        return $this->hasOne('App\Models\Catalogos\EstatusDocumento','iid_estatus_documento');
+        return $this->hasOne('App\Models\Catalogos\EstatusDocumento','iid_estatus_documento','iid_estatus_documento');
     }
 
     public function prioridaddocumento(){

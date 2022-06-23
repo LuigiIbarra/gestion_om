@@ -28,7 +28,7 @@ class Documento extends Model
     }
 
     public function importanciacontenido(){
-        return $this->hasOne('App\Models\Catalogos\importanciaContenido','iid_importancia_contenido','iid_importancia_contenido');
+        return $this->hasOne('App\Models\Catalogos\ImportanciaContenido','iid_importancia_contenido','iid_importancia_contenido');
     }
 
     public function tema(){

@@ -1,7 +1,7 @@
                 <div class="row">
                     <div class="col" id="divfolio">
                         <label for="folio_documento" class="col-form-label text-md-right">Número de Folio:</label>
-                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $newfolio.'-'.substr($parametros->ianio,2,2) }}" required {{ $noeditar }}/>
+                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $documento->cfolio }}" required {{ $noeditar }}/>
                     </div>
                     <div class="col" id="divrecepcion">
                         <label for="recepcion_documento" class="col-form-label text-md-right">Fecha de Recepcion:</label>
@@ -67,7 +67,7 @@
                         <select class="form-control m-bot15" name="puesto_remitente" required {{ $noeditar }}>
                         <option value="">Elija un Puesto...</option>
                         @foreach($listPuesto as $indice=>$puesto)
-                            @if($puesto->iid_puesto==$documento->iid_puesto)
+                            @if($puesto->iid_puesto==$pers_remitente->iid_puesto)
                                 <option value="{{$puesto->iid_puesto}}" selected>{{$puesto->cdescripcion_puesto}}</option>
                             @else
                                 <option value="{{$puesto->iid_puesto}}">{{$puesto->cdescripcion_puesto}}</option>
@@ -80,7 +80,7 @@
                         <select class="form-control m-bot15" name="area_remitente" required {{ $noeditar }}>
                         <option value="">Elija un Adscripción...</option>
                         @foreach($listAdscripcion as $indice=>$adscripcion)
-                            @if($adscripcion->iid_adscripcion==$documento->iid_adscripcion)
+                            @if($adscripcion->iid_adscripcion==$pers_remitente->iid_adscripcion)
                                 <option value="{{$adscripcion->iid_adscripcion}}" selected>{{$adscripcion->cdescripcion_adscripcion}}</option>
                             @else
                                 <option value="{{$adscripcion->iid_adscripcion}}">{{$adscripcion->cdescripcion_adscripcion}}</option>
@@ -136,7 +136,7 @@
                         <select class="form-control m-bot15" name="nombre_destinatariocc" {{ $noeditar }}>
                         <option value="">Elija un Destinatario Copia Conocimiento...</option>
                         @foreach($listPersonal as $indice=>$destincc)
-                            @if($destincc->iid_personal==$documento->iid_personal_conocimiento)
+                            @if($destincc->iid_personal==$pers_cncmnt->iid_personal)
                                 <option value="{{$destincc->iid_personal}}" selected>{{$destincc->cnombre_personal.' '.$destincc->cpaterno_personal.' '.$destincc->cmaterno_personal}}</option>
                             @else
                                 <option value="{{$destincc->iid_personal}}">{{$destincc->cnombre_personal.' '.$destincc->cpaterno_personal.' '.$destincc->cmaterno_personal}}</option>
@@ -149,7 +149,7 @@
                         <select class="form-control m-bot15" name="puesto_conocimiento" {{ $noeditar }}>
                         <option value="">Elija un Puesto...</option>
                         @foreach($listPuesto as $indice=>$puesto)
-                            @if($puesto->iid_puesto==$documento->iid_puesto)
+                            @if($puesto->iid_puesto==$pers_cncmnt->iid_puesto)
                                 <option value="{{$puesto->iid_puesto}}" selected>{{$puesto->cdescripcion_puesto}}</option>
                             @else
                                 <option value="{{$puesto->iid_puesto}}">{{$puesto->cdescripcion_puesto}}</option>
@@ -162,7 +162,7 @@
                         <select class="form-control m-bot15" name="area_conocimiento" {{ $noeditar }}>
                         <option value="">Elija un Adscripción...</option>
                         @foreach($listAdscripcion as $indice=>$adscripcion)
-                            @if($adscripcion->iid_adscripcion==$documento->iid_adscripcion)
+                            @if($adscripcion->iid_adscripcion==$pers_cncmnt->iid_adscripcion)
                                 <option value="{{$adscripcion->iid_adscripcion}}" selected>{{$adscripcion->cdescripcion_adscripcion}}</option>
                             @else
                                 <option value="{{$adscripcion->iid_adscripcion}}">{{$adscripcion->cdescripcion_adscripcion}}</option>
@@ -260,36 +260,145 @@
                 <div class="row">
                     <div class="col-4" id="divdestinatn">
                         <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
-                        @foreach($listDestinAtn as $indice=>$atencion)
-                            <div class="col">
-                                @if($nuevo_registro==1)
-                                    <input type="checkbox" id="{{'destin'.$atencion->iid_adscripcion}}" name="{{'destin'.$atencion->iid_adscripcion}}">
-                                @else
-                                    {{$check=''}}
-                                    @foreach($destinAtt as $indice=>$destAt)
-                                        @if($destinAtt_total>0 && $destAt->iid_adscripcion==2)
-                                            <input type="checkbox" id="{{'destin'.$atencion->iid_adscripcion}}" name="{{'destin'.$atencion->iid_adscripcion}}" checked {{$noeditar}}>
-                                            {{$check=' '}}
-                                        @endif
-                                    @endforeach
-                                    @if($check=='')
-                                        <input type="checkbox" id="{{'destin'.$atencion->iid_adscripcion}}" name="{{'destin'.$atencion->iid_adscripcion}}" {{$noeditar}}>
+                        
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="destin2" name="destin2">
+                            @else
+                                {{$check=''}}
+                                @foreach($destinAtt as $indice=>$destAt)
+                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==2)
+                                        <input type="checkbox" id="destin2" name="destin2" checked {{$noeditar}}>
+                                        {{$check=' '}}
                                     @endif
+                                @endforeach
+                                @if($check=='')
+                                    <input type="checkbox" id="destin2" name="destin2" {{$noeditar}}>
                                 @endif
-                                <label for="{{'destin'.$atencion->iid_adscripcion}}">{{$atencion->csiglas}}</label>
-                            </div>
-                        @endforeach
+                            @endif
+                            <label for="destin2">OOFMTSJCDMX</label>
+                        </div>
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="destin12" name="destin12">
+                            @else
+                                {{$check=''}}
+                                @foreach($destinAtt as $indice=>$destAt)
+                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==12)
+                                        <input type="checkbox" id="destin12" name="destin12" checked {{$noeditar}}>
+                                        {{$check=' '}}
+                                    @endif
+                                @endforeach
+                                @if($check=='')
+                                    <input type="checkbox" id="destin12" name="destin12" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="destin12">DEP</label>
+                        </div>
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="destin14" name="destin14">
+                            @else
+                                {{$check=''}}
+                                @foreach($destinAtt as $indice=>$destAt)
+                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==14)
+                                        <input type="checkbox" id="destin14" name="destin14" checked {{$noeditar}}>
+                                        {{$check=' '}}
+                                    @endif
+                                @endforeach
+                                @if($check=='')
+                                    <input type="checkbox" id="destin14" name="destin14" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="destin14">DEGT</label>
+                        </div>
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="destin15" name="destin15">
+                            @else
+                                {{$check=''}}
+                                @foreach($destinAtt as $indice=>$destAt)
+                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==15)
+                                        <input type="checkbox" id="destin15" name="destin15" checked {{$noeditar}}>
+                                        {{$check=' '}}
+                                    @endif
+                                @endforeach
+                                @if($check=='')
+                                    <input type="checkbox" id="destin15" name="destin15" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="destin15">DERH</label>
+                        </div>
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="destin16" name="destin16">
+                            @else
+                                {{$check=''}}
+                                @foreach($destinAtt as $indice=>$destAt)
+                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==16)
+                                        <input type="checkbox" id="destin16" name="destin16" checked {{$noeditar}}>
+                                        {{$check=' '}}
+                                    @endif
+                                @endforeach
+                                @if($check=='')
+                                    <input type="checkbox" id="destin16" name="destin16" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="destin16">DEOMS</label>
+                        </div>
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="destin17" name="destin17">
+                            @else
+                                {{$check=''}}
+                                @foreach($destinAtt as $indice=>$destAt)
+                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==17)
+                                        <input type="checkbox" id="destin17" name="destin17" checked {{$noeditar}}>
+                                        {{$check=' '}}
+                                    @endif
+                                @endforeach
+                                @if($check=='')
+                                    <input type="checkbox" id="destin17" name="destin17" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="destin17">DERM</label>
+                        </div>
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="destin18" name="destin18">
+                            @else
+                                {{$check=''}}
+                                @foreach($destinAtt as $indice=>$destAt)
+                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==18)
+                                        <input type="checkbox" id="destin18" name="destin18" checked {{$noeditar}}>
+                                        {{$check=' '}}
+                                    @endif
+                                @endforeach
+                                @if($check=='')
+                                    <input type="checkbox" id="destin18" name="destin18" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="destin18">DERF</label>
+                        </div>
+                        
                         <div class="col">
                             <input type="checkbox" id="destin999" name="destin999" {{$noeditar}}>
                             <label for="destin999">OTRO</label>
                         </div>
+                        @if($destinAtt_total>0)
+                            <select class="form-control m-bot15" name="dest_att[]" multiple disabled>
+                                @foreach($listDestinAtn as $indice=>$atencion)
+                                    @foreach($destinAtt as $indice=>$attncn)
+                                        @if($attncn->iid_adscripcion==$atencion->iid_adscripcion)
+                                            <option value="{{$atencion->iid_adscripcion}}">{{$atencion->cdescripcion_adscripcion}}</option>
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            </select>
+                        @endif
                         <select class="form-control m-bot15" name="destinatario_atencion[]" multiple="" {{ $noeditar }}>
                             @foreach($listDestinAtn as $indice=>$atencion)
-                                @if($atencion->iid_adscripcion==$documento->iid_adscripcion)
-                                    <option value="{{$atencion->iid_adscripcion}}" selected>{{$atencion->cdescripcion_adscripcion}}</option>
-                                @else
-                                    <option value="{{$atencion->iid_adscripcion}}">{{$atencion->cdescripcion_adscripcion}}</option>
-                                @endif
+                                <option value="{{$atencion->iid_adscripcion}}">{{$atencion->cdescripcion_adscripcion}}</option>
                             @endforeach
                             <option value="999">OTRO</option>
                         </select>
@@ -310,7 +419,7 @@
                     <div class="col" id="divarchivo">
                         <label for="archivo" class="col-form-label text-md-right">Archivo Dígital:</label>
                         <input type="file" id="archivo" name="archivo" class="form-control" data-target="#archivo" {{ $noeditar }}/>
-                        <a href="{{url('pdf/'.substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4))}}" target="_blank">{{substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4)}}</a>
+                        <a href="{{url(substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')))}}" target="_blank">{{substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/'))}}</a>
                     </div>
                 </div>
                 <br>

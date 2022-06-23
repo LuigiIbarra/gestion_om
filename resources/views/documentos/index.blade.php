@@ -46,7 +46,7 @@
                     <td class="text-center">{{ $documento['dfecha_termino'] }}</td>
                     <td class="text-center col-actions">
                     @if ($documento->iestatus == 1)
-                            <a href="#" data-toggle="tooltip" data-html="true" title="Actualizar">
+                            <a href="{{ url('documentos/editar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
                             </a>
                             <a href="#" data-toggle="tooltip" data-html="true" title="Borrar">

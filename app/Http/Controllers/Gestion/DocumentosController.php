@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Gestion\PersonalConocimientoController;
+use App\Http\Controllers\Gestion\DestinatarioAtencionController;
+use App\Http\Controllers\Gestion\DestinatarioConocimientoController;
 
 use App\Models\Gestion\Documento;
 use App\Models\Catalogos\Puesto;
@@ -66,9 +68,12 @@ class DocumentosController extends Controller
         $listDestinAtn     = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
         $listDestinConoc   = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
         $newfolio          = $parametros->iultimo_folio + 1;
+        $destinAtt         = new DestinatarioAtencion();
         //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
-        $noeditar = '';
-        return view('documentos.nuevo',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','parametros','newfolio','noeditar'));
+        $noeditar          = '';
+        //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
+        $nuevo_registro     = '1';
+        return view('documentos.nuevo',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','parametros','newfolio','destinAtt','noeditar','nuevo_registro'));
     }
 
     public function guardar_documento(Request $request)
@@ -126,6 +131,47 @@ class DocumentosController extends Controller
 
         return redirect()->route('documentos.index')
                          ->with('success','Documento guardado satisfactoriamente');
+    }
+
+    public function editar_documento($id_documento)
+    {
+        $documento          = Documento::where('iid_documento','=',$id_documento)->first();
+        $listTipoDocumento  = TipoDocumento::where('iestatus','=',1)->get();
+        $listTipoAnexo      = TipoAnexo::where('iestatus','=',1)->get();
+        $listEstatus        = EstatusDocumento::where('iestatus','=',1)->get();
+        $listPrioridad      = PrioridadDocumento::where('iestatus','=',1)->get();
+        $listPersonal       = Personal::where('iestatus','=',1)->get();
+        $listPuesto         = Puesto::where('iestatus','=',1)->get();
+        $listAdscripcion    = Adscripcion::where('iestatus','=',1)->get();
+        $listImportancia    = ImportanciaContenido::where('iestatus','=',1)->get();
+        $listTema           = Tema::where('iestatus','=',1)->get();
+        $listAsunto         = TipoAsunto::where('iestatus','=',1)->get();
+        $listInstruccion    = Instruccion::where('iestatus','=',1)->get();
+        $listDestinAtn      = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
+        $listDestinConoc    = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
+        //Datos de Personal Remitente
+        $id_pers_remitente  = $documento->iid_personal_remitente;
+        $pers_remitente     = Personal::where('iid_personal','=',$id_pers_remitente)->first();
+        //Datos de Personal Conocimiento
+        $pers_conoc_total   = PersonalConocimiento::where('iid_documento','=',$id_documento)->count();
+        if($pers_conoc_total>0) {
+            $pers_conoc     = PersonalConocimiento::where('iid_documento','=',$id_documento)->first();
+            $pers_cncmnt    = Personal::where('iid_personal','=',$pers_conoc->iid_personal)->first();
+        } else {
+            $pers_conoc     = new PersonalConocimiento();
+            $pers_cncmnt    = new Personal();
+        }
+        //Datos de Destinatario Atención
+        $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)->count();
+        if($destinAtt_total>0)
+            $destinAtt      = DestinatarioAtencion::where('iid_documento','=',$id_documento)->get();
+        else
+            $destinAtt      = new DestinatarioAtencion();
+        //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
+        $noeditar           = '';
+        //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
+        $nuevo_registro     = '0';
+        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_cncmnt','destinAtt','destinAtt_total','noeditar','nuevo_registro'));
     }
 
     public static function bitacora(string $jsonBefore,string $jsonAfter){

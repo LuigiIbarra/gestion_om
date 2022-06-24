@@ -17,6 +17,8 @@ class CreateTadestinatariosConocimientoTable extends Migration
             $table->increments('iid_destinatario_conocimiento');
             $table->integer('iid_documento')->unsigned()->nullable();
             $table->integer('iid_adscripcion')->unsigned()->nullable();
+            $table->integer('iid_otra_adscripcion')->unsigned()->nullable();
+            $table->string('cdescrip_otra_adscrip')->nullable();
             $table->string('seguimiento')->nullable();
             $table->date('fecha_seguimiento')->nullable();
             $table->integer('iestatus')->default(1);

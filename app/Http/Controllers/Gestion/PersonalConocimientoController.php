@@ -23,15 +23,31 @@ class PersonalConocimientoController extends Controller
     protected $dateFormat = 'Y-m-d H:i:s';
 
     public static function guarda_personal_conoc(string $idDocumento, string $idPersonal){
-        $personal_conocimiento                = new PersonalConocimiento();
-        $jsonBefore                           = "NEW INSERT PERSONAL_CONOCIMIENTO";
-        $personal_conocimiento->iid_documento = $idDocumento;
-        $personal_conocimiento->iid_personal  = $idPersonal;
-        $personal_conocimiento->iestatus      = 1;
-        $personal_conocimiento->iid_usuario   = auth()->user()->id;
+        $personal_conocimiento                  = new PersonalConocimiento();
+        $jsonBefore                             = "NEW INSERT PERSONAL_CONOCIMIENTO";
+        $personal_conocimiento->iid_documento   = $idDocumento;
+        $personal_conocimiento->iid_personal    = $idPersonal;
+        $personal_conocimiento->iestatus        = 1;
+        $personal_conocimiento->iid_usuario     = auth()->user()->id;
         $personal_conocimiento->save();
-        $jsonAfter                            = json_encode($personal_conocimiento);
+        $jsonAfter                              = json_encode($personal_conocimiento);
         PersonalConocimientoController::bitacora($jsonBefore,$jsonAfter);
+    }
+
+    public static function actualiza_personal_conoc(string $idDocumento, int $idPersonal, int $idAntPersonal){
+    //Primero Borrar el anterior
+        if($idAntPersonal>0) {
+            $personal_conoc_ant                 = PersonalConocimiento::where('iid_documento','=',$idDocumento)
+                                                                      ->where('iid_personal','=',$idAntPersonal)->first();
+            $jsonBefore                         = json_encode($personal_conoc_ant);
+            $personal_conoc_ant->iestatus       = 0;
+            $personal_conoc_ant->iid_usuario    = auth()->user()->id;
+            $personal_conoc_ant->save();
+            $jsonAfter                          = json_encode($personal_conoc_ant);
+            PersonalConocimientoController::bitacora($jsonBefore,$jsonAfter);
+        }
+    //Segundo Guardar el nuevo
+        PersonalConocimientoController::guarda_personal_conoc($idDocumento, $idPersonal);
     }
 
     public static function bitacora(string $jsonBefore,string $jsonAfter){

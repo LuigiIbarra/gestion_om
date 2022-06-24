@@ -23,7 +23,15 @@ class Adscripcion extends Model
         return $this->hasMany('App\Models\Gestion\DestinatarioAtencion','iid_adscripcion','iid_adscripcion');
     }
 
+    public function otrodestinoatencion(){
+        return $this->hasMany('App\Models\Gestion\DestinatarioAtencion','iid_adscripcion','iid_otra_adscripcion');
+    }
+
     public function destinatarioconocimiento(){
         return $this->hasMany('App\Models\Gestion\DestinatarioConocimiento','iid_adscripcion','iid_adscripcion');
+    }
+
+    public function otrodestinoconocimiento(){
+        return $this->hasMany('App\Models\Gestion\DestinatarioConocimiento','iid_adscripcion','iid_otra_adscripcion');
     }
 }

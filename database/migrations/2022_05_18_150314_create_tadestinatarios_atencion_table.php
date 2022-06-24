@@ -17,6 +17,8 @@ class CreateTadestinatariosAtencionTable extends Migration
             $table->increments('iid_destinatario_atencion');
             $table->integer('iid_documento')->unsigned()->nullable();
             $table->integer('iid_adscripcion')->unsigned()->nullable();
+            $table->integer('iid_otra_adscripcion')->unsigned()->nullable();
+            $table->string('cdescrip_otra_adscrip')->nullable();
             $table->string('cnum_docto_resp',100)->nullable();
             $table->string('crespuesta',500)->nullable();
             $table->integer('iid_estatus_documento')->unsigned()->nullable();

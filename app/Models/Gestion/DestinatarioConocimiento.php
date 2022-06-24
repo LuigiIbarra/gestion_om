@@ -18,4 +18,8 @@ class DestinatarioConocimiento extends Model
     public function adscripcion(){
         return $this->hasOne('App\Models\Catalogos\Adscripcion','iid_adscripcion','iid_adscripcion');
     }
+
+    public function otraadscripcion(){
+        return $this->hasOne('App\Models\Catalogos\Adscripcion','iid_otra_adscripcion','iid_adscripcion');
+    }
 }

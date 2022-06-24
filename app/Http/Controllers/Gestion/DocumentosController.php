@@ -119,15 +119,41 @@ class DocumentosController extends Controller
         if($request->nombre_destinatariocc>0)
             PersonalConocimientoController::guarda_personal_conoc($idDocumento, $request->nombre_destinatariocc);
 
-        //Destinatarios para Atención
-        if($request->destinatario_atencion>0)
-            foreach($request->destinatario_atencion as $indice=>$dest_at)
-                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, $dest_at);
+        //Guardar Destinatarios para Atención
+        if($request->atencion2==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '2');
+        if($request->atencion12==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '12');
+        if($request->atencion14==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '14');
+        if($request->atencion15==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '15');
+        if($request->atencion16==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '16');
+        if($request->atencion17==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '17');
+        if($request->atencion18==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '18');
+        if($request->atencion999==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '999');
 
-        //Destinatarios para Conocimiento
-        if($request->destinatario_conocimiento>0)
-            foreach($request->destinatario_conocimiento as $indice=>$dest_conoc)
-                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, $dest_conoc);
+        //Guardar Destinatarios para Conocimiento
+        if($request->conoc2==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '2');
+        if($request->conoc12==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '12');
+        if($request->conoc14==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '14');
+        if($request->conoc15==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '15');
+        if($request->conoc16==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '16');
+        if($request->conoc17==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '17');
+        if($request->conoc18==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '18');
+        if($request->conoc999==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '999');
 
         return redirect()->route('documentos.index')
                          ->with('success','Documento guardado satisfactoriamente');
@@ -153,25 +179,143 @@ class DocumentosController extends Controller
         $id_pers_remitente  = $documento->iid_personal_remitente;
         $pers_remitente     = Personal::where('iid_personal','=',$id_pers_remitente)->first();
         //Datos de Personal Conocimiento
-        $pers_conoc_total   = PersonalConocimiento::where('iid_documento','=',$id_documento)->count();
+        $pers_conoc_total   = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
         if($pers_conoc_total>0) {
-            $pers_conoc     = PersonalConocimiento::where('iid_documento','=',$id_documento)->first();
-            $pers_cncmnt    = Personal::where('iid_personal','=',$pers_conoc->iid_personal)->first();
+            $pers_conoc     = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
+            $pers_cncmnt    = Personal::where('iid_personal','=',$pers_conoc->iid_personal)->where('iestatus','=',1)->first();
         } else {
             $pers_conoc     = new PersonalConocimiento();
             $pers_cncmnt    = new Personal();
         }
         //Datos de Destinatario Atención
-        $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)->count();
+        $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
         if($destinAtt_total>0)
-            $destinAtt      = DestinatarioAtencion::where('iid_documento','=',$id_documento)->get();
+            $destinAtt      = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
         else
             $destinAtt      = new DestinatarioAtencion();
+        //Datos de Destinatario Conocimiento
+        $destinCon_total    = DestinatarioConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
+        if($destinCon_total>0)
+            $destinCon      = DestinatarioConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
+        else
+            $destinCon      = new DestinatarioConocimiento();
         //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
         $noeditar           = '';
         //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_cncmnt','destinAtt','destinAtt_total','noeditar','nuevo_registro'));
+        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','noeditar','nuevo_registro'));
+    }
+
+    public function actualizar_documento(Request $request)
+    {
+        $documento                              = Documento::where('iid_documento','=',$request->id_documento)->first();
+        $jsonBefore                             = json_encode($documento);
+        $idDocumento                            = $request->id_documento;
+        $documento->dfecha_recepcion            = $request->recepcion_documento;
+        $documento->cnumero_documento           = $request->numero_documento;
+        $documento->dfecha_documento            = $request->fecha_documento;
+        $documento->iid_tipo_documento          = $request->tipo_documento;
+        $documento->iid_tipo_anexo              = $request->tipo_anexo;
+        $documento->iid_personal_remitente      = $request->nombre_remitente;
+        $documento->iid_estatus_documento       = $request->estatus_documento;
+        $documento->iid_prioridad_documento     = $request->prioridad_documento;
+        $documento->cfolio_relacionado          = $request->folio_relacionado;
+        $documento->cnomenclatura_archivistica  = $request->nomenclatura_archivistica;
+        $documento->iid_importancia_contenido   = $request->importancia_contenido;
+        $documento->iid_tema                    = $request->tema;
+        $documento->iid_tipo_asunto             = $request->tipo_asunto;
+        $documento->iid_instruccion             = $request->instruccion;
+        $documento->dfecha_termino              = $request->fecha_termino;
+        $documento->casunto                     = $request->asunto;
+        $documento->cobservaciones              = $request->observaciones;
+        $documento->cruta_archivo_documento     = $request->archivo;
+        $documento->iestatus                    = 1;
+        $documento->iid_usuario                 = auth()->user()->id;
+        $documento->save();
+        $jsonAfter                              = json_encode($documento);
+        DocumentosController::bitacora($jsonBefore,$jsonAfter);
+
+        //Destinatarios de Copia de Conocimiento
+        $totPersAnt                             = PersonalConocimiento::where('iid_documento','=',$idDocumento)->where('iestatus','=',1)->count();
+        if($totPersAnt>0){
+            $PersonalAnt                        = PersonalConocimiento::where('iid_documento','=',$idDocumento)->where('iestatus','=',1)->first();
+            $idPersonalAnt                      = $PersonalAnt->iid_personal;
+        } else {
+            $idPersonalAnt                      = 0;
+        }
+        if($idPersonalAnt!=$request->nombre_destinatariocc)
+            PersonalConocimientoController::actualiza_personal_conoc($idDocumento, $request->nombre_destinatariocc, $idPersonalAnt);
+
+        //Actualizar Destinatarios para Atención
+        if($request->atencion2==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '2', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '2', 0);
+        if($request->atencion12==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '12', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '12', 0);
+        if($request->atencion14==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '14', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '14', 0);
+        if($request->atencion15==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '15', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '15', 0);
+        if($request->atencion16==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '16', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '16', 0);
+        if($request->atencion17==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '17', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '17', 0);
+        if($request->atencion18==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '18', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '18', 0);
+        if($request->atencion999==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '999', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '999', 0);
+
+        //Actualizar Destinatarios para Conocimiento
+        if($request->conoc2==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '2', 1);
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '2', 0);
+        if($request->conoc12==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '12', 1);
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '12', 0);
+        if($request->conoc14==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '14', 1);
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '14', 0);
+        if($request->conoc15==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '15', 1);
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '15', 0);
+        if($request->conoc16==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '16', 1);
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '16', 0);
+        if($request->conoc17==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '17', 1);
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '17', 0);
+        if($request->conoc18==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '18', 1);
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '18', 0);
+        if($request->conoc999==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '999', 1);
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '999', 0);
+
+        return redirect()->route('documentos.index')
+                         ->with('success','Documento actualizado satisfactoriamente');
     }
 
     public static function bitacora(string $jsonBefore,string $jsonAfter){

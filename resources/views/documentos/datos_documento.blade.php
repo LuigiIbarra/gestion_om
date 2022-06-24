@@ -1,7 +1,7 @@
                 <div class="row">
                     <div class="col" id="divfolio">
                         <label for="folio_documento" class="col-form-label text-md-right">Número de Folio:</label>
-                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $newfolio.'-'.substr($parametros->ianio,2,2) }}" required {{ $noeditar }}/>
+                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $newfolio.'-'.substr($parametros->ianio,2,2) }}" required readonly/>
                     </div>
                     <div class="col" id="divrecepcion">
                         <label for="recepcion_documento" class="col-form-label text-md-right">Fecha de Recepcion:</label>
@@ -173,7 +173,7 @@
                 </div>
                 <br>
                 <div>
-                    <a href="#" data-toggle="tooltip" data-html="true" title="Nuevo">
+                    <a href="#" data-toggle="tooltip" data-html="true" title="AgregarDestinCC">
                         + Agregar Destinatario
                     </a>
                 </div>
@@ -260,52 +260,13 @@
                 <div class="row">
                     <div class="col-4" id="divdestinatn">
                         <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
-                        @foreach($listDestinAtn as $indice=>$atencion)
-                            <div class="col">
-                                @if($nuevo_registro==1)
-                                    <input type="checkbox" id="{{'destin'.$atencion->iid_adscripcion}}" name="{{'destin'.$atencion->iid_adscripcion}}">
-                                @else
-                                    {{$check=''}}
-                                    @foreach($destinAtt as $indice=>$destAt)
-                                        @if($destinAtt_total>0 && $destAt->iid_adscripcion==2)
-                                            <input type="checkbox" id="{{'destin'.$atencion->iid_adscripcion}}" name="{{'destin'.$atencion->iid_adscripcion}}" checked {{$noeditar}}>
-                                            {{$check=' '}}
-                                        @endif
-                                    @endforeach
-                                    @if($check=='')
-                                        <input type="checkbox" id="{{'destin'.$atencion->iid_adscripcion}}" name="{{'destin'.$atencion->iid_adscripcion}}" {{$noeditar}}>
-                                    @endif
-                                @endif
-                                <label for="{{'destin'.$atencion->iid_adscripcion}}">{{$atencion->csiglas}}</label>
-                            </div>
-                        @endforeach
-                        <div class="col">
-                            <input type="checkbox" id="destin999" name="destin999" {{$noeditar}}>
-                            <label for="destin999">OTRO</label>
-                        </div>
-                        <select class="form-control m-bot15" name="destinatario_atencion[]" multiple="" {{ $noeditar }}>
-                            @foreach($listDestinAtn as $indice=>$atencion)
-                                @if($atencion->iid_adscripcion==$documento->iid_adscripcion)
-                                    <option value="{{$atencion->iid_adscripcion}}" selected>{{$atencion->cdescripcion_adscripcion}}</option>
-                                @else
-                                    <option value="{{$atencion->iid_adscripcion}}">{{$atencion->cdescripcion_adscripcion}}</option>
-                                @endif
-                            @endforeach
-                            <option value="999">OTRO</option>
-                        </select>
+                    <!--Checkboxes de Destinatarios Atención-->
+                        @include('documentos.datos_destinatarios_atencion')
                     </div>
                     <div class="col-4" id="divdestinconoc">
                         <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
-                        <select class="form-control m-bot15" name="destinatario_conocimiento[]" multiple="" {{ $noeditar }}>
-                            @foreach($listDestinConoc as $indice=>$conocimiento)
-                                @if($conocimiento->iid_adscripcion==$documento->iid_adscripcion)
-                                    <option value="{{$conocimiento->iid_adscripcion}}" selected>{{$conocimiento->cdescripcion_adscripcion}}</option>
-                                @else
-                                    <option value="{{$conocimiento->iid_adscripcion}}">{{$conocimiento->cdescripcion_adscripcion}}</option>
-                                @endif
-                            @endforeach
-                            <option value="999">OTRO</option>
-                        </select>
+                    <!--Checkboxes de Destinatarios Conocimiento-->
+                        @include('documentos.datos_destinatarios_conocimiento')
                     </div>
                     <div class="col" id="divarchivo">
                         <label for="archivo" class="col-form-label text-md-right">Archivo Dígital:</label>

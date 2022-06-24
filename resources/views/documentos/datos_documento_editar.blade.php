@@ -1,7 +1,7 @@
                 <div class="row">
                     <div class="col" id="divfolio">
                         <label for="folio_documento" class="col-form-label text-md-right">Número de Folio:</label>
-                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $documento->cfolio }}" required {{ $noeditar }}/>
+                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $documento->cfolio }}" required readonly/>
                     </div>
                     <div class="col" id="divrecepcion">
                         <label for="recepcion_documento" class="col-form-label text-md-right">Fecha de Recepcion:</label>
@@ -260,161 +260,13 @@
                 <div class="row">
                     <div class="col-4" id="divdestinatn">
                         <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
-                        
-                        <div class="col">
-                            @if($nuevo_registro==1)
-                                <input type="checkbox" id="destin2" name="destin2">
-                            @else
-                                {{$check=''}}
-                                @foreach($destinAtt as $indice=>$destAt)
-                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==2)
-                                        <input type="checkbox" id="destin2" name="destin2" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
-                                @if($check=='')
-                                    <input type="checkbox" id="destin2" name="destin2" {{$noeditar}}>
-                                @endif
-                            @endif
-                            <label for="destin2">OOFMTSJCDMX</label>
-                        </div>
-                        <div class="col">
-                            @if($nuevo_registro==1)
-                                <input type="checkbox" id="destin12" name="destin12">
-                            @else
-                                {{$check=''}}
-                                @foreach($destinAtt as $indice=>$destAt)
-                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==12)
-                                        <input type="checkbox" id="destin12" name="destin12" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
-                                @if($check=='')
-                                    <input type="checkbox" id="destin12" name="destin12" {{$noeditar}}>
-                                @endif
-                            @endif
-                            <label for="destin12">DEP</label>
-                        </div>
-                        <div class="col">
-                            @if($nuevo_registro==1)
-                                <input type="checkbox" id="destin14" name="destin14">
-                            @else
-                                {{$check=''}}
-                                @foreach($destinAtt as $indice=>$destAt)
-                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==14)
-                                        <input type="checkbox" id="destin14" name="destin14" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
-                                @if($check=='')
-                                    <input type="checkbox" id="destin14" name="destin14" {{$noeditar}}>
-                                @endif
-                            @endif
-                            <label for="destin14">DEGT</label>
-                        </div>
-                        <div class="col">
-                            @if($nuevo_registro==1)
-                                <input type="checkbox" id="destin15" name="destin15">
-                            @else
-                                {{$check=''}}
-                                @foreach($destinAtt as $indice=>$destAt)
-                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==15)
-                                        <input type="checkbox" id="destin15" name="destin15" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
-                                @if($check=='')
-                                    <input type="checkbox" id="destin15" name="destin15" {{$noeditar}}>
-                                @endif
-                            @endif
-                            <label for="destin15">DERH</label>
-                        </div>
-                        <div class="col">
-                            @if($nuevo_registro==1)
-                                <input type="checkbox" id="destin16" name="destin16">
-                            @else
-                                {{$check=''}}
-                                @foreach($destinAtt as $indice=>$destAt)
-                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==16)
-                                        <input type="checkbox" id="destin16" name="destin16" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
-                                @if($check=='')
-                                    <input type="checkbox" id="destin16" name="destin16" {{$noeditar}}>
-                                @endif
-                            @endif
-                            <label for="destin16">DEOMS</label>
-                        </div>
-                        <div class="col">
-                            @if($nuevo_registro==1)
-                                <input type="checkbox" id="destin17" name="destin17">
-                            @else
-                                {{$check=''}}
-                                @foreach($destinAtt as $indice=>$destAt)
-                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==17)
-                                        <input type="checkbox" id="destin17" name="destin17" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
-                                @if($check=='')
-                                    <input type="checkbox" id="destin17" name="destin17" {{$noeditar}}>
-                                @endif
-                            @endif
-                            <label for="destin17">DERM</label>
-                        </div>
-                        <div class="col">
-                            @if($nuevo_registro==1)
-                                <input type="checkbox" id="destin18" name="destin18">
-                            @else
-                                {{$check=''}}
-                                @foreach($destinAtt as $indice=>$destAt)
-                                    @if($destinAtt_total>0 && $destAt->iid_adscripcion==18)
-                                        <input type="checkbox" id="destin18" name="destin18" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
-                                @if($check=='')
-                                    <input type="checkbox" id="destin18" name="destin18" {{$noeditar}}>
-                                @endif
-                            @endif
-                            <label for="destin18">DERF</label>
-                        </div>
-                        
-                        <div class="col">
-                            <input type="checkbox" id="destin999" name="destin999" {{$noeditar}}>
-                            <label for="destin999">OTRO</label>
-                        </div>
-                        @if($destinAtt_total>0)
-                            <select class="form-control m-bot15" name="dest_att[]" multiple disabled>
-                                @foreach($listDestinAtn as $indice=>$atencion)
-                                    @foreach($destinAtt as $indice=>$attncn)
-                                        @if($attncn->iid_adscripcion==$atencion->iid_adscripcion)
-                                            <option value="{{$atencion->iid_adscripcion}}">{{$atencion->cdescripcion_adscripcion}}</option>
-                                        @endif
-                                    @endforeach
-                                @endforeach
-                            </select>
-                        @endif
-                        <select class="form-control m-bot15" name="destinatario_atencion[]" multiple="" {{ $noeditar }}>
-                            @foreach($listDestinAtn as $indice=>$atencion)
-                                <option value="{{$atencion->iid_adscripcion}}">{{$atencion->cdescripcion_adscripcion}}</option>
-                            @endforeach
-                            <option value="999">OTRO</option>
-                        </select>
+                    <!--Checkboxes de Destinatarios Atención-->
+                        @include('documentos.datos_destinatarios_atencion')
                     </div>
                     <div class="col-4" id="divdestinconoc">
                         <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
-                        <select class="form-control m-bot15" name="destinatario_conocimiento[]" multiple="" {{ $noeditar }}>
-                            @foreach($listDestinConoc as $indice=>$conocimiento)
-                                @if($conocimiento->iid_adscripcion==$documento->iid_adscripcion)
-                                    <option value="{{$conocimiento->iid_adscripcion}}" selected>{{$conocimiento->cdescripcion_adscripcion}}</option>
-                                @else
-                                    <option value="{{$conocimiento->iid_adscripcion}}">{{$conocimiento->cdescripcion_adscripcion}}</option>
-                                @endif
-                            @endforeach
-                            <option value="999">OTRO</option>
-                        </select>
+                    <!--Checkboxes de Destinatarios Conocimiento-->
+                        @include('documentos.datos_destinatarios_conocimiento')
                     </div>
                     <div class="col" id="divarchivo">
                         <label for="archivo" class="col-form-label text-md-right">Archivo Dígital:</label>

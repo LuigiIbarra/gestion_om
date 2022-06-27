@@ -4,7 +4,7 @@
     Actualizar Documento
 @endsection
 @section('panel')
-    <form method="POST" action="{{ url('/documentos/actualizar') }}" id="formEditarDocumento">
+    <form method="POST" action="{{ url('/documentos/actualizar') }}" id="formEditarDocumento" enctype="multipart/form-data">
     	@csrf
 
         <input type="hidden" name="id_documento" id="id_documento" value="{{ $documento->iid_documento }}">

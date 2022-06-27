@@ -103,7 +103,25 @@ class DocumentosController extends Controller
         $documento->dfecha_termino              = $request->fecha_termino;
         $documento->casunto                     = $request->asunto;
         $documento->cobservaciones              = $request->observaciones;
-        $documento->cruta_archivo_documento     = $request->archivo;
+
+        //Manejo del archivo PDF
+        if($request->hasFile("archivo")){
+            $file=$request->file("archivo");
+            
+            $nombre = "pdf_".time().".".$file->guessExtension();
+
+            $ruta = public_path("pdf/".$nombre);
+
+            if($file->guessExtension()=="pdf"){
+                copy($file, $ruta);
+                $documento->cruta_archivo_documento = $ruta;
+            }else{
+                $documento->cruta_archivo_documento = '';
+                dd("NO ES UN PDF");
+            }
+        }
+        //Fin de Manejo del archivo PDF
+
         $documento->iestatus                    = 1;
         $documento->iid_usuario                 = auth()->user()->id;
         $documento->save();
@@ -228,7 +246,25 @@ class DocumentosController extends Controller
         $documento->dfecha_termino              = $request->fecha_termino;
         $documento->casunto                     = $request->asunto;
         $documento->cobservaciones              = $request->observaciones;
-        $documento->cruta_archivo_documento     = $request->archivo;
+
+        //Manejo del archivo PDF
+        if($request->hasFile("archivo")){
+            $file=$request->file("archivo");
+            
+            $nombre = "pdf_".time().".".$file->guessExtension();
+
+            $ruta = public_path("pdf/".$nombre);
+
+            if($file->guessExtension()=="pdf"){
+                copy($file, $ruta);
+                $documento->cruta_archivo_documento = $ruta;
+            }else{
+                $documento->cruta_archivo_documento = '';
+                dd("NO ES UN PDF");
+            }
+        }
+        //Fin de Manejo del archivo PDF
+        
         $documento->iestatus                    = 1;
         $documento->iid_usuario                 = auth()->user()->id;
         $documento->save();

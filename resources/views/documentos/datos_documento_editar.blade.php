@@ -271,7 +271,7 @@
                     <div class="col" id="divarchivo">
                         <label for="archivo" class="col-form-label text-md-right">Archivo Dígital:</label>
                         <input type="file" id="archivo" name="archivo" class="form-control" data-target="#archivo" {{ $noeditar }}/>
-                        <a href="{{url(substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')))}}" target="_blank">{{substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/'))}}</a>
+                        <a href="{{url('pdf/'.substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4))}}" target="_blank">{{substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4)}}</a>
                     </div>
                 </div>
                 <br>

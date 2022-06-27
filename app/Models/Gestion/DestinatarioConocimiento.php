@@ -9,7 +9,7 @@ class DestinatarioConocimiento extends Model
 {
     use HasFactory;
     protected $table = 'tadestinatarios_conocimiento';
-    protected $primaryKey = 'iid_destinatario_atencion';
+    protected $primaryKey = 'iid_destinatario_conocimiento';
 
     public function documento(){
         return $this->hasOne('App\Models\Gestion\Documento','iid_documento','iid_documento');

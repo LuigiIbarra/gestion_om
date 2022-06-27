@@ -354,6 +354,73 @@ class DocumentosController extends Controller
                          ->with('success','Documento actualizado satisfactoriamente');
     }
 
+    public function confirmainhabilitar_documento($id_documento)
+    {
+        $documento          = Documento::where('iid_documento','=',$id_documento)->first();
+        $listTipoDocumento  = TipoDocumento::where('iestatus','=',1)->get();
+        $listTipoAnexo      = TipoAnexo::where('iestatus','=',1)->get();
+        $listEstatus        = EstatusDocumento::where('iestatus','=',1)->get();
+        $listPrioridad      = PrioridadDocumento::where('iestatus','=',1)->get();
+        $listPersonal       = Personal::where('iestatus','=',1)->get();
+        $listPuesto         = Puesto::where('iestatus','=',1)->get();
+        $listAdscripcion    = Adscripcion::where('iestatus','=',1)->get();
+        $listImportancia    = ImportanciaContenido::where('iestatus','=',1)->get();
+        $listTema           = Tema::where('iestatus','=',1)->get();
+        $listAsunto         = TipoAsunto::where('iestatus','=',1)->get();
+        $listInstruccion    = Instruccion::where('iestatus','=',1)->get();
+        $listDestinAtn      = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
+        $listDestinConoc    = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
+        //Datos de Personal Remitente
+        $id_pers_remitente  = $documento->iid_personal_remitente;
+        $pers_remitente     = Personal::where('iid_personal','=',$id_pers_remitente)->first();
+        //Datos de Personal Conocimiento
+        $pers_conoc_total   = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
+        if($pers_conoc_total>0) {
+            $pers_conoc     = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
+            $pers_cncmnt    = Personal::where('iid_personal','=',$pers_conoc->iid_personal)->where('iestatus','=',1)->first();
+        } else {
+            $pers_conoc     = new PersonalConocimiento();
+            $pers_cncmnt    = new Personal();
+        }
+        //Datos de Destinatario Atención
+        $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
+        if($destinAtt_total>0)
+            $destinAtt      = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
+        else
+            $destinAtt      = new DestinatarioAtencion();
+        //Datos de Destinatario Conocimiento
+        $destinCon_total    = DestinatarioConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
+        if($destinCon_total>0)
+            $destinCon      = DestinatarioConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
+        else
+            $destinCon      = new DestinatarioConocimiento();
+        //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
+        $noeditar           = 'disabled';
+        //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
+        $nuevo_registro     = '0';
+        return view('documentos.inhabilitar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','noeditar','nuevo_registro'));
+    }
+
+    public function inhabilitar_documento(Request $request) 
+    {
+        $documento               = Documento::where('iid_documento','=',$request->id_documento)->first();
+        $jsonBefore              = json_encode($documento);
+        if ($documento->iestatus == 0) {
+            $operacion               = "RECUPERADO";
+            $documento->iestatus = 1;
+        } else {
+            $operacion               = "BORRADO";
+            $documento->iestatus = 0;
+        }
+        $documento->iid_usuario  = auth()->user()->id;
+        $documento->save();
+        $jsonAfter               = json_encode($documento);
+        DocumentosController::bitacora($jsonBefore,$jsonAfter);
+
+        return redirect()->route('documentos.index',$request->id_documento)
+                         ->with('success','Documento '.$operacion.' satisfactoriamente');
+    }
+
     public static function bitacora(string $jsonBefore,string $jsonAfter){
         $bitacora = new Bitacora();
         $bitacora->cjson_antes   = ($jsonBefore==null ? 'NEW INSERT': $jsonBefore);

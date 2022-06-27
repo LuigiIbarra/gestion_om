@@ -33,6 +33,7 @@ Route::post('documentos/guardar',                   [DocumentosController::class
 Route::get('documentos/editar/{id_documento}',      [DocumentosController::class, 'editar_documento']);
 Route::post('documentos/actualizar',                [DocumentosController::class, 'actualizar_documento']);
 Route::get('documentos/inhabilitar/{id_documento}', [DocumentosController::class, 'confirmainhabilitar_documento']);
+Route::post('documentos/inhabilitar',               [DocumentosController::class, 'inhabilitar_documento']);
 
 //Rutas de Puestos
 Route::get('puestos/index',                         [PuestosController::class, 'index'])->name('puestos.index');

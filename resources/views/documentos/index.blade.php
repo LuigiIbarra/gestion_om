@@ -49,11 +49,11 @@
                             <a href="{{ url('documentos/editar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
                             </a>
-                            <a href="#" data-toggle="tooltip" data-html="true" title="Borrar">
+                            <a href="{{ url('documentos/inhabilitar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Borrar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
                             </a>
                     @else
-                            <a href="#" data-toggle="tooltip" data-html="true" title="Recuperar">
+                            <a href="{{ url('documentos/inhabilitar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Recuperar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/check-lg.svg') }}" width="18" height="18">
                             </a>
                     @endif

@@ -7,7 +7,9 @@
 @section('panel')
     <div class="table-responsive">
         <div class="row">
-            <div class="col col-form-label text-md-right">
+            <div class="col-10 col-form-label text-right">
+            </div>
+            <div class="col col-form-label text-right">
                     <a href="{{ url('documentos/nuevo') }}" data-toggle="tooltip" data-html="true" title="Nuevo">
                         + Nuevo Documento
                     </a>

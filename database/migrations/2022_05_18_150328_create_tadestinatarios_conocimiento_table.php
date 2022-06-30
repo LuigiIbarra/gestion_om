@@ -19,8 +19,12 @@ class CreateTadestinatariosConocimientoTable extends Migration
             $table->integer('iid_adscripcion')->unsigned()->nullable();
             $table->integer('iid_otra_adscripcion')->unsigned()->nullable();
             $table->string('cdescrip_otra_adscrip')->nullable();
-            $table->string('seguimiento')->nullable();
-            $table->date('fecha_seguimiento')->nullable();
+            $table->string('cnum_docto_seguim')->nullable();
+            $table->string('cseguimiento',500)->nullable();
+            $table->integer('iid_tipo_documento')->nullable();
+            $table->integer('iid_estatus_documento')->nullable();
+            $table->date('dfecha_seguimiento')->nullable();
+            $table->string('cruta_archivo_seguim')->nullable();
             $table->integer('iestatus')->default(1);
             $table->integer('iid_usuario')->nullable();
             $table->timestamps();

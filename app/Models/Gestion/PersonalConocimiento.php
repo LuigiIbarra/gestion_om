@@ -18,4 +18,12 @@ class PersonalConocimiento extends Model
     public function personal(){
         return $this->hasOne('App\Models\Catalogos\Personal','iid_personal','iid_personal');
     }
+
+    public function tipodocumento(){
+        return $this->hasOne('App\Models\Catalogos\TipoDocumento','iid_tipo_documento','iid_tipo_documento');
+    }
+
+    public function estatusdocumento(){
+        return $this->hasOne('App\Models\Catalogos\EstatusDocumento','iid_estatus_documento','iid_estatus_documento');
+    }
 }

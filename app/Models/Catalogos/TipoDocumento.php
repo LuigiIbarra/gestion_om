@@ -14,4 +14,16 @@ class TipoDocumento extends Model
     public function documento(){
         return $this->belongsTo('App\Models\Gestion\Documento');
     }
+
+    public function destinatarioatencion(){
+        return $this->hasMany('App\Models\Gestion\DestinatarioAtencion','iid_tipo_documento','iid_tipo_documento');
+    }
+
+    public function destinatarioconocimiento(){
+        return $this->hasMany('App\Models\Gestion\DestinatarioConocimiento','iid_tipo_documento','iid_tipo_documento');
+    }
+
+    public function personalconocimiento(){
+        return $this->hasMany('App\Models\Gestion\PersonalConocimiento','iid_tipo_documento','iid_tipo_documento');
+    }
 }

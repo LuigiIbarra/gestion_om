@@ -14,4 +14,16 @@ class EstatusDocumento extends Model
     public function documento(){
         return $this->belongsTo('App\Models\Gestion\Documento');
     }
+
+    public function destinatarioatencion(){
+        return $this->hasMany('App\Models\Gestion\DestinatarioAtencion','iid_estatus_documento','iid_estatus_documento');
+    }
+
+    public function destinatarioconocimiento(){
+        return $this->hasMany('App\Models\Gestion\DestinatarioConocimiento','iid_estatus_documento','iid_estatus_documento');
+    }
+
+    public function personalconocimiento(){
+        return $this->hasMany('App\Models\Gestion\PersonalConocimiento','iid_estatus_documento','iid_estatus_documento');
+    }
 }

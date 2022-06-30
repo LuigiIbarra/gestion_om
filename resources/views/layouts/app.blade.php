@@ -29,10 +29,7 @@
     <div id="app">
         <div>
             <header>
-                <!--
-                <img src="{{asset('/images/LOGO_OFICIALIAMAYOR_sin_fondo.png')}}" srcset="{{asset('/images/LOGO_OFICIALIAMAYOR_sin_fondo.png')}}" width="100%" height="150" sizes="(min-width: 1920px)" alt="Ejemplo">
-                    -->
-                <img src="{{asset('/images/LOGO_OFICIALIAMAYOR_sin_fondo.png')}}" srcset="{{asset('/images/LOGO_OFICIALIAMAYOR_sin_fondo.png')}}" height="150" alt="Ejemplo"> SISTEMA CONTROL DE GESTIÓN DE OFICIALÍA MAYOR
+                <img src="{{asset('/images/Banner_SCGOM.png')}}" srcset="{{asset('/images/Banner_SCGOM.png')}}" width="100%" height="170" sizes="(min-width: 1920px)" alt="Ejemplo">
             </header>
         </div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

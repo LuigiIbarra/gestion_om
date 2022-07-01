@@ -18,7 +18,7 @@
         <table class="table table-striped shadow-lg" id="MyTableDocumentos">
           <thead>
             <tr>
-                <th class="text-center">Consecutivo</th>
+                <th class="text-center">Consec.</th>
                 <th class="text-center">Folio</th>
                 <th class="text-center">Fecha de Recepción</th>
                 <th class="text-center">Número de Documento</th>
@@ -48,6 +48,11 @@
                     <td class="text-center">{{ $documento['dfecha_termino'] }}</td>
                     <td class="text-center col-actions">
                     @if ($documento->iestatus == 1)
+                        @if ($documento->cruta_archivo_documento!="")
+                            <a href="{{url('pdf/'.substr($documento['cruta_archivo_documento'],strrpos($documento['cruta_archivo_documento'],'pdf/')+4))}}" target="_blank">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/file-pdf-fill.svg') }}" width="18" height="18">
+                            </a>
+                        @endif
                             <a href="{{ url('documentos/editar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
                             </a>

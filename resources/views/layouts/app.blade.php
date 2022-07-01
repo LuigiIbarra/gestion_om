@@ -12,6 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/captura-persconoc.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/mistablas.js') }}" ></script>
 

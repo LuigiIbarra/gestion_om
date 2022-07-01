@@ -47,7 +47,7 @@
                 </div>
                 <br>
                 <hr>
-                <label>REMITENTE</label>
+                <label><b>REMITENTE</b></label>
                 <div class="row" id="divremitente">
                     <div class="col-4" id="divnombre">
                         <label for="nombre_remitente" class="col-form-label text-md-right">Nombre:</label>
@@ -94,7 +94,7 @@
                 <div class="row">
                     <div class="col" id="divestatus">
                         <label for="estatus_documento" class="col-form-label text-md-right">Estatus:</label>
-                        <select class="form-control m-bot15" name="estatus_documento" required {{ $noeditar }}>
+                        <select class="form-control m-bot15" id="estatus_documento" name="estatus_documento" required {{ $noeditar }}>
                             <option value="">Elija un Estatus...</option>
                             @foreach($listEstatus as $indice=>$estatus)
                                 @if($estatus->iid_estatus_documento==$documento->iid_estatus_documento)
@@ -107,7 +107,7 @@
                     </div>
                     <div class="col" id="divprioridad">
                         <label for="prioridad_documento" class="col-form-label text-md-right">Prioridad:</label>
-                        <select class="form-control m-bot15" name="prioridad_documento" required {{ $noeditar }}>
+                        <select class="form-control m-bot15" id="prioridad_documento" name="prioridad_documento" required {{ $noeditar }}>
                             <option value="">Elija una Prioridad...</option>
                             @foreach($listPrioridad as $indice=>$prioridad)
                                 @if($prioridad->iid_prioridad_documento==$documento->iid_prioridad_documento)
@@ -129,96 +129,98 @@
                 </div>
                 <br>
                 <hr>
-                <label>DESTINATARIO(S) DE COPIA DE CONOCIMIENTO</label>
-                <div class="row" id="divdestinatariocc">
-                    <div class="col-4" id="divnombre">
-                        <label for="nombre_destinatariocc" class="col-form-label text-md-right">Nombre:</label>
-                        <select class="form-control m-bot15" name="nombre_destinatariocc" {{ $noeditar }}>
-                        <option value="">Elija un Destinatario Copia Conocimiento...</option>
-                        @foreach($listPersonal as $indice=>$destincc)
-                            @if($destincc->iid_personal==$documento->iid_personal_conocimiento)
-                                <option value="{{$destincc->iid_personal}}" selected>{{$destincc->cnombre_personal.' '.$destincc->cpaterno_personal.' '.$destincc->cmaterno_personal}}</option>
-                            @else
-                                <option value="{{$destincc->iid_personal}}">{{$destincc->cnombre_personal.' '.$destincc->cpaterno_personal.' '.$destincc->cmaterno_personal}}</option>
-                            @endif
-                        @endforeach
-                        </select>
-                    </div>
-                    <div class="col-4" id="divpuesto">
-                        <label for="puesto_conocimiento" class="col-form-label text-md-right">Puesto:</label>
-                        <select class="form-control m-bot15" name="puesto_conocimiento" {{ $noeditar }}>
-                        <option value="">Elija un Puesto...</option>
-                        @foreach($listPuesto as $indice=>$puesto)
-                            @if($puesto->iid_puesto==$documento->iid_puesto)
-                                <option value="{{$puesto->iid_puesto}}" selected>{{$puesto->cdescripcion_puesto}}</option>
-                            @else
-                                <option value="{{$puesto->iid_puesto}}">{{$puesto->cdescripcion_puesto}}</option>
-                            @endif
-                        @endforeach
-                        </select>
-                    </div>
-                    <div class="col-4" id="divarea">
-                        <label for="area_conocimiento" class="col-form-label text-md-right">Adscripción:</label>
-                        <select class="form-control m-bot15" name="area_conocimiento" {{ $noeditar }}>
-                        <option value="">Elija un Adscripción...</option>
-                        @foreach($listAdscripcion as $indice=>$adscripcion)
-                            @if($adscripcion->iid_adscripcion==$documento->iid_adscripcion)
-                                <option value="{{$adscripcion->iid_adscripcion}}" selected>{{$adscripcion->cdescripcion_adscripcion}}</option>
-                            @else
-                                <option value="{{$adscripcion->iid_adscripcion}}">{{$adscripcion->cdescripcion_adscripcion}}</option>
-                            @endif
-                        @endforeach
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div>
-                    <a href="#" data-toggle="tooltip" data-html="true" title="AgregarDestinCC">
-                        + Agregar Destinatario
-                    </a>
-                </div>
-                <div id="divMasDestinsConoc">
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-4" id="divimportancia">
-                        <label for="importancia_contenido" class="col-form-label text-md-right">Importancia del Contenido:</label>
-                        <select class="form-control m-bot15" name="importancia_contenido" {{ $noeditar }}>
-                            <option value="">Elija una Importancia...</option>
-                            @foreach($listImportancia as $indice=>$importancia)
-                                @if($importancia->iid_importancia_contenido==$documento->iid_importancia_contenido)
-                                    <option value="{{$importancia->iid_importancia_contenido}}" selected>{{$importancia->cdescripcion_importancia_contenido}}</option>
+                <div id="divdestinatariocc">
+                    <label><b>DESTINATARIO(S) DE COPIA DE CONOCIMIENTO</b></label>
+                    <div class="row">
+                        <div class="col-4" id="divnombre">
+                            <label for="nombre_destinatariocc" class="col-form-label text-md-right">Nombre:</label>
+                            <select class="form-control m-bot15" name="nombre_destinatariocc" {{ $noeditar }}>
+                            <option value="">Elija un Destinatario Copia Conocimiento...</option>
+                            @foreach($listPersonal as $indice=>$destincc)
+                                @if($destincc->iid_personal==$documento->iid_personal_conocimiento)
+                                    <option value="{{$destincc->iid_personal}}" selected>{{$destincc->cnombre_personal.' '.$destincc->cpaterno_personal.' '.$destincc->cmaterno_personal}}</option>
                                 @else
-                                    <option value="{{$importancia->iid_importancia_contenido}}">{{$importancia->cdescripcion_importancia_contenido}}</option>
+                                    <option value="{{$destincc->iid_personal}}">{{$destincc->cnombre_personal.' '.$destincc->cpaterno_personal.' '.$destincc->cmaterno_personal}}</option>
                                 @endif
                             @endforeach
-                        </select>
-                    </div>
-                    <div class="col-4" id="divtema">
-                        <label for="tema" class="col-form-label text-md-right">Tema:</label>
-                        <select class="form-control m-bot15" name="tema" {{ $noeditar }}>
-                            <option value="">Elija un Tema...</option>
-                            @foreach($listTema as $indice=>$tema)
-                                @if($tema->iid_tema==$documento->iid_tema)
-                                    <option value="{{$tema->iid_tema}}" selected>{{$tema->cdescripcion_tema}}</option>
+                            </select>
+                        </div>
+                        <div class="col-4" id="divpuesto">
+                            <label for="puesto_conocimiento" class="col-form-label text-md-right">Puesto:</label>
+                            <select class="form-control m-bot15" name="puesto_conocimiento" {{ $noeditar }}>
+                            <option value="">Elija un Puesto...</option>
+                            @foreach($listPuesto as $indice=>$puesto)
+                                @if($puesto->iid_puesto==$documento->iid_puesto)
+                                    <option value="{{$puesto->iid_puesto}}" selected>{{$puesto->cdescripcion_puesto}}</option>
                                 @else
-                                    <option value="{{$tema->iid_tema}}">{{$tema->cdescripcion_tema}}</option>
+                                    <option value="{{$puesto->iid_puesto}}">{{$puesto->cdescripcion_puesto}}</option>
                                 @endif
                             @endforeach
-                        </select>
-                    </div>
-                    <div class="col" id="divtipoasunto">
-                        <label for="tipo_asunto" class="col-form-label text-md-right">Tipo de Asunto:</label>
-                        <select class="form-control m-bot15" name="tipo_asunto" {{ $noeditar }}>
-                            <option value="">Elija un Asunto...</option>
-                            @foreach($listAsunto as $indice=>$asunto)
-                                @if($asunto->iid_tipo_asunto==$documento->iid_tipo_asunto)
-                                    <option value="{{$asunto->iid_tipo_asunto}}" selected>{{$asunto->cdescripcion_tipo_asunto}}</option>
+                            </select>
+                        </div>
+                        <div class="col-4" id="divarea">
+                            <label for="area_conocimiento" class="col-form-label text-md-right">Adscripción:</label>
+                            <select class="form-control m-bot15" name="area_conocimiento" {{ $noeditar }}>
+                            <option value="">Elija un Adscripción...</option>
+                            @foreach($listAdscripcion as $indice=>$adscripcion)
+                                @if($adscripcion->iid_adscripcion==$documento->iid_adscripcion)
+                                    <option value="{{$adscripcion->iid_adscripcion}}" selected>{{$adscripcion->cdescripcion_adscripcion}}</option>
                                 @else
-                                    <option value="{{$asunto->iid_tipo_asunto}}">{{$asunto->cdescripcion_tipo_asunto}}</option>
+                                    <option value="{{$adscripcion->iid_adscripcion}}">{{$adscripcion->cdescripcion_adscripcion}}</option>
                                 @endif
                             @endforeach
-                        </select>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <a href="#" data-toggle="tooltip" data-html="true" title="AgregarDestinCC">
+                            + Agregar Destinatario
+                        </a>
+                        <div id="divMasDestinsConoc">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-4" id="divimportancia">
+                            <label for="importancia_contenido" class="col-form-label text-md-right">Importancia del Contenido:</label>
+                            <select class="form-control m-bot15" name="importancia_contenido" {{ $noeditar }}>
+                                <option value="">Elija una Importancia...</option>
+                                @foreach($listImportancia as $indice=>$importancia)
+                                    @if($importancia->iid_importancia_contenido==$documento->iid_importancia_contenido)
+                                        <option value="{{$importancia->iid_importancia_contenido}}" selected>{{$importancia->cdescripcion_importancia_contenido}}</option>
+                                    @else
+                                        <option value="{{$importancia->iid_importancia_contenido}}">{{$importancia->cdescripcion_importancia_contenido}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-4" id="divtema">
+                            <label for="tema" class="col-form-label text-md-right">Tema:</label>
+                            <select class="form-control m-bot15" name="tema" {{ $noeditar }}>
+                                <option value="">Elija un Tema...</option>
+                                @foreach($listTema as $indice=>$tema)
+                                    @if($tema->iid_tema==$documento->iid_tema)
+                                        <option value="{{$tema->iid_tema}}" selected>{{$tema->cdescripcion_tema}}</option>
+                                    @else
+                                        <option value="{{$tema->iid_tema}}">{{$tema->cdescripcion_tema}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col" id="divtipoasunto">
+                            <label for="tipo_asunto" class="col-form-label text-md-right">Tipo de Asunto:</label>
+                            <select class="form-control m-bot15" name="tipo_asunto" {{ $noeditar }}>
+                                <option value="">Elija un Asunto...</option>
+                                @foreach($listAsunto as $indice=>$asunto)
+                                    @if($asunto->iid_tipo_asunto==$documento->iid_tipo_asunto)
+                                        <option value="{{$asunto->iid_tipo_asunto}}" selected>{{$asunto->cdescripcion_tipo_asunto}}</option>
+                                    @else
+                                        <option value="{{$asunto->iid_tipo_asunto}}">{{$asunto->cdescripcion_tipo_asunto}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -243,16 +245,10 @@
                     </div>
                     <div class="col" id="divasunto">
                         <label for="asunto" class="col-form-label text-md-right">Asunto:</label>
-                        <!--
-                        <input type="text" onkeypress="return textonly(event);" id="asunto" name="asunto" class="form-control" data-target="#asunto" value="{{ $documento->casunto }}" maxlength="500" required {{ $noeditar }} />
-                            -->
                         <textarea name="asunto" class="form-control" data-target="#asunto" required {{ $noeditar }}>{{ $documento->casunto }}</textarea>
                     </div>
                     <div class="col" id="divobservaciones">
                         <label for="observaciones" class="col-form-label text-md-right">Observaciones:</label>
-                        <!--
-                        <input type="text" onkeypress="return textonly(event);" id="observaciones" name="observaciones" class="form-control" data-target="#observaciones" value="{{ $documento->cobservaciones }}" maxlength="500" {{ $noeditar }} />
-                            -->
                         <textarea name="observaciones" class="form-control" data-target="#observaciones" {{ $noeditar }}>{{ $documento->cobservaciones }}</textarea>
                     </div>
                 </div>

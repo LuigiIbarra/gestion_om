@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-4" id="divarea">
                         <label for="area_remitente" class="col-form-label text-md-right">Adscripción:</label>
-                        <select class="form-control m-bot15" name="area_remitente" required {{ $noeditar }}>
+                        <select class="form-control m-bot15" id="area_remitente" name="area_remitente" required {{ $noeditar }}>
                         <option value="">Elija un Adscripción...</option>
                         @foreach($listAdscripcion as $indice=>$adscripcion)
                             @if($adscripcion->iid_adscripcion==$documento->iid_adscripcion)
@@ -239,7 +239,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col" id="divtermino">
+                    <div class="col-2" id="divtermino">
                         <label for="fecha_termino" class="col-form-label text-md-right">Fecha de Término:</label>
                         <input type="date" id="fecha_termino" name="fecha_termino" class="form-control" data-target="#fecha_termino" value="{{ $documento->dfecha_termino }}" maxlength="10" {{ $noeditar }}/>
                     </div>
@@ -247,7 +247,10 @@
                         <label for="asunto" class="col-form-label text-md-right">Asunto:</label>
                         <textarea name="asunto" class="form-control" data-target="#asunto" required {{ $noeditar }}>{{ $documento->casunto }}</textarea>
                     </div>
-                    <div class="col" id="divobservaciones">
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-5" id="divobservaciones">
                         <label for="observaciones" class="col-form-label text-md-right">Observaciones:</label>
                         <textarea name="observaciones" class="form-control" data-target="#observaciones" {{ $noeditar }}>{{ $documento->cobservaciones }}</textarea>
                     </div>
@@ -264,7 +267,7 @@
                     <!--Checkboxes de Destinatarios Conocimiento-->
                         @include('documentos.datos_destinatarios_conocimiento')
                     </div>
-                    <div class="col" id="divarchivo">
+                    <div class="col-4" id="divarchivo">
                         <label for="archivo" class="col-form-label text-md-right">Archivo Dígital:</label>
                         <input type="file" id="archivo" name="archivo" class="form-control" data-target="#archivo" {{ $noeditar }}/>
                         <a href="{{url('pdf/'.substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4))}}" target="_blank">{{substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4)}}</a>

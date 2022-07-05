@@ -34,6 +34,7 @@ Route::get('documentos/editar/{id_documento}',      [DocumentosController::class
 Route::post('documentos/actualizar',                [DocumentosController::class, 'actualizar_documento']);
 Route::get('documentos/inhabilitar/{id_documento}', [DocumentosController::class, 'confirmainhabilitar_documento']);
 Route::post('documentos/inhabilitar',               [DocumentosController::class, 'inhabilitar_documento']);
+Route::post('buscaDoctoDuplicado',                  [DocumentosController::class, 'buscaDoctoDuplicado']);
 
 //Rutas de Puestos
 Route::get('puestos/index',                         [PuestosController::class, 'index'])->name('puestos.index');
@@ -58,3 +59,4 @@ Route::post('personal/guardar',                     [PersonalController::class, 
 Route::get('personal/editar/{id_personal}',         [PersonalController::class, 'editar_personal']);
 Route::post('personal/actualizar',                  [PersonalController::class, 'actualizar_personal']);
 Route::get('personal/inhabilitar/{id_personal}',    [PersonalController::class, 'confirmainhabilitar_personal']);
+Route::post('buscaPuestoAdscrip',                   [PersonalController::class, 'buscaPuestoAdscrip']);

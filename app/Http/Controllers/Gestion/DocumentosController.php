@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Gestion;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Catalogos\PersonalController;
 use App\Http\Controllers\Gestion\PersonalConocimientoController;
 use App\Http\Controllers\Gestion\DestinatarioAtencionController;
 use App\Http\Controllers\Gestion\DestinatarioConocimientoController;
@@ -91,7 +92,7 @@ class DocumentosController extends Controller
         $documento->dfecha_documento            = $request->fecha_documento;
         $documento->iid_tipo_documento          = $request->tipo_documento;
         $documento->iid_tipo_anexo              = $request->tipo_anexo;
-        $documento->iid_personal_remitente      = $request->nombre_remitente;
+        $documento->iid_personal_remitente      = $request->idRemitente;
         $documento->iid_estatus_documento       = $request->estatus_documento;
         $documento->iid_prioridad_documento     = $request->prioridad_documento;
         $documento->cfolio_relacionado          = $request->folio_relacionado;
@@ -194,8 +195,11 @@ class DocumentosController extends Controller
         $listEstatus        = EstatusDocumento::where('iestatus','=',1)->get();
         $listPrioridad      = PrioridadDocumento::where('iestatus','=',1)->get();
         $listPersonal       = Personal::where('iestatus','=',1)->get();
+        $remitente          = Personal::where('iid_personal','=',$documento->iid_personal_remitente)->where('iestatus','=',1)->first();
         $listPuesto         = Puesto::where('iestatus','=',1)->get();
+        $puesto             = Puesto::where('iid_puesto','=',$remitente->iid_puesto)->where('iestatus','=',1)->first();
         $listAdscripcion    = Adscripcion::where('iestatus','=',1)->get();
+        $adscripcion        = Adscripcion::where('iid_adscripcion','=',$remitente->iid_adscripcion)->where('iestatus','=',1)->first();
         $listImportancia    = ImportanciaContenido::where('iestatus','=',1)->get();
         $listTema           = Tema::where('iestatus','=',1)->get();
         $listAsunto         = TipoAsunto::where('iestatus','=',1)->get();
@@ -230,7 +234,7 @@ class DocumentosController extends Controller
         $noeditar           = '';
         //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.editar',compact('documento','doct_relacionado','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','noeditar','nuevo_registro'));
+        return view('documentos.editar',compact('documento','doct_relacionado','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','remitente','listPuesto','puesto','listAdscripcion','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','noeditar','nuevo_registro'));
     }
 
     public function actualizar_documento(Request $request)
@@ -243,7 +247,7 @@ class DocumentosController extends Controller
         $documento->dfecha_documento            = $request->fecha_documento;
         $documento->iid_tipo_documento          = $request->tipo_documento;
         $documento->iid_tipo_anexo              = $request->tipo_anexo;
-        $documento->iid_personal_remitente      = $request->nombre_remitente;
+        $documento->iid_personal_remitente      = $request->idRemitente;
         $documento->iid_estatus_documento       = $request->estatus_documento;
         $documento->iid_prioridad_documento     = $request->prioridad_documento;
         $documento->cfolio_relacionado          = $request->folio_relacionado;
@@ -472,5 +476,26 @@ class DocumentosController extends Controller
         $bitacora->cjson_despues = $jsonAfter;
         $bitacora->iid_usuario   = auth()->user()->id;
         $bitacora->save();
+    }
+
+    public function buscaDoctoDuplicado(Request $request){
+        $nd            = $request->nd;
+        $coincidencias = Documento::where('cnumero_documento','=',$nd)->where('iestatus','=',1)->get();
+        if (!$coincidencias->isEmpty()){
+            $folio     = $coincidencias[0]->cfolio;
+            return response()->json(
+                [
+                    'folio' => $folio,
+                    'exito' => 1
+                ]
+            );
+        }else{
+            return response()->json(
+                [
+                    'folio' => null,
+                    'exito' => 1
+                ]
+            );
+        }
     }
 }

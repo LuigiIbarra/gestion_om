@@ -7,8 +7,9 @@
     <form method="POST" action="{{ url('/documentos/actualizar') }}" id="formEditarDocumento" enctype="multipart/form-data">
     	@csrf
 
-        <input type="hidden" name="id_documento" id="id_documento" value="{{ $documento->iid_documento }}">
-        <input type="hidden" name="noeditar"     id="noeditar"     value="{{ $noeditar }}">
+        <input type="hidden" id="id_documento" name="id_documento" value="{{ $documento->iid_documento }}">
+        <input type="hidden" id="noeditar"     name="noeditar"     value="{{ $noeditar }}">
+        <input type="hidden" id="idRemitente"  name="idRemitente"  value=""/>
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

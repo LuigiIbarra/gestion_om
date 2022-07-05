@@ -7,8 +7,9 @@
     <form method="POST" action="{{ url('/documentos/guardar') }}" id="formNuevoDocumento" enctype="multipart/form-data">
     	@csrf
         <!--Auxiliar para el año-->
-        <input type="hidden" id="anio"  name="anio"  value="{{$parametros->ianio}}"/>
-        <input type="hidden" id="folio" name="folio" value="{{$newfolio}}"/>
+        <input type="hidden" id="anio"        name="anio"        value="{{$parametros->ianio}}"/>
+        <input type="hidden" id="folio"       name="folio"       value="{{$newfolio}}"/>
+        <input type="hidden" id="idRemitente" name="idRemitente" value=""/>
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

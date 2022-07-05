@@ -127,4 +127,34 @@ class PersonalController extends Controller
         $bitacora->iid_usuario   = auth()->user()->id;
         $bitacora->save();
     }
+
+    public static function buscaPuestoAdscrip(Request $request){
+        $nr               = $request->nr;
+        $personal_rem     = Personal::where('cnombre_personal','like','%'.$nr.'%')->where('iestatus','=',1)->get();
+        if(!$personal_rem->isEmpty()){
+            $idRemitente  = $personal_rem[0]->iid_personal;
+            $nombreRemtte = $personal_rem[0]->cnombre_personal.' '.$personal_rem[0]->cpaterno_personal.' '.$personal_rem[0]->cmaterno_personal;
+            $listaPuesto  = Puesto::where('iid_puesto','=',$personal_rem[0]->iid_puesto)->where('iestatus','=',1)->get();
+            $listaAdscrip = Adscripcion::where('iid_adscripcion','=',$personal_rem[0]->iid_adscripcion)->where('iestatus','=',1)->get();
+            return response()->json(
+                [
+                    'idRemitente'  => $idRemitente,
+                    'nombreRemtte' => $nombreRemtte,
+                    'listaPuesto'  => $listaPuesto,
+                    'listaAdscrip' => $listaAdscrip,
+                    'exito'        => 1
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    'idRemitente'  => null,
+                    'nombreRemtte' => null,
+                    'listaPuesto'  => null,
+                    'listaAdscrip' => null,
+                    'exito'        => 0
+                ]
+            );
+        }
+    }
 }

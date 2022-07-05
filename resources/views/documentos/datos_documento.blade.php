@@ -9,7 +9,7 @@
                     </div>
                     <div class="col" id="divnumdoc">
                         <label for="numero_documento" class="col-form-label text-md-right">Número de Documento:</label>
-                        <input type="text" onkeypress="return textonly(event);" id="numero_documento" name="numero_documento" class="form-control" data-target="#numero_documento" value="{{ $documento->cnumero_documento }}" maxlength="100" required {{ $noeditar }} />
+                        <input type="text" id="numero_documento" name="numero_documento" class="form-control" data-target="#numero_documento" value="{{ $documento->cnumero_documento }}" maxlength="100" required {{ $noeditar }} />
                     </div>
                 </div>
                 <br>
@@ -46,50 +46,29 @@
                     </div>
                 </div>
                 <br>
+                <center><div id="validaDocumento"></div></center>
                 <hr>
                 <label><b>REMITENTE</b></label>
                 <div class="row" id="divremitente">
                     <div class="col-4" id="divnombre">
                         <label for="nombre_remitente" class="col-form-label text-md-right">Nombre:</label>
-                        <select class="form-control m-bot15" name="nombre_remitente" required {{ $noeditar }}>
-                        <option value="">Elija un Remitente...</option>
-                        @foreach($listPersonal as $indice=>$remitente)
-                            @if($remitente->iid_personal==$documento->iid_personal_remitente)
-                                <option value="{{$remitente->iid_personal}}" selected>{{$remitente->cnombre_personal.' '.$remitente->cpaterno_personal.' '.$remitente->cmaterno_personal}}</option>
-                            @else
-                                <option value="{{$remitente->iid_personal}}">{{$remitente->cnombre_personal.' '.$remitente->cpaterno_personal.' '.$remitente->cmaterno_personal}}</option>
-                            @endif
-                        @endforeach
-                        </select>
+                        <input type="text" onkeypress="return textonly(event);" id="nombre_remitente" name="nombre_remitente" class="form-control" data-target="#nombre_remitente" value="" maxlength="50" required {{ $noeditar }}/>
                     </div>
                     <div class="col-4" id="divpuesto">
                         <label for="puesto_remitente" class="col-form-label text-md-right">Puesto:</label>
-                        <select class="form-control m-bot15" name="puesto_remitente" required {{ $noeditar }}>
-                        <option value="">Elija un Puesto...</option>
-                        @foreach($listPuesto as $indice=>$puesto)
-                            @if($puesto->iid_puesto==$documento->iid_puesto)
-                                <option value="{{$puesto->iid_puesto}}" selected>{{$puesto->cdescripcion_puesto}}</option>
-                            @else
-                                <option value="{{$puesto->iid_puesto}}">{{$puesto->cdescripcion_puesto}}</option>
-                            @endif
-                        @endforeach
+                        <select class="form-control m-bot15" id="puesto_remitente" name="puesto_remitente" required {{ $noeditar }}>
+                            <option value="">Escriba un Nombre...</option>
                         </select>
                     </div>
                     <div class="col-4" id="divarea">
                         <label for="area_remitente" class="col-form-label text-md-right">Adscripción:</label>
                         <select class="form-control m-bot15" id="area_remitente" name="area_remitente" required {{ $noeditar }}>
-                        <option value="">Elija un Adscripción...</option>
-                        @foreach($listAdscripcion as $indice=>$adscripcion)
-                            @if($adscripcion->iid_adscripcion==$documento->iid_adscripcion)
-                                <option value="{{$adscripcion->iid_adscripcion}}" selected>{{$adscripcion->cdescripcion_adscripcion}}</option>
-                            @else
-                                <option value="{{$adscripcion->iid_adscripcion}}">{{$adscripcion->cdescripcion_adscripcion}}</option>
-                            @endif
-                        @endforeach
+                            <option value="">Escriba un Nombre...</option>
                         </select>
                     </div>
                 </div>
                 <br>
+                <center><div id="validaPersonal"></div></center>
                 <hr>
                 <div class="row">
                     <div class="col" id="divestatus">

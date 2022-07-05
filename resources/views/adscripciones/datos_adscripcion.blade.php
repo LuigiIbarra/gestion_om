@@ -1,7 +1,7 @@
                 <div class="row">
                     <div class="col" id="divnombreadscripcion">
                         <label for="descripcion_adscripcion" class="col-form-label text-md-right">Descripción de la Adscripcion:</label>
-                        <input type="text" onkeypress="return textonly(event);" id="descripcion_adscripcion" name="descripcion_adscripcion" class="form-control" data-target="#descripcion_adscripcion" value="{{ $adscripcion->cdescripcion_adscripcion }}" maxlength="300" required {{ $noeditar }}/>
+                        <input type="text" id="descripcion_adscripcion" name="descripcion_adscripcion" class="form-control" data-target="#descripcion_adscripcion" value="{{ $adscripcion->cdescripcion_adscripcion }}" maxlength="300" required {{ $noeditar }}/>
                     </div>
                 </div>
                 <br>

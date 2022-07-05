@@ -485,6 +485,7 @@ class DocumentosController extends Controller
             $folio     = $coincidencias[0]->cfolio;
             return response()->json(
                 [
+                    'nd'    => $nd,
                     'folio' => $folio,
                     'exito' => 1
                 ]
@@ -492,6 +493,7 @@ class DocumentosController extends Controller
         }else{
             return response()->json(
                 [
+                    'nd'    => null,
                     'folio' => null,
                     'exito' => 1
                 ]

@@ -233,23 +233,25 @@
                         <label for="observaciones" class="col-form-label text-md-right">Observaciones:</label>
                         <textarea name="observaciones" class="form-control" data-target="#observaciones" {{ $noeditar }}>{{ $documento->cobservaciones }}</textarea>
                     </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-4" id="divdestinatn">
-                        <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
-                    <!--Checkboxes de Destinatarios Atención-->
-                        @include('documentos.datos_destinatarios_atencion')
-                    </div>
-                    <div class="col-4" id="divdestinconoc">
-                        <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
-                    <!--Checkboxes de Destinatarios Conocimiento-->
-                        @include('documentos.datos_destinatarios_conocimiento')
-                    </div>
                     <div class="col-4" id="divarchivo">
                         <label for="archivo" class="col-form-label text-md-right">Archivo Dígital:</label>
                         <input type="file" id="archivo" name="archivo" class="form-control" data-target="#archivo" {{ $noeditar }}/>
                         <a href="{{url('pdf/'.substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4))}}" target="_blank">{{substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4)}}</a>
+                    </div>
+                </div>
+                <br>
+                <div id="divSegmntDADC">
+                    <div class="row">
+                        <div class="col-4" id="divdestinatn">
+                            <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
+                        <!--Checkboxes de Destinatarios Atención-->
+                            @include('documentos.datos_destinatarios_atencion')
+                        </div>
+                        <div class="col-4" id="divdestinconoc">
+                            <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
+                        <!--Checkboxes de Destinatarios Conocimiento-->
+                            @include('documentos.datos_destinatarios_conocimiento')
+                        </div>
                     </div>
                 </div>
                 <br>

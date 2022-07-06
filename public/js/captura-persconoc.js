@@ -9,20 +9,16 @@ window.addEventListener('load', function(){
 		//areaRemId == 15 Dirección Ejecutiva de Recursos Humanos
 		if (estatusId == 3 && areaRemId == 15) {
 			$('#divdestinatariocc').show();
-			$('#divdestinatn').hide();
-			$('#divdestinconoc').hide();
+			$('#divSegmntDADC').hide();
 		} else if (estatusId == 3 && areaRemId != 15) {
 			$('#divdestinatariocc').show();
-			$('#divdestinatn').hide();
-			$('#divdestinconoc').hide();
+			$('#divSegmntDADC').hide();
 		} else if (estatusId != 3 && areaRemId == 15) {
 			$('#divdestinatariocc').hide();
-			$('#divdestinatn').hide();
-			$('#divdestinconoc').hide();
+			$('#divSegmntDADC').hide();
 		} else if (estatusId != 3 && areaRemId != 15) {
 			$('#divdestinatariocc').hide();
-			$('#divdestinatn').show();
-			$('#divdestinconoc').show();
+			$('#divSegmntDADC').show();
 		}
 	}
 	function muestraRH() {
@@ -32,20 +28,16 @@ window.addEventListener('load', function(){
 		//areaRemId == 15 Dirección Ejecutiva de Recursos Humanos
 		if (areaRemId == 15 && estatusId == 3) {
 			$('#divdestinatariocc').show();
-			$('#divdestinatn').hide();
-			$('#divdestinconoc').hide();
+			$('#divSegmntDADC').hide();
 		} else if (areaRemId == 15 && estatusId != 3) {
-				$('#divdestinatariocc').hide();
-				$('#divdestinatn').hide();
-				$('#divdestinconoc').hide();
+			$('#divdestinatariocc').hide();
+			$('#divSegmntDADC').hide();
 		} else if (areaRemId != 15 && estatusId == 3) {
-				$('#divdestinatariocc').show();
-				$('#divdestinatn').hide();
-				$('#divdestinconoc').hide();
+			$('#divdestinatariocc').show();
+			$('#divSegmntDADC').hide();
 		} else if (areaRemId != 15 && estatusId != 3) {
-				$('#divdestinatariocc').hide();
-				$('#divdestinatn').show();
-				$('#divdestinconoc').show();
+			$('#divdestinatariocc').hide();
+			$('#divSegmntDADC').show();
 		}
 	}
 	function muestraPuestoAds(){
@@ -109,20 +101,16 @@ window.addEventListener('load', function(){
 	//areaRemId == 15 Dirección Ejecutiva de Recursos Humanos
 	if (estatusId == 3 && areaRemId == 15) {
 		$('#divdestinatariocc').show();
-		$('#divdestinatn').hide();
-		$('#divdestinconoc').hide();
+		$('#divSegmntDADC').hide();
 	} else if (estatusId == 3 && areaRemId != 15) {
 		$('#divdestinatariocc').show();
-		$('#divdestinatn').hide();
-		$('#divdestinconoc').hide();
+		$('#divSegmntDADC').hide();
 	} else if (estatusId != 3 && areaRemId == 15) {
 		$('#divdestinatariocc').hide();
-		$('#divdestinatn').hide();
-		$('#divdestinconoc').hide();
+		$('#divSegmntDADC').hide();
 	} else if (estatusId != 3 && areaRemId != 15) {
 		$('#divdestinatariocc').hide();
-		$('#divdestinatn').show();
-		$('#divdestinconoc').show();
+		$('#divSegmntDADC').show();
 	}
 
 	estatusDoc.addEventListener('change', function(){        

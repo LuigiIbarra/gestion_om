@@ -53,18 +53,6 @@
                     <div class="col-4" id="divnombre">
                         <label for="nombre_remitente" class="col-form-label text-md-right">Nombre:</label>
                         <input type="text" onkeypress="return textonly(event);" id="nombre_remitente" name="nombre_remitente" class="form-control" data-target="#nombre_remitente" value="{{$remitente->cnombre_personal.' '.$remitente->cpaterno_personal.' '.$remitente->cmaterno_personal}}" maxlength="50" required {{ $noeditar }}/>
-                        <!--
-                        <select class="form-control m-bot15" name="nombre_remitente" required {{ $noeditar }}>
-                        <option value="">Elija un Remitente...</option>
-                        @foreach($listPersonal as $indice=>$remitente)
-                            @if($remitente->iid_personal==$documento->iid_personal_remitente)
-                                <option value="{{$remitente->iid_personal}}" selected>{{$remitente->cnombre_personal.' '.$remitente->cpaterno_personal.' '.$remitente->cmaterno_personal}}</option>
-                            @else
-                                <option value="{{$remitente->iid_personal}}">{{$remitente->cnombre_personal.' '.$remitente->cpaterno_personal.' '.$remitente->cmaterno_personal}}</option>
-                            @endif
-                        @endforeach
-                        </select>
-                        -->
                     </div>
                     <div class="col-4" id="divpuesto">
                         <label for="puesto_remitente" class="col-form-label text-md-right">Puesto:</label>
@@ -73,16 +61,6 @@
                             @if($puesto->iid_puesto>0)
                                 <option value="{{$puesto->iid_puesto}}" selected>{{$puesto->cdescripcion_puesto}}</option>
                             @endif
-                            <!--
-                            <option value="">Elija un Puesto...</option>
-                            @foreach($listPuesto as $indice=>$puesto)
-                                @if($puesto->iid_puesto==$pers_remitente->iid_puesto)
-                                    <option value="{{$puesto->iid_puesto}}" selected>{{$puesto->cdescripcion_puesto}}</option>
-                                @else
-                                    <option value="{{$puesto->iid_puesto}}">{{$puesto->cdescripcion_puesto}}</option>
-                                @endif
-                            @endforeach
-                            -->
                         </select>
                     </div>
                     <div class="col-4" id="divarea">
@@ -92,16 +70,6 @@
                             @if($adscripcion->iid_adscripcion>0)
                                 <option value="{{$adscripcion->iid_adscripcion}}" selected>{{$adscripcion->cdescripcion_adscripcion}}</option>
                             @endif
-                            <!--
-                            <option value="">Elija una Adscripción...</option>
-                            @foreach($listAdscripcion as $indice=>$adscripcion)
-                                @if($adscripcion->iid_adscripcion==$pers_remitente->iid_adscripcion)
-                                    <option value="{{$adscripcion->iid_adscripcion}}" selected>{{$adscripcion->cdescripcion_adscripcion}}</option>
-                                @else
-                                    <option value="{{$adscripcion->iid_adscripcion}}">{{$adscripcion->cdescripcion_adscripcion}}</option>
-                                @endif
-                            @endforeach
-                            -->
                         </select>
                     </div>
                 </div>
@@ -324,23 +292,38 @@
                         <label for="observaciones" class="col-form-label text-md-right">Observaciones:</label>
                         <textarea name="observaciones" class="form-control" data-target="#observaciones" {{ $noeditar }}>{{ $documento->cobservaciones }}</textarea>
                     </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-4" id="divdestinatn">
-                        <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
-                    <!--Checkboxes de Destinatarios Atención-->
-                        @include('documentos.datos_destinatarios_atencion')
-                    </div>
-                    <div class="col-4" id="divdestinconoc">
-                        <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
-                    <!--Checkboxes de Destinatarios Conocimiento-->
-                        @include('documentos.datos_destinatarios_conocimiento')
-                    </div>
                     <div class="col-4" id="divarchivo">
                         <label for="archivo" class="col-form-label text-md-right">Archivo Dígital:</label>
                         <input type="file" id="archivo" name="archivo" class="form-control" data-target="#archivo" {{ $noeditar }}/>
                         <a href="{{url('pdf/'.substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4))}}" target="_blank">{{substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4)}}</a>
+                    </div>
+                </div>
+                <br>
+                <div id="divSegmntDADC">
+                    <div class="row">
+                        <div class="col-2" id="divdestinatn">
+                            <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
+                        <!--Checkboxes de Destinatarios Atención-->
+                            @include('documentos.datos_destinatarios_atencion')
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" id="divOM_Seguimiento">
+                        @if($destinAtt_total>0)
+                            @foreach($destinAtt as $indice=>$destAt)
+                                @if($destAt->iid_adscripcion==2)
+                                    @include('documentos.datos_segOM_dest_aten')
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4" id="divdestinconoc">
+                            <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
+                        <!--Checkboxes de Destinatarios Conocimiento-->
+                            @include('documentos.datos_destinatarios_conocimiento')
+                        </div>
                     </div>
                 </div>
                 <br>

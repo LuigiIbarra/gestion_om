@@ -43,7 +43,7 @@
                     <td class="text-center">{{ $documento['personalremitente']['cnombre_personal'].' '.$documento['personalremitente']['cpaterno_personal'].' '.$documento['personalremitente']['cmaterno_personal'] }}</td>
                     <td class="text-center">{{ $documento['estatusdocumento']['cdescripcion_estatus_documento'] }}</td>
                     <td class="text-center">{{ $documento['prioridaddocumento']['cdescripcion_prioridad_documento'] }}</td>
-                    <td class="text-center">{{ $documento['importanciacontenido']['cdescripcion_importancia_contenido'] }}</td>
+                    <td class="text-center">{{ $documento['importanciacontenido']['cdescripcion_importancia_conten'] }}</td>
                     <td class="text-center">{{ $documento['tema']['cdescripcion_tema'] }}</td>
                     <td class="text-center">{{ $documento['dfecha_termino'] }}</td>
                     <td class="text-center col-actions">

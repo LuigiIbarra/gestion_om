@@ -167,9 +167,9 @@
                                 <option value="">Elija una Importancia...</option>
                                 @foreach($listImportancia as $indice=>$importancia)
                                     @if($importancia->iid_importancia_contenido==$documento->iid_importancia_contenido)
-                                        <option value="{{$importancia->iid_importancia_contenido}}" selected>{{$importancia->cdescripcion_importancia_contenido}}</option>
+                                        <option value="{{$importancia->iid_importancia_contenido}}" selected>{{$importancia->cdescripcion_importancia_conten}}</option>
                                     @else
-                                        <option value="{{$importancia->iid_importancia_contenido}}">{{$importancia->cdescripcion_importancia_contenido}}</option>
+                                        <option value="{{$importancia->iid_importancia_contenido}}">{{$importancia->cdescripcion_importancia_conten}}</option>
                                     @endif
                                 @endforeach
                             </select>

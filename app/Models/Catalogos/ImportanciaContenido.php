@@ -12,6 +12,6 @@ class ImportanciaContenido extends Model
     protected $primaryKey = 'iid_importancia_contenido';
 
     public function documento(){
-        return $this->belongsTo('App\Models\Gestion\Documento');
+        return $this->hasMany('App\Models\Gestion\Documento','iid_importancia_contenido','iid_importancia_contenido');
     }
 }

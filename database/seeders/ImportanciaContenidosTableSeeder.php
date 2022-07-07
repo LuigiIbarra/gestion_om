@@ -16,8 +16,8 @@ class ImportanciaContenidosTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('tcimportancia_contenidos')->insert(['cdescripcion_importancia_contenido'=>'ORDINARIO','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
-        DB::table('tcimportancia_contenidos')->insert(['cdescripcion_importancia_contenido'=>'IMPORTANTE','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
-        DB::table('tcimportancia_contenidos')->insert(['cdescripcion_importancia_contenido'=>'RELEVANTE','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tcimportancia_contenidos')->insert(['cdescripcion_importancia_conten'=>'ORDINARIO','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tcimportancia_contenidos')->insert(['cdescripcion_importancia_conten'=>'IMPORTANTE','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tcimportancia_contenidos')->insert(['cdescripcion_importancia_conten'=>'RELEVANTE','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
     }
 }

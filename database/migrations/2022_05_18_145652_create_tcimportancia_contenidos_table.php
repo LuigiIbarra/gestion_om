@@ -15,7 +15,7 @@ class CreateTcimportanciaContenidosTable extends Migration
     {
         Schema::create('tcimportancia_contenidos', function (Blueprint $table) {
             $table->increments('iid_importancia_contenido');
-            $table->string('cdescripcion_importancia_contenido',50);
+            $table->string('cdescripcion_importancia_conten',50);
             $table->integer('iestatus')->default(1);
             $table->integer('iid_usuario')->nullable();
             $table->timestamps();

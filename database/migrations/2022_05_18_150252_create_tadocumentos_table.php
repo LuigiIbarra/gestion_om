@@ -26,8 +26,8 @@ class CreateTadocumentosTable extends Migration
             $table->integer('iid_prioridad_documento')->unsigned()->nullable();
             $table->string('cfolio_relacionado')->nullable();
             $table->string('cnomenclatura_archivistica',100)->nullable();
-            $table->integer('iid_importancia_contenido')->unsigned()->nullable();
-            $table->integer('iid_tema')->unsigned()->nullable();
+            $table->integer('iid_importancia_contenido')->nullable();
+            $table->integer('iid_tema')->nullable();
             $table->integer('iid_tipo_asunto')->unsigned()->nullable();
             $table->integer('iid_instruccion')->unsigned()->nullable();
             $table->date('dfecha_termino')->nullable();

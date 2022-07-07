@@ -4,12 +4,14 @@
                                 <input type="checkbox" id="conoc2" name="conoc2">
                             @else
                                 {{$check=''}}
-                                @foreach($destinCon as $indice=>$destCn)
-                                    @if($destinCon_total>0 && $destCn->iid_adscripcion==2)
-                                        <input type="checkbox" id="conoc2" name="conoc2" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==2)
+                                            <input type="checkbox" id="conoc2" name="conoc2" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
                                 @if($check=='')
                                     <input type="checkbox" id="conoc2" name="conoc2" {{$noeditar}}>
                                 @endif
@@ -22,12 +24,14 @@
                                 <input type="checkbox" id="conoc12" name="conoc12">
                             @else
                                 {{$check=''}}
-                                @foreach($destinCon as $indice=>$destCn)
-                                    @if($destinCon_total>0 && $destCn->iid_adscripcion==12)
-                                        <input type="checkbox" id="conoc12" name="conoc12" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==12)
+                                            <input type="checkbox" id="conoc12" name="conoc12" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
                                 @if($check=='')
                                     <input type="checkbox" id="conoc12" name="conoc12" {{$noeditar}}>
                                 @endif
@@ -40,12 +44,14 @@
                                 <input type="checkbox" id="conoc14" name="conoc14">
                             @else
                                 {{$check=''}}
-                                @foreach($destinCon as $indice=>$destCn)
-                                    @if($destinCon_total>0 && $destCn->iid_adscripcion==14)
-                                        <input type="checkbox" id="conoc14" name="conoc14" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==14)
+                                            <input type="checkbox" id="conoc14" name="conoc14" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
                                 @if($check=='')
                                     <input type="checkbox" id="conoc14" name="conoc14" {{$noeditar}}>
                                 @endif
@@ -58,12 +64,14 @@
                                 <input type="checkbox" id="conoc15" name="conoc15">
                             @else
                                 {{$check=''}}
-                                @foreach($destinCon as $indice=>$destCn)
-                                    @if($destinCon_total>0 && $destCn->iid_adscripcion==15)
-                                        <input type="checkbox" id="conoc15" name="conoc15" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==15)
+                                            <input type="checkbox" id="conoc15" name="conoc15" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
                                 @if($check=='')
                                     <input type="checkbox" id="conoc15" name="conoc15" {{$noeditar}}>
                                 @endif
@@ -76,12 +84,14 @@
                                 <input type="checkbox" id="conoc16" name="conoc16">
                             @else
                                 {{$check=''}}
-                                @foreach($destinCon as $indice=>$destCn)
-                                    @if($destinCon_total>0 && $destCn->iid_adscripcion==16)
-                                        <input type="checkbox" id="conoc16" name="conoc16" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==16)
+                                            <input type="checkbox" id="conoc16" name="conoc16" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
                                 @if($check=='')
                                     <input type="checkbox" id="conoc16" name="conoc16" {{$noeditar}}>
                                 @endif
@@ -94,12 +104,14 @@
                                 <input type="checkbox" id="conoc17" name="conoc17">
                             @else
                                 {{$check=''}}
-                                @foreach($destinCon as $indice=>$destCn)
-                                    @if($destinCon_total>0 && $destCn->iid_adscripcion==17)
-                                        <input type="checkbox" id="conoc17" name="conoc17" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==17)
+                                            <input type="checkbox" id="conoc17" name="conoc17" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
                                 @if($check=='')
                                     <input type="checkbox" id="conoc17" name="conoc17" {{$noeditar}}>
                                 @endif
@@ -112,12 +124,14 @@
                                 <input type="checkbox" id="conoc18" name="conoc18">
                             @else
                                 {{$check=''}}
-                                @foreach($destinCon as $indice=>$destCn)
-                                    @if($destinCon_total>0 && $destCn->iid_adscripcion==18)
-                                        <input type="checkbox" id="conoc18" name="conoc18" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==18)
+                                            <input type="checkbox" id="conoc18" name="conoc18" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
                                 @if($check=='')
                                     <input type="checkbox" id="conoc18" name="conoc18" {{$noeditar}}>
                                 @endif
@@ -130,12 +144,14 @@
                                 <input type="checkbox" id="conoc999" name="conoc999" {{$noeditar}}>
                             @else
                                 {{$check=''}}
-                                @foreach($destinCon as $indice=>$destCn)
-                                    @if($destinCon_total>0 && $destCn->iid_adscripcion==999)
-                                        <input type="checkbox" id="conoc999" name="conoc999" checked {{$noeditar}}>
-                                        {{$check=' '}}
-                                    @endif
-                                @endforeach
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==999)
+                                            <input type="checkbox" id="conoc999" name="conoc999" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
                                 @if($check=='')
                                     <input type="checkbox" id="conoc999" name="conoc999" {{$noeditar}}>
                                 @endif

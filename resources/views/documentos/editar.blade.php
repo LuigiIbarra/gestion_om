@@ -9,7 +9,7 @@
 
         <input type="hidden" id="id_documento" name="id_documento" value="{{ $documento->iid_documento }}">
         <input type="hidden" id="noeditar"     name="noeditar"     value="{{ $noeditar }}">
-        <input type="hidden" id="idRemitente"  name="idRemitente"  value=""/>
+        <input type="hidden" id="idRemitente"  name="idRemitente"  value="{{ $documento->iid_personal_remitente }}"/>
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

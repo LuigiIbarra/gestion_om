@@ -3,7 +3,7 @@
                 <div class="row">
                     <div class="col" id="divOMsegnumdoc">
                         <label for="OMnum_doc_seguim" class="col-form-label text-md-right">Número de Documento:</label>
-                        <input type="text" onkeypress="return textonly(event);" id="OMnum_doc_seguim" name="OMnum_doc_seguim" class="form-control" data-target="#OMnum_doc_seguim" value="{{ $destAt->cnum_docto_resp }}" maxlength="100" {{ $noeditar }} />
+                        <input type="text" id="OMnum_doc_seguim" name="OMnum_doc_seguim" class="form-control" data-target="#OMnum_doc_seguim" value="{{ $destAt->cnum_docto_resp }}" maxlength="100" {{ $noeditar }} />
                     </div>
                     <div class="col" id="divOMsegtipodoc">
                         <label for="OMtipo_doc_seg" class="col-form-label text-md-right">Tipo de Documento:</label>

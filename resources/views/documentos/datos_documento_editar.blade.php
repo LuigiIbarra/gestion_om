@@ -308,11 +308,89 @@
                         </div>
                     </div>
                     <br>
+                <!--OFICIALÍA MAYOR OM, id=2-->
                     <div class="row" id="divOM_Seguimiento">
                         @if($destinAtt_total>0)
                             @foreach($destinAtt as $indice=>$destAt)
                                 @if($destAt->iid_adscripcion==2)
                                     @include('documentos.datos_segOM_dest_aten')
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    <br>
+                <!--PLANEACIÓN PL, id=12-->
+                    <div class="row" id="divPL_Seguimiento">
+                        @if($destinAtt_total>0)
+                            @foreach($destinAtt as $indice=>$destAt)
+                                @if($destAt->iid_adscripcion==12)
+                                    @include('documentos.datos_segPL_dest_aten')
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    <br>
+                <!--GESTIÓN TECNOLÓGICA, id=14-->
+                    <div class="row" id="divGT_Seguimiento">
+                        @if($destinAtt_total>0)
+                            @foreach($destinAtt as $indice=>$destAt)
+                                @if($destAt->iid_adscripcion==14)
+                                    @include('documentos.datos_segGT_dest_aten')
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    <br>
+                <!--RECURSOS HUMANOS RH, id=15-->
+                    <div class="row" id="divRH_Seguimiento">
+                        @if($destinAtt_total>0)
+                            @foreach($destinAtt as $indice=>$destAt)
+                                @if($destAt->iid_adscripcion==15)
+                                    @include('documentos.datos_segRH_dest_aten')
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    <br>
+                <!--OBRAS, MANTENIMIENTO Y SERVICIOS OB, id=16-->
+                    <div class="row" id="divOB_Seguimiento">
+                        @if($destinAtt_total>0)
+                            @foreach($destinAtt as $indice=>$destAt)
+                                @if($destAt->iid_adscripcion==16)
+                                    @include('documentos.datos_segOB_dest_aten')
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    <br>
+                <!--RECURSOS MAERIALES RM, id=17-->
+                    <div class="row" id="divRM_Seguimiento">
+                        @if($destinAtt_total>0)
+                            @foreach($destinAtt as $indice=>$destAt)
+                                @if($destAt->iid_adscripcion==17)
+                                    @include('documentos.datos_segRM_dest_aten')
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    <br>
+                <!--RECURSOS FINANCIEROS RF, id=18-->
+                    <div class="row" id="divRF_Seguimiento">
+                        @if($destinAtt_total>0)
+                            @foreach($destinAtt as $indice=>$destAt)
+                                @if($destAt->iid_adscripcion==18)
+                                    @include('documentos.datos_segRF_dest_aten')
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    <br>
+                <!--OTRO OT, id=999-->
+                    <div class="row" id="divOT_Seguimiento">
+                        @if($destinAtt_total>0)
+                            @foreach($destinAtt as $indice=>$destAt)
+                                @if($destAt->iid_adscripcion==999)
+                                    @include('documentos.datos_segOT_dest_aten')
                                 @endif
                             @endforeach
                         @endif

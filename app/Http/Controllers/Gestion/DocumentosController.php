@@ -47,7 +47,6 @@ class DocumentosController extends Controller
         } else {
             $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iestatus','=',1)->get();
         }
-        dd($data);
         return view('documentos.index',$data);
     }
 

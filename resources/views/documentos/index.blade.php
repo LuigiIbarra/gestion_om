@@ -43,8 +43,16 @@
                     <td class="text-center">{{ $documento['personalremitente']['cnombre_personal'].' '.$documento['personalremitente']['cpaterno_personal'].' '.$documento['personalremitente']['cmaterno_personal'] }}</td>
                     <td class="text-center">{{ $documento['estatusdocumento']['cdescripcion_estatus_documento'] }}</td>
                     <td class="text-center">{{ $documento['prioridaddocumento']['cdescripcion_prioridad_documento'] }}</td>
-                    <td class="text-center">{{ $documento['importanciacontenido']['cdescripcion_importancia_conten'] }}</td>
-                    <td class="text-center">{{ $documento['tema']['cdescripcion_tema'] }}</td>
+                    @if($documento['importanciacontenido']!=null)
+                        <td class="text-center">{{ $documento['importanciacontenido']['cdescripcion_importancia_conten'] }}</td>
+                    @else
+                        <td class="text-center"></td>
+                    @endif
+                    @if($documento['tema']!=null)
+                        <td class="text-center">{{ $documento['tema']['cdescripcion_tema'] }}</td>
+                    @else
+                        <td class="text-center"></td>
+                    @endif
                     <td class="text-center">{{ $documento['dfecha_termino'] }}</td>
                     <td class="text-center col-actions">
                     @if ($documento->iestatus == 1)

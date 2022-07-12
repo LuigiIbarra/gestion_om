@@ -240,18 +240,17 @@
                     </div>
                 </div>
                 <br>
-                <div id="divSegmntDADC">
-                    <div class="row">
-                        <div class="col-4" id="divdestinatn">
-                            <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
-                        <!--Checkboxes de Destinatarios Atención-->
-                            @include('documentos.datos_destinatarios_atencion')
-                        </div>
-                        <div class="col-4" id="divdestinconoc">
-                            <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
-                        <!--Checkboxes de Destinatarios Conocimiento-->
-                            @include('documentos.datos_destinatarios_conocimiento')
-                        </div>
+                <hr>
+                <div class="row" id="divSegmntDADC">
+                    <div class="col-4" id="divdestinatn">
+                        <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
+                    <!--Checkboxes de Destinatarios Atención-->
+                        @include('documentos.datos_destinatarios_atencion')
+                    </div>
+                    <div class="col-4" id="divdestinconoc">
+                        <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
+                    <!--Checkboxes de Destinatarios Conocimiento-->
+                        @include('documentos.datos_destinatarios_conocimiento')
                     </div>
                 </div>
-                <br>
+                <hr>

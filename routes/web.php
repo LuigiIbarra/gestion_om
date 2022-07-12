@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Gestion\DocumentosController;
+use App\Http\Controllers\Gestion\DestinatarioAtencionController;
 use App\Http\Controllers\Catalogos\PuestosController;
 use App\Http\Controllers\Catalogos\AdscripcionesController;
 use App\Http\Controllers\Catalogos\PersonalController;
@@ -30,11 +31,22 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('documentos/index',                      [DocumentosController::class, 'index'])->name('documentos.index');
 Route::get('documentos/nuevo',                      [DocumentosController::class, 'nuevo_documento']);
 Route::post('documentos/guardar',                   [DocumentosController::class, 'guardar_documento']);
-Route::get('documentos/editar/{id_documento}',      [DocumentosController::class, 'editar_documento']);
+Route::get('documentos/editar/{id_documento}',      [DocumentosController::class, 'editar_documento'])->name('documentos.editar');
 Route::post('documentos/actualizar',                [DocumentosController::class, 'actualizar_documento']);
 Route::get('documentos/inhabilitar/{id_documento}', [DocumentosController::class, 'confirmainhabilitar_documento']);
 Route::post('documentos/inhabilitar',               [DocumentosController::class, 'inhabilitar_documento']);
 Route::post('buscaDoctoDuplicado',                  [DocumentosController::class, 'buscaDoctoDuplicado']);
+
+
+//Rutas de Destinatarios Atención
+Route::post('destatencion/OMseguimiento',           [DestinatarioAtencionController::class, 'OMseguimiento']);
+Route::post('destatencion/PLseguimiento',           [DestinatarioAtencionController::class, 'PLseguimiento']);
+Route::post('destatencion/GTseguimiento',           [DestinatarioAtencionController::class, 'GTseguimiento']);
+Route::post('destatencion/RHseguimiento',           [DestinatarioAtencionController::class, 'RHseguimiento']);
+Route::post('destatencion/OBseguimiento',           [DestinatarioAtencionController::class, 'OBseguimiento']);
+Route::post('destatencion/RMseguimiento',           [DestinatarioAtencionController::class, 'RMseguimiento']);
+Route::post('destatencion/RFseguimiento',           [DestinatarioAtencionController::class, 'RFseguimiento']);
+Route::post('destatencion/OTseguimiento',           [DestinatarioAtencionController::class, 'OTseguimiento']);
 
 //Rutas de Puestos
 Route::get('puestos/index',                         [PuestosController::class, 'index'])->name('puestos.index');

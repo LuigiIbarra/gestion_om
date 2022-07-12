@@ -299,109 +299,17 @@
                     </div>
                 </div>
                 <br>
-                <div id="divSegmntDADC">
-                    <div class="row">
-                        <div class="col-2" id="divdestinatn">
-                            <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
-                        <!--Checkboxes de Destinatarios Atención-->
-                            @include('documentos.datos_destinatarios_atencion')
-                        </div>
+                <hr>
+                <div class="row" id="divSegmntDADC">
+                    <div class="col-4" id="divdestinatn">
+                        <label for="destinatario_atencion" class="col-form-label text-md-right">Destinatarios para Atención:</label>
+                    <!--Checkboxes de Destinatarios Atención-->
+                        @include('documentos.datos_destinatarios_atencion')
                     </div>
-                    <br>
-                <!--OFICIALÍA MAYOR OM, id=2-->
-                    <div class="row" id="divOM_Seguimiento">
-                        @if($destinAtt_total>0)
-                            @foreach($destinAtt as $indice=>$destAt)
-                                @if($destAt->iid_adscripcion==2)
-                                    @include('documentos.datos_segOM_dest_aten')
-                                @endif
-                            @endforeach
-                        @endif
-                    </div>
-                    <br>
-                <!--PLANEACIÓN PL, id=12-->
-                    <div class="row" id="divPL_Seguimiento">
-                        @if($destinAtt_total>0)
-                            @foreach($destinAtt as $indice=>$destAt)
-                                @if($destAt->iid_adscripcion==12)
-                                    @include('documentos.datos_segPL_dest_aten')
-                                @endif
-                            @endforeach
-                        @endif
-                    </div>
-                    <br>
-                <!--GESTIÓN TECNOLÓGICA, id=14-->
-                    <div class="row" id="divGT_Seguimiento">
-                        @if($destinAtt_total>0)
-                            @foreach($destinAtt as $indice=>$destAt)
-                                @if($destAt->iid_adscripcion==14)
-                                    @include('documentos.datos_segGT_dest_aten')
-                                @endif
-                            @endforeach
-                        @endif
-                    </div>
-                    <br>
-                <!--RECURSOS HUMANOS RH, id=15-->
-                    <div class="row" id="divRH_Seguimiento">
-                        @if($destinAtt_total>0)
-                            @foreach($destinAtt as $indice=>$destAt)
-                                @if($destAt->iid_adscripcion==15)
-                                    @include('documentos.datos_segRH_dest_aten')
-                                @endif
-                            @endforeach
-                        @endif
-                    </div>
-                    <br>
-                <!--OBRAS, MANTENIMIENTO Y SERVICIOS OB, id=16-->
-                    <div class="row" id="divOB_Seguimiento">
-                        @if($destinAtt_total>0)
-                            @foreach($destinAtt as $indice=>$destAt)
-                                @if($destAt->iid_adscripcion==16)
-                                    @include('documentos.datos_segOB_dest_aten')
-                                @endif
-                            @endforeach
-                        @endif
-                    </div>
-                    <br>
-                <!--RECURSOS MAERIALES RM, id=17-->
-                    <div class="row" id="divRM_Seguimiento">
-                        @if($destinAtt_total>0)
-                            @foreach($destinAtt as $indice=>$destAt)
-                                @if($destAt->iid_adscripcion==17)
-                                    @include('documentos.datos_segRM_dest_aten')
-                                @endif
-                            @endforeach
-                        @endif
-                    </div>
-                    <br>
-                <!--RECURSOS FINANCIEROS RF, id=18-->
-                    <div class="row" id="divRF_Seguimiento">
-                        @if($destinAtt_total>0)
-                            @foreach($destinAtt as $indice=>$destAt)
-                                @if($destAt->iid_adscripcion==18)
-                                    @include('documentos.datos_segRF_dest_aten')
-                                @endif
-                            @endforeach
-                        @endif
-                    </div>
-                    <br>
-                <!--OTRO OT, id=999-->
-                    <div class="row" id="divOT_Seguimiento">
-                        @if($destinAtt_total>0)
-                            @foreach($destinAtt as $indice=>$destAt)
-                                @if($destAt->iid_adscripcion==999)
-                                    @include('documentos.datos_segOT_dest_aten')
-                                @endif
-                            @endforeach
-                        @endif
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-4" id="divdestinconoc">
-                            <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
-                        <!--Checkboxes de Destinatarios Conocimiento-->
-                            @include('documentos.datos_destinatarios_conocimiento')
-                        </div>
+                    <div class="col-4" id="divdestinconoc">
+                        <label for="destinatario_conocimiento" class="col-form-label text-md-right">Destinatarios para Conocimiento:</label>
+                    <!--Checkboxes de Destinatarios Conocimiento-->
+                        @include('documentos.datos_destinatarios_conocimiento')
                     </div>
                 </div>
-                <br>
+                <hr>

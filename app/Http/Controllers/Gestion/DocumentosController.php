@@ -330,7 +330,39 @@ class DocumentosController extends Controller
             PersonalConocimientoController::bitacora($jsonBefore,$jsonAfter);
         }
 
-
+        //Actualizar Destinatarios para Atención
+        if($request->atencion2==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '2', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '2', 0);
+        if($request->atencion12==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '12', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '12', 0);
+        if($request->atencion14==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '14', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '14', 0);
+        if($request->atencion15==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '15', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '15', 0);
+        if($request->atencion16==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '16', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '16', 0);
+        if($request->atencion17==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '17', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '17', 0);
+        if($request->atencion18==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '18', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '18', 0);
+        if($request->atencion999==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '999', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '999', 0);
 
         //Actualizar Destinatarios para Conocimiento
         if($request->conoc2==='on')

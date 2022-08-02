@@ -39,14 +39,7 @@ Route::post('buscaDoctoDuplicado',                  [DocumentosController::class
 
 
 //Rutas de Destinatarios Atención
-Route::post('destatencion/OMseguimiento',           [DestinatarioAtencionController::class, 'OMseguimiento']);
-Route::post('destatencion/PLseguimiento',           [DestinatarioAtencionController::class, 'PLseguimiento']);
-Route::post('destatencion/GTseguimiento',           [DestinatarioAtencionController::class, 'GTseguimiento']);
-Route::post('destatencion/RHseguimiento',           [DestinatarioAtencionController::class, 'RHseguimiento']);
-Route::post('destatencion/OBseguimiento',           [DestinatarioAtencionController::class, 'OBseguimiento']);
-Route::post('destatencion/RMseguimiento',           [DestinatarioAtencionController::class, 'RMseguimiento']);
-Route::post('destatencion/RFseguimiento',           [DestinatarioAtencionController::class, 'RFseguimiento']);
-Route::post('destatencion/OTseguimiento',           [DestinatarioAtencionController::class, 'OTseguimiento']);
+Route::post('destatencion/seguimiento',             [DestinatarioAtencionController::class, 'seguimiento']);
 
 //Rutas de Puestos
 Route::get('puestos/index',                         [PuestosController::class, 'index'])->name('puestos.index');

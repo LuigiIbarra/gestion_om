@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Gestion\DocumentosController;
 use App\Http\Controllers\Gestion\DestinatarioAtencionController;
+use App\Http\Controllers\Gestion\DestinatarioConocimientoController;
 use App\Http\Controllers\Catalogos\PuestosController;
 use App\Http\Controllers\Catalogos\AdscripcionesController;
 use App\Http\Controllers\Catalogos\PersonalController;
@@ -40,6 +41,9 @@ Route::post('buscaDoctoDuplicado',                  [DocumentosController::class
 
 //Rutas de Destinatarios Atención
 Route::post('destatencion/seguimiento',             [DestinatarioAtencionController::class, 'seguimiento']);
+
+//Rutas de Destinatarios Conocimiento
+Route::post('destconoc/seguimiento',                [DestinatarioConocimientoController::class, 'seguimiento']);
 
 //Rutas de Puestos
 Route::get('puestos/index',                         [PuestosController::class, 'index'])->name('puestos.index');

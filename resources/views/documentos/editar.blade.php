@@ -52,7 +52,7 @@
     <!--OFICIALÍA MAYOR OM, id=2-->
             @if($destAt->iid_adscripcion==2)
                 <div class="col-3" id="divDAOMSeg">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#OMSeguimModal">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AOMSeguimModal">
                         Seguimiento OFMTSJ
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención Oficialía Mayor -->
@@ -62,7 +62,7 @@
     <!--PLANEACIÓN PL, id=12-->
             @if($destAt->iid_adscripcion==12)
                 <div class="col-3" id="divDAPLSeg">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#PLSeguimModal">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#APLSeguimModal">
                         Seguimiento D E P
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención Planeación -->
@@ -71,8 +71,8 @@
             @endif
     <!--GESTIÓN TECNOLÓGICA, id=14-->
             @if($destAt->iid_adscripcion==14)
-                <div class="col-3" id="divGT_Seguimiento">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#GTSeguimModal">
+                <div class="col-3" id="divDAGTSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AGTSeguimModal">
                         Seguimiento DEGT
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención Gestión Tecnológica -->
@@ -81,8 +81,8 @@
             @endif
     <!--RECURSOS HUMANOS RH, id=15-->
             @if($destAt->iid_adscripcion==15)
-                <div class="col-3" id="divRH_Seguimiento">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RHSeguimModal">
+                <div class="col-3" id="divDARHSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ARHSeguimModal">
                         Seguimiento DERH
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERH -->
@@ -92,8 +92,8 @@
             <br>
     <!--OBRAS, MANTENIMIENTO Y SERVICIOS OB, id=16-->
             @if($destAt->iid_adscripcion==16)
-                <div class="col-3" id="divOB_Seguimiento">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#OBSeguimModal">
+                <div class="col-3" id="divDAOBSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AOBSeguimModal">
                         Seguimiento DEOMS
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DEOMS -->
@@ -102,8 +102,8 @@
             @endif
     <!--RECURSOS MAERIALES RM, id=17-->
             @if($destAt->iid_adscripcion==17)
-                <div class="col-3" id="divRM_Seguimiento">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RMSeguimModal">
+                <div class="col-3" id="divDARMSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ARMSeguimModal">
                         Seguimiento DERM
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERM -->
@@ -112,8 +112,8 @@
             @endif
     <!--RECURSOS FINANCIEROS RF, id=18-->
             @if($destAt->iid_adscripcion==18)
-                <div class="col-3" id="divRF_Seguimiento">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RFSeguimModal">
+                <div class="col-3" id="divDARFSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ARFSeguimModal">
                         Seguimiento DERF
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERF -->
@@ -122,8 +122,8 @@
             @endif
     <!--OTRO OT, id=999-->
             @if($destAt->iid_adscripcion==999)
-                <div class="col-3" id="divOT_Seguimiento">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#OTSeguimModal">
+                <div class="col-3" id="divDAOTSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AOTSeguimModal">
                         Seguimiento OTRO
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención OTRO -->
@@ -134,4 +134,94 @@
         </div>
     @endif
     <br>
+    @if($destinCon_total>0)
+        <hr>
+        <h5 class="text-primary-sin"><b>SEGUIMIENTO DESTINATARIOS CONOCIMIENTO</b></h5>
+        <br>
+        <div class="row" id="divDC_Seguimiento">
+        @foreach($destinCon as $indice=>$destCn)
+    <!--OFICIALÍA MAYOR OM, id=2-->
+            @if($destCn->iid_adscripcion==2)
+                <div class="col-3" id="divDCOMSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#COMSeguimModal">
+                        Seguimiento OFMTSJ
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención Oficialía Mayor -->
+                    @include('documentos.datos_segOM_dest_con')
+                </div>
+            @endif
+    <!--PLANEACIÓN PL, id=12-->
+            @if($destCn->iid_adscripcion==12)
+                <div class="col-3" id="divDCPLSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CPLSeguimModal">
+                        Seguimiento D E P
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención Planeación -->
+                    @include('documentos.datos_segPL_dest_con')
+                </div>
+            @endif
+    <!--GESTIÓN TECNOLÓGICA, id=14-->
+            @if($destCn->iid_adscripcion==14)
+                <div class="col-3" id="divDCGTSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CGTSeguimModal">
+                        Seguimiento DEGT
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención Gestión Tecnológica -->
+                    @include('documentos.datos_segGT_dest_con')
+                </div>
+            @endif
+    <!--RECURSOS HUMANOS RH, id=15-->
+            @if($destCn->iid_adscripcion==15)
+                <div class="col-3" id="divDCRHSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CRHSeguimModal">
+                        Seguimiento DERH
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERH -->
+                    @include('documentos.datos_segRH_dest_con')
+                </div>
+            @endif
+            <br>
+    <!--OBRAS, MANTENIMIENTO Y SERVICIOS OB, id=16-->
+            @if($destCn->iid_adscripcion==16)
+                <div class="col-3" id="divDCOBSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#COBSeguimModal">
+                        Seguimiento DEOMS
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención DEOMS -->
+                    @include('documentos.datos_segOB_dest_con')
+                </div>
+            @endif
+    <!--RECURSOS MAERIALES RM, id=17-->
+            @if($destCn->iid_adscripcion==17)
+                <div class="col-3" id="divDCRM_Seg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CRMSeguimModal">
+                        Seguimiento DERM
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERM -->
+                    @include('documentos.datos_segRM_dest_con')
+                </div>
+            @endif
+    <!--RECURSOS FINANCIEROS RF, id=18-->
+            @if($destCn->iid_adscripcion==18)
+                <div class="col-3" id="divDCRFSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CRFSeguimModal">
+                        Seguimiento DERF
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERF -->
+                    @include('documentos.datos_segRF_dest_con')
+                </div>
+            @endif
+    <!--OTRO OT, id=999-->
+            @if($destCn->iid_adscripcion==999)
+                <div class="col-3" id="divDCOTSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#COTSeguimModal">
+                        Seguimiento OTRO
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención OTRO -->
+                    @include('documentos.datos_segOT_dest_con')
+                </div>
+            @endif
+        @endforeach
+        </div>
+    @endif
 @endsection

@@ -107,58 +107,6 @@ class DestinatarioAtencionController extends Controller
                          ->with('success','Seguimiento Atención guardado satisfactoriamente.');
     }
 
-//OTRO OT, id=999
-    public function OTseguimiento(Request $request){
-    //Primero debemos averiguar si hay registro de la adscripción
-        $siHayAdscrip                           = DestinatarioAtencion::where('iid_documento','=',$request->otdaid_docto)
-                                                                      ->where('iid_adscripcion','=',999)->count();
-    //Si hay, lo actualizamos
-        if($siHayAdscrip>0){
-            $destinatario_atencion              = DestinatarioAtencion::where('iid_documento','=',$request->otdaid_docto)
-                                                                      ->where('iid_adscripcion','=',999)->first();
-            $jsonBefore                         = json_encode($destinatario_atencion);                                                      
-        } else {
-    //No hay y el checked es 1, lo registramos como nuevo
-            $destinatario_atencion                      = new DestinatarioAtencion();
-            $jsonBefore                                 = "NEW INSERT ADSCRIPCION_ATENCION";
-        }
-        $destinatario_atencion->iid_documento           = $request->otdaid_docto;
-        $destinatario_atencion->iid_adscripcion         = 999;
-        
-        $destinatario_atencion->cnum_docto_resp         = $request->OTnum_doc_seguim;
-        $destinatario_atencion->crespuesta              = $request->OTseguimiento;
-        $destinatario_atencion->iid_tipo_documento      = $request->OTtipo_doc_seg;
-        $destinatario_atencion->iid_estatus_documento   = $request->OTestatus_doc_seg;
-        $destinatario_atencion->dfecha_concluido        = $request->OTfecha_seguimiento;
-
-        //Manejo del archivo PDF
-        if($request->hasFile("OTarchivo_seguim")){
-            $file=$request->file("OTarchivo_seguim");
-            
-            $nombre = "pdf_".time().".".$file->guessExtension();
-
-            $ruta = public_path("pdf/".$nombre);
-
-            if($file->guessExtension()=="pdf"){
-                copy($file, $ruta);
-                $destinatario_atencion->cruta_archivo_respuesta = $ruta;
-            }else{
-                $destinatario_atencion->cruta_archivo_respuesta = '';
-                dd("NO ES UN PDF");
-            }
-        }
-        //Fin de Manejo del archivo PDF
-
-        $destinatario_atencion->iestatus                = 1;
-        $destinatario_atencion->iid_usuario             = auth()->user()->id;
-        $destinatario_atencion->save();
-        $jsonAfter                                      = json_encode($destinatario_atencion);
-        DestinatarioAtencionController::bitacora($jsonBefore,$jsonAfter);
-
-        return redirect()->route('documentos.editar', $request->otdaid_docto)
-                         ->with('success','Seguimiento Atención OTRO guardado satisfactoriamente.');
-    }
-
     public static function bitacora(string $jsonBefore,string $jsonAfter){
         $bitacora = new Bitacora();
         $bitacora->cjson_antes   = ($jsonBefore==null ? 'NEW INSERT': $jsonBefore);

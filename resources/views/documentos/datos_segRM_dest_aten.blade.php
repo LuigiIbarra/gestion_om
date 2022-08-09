@@ -1,8 +1,8 @@
-    <div class="modal fade" id="RMSeguimModal" tabindex="-1" aria-labelledby="RMSeguimModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ARMSeguimModal" tabindex="-1" aria-labelledby="ARMSeguimModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="RMSeguimModalLabel">Seguimiento Atención Recursos Materiales</h5>
+                    <h5 class="modal-title" id="ARMSeguimModalLabel">Seguimiento Atención Recursos Materiales</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

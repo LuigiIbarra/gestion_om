@@ -63,6 +63,50 @@ class DestinatarioConocimientoController extends Controller
         DestinatarioConocimientoController::bitacora($jsonBefore,$jsonAfter);
     }
 
+    //Actualizar SEGUIMIENTO Destinatarios para Conocimiento
+    public function seguimiento(Request $request){
+        $destinatario_conocimiento                        = DestinatarioConocimiento::where('iid_destinatario_conocimiento','=',$request->id_dest_cn)->first();
+        $jsonBefore                                       = json_encode($destinatario_conocimiento);
+        $destinatario_conocimiento->iid_documento         = $request->id_docto;
+        $destinatario_conocimiento->iid_adscripcion       = $request->id_area;
+        $destinatario_conocimiento->cnum_docto_seguim     = $request->num_doc_seguim;
+        $destinatario_conocimiento->cseguimiento          = $request->seguimiento;
+        $destinatario_conocimiento->iid_tipo_documento    = $request->tipo_doc_seg;
+        $destinatario_conocimiento->iid_estatus_documento = $request->estatus_doc_seg;
+        $destinatario_conocimiento->dfecha_seguimiento    = $request->fecha_seguimiento;
+        if($request->id_area=="999")
+            $destinatario_conocimiento->cdescrip_otra_adscrip = $request->otra_ads;
+        else
+            $destinatario_conocimiento->cdescrip_otra_adscrip = '';
+
+        //Manejo del archivo PDF
+        if($request->hasFile("dcarchivo_seguim")){
+            $file=$request->file("dcarchivo_seguim");
+            
+            $nombre = "pdf_".time().".".$file->guessExtension();
+
+            $ruta = public_path("pdf/".$nombre);
+
+            if($file->guessExtension()=="pdf"){
+                copy($file, $ruta);
+                $destinatario_atencion->cruta_archivo_seguim = $ruta;
+            }else{
+                $destinatario_atencion->cruta_archivo_seguim = '';
+                dd("NO ES UN PDF");
+            }
+        }
+        //Fin de Manejo del archivo PDF
+
+        $destinatario_conocimiento->iestatus              = 1;
+        $destinatario_conocimiento->iid_usuario           = auth()->user()->id;
+        $destinatario_conocimiento->save();
+        $jsonAfter                                        = json_encode($destinatario_conocimiento);
+        DestinatarioConocimientoController::bitacora($jsonBefore,$jsonAfter);
+
+        return redirect()->route('documentos.editar', $request->id_docto)
+                         ->with('success','Seguimiento Conocimiento guardado satisfactoriamente.');
+    }
+
     public static function bitacora(string $jsonBefore,string $jsonAfter){
         $bitacora = new Bitacora();
         $bitacora->cjson_antes   = ($jsonBefore==null ? 'NEW INSERT': $jsonBefore);

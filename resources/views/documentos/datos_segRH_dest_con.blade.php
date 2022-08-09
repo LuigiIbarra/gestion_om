@@ -1,25 +1,19 @@
-    <div class="modal fade" id="AOTSeguimModal" tabindex="-1" aria-labelledby="AOTSeguimModalLabel" aria-hidden="true">
+    <div class="modal fade" id="CRHSeguimModal" tabindex="-1" aria-labelledby="CRHSeguimModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="AOTSeguimModalLabel">Seguimiento Atención OTRO</h5>
+                    <h5 class="modal-title" id="CRHSeguimModalLabel">Seguimiento Conocimiento Recursos Humanos</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formOTsegatt" method="POST" action="{{ url('destatencion/seguimiento') }}" enctype="multipart/form-data">
+                    <form id="formRHsegcon" method="POST" action="{{ url('destconoc/seguimiento') }}" enctype="multipart/form-data">
                     @csrf
                         <div class="d-none">
-                            <input type="text" name="id_dest_at" id="id_dest_at" value="{{ $destAt->iid_destinatario_atencion }}">
+                            <input type="text" name="id_dest_cn" id="id_dest_cn" value="{{ $destCn->iid_destinatario_conocimiento }}">
                             <input type="text" name="id_docto"   id="id_docto"   value="{{ $documento->iid_documento }}">
-                            <input type="text" name="id_area"    id="id_area"    value="{{ $destAt->iid_adscripcion }}">
-                        </div>
-                        <div class="row">
-                            <div class="col" id="divotraads">
-                                <label for="otra_ads" class="col-form-label text-md-right">Descripción del Área/Razón Social Persona Física:</label>
-                                <input type="text" id="otra_ads" name="otra_ads" class="form-control" data-target="#otra_ads" value="{{ $destAt->cdescrip_otra_adscrip }}" maxlength="100" {{ $noeditar }} />
-                            </div>
+                            <input type="text" name="id_area"    id="id_area"    value="{{ $destCn->iid_adscripcion }}">
                         </div>
                         @include('documentos.datos_modal_atencion')
                         <div class="modal-footer">

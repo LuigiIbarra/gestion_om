@@ -15,7 +15,7 @@
                             <input type="text" name="id_docto"   id="id_docto"   value="{{ $documento->iid_documento }}">
                             <input type="text" name="id_area"    id="id_area"    value="{{ $destCn->iid_adscripcion }}">
                         </div>
-                        @include('documentos.datos_modal_atencion')
+                        @include('documentos.datos_modal_conocimiento')
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/x-lg.svg') }}" width="18" height="18">

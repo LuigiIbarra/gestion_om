@@ -89,9 +89,9 @@ class DestinatarioConocimientoController extends Controller
 
             if($file->guessExtension()=="pdf"){
                 copy($file, $ruta);
-                $destinatario_atencion->cruta_archivo_seguim = $ruta;
+                $destinatario_conocimiento->cruta_archivo_seguim = $ruta;
             }else{
-                $destinatario_atencion->cruta_archivo_seguim = '';
+                $destinatario_conocimiento->cruta_archivo_seguim = '';
                 dd("NO ES UN PDF");
             }
         }

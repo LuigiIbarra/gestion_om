@@ -56,7 +56,7 @@
                         Seguimiento OFMTSJ
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención Oficialía Mayor -->
-                    @include('documentos.datos_segOM_dest_aten')
+                    @include('documentos.modales.datos_segOM_dest_aten')
                 </div>
             @endif
     <!--PLANEACIÓN PL, id=12-->
@@ -66,7 +66,7 @@
                         Seguimiento D E P
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención Planeación -->
-                    @include('documentos.datos_segPL_dest_aten')
+                    @include('documentos.modales.datos_segPL_dest_aten')
                 </div>
             @endif
     <!--GESTIÓN TECNOLÓGICA, id=14-->
@@ -76,7 +76,7 @@
                         Seguimiento DEGT
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención Gestión Tecnológica -->
-                    @include('documentos.datos_segGT_dest_aten')
+                    @include('documentos.modales.datos_segGT_dest_aten')
                 </div>
             @endif
     <!--RECURSOS HUMANOS RH, id=15-->
@@ -86,7 +86,7 @@
                         Seguimiento DERH
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERH -->
-                    @include('documentos.datos_segRH_dest_aten')
+                    @include('documentos.modales.datos_segRH_dest_aten')
                 </div>
             @endif
             <br>
@@ -97,7 +97,7 @@
                         Seguimiento DEOMS
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DEOMS -->
-                    @include('documentos.datos_segOB_dest_aten')
+                    @include('documentos.modales.datos_segOB_dest_aten')
                 </div>
             @endif
     <!--RECURSOS MAERIALES RM, id=17-->
@@ -107,7 +107,7 @@
                         Seguimiento DERM
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERM -->
-                    @include('documentos.datos_segRM_dest_aten')
+                    @include('documentos.modales.datos_segRM_dest_aten')
                 </div>
             @endif
     <!--RECURSOS FINANCIEROS RF, id=18-->
@@ -117,7 +117,7 @@
                         Seguimiento DERF
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERF -->
-                    @include('documentos.datos_segRF_dest_aten')
+                    @include('documentos.modales.datos_segRF_dest_aten')
                 </div>
             @endif
     <!--OTRO OT, id=999-->
@@ -127,7 +127,7 @@
                         Seguimiento OTRO
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención OTRO -->
-                    @include('documentos.datos_segOT_dest_aten')
+                    @include('documentos.modales.datos_segOT_dest_aten')
                 </div>
             @endif
         @endforeach
@@ -147,7 +147,7 @@
                         Seguimiento OFMTSJ
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención Oficialía Mayor -->
-                    @include('documentos.datos_segOM_dest_con')
+                    @include('documentos.modales.datos_segOM_dest_con')
                 </div>
             @endif
     <!--PLANEACIÓN PL, id=12-->
@@ -157,7 +157,7 @@
                         Seguimiento D E P
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención Planeación -->
-                    @include('documentos.datos_segPL_dest_con')
+                    @include('documentos.modales.datos_segPL_dest_con')
                 </div>
             @endif
     <!--GESTIÓN TECNOLÓGICA, id=14-->
@@ -167,7 +167,7 @@
                         Seguimiento DEGT
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención Gestión Tecnológica -->
-                    @include('documentos.datos_segGT_dest_con')
+                    @include('documentos.modales.datos_segGT_dest_con')
                 </div>
             @endif
     <!--RECURSOS HUMANOS RH, id=15-->
@@ -177,7 +177,7 @@
                         Seguimiento DERH
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERH -->
-                    @include('documentos.datos_segRH_dest_con')
+                    @include('documentos.modales.datos_segRH_dest_con')
                 </div>
             @endif
             <br>
@@ -188,7 +188,7 @@
                         Seguimiento DEOMS
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DEOMS -->
-                    @include('documentos.datos_segOB_dest_con')
+                    @include('documentos.modales.datos_segOB_dest_con')
                 </div>
             @endif
     <!--RECURSOS MAERIALES RM, id=17-->
@@ -198,7 +198,7 @@
                         Seguimiento DERM
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERM -->
-                    @include('documentos.datos_segRM_dest_con')
+                    @include('documentos.modales.datos_segRM_dest_con')
                 </div>
             @endif
     <!--RECURSOS FINANCIEROS RF, id=18-->
@@ -208,7 +208,7 @@
                         Seguimiento DERF
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERF -->
-                    @include('documentos.datos_segRF_dest_con')
+                    @include('documentos.modales.datos_segRF_dest_con')
                 </div>
             @endif
     <!--OTRO OT, id=999-->
@@ -218,7 +218,7 @@
                         Seguimiento OTRO
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención OTRO -->
-                    @include('documentos.datos_segOT_dest_con')
+                    @include('documentos.modales.datos_segOT_dest_con')
                 </div>
             @endif
         @endforeach

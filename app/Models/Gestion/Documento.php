@@ -58,4 +58,8 @@ class Documento extends Model
     public function destinatarioconocimiento(){
         return $this->hasMany('App\Models\Gestion\DestinatarioConocimiento','iid_documento','iid_documento');
     }
+
+    public function foliorelacionado(){
+        return $this->hasMany('App\Models\Gestion\FolioRelacionado','iid_documento','iid_documento');
+    }
 }

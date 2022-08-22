@@ -7,9 +7,10 @@
     <form method="POST" action="{{ url('/documentos/actualizar') }}" id="formEditarDocumento" enctype="multipart/form-data">
     	@csrf
 
-        <input type="hidden" id="id_documento" name="id_documento" value="{{ $documento->iid_documento }}">
-        <input type="hidden" id="noeditar"     name="noeditar"     value="{{ $noeditar }}">
-        <input type="hidden" id="idRemitente"  name="idRemitente"  value="{{ $documento->iid_personal_remitente }}"/>
+        <input type="hidden" id="id_documento"   name="id_documento"   value="{{ $documento->iid_documento }}"/>
+        <input type="hidden" id="noeditar"       name="noeditar"       value="{{ $noeditar }}"/>
+        <input type="hidden" id="idRemitente"    name="idRemitente"    value="{{ $documento->iid_personal_remitente }}"/>
+        <input type="hidden" id="idDestinatario" name="idDestinatario" value="{{ $pers_conoc->iid_personal }}"/>
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -42,6 +43,12 @@
             </div>
         </div>
     </form>
+    <br>
+    @if($folsRels_total>0)
+        <hr>
+        <h5 class="text-primary-sin"><b>Folios Relacionados</b></h5>
+        @include('folios_rels.index')
+    @endif
     <br>
     @if($destinAtt_total>0)
         <hr>

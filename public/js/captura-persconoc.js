@@ -3,10 +3,14 @@
 window.addEventListener('load', function(){
 
 	function muestraPersonaConocimiento() {
-		var areaRemId  = document.querySelector('#area_remitente').value;
-		var estatusId = document.querySelector('#estatus_documento').value;
-		//estatusId ==  3 Conocimiento
 		//areaRemId == 15 Dirección Ejecutiva de Recursos Humanos
+		//var areaRemId  = document.querySelector('#area_remitente').value;
+		//A solicitud del Ing. Victor Zaragoza, cambia de estatus_documento a tipo_documento
+		//var estatusId = document.querySelector('#estatus_documento').value;
+		//estatusId ==  3 Conocimiento, cambia por
+		//tipoDocId ==  7 COPIA DE CONOCIMIENTO
+		//tipoDocId ==  8 RECURSOS HUMANOS
+		/*
 		if (estatusId == 3 && areaRemId == 15) {
 			$('#divdestinatariocc').show();
 			$('#divSegmntDADC').hide();
@@ -20,11 +24,29 @@ window.addEventListener('load', function(){
 			$('#divdestinatariocc').hide();
 			$('#divSegmntDADC').show();
 		}
+		*/
+		var tipoDocId  = document.querySelector('#tipo_documento').value;
+		if (tipoDocId == 7) {
+		//tipoDocId ==  7 COPIA DE CONOCIMIENTO
+			$('#divdestinatariocc').show();
+			$('#divSegmntDADC').hide();
+		} else if (tipoDocId == 8) {
+		//tipoDocId ==  8 RECURSOS HUMANOS
+			$('#divdestinatariocc').hide();
+			$('#divSegmntDADC').hide();
+		} else {
+			$('#divdestinatariocc').hide();
+			$('#divSegmntDADC').show();
+		}
 	}
+	//A solicitud del Ing. Victor Zaragoza, cambia de estatus_documento a tipo_documento
+	//estatusId ==  3 Conocimiento, cambia por
+	//tipoDocId ==  7 COPIA DE CONOCIMIENTO
+	//tipoDocId ==  8 RECURSOS HUMANOS
+	/*
 	function muestraRH() {
 		var areaRemId  = document.querySelector('#area_remitente').value;
 		var estatusId  = document.querySelector('#estatus_documento').value;
-		//estatusId ==  3 Conocimiento
 		//areaRemId == 15 Dirección Ejecutiva de Recursos Humanos
 		if (areaRemId == 15 && estatusId == 3) {
 			$('#divdestinatariocc').show();
@@ -40,6 +62,7 @@ window.addEventListener('load', function(){
 			$('#divSegmntDADC').show();
 		}
 	}
+	*/
 	function muestraPuestoAds(){
         $.ajaxSetup({
             headers: {
@@ -69,7 +92,7 @@ window.addEventListener('load', function(){
                     document.querySelector("#puesto_remitente").innerHTML = selectPuesto;
                     document.querySelector("#area_remitente").innerHTML = selectAdscrip;
                 	document.querySelector('#validaPersonal').innerHTML = "";
-                	muestraRH();
+                	//muestraRH();
                 }else{
                     $('#puesto_remitente').attr("disabled", true);
                     $('#area_remitente').attr("disabled", true);
@@ -90,15 +113,21 @@ window.addEventListener('load', function(){
             }
         });
     }
-
-	var areaRemite = document.querySelector('#area_remitente');
-	var areaRemId  = document.querySelector('#area_remitente').value;
-	var estatusDoc = document.querySelector("#estatus_documento");
-	var estatusId  = document.querySelector('#estatus_documento').value;
+    
+    //A solicitud del Ing. Victor Zaragoza, cambia de estatus_documento a tipo_documento
+	//var areaRemite = document.querySelector('#area_remitente');
+	//var areaRemId  = document.querySelector('#area_remitente').value;
+	//var estatusDoc = document.querySelector('#estatus_documento');
+	//var estatusId  = document.querySelector('#estatus_documento').value;
+	var tipoDoc    = document.querySelector("#tipo_documento");
+	var tipoDocId  = document.querySelector('#tipo_documento').value;
 	var nombreRem  = document.querySelector('#nombre_remitente');
 
-	//estatusId ==  3 Conocimiento
+	//estatusId ==  3 Conocimiento, cambia por
+	//tipoDocId ==  7 COPIA DE CONOCIMIENTO
+	//tipoDocId ==  8 RECURSOS HUMANOS
 	//areaRemId == 15 Dirección Ejecutiva de Recursos Humanos
+	/*
 	if (estatusId == 3 && areaRemId == 15) {
 		$('#divdestinatariocc').show();
 		$('#divSegmntDADC').hide();
@@ -112,13 +141,28 @@ window.addEventListener('load', function(){
 		$('#divdestinatariocc').hide();
 		$('#divSegmntDADC').show();
 	}
+	*/
+	if (tipoDocId == 7) {
+	//tipoDocId ==  7 COPIA DE CONOCIMIENTO
+		$('#divdestinatariocc').show();
+		$('#divSegmntDADC').hide();
+	} else if (tipoDocId == 8) {
+	//tipoDocId ==  8 RECURSOS HUMANOS
+		$('#divdestinatariocc').hide();
+		$('#divSegmntDADC').hide();
+	} else {
+		$('#divdestinatariocc').hide();
+		$('#divSegmntDADC').show();
+	}	
 
-	estatusDoc.addEventListener('change', function(){        
+	tipoDoc.addEventListener('change', function(){        
         muestraPersonaConocimiento();
     });
+    /*
     areaRemite.addEventListener('change', function(){        
         muestraRH();
     });
+    */
     nombreRem.addEventListener('change', function(){
     	muestraPuestoAds();
     });

@@ -57,20 +57,20 @@
                     <td class="text-center col-actions">
                     @if ($documento->iestatus == 1)
                         @if ($documento->cruta_archivo_documento!="")
-                            <a href="{{url('pdf/'.substr($documento['cruta_archivo_documento'],strrpos($documento['cruta_archivo_documento'],'pdf/')+4))}}" target="_blank">
+                            <a href="{{url('pdf/'.substr($documento['cruta_archivo_documento'],strrpos($documento['cruta_archivo_documento'],'pdf/')+4))}}" title="Ver PDF" target="_blank">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/file-pdf-fill.svg') }}" width="18" height="18">
                             </a>
                         @endif
-                            <a href="{{ url('documentos/editar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
-                            </a>
-                            <a href="{{ url('documentos/inhabilitar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Borrar">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
-                            </a>
+                        <a href="{{ url('documentos/editar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
+                            <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
+                        </a>
+                        <a href="{{ url('documentos/inhabilitar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Borrar">
+                            <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
+                        </a>
                     @else
-                            <a href="{{ url('documentos/inhabilitar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Recuperar">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/check-lg.svg') }}" width="18" height="18">
-                            </a>
+                        <a href="{{ url('documentos/inhabilitar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Recuperar">
+                            <img src="{{ asset('bootstrap-icons-1.5.0/check-lg.svg') }}" width="18" height="18">
+                        </a>
                     @endif
                     </td>
                 </tr>

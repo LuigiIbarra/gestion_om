@@ -20,7 +20,7 @@
                     </div>
                     <div class="col" id="divtipodoc">
                         <label for="tipo_documento" class="col-form-label text-md-right">Tipo de Documento:</label>
-                        <select class="form-control m-bot15" name="tipo_documento" required {{ $noeditar }}>
+                        <select class="form-control m-bot15" id="tipo_documento" name="tipo_documento" required {{ $noeditar }}>
                             <option value="">Elija un Tipo de Documento...</option>
                             @foreach($listTipoDocumento as $indice=>$tipos_docs)
                                 @if($tipos_docs->iid_tipo_documento==$documento->iid_tipo_documento)
@@ -57,13 +57,13 @@
                     <div class="col-4" id="divpuesto">
                         <label for="puesto_remitente" class="col-form-label text-md-right">Puesto:</label>
                         <select class="form-control m-bot15" id="puesto_remitente" name="puesto_remitente" required {{ $noeditar }}>
-                            <option value="">Escriba un Nombre...</option>
+                            <option value="">Escriba un Nombre de Remitente...</option>
                         </select>
                     </div>
                     <div class="col-4" id="divarea">
                         <label for="area_remitente" class="col-form-label text-md-right">Adscripción:</label>
                         <select class="form-control m-bot15" id="area_remitente" name="area_remitente" required {{ $noeditar }}>
-                            <option value="">Escriba un Nombre...</option>
+                            <option value="">Escriba un Nombre de Remitente...</option>
                         </select>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                     </div>
                     <div class="col" id="divfoliorel">
                         <label for="folio_relacionado" class="col-form-label text-md-right">Folio Relacionado:</label>
-                        <input type="text" id="folio_relacionado" name="folio_relacionado" class="form-control" data-target="#folio_relacionado" value="{{ $documento->cfolio_relacionado }}" {{ $noeditar }}/>
+                        <input type="text" id="folio_relacionado" name="folio_relacionado" class="form-control" data-target="#folio_relacionado" value="" {{ $noeditar }}/>
                     </div>
                     <div class="col" id="divnomarchs">
                         <label for="nomenclatura_archivistica" class="col-form-label text-md-right">Nomenclatura Archivistica:</label>
@@ -113,45 +113,23 @@
                     <div class="row">
                         <div class="col-4" id="divnombre">
                             <label for="nombre_destinatariocc" class="col-form-label text-md-right">Nombre:</label>
-                            <select class="form-control m-bot15" name="nombre_destinatariocc" {{ $noeditar }}>
-                            <option value="">Elija un Destinatario Copia Conocimiento...</option>
-                            @foreach($listPersonal as $indice=>$destincc)
-                                @if($destincc->iid_personal==$documento->iid_personal_conocimiento)
-                                    <option value="{{$destincc->iid_personal}}" selected>{{$destincc->cnombre_personal.' '.$destincc->cpaterno_personal.' '.$destincc->cmaterno_personal}}</option>
-                                @else
-                                    <option value="{{$destincc->iid_personal}}">{{$destincc->cnombre_personal.' '.$destincc->cpaterno_personal.' '.$destincc->cmaterno_personal}}</option>
-                                @endif
-                            @endforeach
-                            </select>
+                            <input type="text" onkeypress="return textonly(event);" id="nombre_destinatariocc" name="nombre_destinatariocc" class="form-control" data-target="#nombre_destinatariocc" value="" maxlength="50" {{ $noeditar }}/>
                         </div>
                         <div class="col-4" id="divpuesto">
                             <label for="puesto_conocimiento" class="col-form-label text-md-right">Puesto:</label>
-                            <select class="form-control m-bot15" name="puesto_conocimiento" {{ $noeditar }}>
-                            <option value="">Elija un Puesto...</option>
-                            @foreach($listPuesto as $indice=>$puesto)
-                                @if($puesto->iid_puesto==$documento->iid_puesto)
-                                    <option value="{{$puesto->iid_puesto}}" selected>{{$puesto->cdescripcion_puesto}}</option>
-                                @else
-                                    <option value="{{$puesto->iid_puesto}}">{{$puesto->cdescripcion_puesto}}</option>
-                                @endif
-                            @endforeach
+                            <select class="form-control m-bot15" id="puesto_conocimiento" name="puesto_conocimiento" {{ $noeditar }}>
+                                <option value="">Escriba un Nombre de Destinatario...</option>
                             </select>
                         </div>
                         <div class="col-4" id="divarea">
                             <label for="area_conocimiento" class="col-form-label text-md-right">Adscripción:</label>
-                            <select class="form-control m-bot15" name="area_conocimiento" {{ $noeditar }}>
-                            <option value="">Elija un Adscripción...</option>
-                            @foreach($listAdscripcion as $indice=>$adscripcion)
-                                @if($adscripcion->iid_adscripcion==$documento->iid_adscripcion)
-                                    <option value="{{$adscripcion->iid_adscripcion}}" selected>{{$adscripcion->cdescripcion_adscripcion}}</option>
-                                @else
-                                    <option value="{{$adscripcion->iid_adscripcion}}">{{$adscripcion->cdescripcion_adscripcion}}</option>
-                                @endif
-                            @endforeach
+                            <select class="form-control m-bot15" id="area_conocimiento" name="area_conocimiento" {{ $noeditar }}>
+                                <option value="">Escriba un Nombre de Destinatario...</option>
                             </select>
                         </div>
                     </div>
                     <br>
+                    <!--
                     <div>
                         <a href="#" data-toggle="tooltip" data-html="true" title="AgregarDestinCC">
                             + Agregar Destinatario
@@ -160,6 +138,7 @@
                         </div>
                     </div>
                     <br>
+                    -->
                     <div class="row">
                         <div class="col-4" id="divimportancia">
                             <label for="importancia_contenido" class="col-form-label text-md-right">Importancia del Contenido:</label>
@@ -203,6 +182,7 @@
                     </div>
                 </div>
                 <br>
+                <center><div id="validaPersonalDest"></div></center>
                 <hr>
                 <div class="row">
                     <div class="col" id="divinstruccion">

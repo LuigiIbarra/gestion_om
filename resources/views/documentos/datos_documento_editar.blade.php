@@ -20,7 +20,7 @@
                     </div>
                     <div class="col" id="divtipodoc">
                         <label for="tipo_documento" class="col-form-label text-md-right">Tipo de Documento:</label>
-                        <select class="form-control m-bot15" name="tipo_documento" required {{ $noeditar }}>
+                        <select class="form-control m-bot15" id="tipo_documento" name="tipo_documento" required {{ $noeditar }}>
                             <option value="">Elija un Tipo de Documento...</option>
                             @foreach($listTipoDocumento as $indice=>$tipos_docs)
                                 @if($tipos_docs->iid_tipo_documento==$documento->iid_tipo_documento)
@@ -77,7 +77,7 @@
                 <center><div id="validaPersonal"></div></center>
                 <hr>
                 <div class="row">
-                    <div class="col" id="divestatus">
+                    <div class="col-3" id="divestatus">
                         <label for="estatus_documento" class="col-form-label text-md-right">Estatus:</label>
                         <select class="form-control m-bot15" id="estatus_documento" name="estatus_documento" required {{ $noeditar }}>
                             <option value="">Elija un Estatus...</option>
@@ -90,7 +90,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col" id="divprioridad">
+                    <div class="col-3" id="divprioridad">
                         <label for="prioridad_documento" class="col-form-label text-md-right">Prioridad:</label>
                         <select class="form-control m-bot15" id="prioridad_documento" name="prioridad_documento" required {{ $noeditar }}>
                             <option value="">Elija una Prioridad...</option>
@@ -103,12 +103,16 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col" id="divfoliorel">
-                        <label for="folio_relacionado" class="col-form-label text-md-right">Folio Relacionado:</label>
-                        <input type="text" id="folio_relacionado" name="folio_relacionado" class="form-control" data-target="#folio_relacionado" value="{{ $documento->cfolio_relacionado }}" {{ $noeditar }}/>
-                        <a href="{{url('pdf/'.substr($doct_relacionado->cruta_archivo_documento,strrpos($doct_relacionado->cruta_archivo_documento,'pdf/')+4))}}" target="_blank">{{substr($doct_relacionado->cruta_archivo_documento,strrpos($doct_relacionado->cruta_archivo_documento,'pdf/')+4)}}</a>
-                    </div>
-                    <div class="col" id="divnomarchs">
+                    @if($folsRels_total==0)
+                        <div class="col-3" id="divfoliorel">
+                            <label for="folio_relacionado" class="col-form-label text-md-right">Folio Relacionado:</label>
+                            <input type="text" id="folio_relacionado" name="folio_relacionado" class="form-control" data-target="#folio_relacionado" value="" {{ $noeditar }}/>
+                            <!--
+                            <a href="{{url('pdf/'.substr($docs_rels->cruta_archivo_documento,strrpos($docs_rels->cruta_archivo_documento,'pdf/')+4))}}" target="_blank">{{substr($docs_rels->cruta_archivo_documento,strrpos($docs_rels->cruta_archivo_documento,'pdf/')+4)}}</a>
+                            -->
+                        </div>
+                    @endif
+                    <div class="col-3" id="divnomarchs">
                         <label for="nomenclatura_archivistica" class="col-form-label text-md-right">Nomenclatura Archivistica:</label>
                         <input type="text" onkeypress="return textonly(event);" id="nomenclatura_archivistica" name="nomenclatura_archivistica" class="form-control" data-target="#nomenclatura_archivistica" value="{{ $documento->cnomenclatura_archivistica }}" maxlength="100" {{ $noeditar }} />
                     </div>
@@ -295,7 +299,7 @@
                     <div class="col-4" id="divarchivo">
                         <label for="archivo" class="col-form-label text-md-right">Archivo Dígital:</label>
                         <input type="file" id="archivo" name="archivo" class="form-control" data-target="#archivo" {{ $noeditar }}/>
-                        <a href="{{url('pdf/'.substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4))}}" target="_blank">{{substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4)}}</a>
+                        <a href="{{url('pdf/'.substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4))}}" title="Ver PDF" target="_blank">{{substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4)}}</a>
                     </div>
                 </div>
                 <br>

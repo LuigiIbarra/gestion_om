@@ -24,7 +24,6 @@ class CreateTadocumentosTable extends Migration
             $table->integer('iid_personal_remitente')->unsigned()->nullable();
             $table->integer('iid_estatus_documento')->unsigned()->nullable();
             $table->integer('iid_prioridad_documento')->unsigned()->nullable();
-            $table->string('cfolio_relacionado')->nullable();
             $table->string('cnomenclatura_archivistica',100)->nullable();
             $table->integer('iid_importancia_contenido')->nullable();
             $table->integer('iid_tema')->nullable();

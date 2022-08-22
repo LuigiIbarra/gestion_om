@@ -22,6 +22,7 @@ class TiposDocumentosTableSeeder extends Seeder
         DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'CIRCULAR','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'INFORMES','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'NOTA INFORMATIVA','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
-        DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'COPIA DE OFICIO','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'COPIA DE CONOCIMIENTO','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'RECURSOS HUMANOS','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
     }
 }

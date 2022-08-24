@@ -118,6 +118,7 @@
                     </div>
                 </div>
                 <br>
+                <center><div id="validaFolioRel"></div></center>
                 <hr>
                 <div id="divdestinatariocc">
                     <label><b>DESTINATARIO(S) DE COPIA DE CONOCIMIENTO</b></label>

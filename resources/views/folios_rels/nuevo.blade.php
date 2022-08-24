@@ -1,18 +1,15 @@
 @extends('layouts.app')
 
 @section('titulo')
-    Nuevo Documento
+    Nuevo Folio Relacionado del Documento {{$documento->cnumero_documento}}
 @endsection
 @section('panel')
-    <form method="POST" action="{{ url('/documentos/guardar') }}" id="formNuevoDocumento" enctype="multipart/form-data">
+    <form method="POST" action="{{ url('/folios/guardar') }}" id="formNuevoFolio" enctype="multipart/form-data">
     	@csrf
-        <!--Auxiliar para el año-->
-        <input type="hidden" id="anio"           name="anio"           value="{{$parametros->ianio}}"/>
-        <input type="hidden" id="folio"          name="folio"          value="{{$newfolio}}"/>
-        <input type="hidden" id="idRemitente"    name="idRemitente"    value=""/>
-        <input type="hidden" id="idDestinatario" name="idDestinatario" value=""/>
-        <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>
-
+        <!--Auxiliar para el Documento-->
+        <input type="hidden" id="idDocumento" name="idDocumento" value="{{$documento->iid_documento}}"/>
+        <input type="hidden" id="newFolioRel" name="newFolioRel" value="1"/>
+        
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>Corrige los errores para continuar</p>
@@ -27,7 +24,7 @@
             </div>
         @endif
         <!--Inputs de Documento-->
-        @include('documentos.datos_documento')
+        @include('folios_rels.datos_folio_rel')
     
         <div class="row text-center">
             <div class="col-6">                        

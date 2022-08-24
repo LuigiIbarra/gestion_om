@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col col-form-label text-md-right">
                 <a href="{{ url('folios/nuevo/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Nuevo">
-                    + Nuevo Folio
+                    + Nuevo Folio Relacionado
                 </a>
             </div>
         </div>

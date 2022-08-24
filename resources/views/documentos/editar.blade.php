@@ -11,6 +11,7 @@
         <input type="hidden" id="noeditar"       name="noeditar"       value="{{ $noeditar }}"/>
         <input type="hidden" id="idRemitente"    name="idRemitente"    value="{{ $documento->iid_personal_remitente }}"/>
         <input type="hidden" id="idDestinatario" name="idDestinatario" value="{{ $pers_conoc->iid_personal }}"/>
+        <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

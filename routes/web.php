@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Gestion\DocumentosController;
 use App\Http\Controllers\Gestion\DestinatarioAtencionController;
 use App\Http\Controllers\Gestion\DestinatarioConocimientoController;
+use App\Http\Controllers\Gestion\FolioRelacionadoController;
 use App\Http\Controllers\Catalogos\PuestosController;
 use App\Http\Controllers\Catalogos\AdscripcionesController;
 use App\Http\Controllers\Catalogos\PersonalController;
@@ -38,6 +39,10 @@ Route::get('documentos/inhabilitar/{id_documento}', [DocumentosController::class
 Route::post('documentos/inhabilitar',               [DocumentosController::class, 'inhabilitar_documento']);
 Route::post('buscaDoctoDuplicado',                  [DocumentosController::class, 'buscaDoctoDuplicado']);
 
+//Rutas de Folios Relacionados
+Route::get('folios/nuevo/{id_documento}',           [FolioRelacionadoController::class, 'nuevo_folio']);
+Route::post('folios/guardar',                       [FolioRelacionadoController::class, 'guarda_nuevo_folio_rel']);
+Route::post('buscaFolioRelacionado',                [FolioRelacionadoController::class, 'buscaFolioRelacionado']);
 
 //Rutas de Destinatarios Atención
 Route::post('destatencion/seguimiento',             [DestinatarioAtencionController::class, 'seguimiento']);

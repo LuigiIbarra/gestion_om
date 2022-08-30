@@ -142,8 +142,8 @@ class DocumentosController extends Controller
             FolioRelacionadoController::guarda_folio_relacionado($idDocumento, $request->folio_relacionado);
 
         //Destinatarios de Copia de Conocimiento
-        if($request->nombre_destinatariocc>0)
-            PersonalConocimientoController::guarda_personal_conoc($idDocumento, $request->nombre_destinatariocc);
+        if($request->nombre_destinatariocc!="")
+            PersonalConocimientoController::guarda_personal_conoc($idDocumento, $request->idDestinatario);
 
         //Guardar Destinatarios para Atención
         if($request->atencion2==='on')
@@ -210,8 +210,14 @@ class DocumentosController extends Controller
     //Datos de Personal Conocimiento
         $pers_conoc_total   = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
         if($pers_conoc_total>0) {
-            $pers_conoc     = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
-            $pers_cncmnt    = Personal::where('iid_personal','=',$pers_conoc->iid_personal)->where('iestatus','=',1)->first();
+        //Obtener la lista de Personal con Copia de Conocimiento
+            $pers_conoc     = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
+        //Y convertirla en un arreglo
+            $array1 = array();
+            foreach($pers_conoc as $persconoc)
+                $array1[]   = $persconoc->iid_personal;
+        //Para poder usarla en la consulta de Personal con Copia de Conocimiento
+            $pers_cncmnt    = Personal::with('puesto','adscripcion')->whereIn('iid_personal',$array1)->where('iestatus','=',1)->get();
         } else {
             $pers_conoc     = new PersonalConocimiento();
             $pers_cncmnt    = new Personal();
@@ -251,7 +257,7 @@ class DocumentosController extends Controller
         $noeditar           = '';
     //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','remitente','listPuesto','puesto','listAdscripcion','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','docs_rels','noeditar','nuevo_registro'));
+        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','remitente','listPuesto','puesto','listAdscripcion','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc_total','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','docs_rels','noeditar','nuevo_registro'));
     }
 
     public function actualizar_documento(Request $request)
@@ -312,44 +318,7 @@ class DocumentosController extends Controller
         } else {
             $idPersonalAnt                      = 0;
         }
-        if($idPersonalAnt!=$request->nombre_destinatariocc)
-            PersonalConocimientoController::actualiza_personal_conoc($idDocumento, $request->nombre_destinatariocc, $idPersonalAnt);
-        //SEGUIMIENTO PERSONAL CONOCIMIENTO
-        if($request->num_doc_seguim!=""){
-            $personal_conocimiento                          = PersonalConocimiento::where('iid_documento','=',$idDocumento)
-                                                                      ->where('iid_personal','=',$request->nombre_destinatariocc)->first();
-            $jsonBefore                                     = json_encode($personal_conocimiento);
-            $personal_conocimiento->cnum_docto_seguim       = $request->num_doc_seguim;
-            $personal_conocimiento->iid_tipo_documento      = $request->tipo_doc_seg;
-            $personal_conocimiento->iid_estatus_documento   = $request->estatus_doc_seg;
-            $personal_conocimiento->dfecha_seguimiento      = $request->fecha_seguimiento;
-            $personal_conocimiento->cseguimiento            = $request->seguimiento;
-
-            //Manejo del archivo PDF
-            if($request->hasFile("archivo_seguim")){
-                $file=$request->file("archivo_seguim");
-                
-                $nombre = "pdf_".time().".".$file->guessExtension();
-
-                $ruta = public_path("pdf/".$nombre);
-
-                if($file->guessExtension()=="pdf"){
-                    copy($file, $ruta);
-                    $personal_conocimiento->cruta_archivo_seguim = $ruta;
-                }else{
-                    $personal_conocimiento->cruta_archivo_seguim = '';
-                    dd("NO ES UN PDF");
-                }
-            }
-            //Fin de Manejo del archivo PDF
-
-            $personal_conocimiento->iestatus                = 1;
-            $personal_conocimiento->iid_usuario             = auth()->user()->id;
-            $personal_conocimiento->save();
-            $jsonAfter                                      = json_encode($personal_conocimiento);
-            PersonalConocimientoController::bitacora($jsonBefore,$jsonAfter);
-        }
-
+        
         //Actualizar Destinatarios para Atención
         if($request->atencion2==='on')
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '2', 1);

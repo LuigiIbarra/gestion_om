@@ -130,16 +130,6 @@
                         </div>
                     </div>
                     <br>
-                    <!--
-                    <div>
-                        <a href="#" data-toggle="tooltip" data-html="true" title="AgregarDestinCC">
-                            + Agregar Destinatario
-                        </a>
-                        <div id="divMasDestinsConoc">
-                        </div>
-                    </div>
-                    <br>
-                    -->
                     <div class="row">
                         <div class="col-4" id="divimportancia">
                             <label for="importancia_contenido" class="col-form-label text-md-right">Importancia del Contenido:</label>

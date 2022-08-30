@@ -75,7 +75,7 @@ $(document).ready(function() {
         buttons: botones
     } );
 
-    $('#MyTableGarantias').DataTable( {
+    $('#MyTableFolios').DataTable( {
         language: {
              //"url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
              "url": idioma
@@ -89,7 +89,7 @@ $(document).ready(function() {
         buttons: botones
     } );
 
-    $('#MyTableGestores').DataTable( {
+    $('#MyTablePersConoc').DataTable( {
         language: {
              //"url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
              "url": idioma
@@ -103,17 +103,4 @@ $(document).ready(function() {
         buttons: botones
     } );
 
-    $('#MyTableExamenes').DataTable( {
-        language: {
-             //"url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-             "url": idioma
-             },
-        responsive: "true",
-        //dom: 'Bfrtip',
-        lengthMenu: [
-        numFilas,
-        filas
-       ],
-        buttons: botones
-    } );
 } );

@@ -6,6 +6,7 @@ use App\Http\Controllers\Gestion\DocumentosController;
 use App\Http\Controllers\Gestion\DestinatarioAtencionController;
 use App\Http\Controllers\Gestion\DestinatarioConocimientoController;
 use App\Http\Controllers\Gestion\FolioRelacionadoController;
+use App\Http\Controllers\Gestion\PersonalConocimientoController;
 use App\Http\Controllers\Catalogos\PuestosController;
 use App\Http\Controllers\Catalogos\AdscripcionesController;
 use App\Http\Controllers\Catalogos\PersonalController;
@@ -43,6 +44,12 @@ Route::post('buscaDoctoDuplicado',                  [DocumentosController::class
 Route::get('folios/nuevo/{id_documento}',           [FolioRelacionadoController::class, 'nuevo_folio']);
 Route::post('folios/guardar',                       [FolioRelacionadoController::class, 'guarda_nuevo_folio_rel']);
 Route::post('buscaFolioRelacionado',                [FolioRelacionadoController::class, 'buscaFolioRelacionado']);
+
+//Rutas de Personal con Copia de Conocimiento
+Route::get('persconoc/nuevo/{id_documento}',                [PersonalConocimientoController::class, 'nuevo_persconoc']);
+Route::post('persconoc/guardar',                            [PersonalConocimientoController::class, 'guardar_nuevo_persconoc']);
+Route::get('persconoc/editar/{id_documento}/{id_personal}', [PersonalConocimientoController::class, 'editar_persconoc']);
+Route::post('persconoc/seguimiento',                        [PersonalConocimientoController::class, 'seguimiento_persconoc']);
 
 //Rutas de Destinatarios Atención
 Route::post('destatencion/seguimiento',             [DestinatarioAtencionController::class, 'seguimiento']);

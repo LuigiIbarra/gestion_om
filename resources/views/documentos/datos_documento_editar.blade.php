@@ -107,9 +107,6 @@
                         <div class="col-3" id="divfoliorel">
                             <label for="folio_relacionado" class="col-form-label text-md-right">Folio Relacionado:</label>
                             <input type="text" id="folio_relacionado" name="folio_relacionado" class="form-control" data-target="#folio_relacionado" value="" {{ $noeditar }}/>
-                            <!--
-                            <a href="{{url('pdf/'.substr($docs_rels->cruta_archivo_documento,strrpos($docs_rels->cruta_archivo_documento,'pdf/')+4))}}" target="_blank">{{substr($docs_rels->cruta_archivo_documento,strrpos($docs_rels->cruta_archivo_documento,'pdf/')+4)}}</a>
-                            -->
                         </div>
                     @endif
                     <div class="col-3" id="divnomarchs">
@@ -121,109 +118,7 @@
                 <center><div id="validaFolioRel"></div></center>
                 <hr>
                 <div id="divdestinatariocc">
-                    <label><b>DESTINATARIO(S) DE COPIA DE CONOCIMIENTO</b></label>
-                    <div class="row">
-                        <div class="col-4" id="divnombre">
-                            <label for="nombre_destinatariocc" class="col-form-label text-md-right">Nombre:</label>
-                            <select class="form-control m-bot15" name="nombre_destinatariocc" {{ $noeditar }}>
-                            <option value="">Elija un Destinatario Copia Conocimiento...</option>
-                            @foreach($listPersonal as $indice=>$destincc)
-                                @if($destincc->iid_personal==$pers_cncmnt->iid_personal)
-                                    <option value="{{$destincc->iid_personal}}" selected>{{$destincc->cnombre_personal.' '.$destincc->cpaterno_personal.' '.$destincc->cmaterno_personal}}</option>
-                                @else
-                                    <option value="{{$destincc->iid_personal}}">{{$destincc->cnombre_personal.' '.$destincc->cpaterno_personal.' '.$destincc->cmaterno_personal}}</option>
-                                @endif
-                            @endforeach
-                            </select>
-                        </div>
-                        <div class="col-4" id="divpuesto">
-                            <label for="puesto_conocimiento" class="col-form-label text-md-right">Puesto:</label>
-                            <select class="form-control m-bot15" name="puesto_conocimiento" {{ $noeditar }}>
-                            <option value="">Elija un Puesto...</option>
-                            @foreach($listPuesto as $indice=>$puesto)
-                                @if($puesto->iid_puesto==$pers_cncmnt->iid_puesto)
-                                    <option value="{{$puesto->iid_puesto}}" selected>{{$puesto->cdescripcion_puesto}}</option>
-                                @else
-                                    <option value="{{$puesto->iid_puesto}}">{{$puesto->cdescripcion_puesto}}</option>
-                                @endif
-                            @endforeach
-                            </select>
-                        </div>
-                        <div class="col-4" id="divarea">
-                            <label for="area_conocimiento" class="col-form-label text-md-right">Adscripción:</label>
-                            <select class="form-control m-bot15" name="area_conocimiento" {{ $noeditar }}>
-                            <option value="">Elija un Adscripción...</option>
-                            @foreach($listAdscripcion as $indice=>$adscripcion)
-                                @if($adscripcion->iid_adscripcion==$pers_cncmnt->iid_adscripcion)
-                                    <option value="{{$adscripcion->iid_adscripcion}}" selected>{{$adscripcion->cdescripcion_adscripcion}}</option>
-                                @else
-                                    <option value="{{$adscripcion->iid_adscripcion}}">{{$adscripcion->cdescripcion_adscripcion}}</option>
-                                @endif
-                            @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div id="divSeguimiento1">
-                        <label><b><i>SEGUIMIENTO</i></b></label>
-                        <div class="row">
-                            <div class="col" id="divsegnumdoc">
-                                <label for="num_doc_seguim" class="col-form-label text-md-right">Número de Documento:</label>
-                                <input type="text" onkeypress="return textonly(event);" id="num_doc_seguim" name="num_doc_seguim" class="form-control" data-target="#num_doc_seguim" value="{{ $pers_conoc->cnum_docto_seguim }}" maxlength="100" {{ $noeditar }} />
-                            </div>
-                            <div class="col" id="divsegtipodoc">
-                                <label for="tipo_doc_seg" class="col-form-label text-md-right">Tipo de Documento:</label>
-                                <select class="form-control m-bot15" name="tipo_doc_seg" {{ $noeditar }}>
-                                    <option value="">Elija un Tipo de Documento...</option>
-                                    @foreach($listTipoDocumento as $indice=>$tipos_docs)
-                                        @if($tipos_docs->iid_tipo_documento==$pers_conoc->iid_tipo_documento)
-                                            <option value="{{$tipos_docs->iid_tipo_documento}}" selected>{{$tipos_docs->cdescripcion_tipo_documento}}</option>
-                                        @else
-                                            <option value="{{$tipos_docs->iid_tipo_documento}}">{{$tipos_docs->cdescripcion_tipo_documento}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col" id="divsegestatus">
-                                <label for="estatus_doc_seg" class="col-form-label text-md-right">Estatus:</label>
-                                <select class="form-control m-bot15" name="estatus_doc_seg" {{ $noeditar }}>
-                                    <option value="">Elija un Estatus...</option>
-                                    @foreach($listEstatus as $indice=>$estatus)
-                                        @if($estatus->iid_estatus_documento==$pers_conoc->iid_estatus_documento)
-                                            <option value="{{$estatus->iid_estatus_documento}}" selected>{{$estatus->cdescripcion_estatus_documento}}</option>
-                                        @else
-                                            <option value="{{$estatus->iid_estatus_documento}}">{{$estatus->cdescripcion_estatus_documento}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col" id="divfecseg">
-                                <label for="fecha_seguimiento" class="col-form-label text-md-right">Fecha de Seguimiento:</label>
-                                <input type="date" id="fecha_seguimiento" name="fecha_seguimiento" class="form-control" data-target="#fecha_seguimiento" value="{{ $pers_conoc->dfecha_seguimiento }}" maxlength="10" {{ $noeditar }}/>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-4" id="divsegmnt">
-                                <label for="seguimiento" class="col-form-label text-md-right">Seguimiento:</label>
-                                <textarea name="seguimiento" class="form-control" data-target="#seguimiento" {{ $noeditar }}>{{ $pers_conoc->cseguimiento }}</textarea>
-                            </div>
-                            <div class="col-4" id="divsegarchivo">
-                                <label for="archivo_seguim" class="col-form-label text-md-right">Archivo Dígital:</label>
-                                <input type="file" id="archivo_seguim" name="archivo_seguim" class="form-control" data-target="#archivo_seguim" {{ $noeditar }}/>
-                                <a href="{{url('pdf/'.substr($pers_conoc->cruta_archivo_seguim,strrpos($pers_conoc->cruta_archivo_seguim,'pdf/')+4))}}" target="_blank">{{substr($pers_conoc->cruta_archivo_seguim,strrpos($pers_conoc->cruta_archivo_seguim,'pdf/')+4)}}</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <a href="#" data-toggle="tooltip" data-html="true" title="Nuevo">
-                            + Agregar Destinatario
-                        </a>
-                        <div id="divMasDestinsConoc">
-                        </div>
-                    </div>
-                    <br>
+                    <label><b>COPIA DE CONOCIMIENTO</b></label>
                     <div class="row">
                         <div class="col-4" id="divimportancia">
                             <label for="importancia_contenido" class="col-form-label text-md-right">Importancia del Contenido:</label>

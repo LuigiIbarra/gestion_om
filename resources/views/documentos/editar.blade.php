@@ -10,7 +10,6 @@
         <input type="hidden" id="id_documento"   name="id_documento"   value="{{ $documento->iid_documento }}"/>
         <input type="hidden" id="noeditar"       name="noeditar"       value="{{ $noeditar }}"/>
         <input type="hidden" id="idRemitente"    name="idRemitente"    value="{{ $documento->iid_personal_remitente }}"/>
-        <input type="hidden" id="idDestinatario" name="idDestinatario" value="{{ $pers_conoc->iid_personal }}"/>
         <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>
 
         @if($errors->any())
@@ -49,6 +48,12 @@
         <hr>
         <h5 class="text-primary-sin"><b>Folios Relacionados</b></h5>
         @include('folios_rels.index')
+    @endif
+    <br>
+    @if($pers_conoc_total>0)
+        <hr>
+        <h5 class="text-primary-sin"><b>DESTINATARIO(S) DE COPIA DE CONOCIMIENTO</b></h5>
+        @include('pers_conoc.index')
     @endif
     <br>
     @if($destinAtt_total>0)

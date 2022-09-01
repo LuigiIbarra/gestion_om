@@ -16,8 +16,32 @@
                             <input type="text" name="id_area"    id="id_area"    value="{{ $destCn->iid_adscripcion }}">
                         </div>
                         <div class="row">
+                            <div class="col" id="divnomotrapersona">
+                                <label for="otro_nombre" class="col-form-label text-md-right">Nombre:</label>
+                                <input type="text" id="otro_nombre" name="otro_nombre" class="form-control" data-target="#otro_nombre" value="{{ $destCn->cdescrip_otra_adscrip }}" maxlength="100" {{ $noeditar }} />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" id="divpatotrapersona">
+                                <label for="otro_paterno" class="col-form-label text-md-right">Paterno:</label>
+                                <input type="text" id="otro_paterno" name="otro_paterno" class="form-control" data-target="#otro_paterno" value="{{ $destCn->cdescrip_otra_adscrip }}" maxlength="100" {{ $noeditar }} />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" id="divmatotrapersona">
+                                <label for="otro_materno" class="col-form-label text-md-right">Materno:</label>
+                                <input type="text" id="otro_materno" name="otro_materno" class="form-control" data-target="#otro_materno" value="{{ $destCn->cdescrip_otra_adscrip }}" maxlength="100" {{ $noeditar }} />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" id="divotropuesto">
+                                <label for="otra_puesto" class="col-form-label text-md-right">Puesto:</label>
+                                <input type="text" id="otra_puesto" name="otra_puesto" class="form-control" data-target="#otra_puesto" value="{{ $destCn->cdescrip_otra_adscrip }}" maxlength="100" {{ $noeditar }} />
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col" id="divotraads">
-                                <label for="otra_ads" class="col-form-label text-md-right">Descripción del Área/Razón Social Persona Física:</label>
+                                <label for="otra_ads" class="col-form-label text-md-right">Área/Razón Social:</label>
                                 <input type="text" id="otra_ads" name="otra_ads" class="form-control" data-target="#otra_ads" value="{{ $destCn->cdescrip_otra_adscrip }}" maxlength="100" {{ $noeditar }} />
                             </div>
                         </div>

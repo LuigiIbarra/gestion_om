@@ -227,13 +227,15 @@ class DocumentosController extends Controller
     //Datos de Destinatario Atención
         $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
         if($destinAtt_total>0)
-            $destinAtt      = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->orderBy('iid_adscripcion')->get();
+            $destinAtt      = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal')
+                                                  ->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->orderBy('iid_adscripcion')->get();
         else
             $destinAtt      = new DestinatarioAtencion();
     //Datos de Destinatario Conocimiento
         $destinCon_total    = DestinatarioConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
         if($destinCon_total>0)
-            $destinCon      = DestinatarioConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->orderBy('iid_adscripcion')->get();
+            $destinCon      = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
+                                                  ->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->orderBy('iid_adscripcion')->get();
         else
             $destinCon      = new DestinatarioConocimiento();
     //Folio(s) Relacionado(s)

@@ -89,6 +89,7 @@ class DestinatarioAtencionController extends Controller
             $otro_puesto->save();
             $jsonAfterOtroPuesto                        = json_encode($otro_puesto);
             PuestosController::bitacora($jsonBeforeOtroPuesto,$jsonAfterOtroPuesto);
+            $destinatario_atencion->iid_otro_puesto     = $otro_puesto->iid_puesto;
         //Guardar otra Adscripción
             $otra_adscripcion                           = new Adscripcion();
             $jsonBeforeOtraAdscrip                      = "NEW INSERT ADSCRIPCION";
@@ -99,6 +100,7 @@ class DestinatarioAtencionController extends Controller
             $otra_adscripcion->save();
             $jsonAfterOtraAdscrip                       = json_encode($otra_adscripcion);
             AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+            $destinatario_atencion->iid_otra_adscripcion = $otra_adscripcion->iid_adscripcion;
         //Guardar otro Personal
             $otro_personal                              = new Personal();
             $jsonBeforeOtroPersonal                     = "NEW INSERT PERSONAL";
@@ -112,10 +114,11 @@ class DestinatarioAtencionController extends Controller
             $otro_personal->save();
             $jsonAfterOtroPersonal                      = json_encode($otro_personal);
             PersonalController::bitacora($jsonBeforeOtroPersonal,$jsonAfterOtroPersonal);
-            $destinatario_atencion->iid_otra_adscripcion  = $otra_adscripcion->iid_adscripcion;
-            $destinatario_atencion->cdescrip_otra_adscrip = $request->otra_adscripcion;
-        }else{
-            $destinatario_atencion->cdescrip_otra_adscrip = '';
+            $destinatario_atencion->iid_otro_personal   = $otro_personal->iid_personal;
+        } else {
+            $destinatario_atencion->iid_otro_puesto     = null;
+            $destinatario_atencion->iid_otra_adscripcion = null;
+            $destinatario_atencion->iid_otro_personal   = null;
         }
 
         //Manejo del archivo PDF

@@ -17,12 +17,13 @@ class CreateTadestinatariosAtencionTable extends Migration
             $table->increments('iid_destinatario_atencion');
             $table->integer('iid_documento')->unsigned()->nullable();
             $table->integer('iid_adscripcion')->unsigned()->nullable();
+            $table->integer('iid_otro_personal')->unsigned()->nullable();
+            $table->integer('iid_otro_puesto')->unsigned()->nullable();
             $table->integer('iid_otra_adscripcion')->unsigned()->nullable();
-            $table->string('cdescrip_otra_adscrip')->nullable();
             $table->string('cnum_docto_resp')->nullable();
-            $table->string('crespuesta',500)->nullable();
             $table->integer('iid_tipo_documento')->nullable();
             $table->integer('iid_estatus_documento')->nullable();
+            $table->string('crespuesta',500)->nullable();
             $table->date('dfecha_concluido')->nullable();
             $table->string('cruta_archivo_respuesta')->nullable();
             $table->integer('iestatus')->default(1);

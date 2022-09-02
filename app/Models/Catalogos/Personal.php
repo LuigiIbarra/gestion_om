@@ -26,4 +26,12 @@ class Personal extends Model
     public function personalconocimiento(){
         return $this->hasMany('App\Models\Gestion\PersonalConocimiento','iid_personal','iid_personal');
     }
+
+    public function otrodestinoatencion(){
+        return $this->hasMany('App\Models\Gestion\DestinatarioAtencion','iid_personal','iid_otro_personal');
+    }
+
+    public function otrodestinoconocimiento(){
+        return $this->hasMany('App\Models\Gestion\DestinatarioConocimiento','iid_personal','iid_otro_personal');
+    }
 }

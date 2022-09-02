@@ -20,7 +20,15 @@ class DestinatarioConocimiento extends Model
     }
 
     public function otraadscripcion(){
-        return $this->hasOne('App\Models\Catalogos\Adscripcion','iid_otra_adscripcion','iid_adscripcion');
+        return $this->hasOne('App\Models\Catalogos\Adscripcion','iid_adscripcion','iid_otra_adscripcion');
+    }
+
+    public function otropuesto(){
+        return $this->hasone('App\Models\Catalogos\Puesto','iid_puesto','iid_otro_puesto');
+    }
+
+    public function otropersonal(){
+        return $this->hasOne('App\Models\Catalogos\Personal','iid_personal','iid_otro_personal');
     }
 
     public function tipodocumento(){

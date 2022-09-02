@@ -35,14 +35,25 @@
                         </div>
                         <div class="row">
                             <div class="col" id="divotropuesto">
-                                <label for="otra_puesto" class="col-form-label text-md-right">Puesto:</label>
-                                <input type="text" id="otra_puesto" name="otra_puesto" class="form-control" data-target="#otra_puesto" value="{{ $destAt->cdescrip_otra_adscrip }}" maxlength="100" {{ $noeditar }} />
+                                <label for="otro_puesto" class="col-form-label text-md-right">Puesto:</label>
+                                <input type="text" id="otro_puesto" name="otro_puesto" class="form-control" data-target="#otro_puesto" value="{{ $destAt->cdescrip_otra_adscrip }}" maxlength="100" {{ $noeditar }} />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col" id="divotraads">
-                                <label for="otra_ads" class="col-form-label text-md-right">Descripción del Área/Razón Social Persona Física:</label>
-                                <input type="text" id="otra_ads" name="otra_ads" class="form-control" data-target="#otra_ads" value="{{ $destAt->cdescrip_otra_adscrip }}" maxlength="100" {{ $noeditar }} />
+                                <label for="otra_adscripcion" class="col-form-label text-md-right">Área/Razón Social:</label>
+                                <input type="text" id="otra_adscripcion" name="otra_adscripcion" class="form-control" data-target="#otra_adscripcion" value="{{ $destAt->cdescrip_otra_adscrip }}" maxlength="100" {{ $noeditar }} />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" id="divtipodoc">
+                                <label for="tipo_adscripcion" class="col-form-label text-md-right">Tipo de Adscripción:</label>
+                                <select class="form-control m-bot15" id="tipo_adscripcion" name="tipo_adscripcion" required {{ $noeditar }}>
+                                    <option value="">Elija un Tipo de Adscripción...</option>
+                                    @foreach($listTipoArea as $indice=>$tipo_area)
+                                        <option value="{{$tipo_area->iid_tipo_area}}">{{$tipo_area->cdescripcion_tipo_area}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         @include('documentos.datos_modal_atencion')

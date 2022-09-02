@@ -14,6 +14,7 @@ use App\Http\Controllers\Gestion\FolioRelacionadoController;
 use App\Models\Gestion\Documento;
 use App\Models\Catalogos\Puesto;
 use App\Models\Catalogos\Adscripcion;
+use App\Models\Catalogos\TipoArea;
 use App\Models\Catalogos\Personal;
 use App\Models\Catalogos\TipoDocumento;
 use App\Models\Catalogos\TipoAnexo;
@@ -197,6 +198,7 @@ class DocumentosController extends Controller
         $listPuesto         = Puesto::where('iestatus','=',1)->get();
         $puesto             = Puesto::where('iid_puesto','=',$remitente->iid_puesto)->where('iestatus','=',1)->first();
         $listAdscripcion    = Adscripcion::where('iestatus','=',1)->get();
+        $listTipoArea       = TipoArea::where('iestatus','=',1)->get();
         $adscripcion        = Adscripcion::where('iid_adscripcion','=',$remitente->iid_adscripcion)->where('iestatus','=',1)->first();
         $listImportancia    = ImportanciaContenido::where('iestatus','=',1)->get();
         $listTema           = Tema::where('iestatus','=',1)->get();
@@ -257,7 +259,7 @@ class DocumentosController extends Controller
         $noeditar           = '';
     //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','remitente','listPuesto','puesto','listAdscripcion','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc_total','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','docs_rels','noeditar','nuevo_registro'));
+        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','remitente','listPuesto','puesto','listAdscripcion','listTipoArea','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc_total','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','docs_rels','noeditar','nuevo_registro'));
     }
 
     public function actualizar_documento(Request $request)

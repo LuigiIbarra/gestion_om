@@ -157,4 +157,51 @@ class PersonalController extends Controller
             );
         }
     }
+
+    public static function buscaOtroNombre(Request $request){
+        $on               = $request->on;
+        $otro_personal    = Personal::where('cnombre_personal','=',$on)->where('iestatus','=',1)->get();
+        if(!$otro_personal->isEmpty()){
+            $idOtroPers   = $otro_personal[0]->iid_personal;
+            $nombreOtroP  = $otro_personal[0]->cnombre_personal;
+            $paternoOtroP = $otro_personal[0]->cpaterno_personal;
+            $maternoOtroP = $otro_personal[0]->cmaterno_personal;
+            $puestoOtroP  = Puesto::where('iid_puesto','=',$otro_personal[0]->iid_puesto)->where('iestatus','=',1)->first();
+            $idOtroPuesto = $puestoOtroP->iid_puesto;
+            $descOtroPsto = $puestoOtroP->cdescripcion_puesto;
+            $adscripOtroP = Adscripcion::where('iid_adscripcion','=',$otro_personal[0]->iid_adscripcion)->where('iestatus','=',1)->first();
+            $idOtraAdsc   = $adscripOtroP->iid_adscripcion;
+            $descOtraAdsc = $adscripOtroP->cdescripcion_adscripcion;
+            $tipoOtraAdsc = $adscripOtroP->iid_tipo_area;
+            return response()->json(
+                [
+                    'idOtroPers'   => $idOtroPers,
+                    'nombreOtroP'  => $nombreOtroP,
+                    'paternoOtroP' => $paternoOtroP,
+                    'maternoOtroP' => $maternoOtroP,
+                    'idOtroPuesto' => $idOtroPuesto,
+                    'descOtroPsto' => $descOtroPsto,
+                    'idOtraAdsc'   => $idOtraAdsc,
+                    'descOtraAdsc' => $descOtraAdsc,
+                    'tipoOtraAdsc' => $tipoOtraAdsc,
+                    'exito'        => 1
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    'idOtroPers'   => null,
+                    'nombreOtroP'  => null,
+                    'paternoOtroP' => null,
+                    'maternoOtroP' => null,
+                    'idOtroPuesto' => null,
+                    'descOtroPsto' => null,
+                    'idOtraAdsc'   => null,
+                    'descOtraAdsc' => null,
+                    'tipoOtraAdsc' => null,
+                    'exito'        => 0
+                ]
+            );
+        }
+    }
 }

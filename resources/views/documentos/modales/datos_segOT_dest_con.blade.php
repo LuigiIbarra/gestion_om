@@ -83,6 +83,7 @@
                                 </select>
                             </div>
                         </div>
+                        <center><div id="validaOtroPersonal"></div></center>
                         @include('documentos.datos_modal_conocimiento')
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

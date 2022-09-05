@@ -80,41 +80,53 @@ class DestinatarioConocimientoController extends Controller
         $destinatario_conocimiento->iid_estatus_documento = $request->estatus_doc_seg;
         $destinatario_conocimiento->dfecha_seguimiento    = $request->fecha_seguimiento;
         if($request->id_area=="999"){
+            if($request->idOtroPuesto==""){
         //Guardar otro Puesto
-            $otro_puesto                                = new Puesto();
-            $jsonBeforeOtroPuesto                       = "NEW INSERT PUESTO";
-            $otro_puesto->cdescripcion_puesto           = $request->otro_puesto;
-            $otro_puesto->iestatus                      = 1;
-            $otro_puesto->iid_usuario                   = auth()->user()->id;
-            $otro_puesto->save();
-            $jsonAfterOtroPuesto                        = json_encode($otro_puesto);
-            PuestosController::bitacora($jsonBeforeOtroPuesto,$jsonAfterOtroPuesto);
-            $destinatario_conocimiento->iid_otro_puesto = $otro_puesto->iid_puesto;
+                $otro_puesto                                = new Puesto();
+                $jsonBeforeOtroPuesto                       = "NEW INSERT PUESTO";
+                $otro_puesto->cdescripcion_puesto           = $request->otro_puesto;
+                $otro_puesto->iestatus                      = 1;
+                $otro_puesto->iid_usuario                   = auth()->user()->id;
+                $otro_puesto->save();
+                $jsonAfterOtroPuesto                        = json_encode($otro_puesto);
+                PuestosController::bitacora($jsonBeforeOtroPuesto,$jsonAfterOtroPuesto);
+                $destinatario_conocimiento->iid_otro_puesto = $otro_puesto->iid_puesto;
+            } else {
+                $destinatario_conocimiento->iid_otro_puesto = $request->idOtroPuesto;
+            }
+            if($request->idOtraAdscrip==""){
         //Guardar otra Adscripción
-            $otra_adscripcion                           = new Adscripcion();
-            $jsonBeforeOtraAdscrip                      = "NEW INSERT ADSCRIPCION";
-            $otra_adscripcion->cdescripcion_adscripcion = $request->otra_adscripcion;
-            $otra_adscripcion->iid_tipo_area            = $request->tipo_adscripcion;
-            $otra_adscripcion->iestatus                 = 1;
-            $otra_adscripcion->iid_usuario              = auth()->user()->id;
-            $otra_adscripcion->save();
-            $jsonAfterOtraAdscrip                       = json_encode($otra_adscripcion);
-            AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
-            $destinatario_conocimiento->iid_otra_adscripcion = $otra_adscripcion->iid_adscripcion;
+                $otra_adscripcion                           = new Adscripcion();
+                $jsonBeforeOtraAdscrip                      = "NEW INSERT ADSCRIPCION";
+                $otra_adscripcion->cdescripcion_adscripcion = $request->otra_adscripcion;
+                $otra_adscripcion->iid_tipo_area            = $request->tipo_adscripcion;
+                $otra_adscripcion->iestatus                 = 1;
+                $otra_adscripcion->iid_usuario              = auth()->user()->id;
+                $otra_adscripcion->save();
+                $jsonAfterOtraAdscrip                       = json_encode($otra_adscripcion);
+                AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+                $destinatario_conocimiento->iid_otra_adscripcion = $otra_adscripcion->iid_adscripcion;
+            } else {
+                $destinatario_conocimiento->iid_otra_adscripcion = $request->idOtraAdscrip;
+            }
+            if($request->idOtroPersonal==""){
         //Guardar otro Personal
-            $otro_personal                              = new Personal();
-            $jsonBeforeOtroPersonal                     = "NEW INSERT PERSONAL";
-            $otro_personal->cnombre_personal            = $request->otro_nombre;
-            $otro_personal->cpaterno_personal           = $request->otro_paterno;
-            $otro_personal->cmaterno_personal           = $request->otro_materno;
-            $otro_personal->iid_puesto                  = $otro_puesto->iid_puesto;
-            $otro_personal->iid_adscripcion             = $otra_adscripcion->iid_adscripcion;
-            $otro_personal->iestatus                    = 1;
-            $otro_personal->iid_usuario                 = auth()->user()->id;
-            $otro_personal->save();
-            $jsonAfterOtroPersonal                      = json_encode($otro_personal);
-            PersonalController::bitacora($jsonBeforeOtroPersonal,$jsonAfterOtroPersonal);
-            $destinatario_conocimiento->iid_otro_personal = $otro_personal->iid_personal;
+                $otro_personal                              = new Personal();
+                $jsonBeforeOtroPersonal                     = "NEW INSERT PERSONAL";
+                $otro_personal->cnombre_personal            = $request->otro_nombre;
+                $otro_personal->cpaterno_personal           = $request->otro_paterno;
+                $otro_personal->cmaterno_personal           = $request->otro_materno;
+                $otro_personal->iid_puesto                  = $otro_puesto->iid_puesto;
+                $otro_personal->iid_adscripcion             = $otra_adscripcion->iid_adscripcion;
+                $otro_personal->iestatus                    = 1;
+                $otro_personal->iid_usuario                 = auth()->user()->id;
+                $otro_personal->save();
+                $jsonAfterOtroPersonal                      = json_encode($otro_personal);
+                PersonalController::bitacora($jsonBeforeOtroPersonal,$jsonAfterOtroPersonal);
+                $destinatario_conocimiento->iid_otro_personal = $otro_personal->iid_personal;
+            } else {
+                $destinatario_conocimiento->iid_otro_personal = $request->idOtroPersonal;
+            }
         } else {
             $destinatario_conocimiento->iid_otro_puesto = null;
             $destinatario_conocimiento->iid_otra_adscripcion = null;

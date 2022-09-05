@@ -18,6 +18,7 @@
     <script type="text/javascript" src="{{ asset('js/captura-foliorel.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-destconoc.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-checkboxes.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/captura-otronombre.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/mistablas.js') }}" ></script>
 

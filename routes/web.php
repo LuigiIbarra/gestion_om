@@ -43,6 +43,8 @@ Route::post('buscaDoctoDuplicado',                  [DocumentosController::class
 //Rutas de Folios Relacionados
 Route::get('folios/nuevo/{id_documento}',           [FolioRelacionadoController::class, 'nuevo_folio']);
 Route::post('folios/guardar',                       [FolioRelacionadoController::class, 'guarda_nuevo_folio_rel']);
+Route::get('folios/inhabilitar/{id_documento}/{id_foliorel}',     [FolioRelacionadoController::class, 'confirmainhabilitar_folio']);
+Route::post('folios/inhabilitar',                   [FolioRelacionadoController::class, 'inhabilitar_folio']);
 Route::post('buscaFolioRelacionado',                [FolioRelacionadoController::class, 'buscaFolioRelacionado']);
 
 //Rutas de Personal con Copia de Conocimiento

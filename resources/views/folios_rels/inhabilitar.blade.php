@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('titulo')
-    Nuevo Folio Relacionado del Documento {{$documento->cnumero_documento}}
+    Borrar Folio Relacionado de la Lista del Documento {{$docto->cnumero_documento}}
 @endsection
 @section('panel')
-    <form method="POST" action="{{ url('/folios/guardar') }}" id="formNuevoFolio" enctype="multipart/form-data">
+    <form method="POST" action="{{ url('/folios/inhabilitar') }}" id="formBorrarFolio" enctype="multipart/form-data">
     	@csrf
         <!--Auxiliar para el Documento-->
-        <input type="text" id="idDocumento" name="idDocumento" value="{{$documento->iid_documento}}"/>
+        <input type="text" id="idDocumento" name="idDocumento" value="{{$docto->iid_documento}}"/>
+        <input type="text" id="idFolioRel"  name="idFolioRel"  value="{{$folio_relacionado->cfolio_relacionado}}"/>
         <input type="text" id="newFolioRel" name="newFolioRel" value="1"/>
         
         @if($errors->any())
@@ -24,13 +25,13 @@
             </div>
         @endif
         <!--Inputs de Documento-->
-        @include('folios_rels.datos_folio_rel')
+        @include('folios_rels.datos_folio_rel_inhab')
     
         <div class="row text-center">
             <div class="col-6">                        
                 <button type="submit" class="btn btn-primary">
                     <img src="{{ asset('bootstrap-icons-1.5.0/save.svg') }}" width="18" height="18">
-                    <span>&nbsp;Guardar</span>
+                    <span>&nbsp;Borrar de la Lista</span>
                 </button>
             </div>
             <div class="col-6">

@@ -242,11 +242,7 @@ class DocumentosController extends Controller
         $folsRels_total     = FolioRelacionado::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
         if ($folsRels_total>0){
         //Obtener la lista de Folios Relacionados
-            $listafolsRels  = DB::table('tafolios_relacionados')
-                                ->select('cfolio_relacionado')
-                                ->where('iid_documento','=',$id_documento)
-                                ->where('iestatus','=',1)
-                                ->orderBy('cfolio_relacionado')->get();
+            $listafolsRels  = FolioRelacionado::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
         //Y convertirla en un arreglo
             $array1 = array();
             foreach($listafolsRels as $folrel)
@@ -261,7 +257,7 @@ class DocumentosController extends Controller
         $noeditar           = '';
     //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','remitente','listPuesto','puesto','listAdscripcion','listTipoArea','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc_total','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','docs_rels','noeditar','nuevo_registro'));
+        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','remitente','listPuesto','puesto','listAdscripcion','listTipoArea','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc_total','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','listafolsRels','docs_rels','noeditar','nuevo_registro'));
     }
 
     public function actualizar_documento(Request $request)

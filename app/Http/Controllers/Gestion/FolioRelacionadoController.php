@@ -47,6 +47,37 @@ class FolioRelacionadoController extends Controller
                          ->with('success','Documento actualizado con Folio Relacionado satisfactoriamente');
     }
 
+    public function confirmainhabilitar_folio(string $idDocumento, string $idFolioRel){
+        $docto                             = Documento::with('tipodocumento','tipoanexo','personalremitente')
+                                                          ->where('iid_documento','=',$idDocumento)
+                                                          ->where('iestatus','=',1)->first();
+        $folio_relacionado                     = FolioRelacionado::with('documento')
+                                                                 ->where('iid_documento','=',$idDocumento)
+                                                                 ->where('cfolio_relacionado','=',$idFolioRel)
+                                                                 ->where('iestatus','=',1)->first();
+        //dd($docto,$folio_relacionado);
+
+        //$remtte      = Personal::with('puesto','adscripcion')->where('iid_personal','=',$folio_relacionado->iid_personal_remitente)
+        //                                                         ->where('iestatus','=',1)->first();
+        //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
+        $noeditar = 'readonly';
+        return view('folios_rels.inhabilitar',compact('docto','folio_relacionado','noeditar'));
+    }
+
+    public function inhabilitar_folio(Request $request){
+        $folio_relacionado                     = FolioRelacionado::where('iid_documento','=',$request->idDocumento)
+                                                                 ->where('cfolio_relacionado','=',$request->idFolioRel)
+                                                                 ->where('iestatus','=',1)->first();
+        $jsonBefore                            = json_encode($folio_relacionado);
+        $folio_relacionado->iestatus           = 0;
+        $folio_relacionado->iid_usuario        = auth()->user()->id;
+        $folio_relacionado->save();
+        $jsonAfter                             = json_encode($folio_relacionado);
+        FolioRelacionadoController::bitacora($jsonBefore,$jsonAfter);
+
+        return redirect()->route('documentos.editar',$request->idDocumento)
+                         ->with('success','Folio Relacionado Borrado de la lista satisfactoriamente');
+    }
     public static function guarda_folio_relacionado(string $idDocumento, string $folioRelacionado){
         $folio_relacionado                     = new FolioRelacionado();
         $jsonBefore                            = "NEW INSERT FOLIO_RELACIONADO";

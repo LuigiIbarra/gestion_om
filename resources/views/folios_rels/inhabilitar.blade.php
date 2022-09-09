@@ -7,9 +7,9 @@
     <form method="POST" action="{{ url('/folios/inhabilitar') }}" id="formBorrarFolio" enctype="multipart/form-data">
     	@csrf
         <!--Auxiliar para el Documento-->
-        <input type="text" id="idDocumento" name="idDocumento" value="{{$docto->iid_documento}}"/>
-        <input type="text" id="idFolioRel"  name="idFolioRel"  value="{{$folio_relacionado->cfolio_relacionado}}"/>
-        <input type="text" id="newFolioRel" name="newFolioRel" value="1"/>
+        <input type="hidden" id="idDocumento" name="idDocumento" value="{{$docto->iid_documento}}"/>
+        <input type="hidden" id="idFolioRel"  name="idFolioRel"  value="{{$folio_relacionado->cfolio_relacionado}}"/>
+        <input type="hidden" id="newFolioRel" name="newFolioRel" value="1"/>
         
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

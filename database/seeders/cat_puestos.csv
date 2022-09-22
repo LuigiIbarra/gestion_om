@@ -1,0 +1,614 @@
+iid_puesto,cdescripcion_puesto,iestatus,iid_usuario
+1,Abogado,1,1
+2,Abogado Titular,1,1
+3,Administrador,1,1
+4,Administrador en Materia Penal,1,1
+5,Administrativo Especializado,1,1
+6,Administrativo Judicial,1,1
+7,Agente de Información,1,1
+8,Agente de Seguridad,1,1
+9,Almacénista,1,1
+10,Analista de Abogacia,1,1
+11,Analista de Sistemas Especializados de Cómputo,1,1
+12,Analista Especializado,1,1
+13,Analista Forense,1,1
+14,Analista Judicial,1,1
+15,Analista Programador de Sistemas Especializados de Cómputo,1,1
+16,Analista Técnico,1,1
+17,Antropólogo,1,1
+18,Archivista,1,1
+19,Archivista de Sala,1,1
+20,"Asesor ""A""",1,1
+21,"Asesor ""A"" de Presidencia",1,1
+22,"Asesor ""C""",1,1
+23,"Asesor (a) ""B""",1,1
+24,Asesor de Presidencia,1,1
+25,Asesor en Materia de Multas,1,1
+26,Asesor Jurídico,1,1
+27,Asistente Educativo,1,1
+28,Auxiliar,1,1
+29,Auxiliar Administrativo,1,1
+30,Auxiliar Administrativo de Sala,1,1
+31,Auxiliar de Actas,1,1
+32,Auxiliar de Adecuación de la Pena,1,1
+33,Auxiliar de Almacén,1,1
+34,Auxiliar de Amparo,1,1
+35,Auxiliar de Archivo,1,1
+36,Auxiliar de Atención a Usuarios,1,1
+37,Auxiliar de Audiencias,1,1
+38,Auxiliar de Beneficios Penales,1,1
+39,Auxiliar de Cocina,1,1
+40,Auxiliar de Contabilidad,1,1
+41,Auxiliar de Correspondencia,1,1
+42,Auxiliar de Educadora,1,1
+43,Auxiliar de Ejecución de Medidas Sanciónadoras,1,1
+44,Auxiliar de Enfermeria,1,1
+45,Auxiliar de Intendencia,1,1
+46,Auxiliar de Inventarios,1,1
+47,Auxiliar de Mantenimiento,1,1
+48,Auxiliar de Valores,1,1
+49,Auxiliar de Vigilancia y Cumplimiento de Medidas Sanciónadoras,1,1
+50,Ayudante de Autopsias,1,1
+51,Bibliotecario,1,1
+52,Cabo de Construcción,1,1
+53,Camillero,1,1
+54,"Capturista ""B""",1,1
+55,Cerrajero,1,1
+56,Chofer,1,1
+57,Chofer de Ambulancia,1,1
+58,Chofer de Magistrado,1,1
+59,Clasificador de Información,1,1
+60,Clasificador Especializado de Información Judicial,1,1
+61,Cocinera,1,1
+62,Comisario de Sala,1,1
+63,Conciliador de Juzgado,1,1
+64,Conserje,1,1
+65,Contador,1,1
+66,Controlador de Accesos,1,1
+67,Controlador de Asistencia,1,1
+68,Controlador de Convenios de Mediación,1,1
+69,Coordinador Administrativo,1,1
+70,Coordinador de Asesores Sps-360,1,1
+71,Coordinador de CENDI,1,1
+72,Coordinador de Comedores,1,1
+73,Coordinador de Comunicación Social,1,1
+74,COORDINADOR DE PUBLICAciones,1,1
+75,Coordinador de Verificación y Emergencia,1,1
+76,Coordinador(a) de Inter. Especializada para Apoyo Judicial,1,1
+77,Corrector,1,1
+78,Criminologo Especializado en Sistema de Ejecución de Penas,1,1
+79,Dactiloscopista,1,1
+80,Dentista Cirujano,1,1
+81,Despachador,1,1
+82,Dibujante,1,1
+83,Dictaminador Información Publica,1,1
+84,Director Consultiva,1,1
+85,Director de Administración de Personal,1,1
+86,Director de Administración Financiera,1,1
+87,Director de Adquisiciones,1,1
+88,Director de Amparos,1,1
+89,Director de Anales Jurisprudencia y Publicaciones,1,1
+90,Director de Archivo,1,1
+91,Director de Area,1,1
+92,Director de Atención y Seguimiento,1,1
+93,Director de Capacitación y Desarrollo,1,1
+94,Director de Carrera de Investigación Judicial,1,1
+95,Director de Comunicaciones y Seguridad,1,1
+96,Director de Consignaciones Civiles,1,1
+97,Director de Contabilidad,1,1
+98,Director de Derechos Humanos,1,1
+99,Director de Desarrollo y Mantenimiento de Sistemas,1,1
+100,Director de Editorial de Difusion y Eventos,1,1
+101,Director de Ejecutiva de Recursos Financieros,1,1
+102,Director de Ejecutiva de Recursos Humanos,1,1
+103,Director de Ejecutiva de Recursos Materiales,1,1
+104,Director de Estadistica,1,1
+105,Director de Evaluación e Intervención Psicologica para Apoyo Judicial,1,1
+106,DIrector de Gestión Tecnológica,1,1
+107,Director de Información Publica,1,1
+108,Director de Ingenieria y Soporte a la Oralidad,1,1
+109,Director de la Oficialia de Partes Comun,1,1
+110,Director de la Unidad de Gestión Administrativa,1,1
+111,Director de la Unidad de Gestión Administrativa de la Sala Constituciónal del Poder Judicial de la Ciudad de Mexico,1,1
+112,Director de la Unidad de Gestión Judicial,1,1
+113,Director de la Unidad de Gestión Judicial en Materia de Ejecución de Medidas Sanciónadoras,1,1
+114,Director de la Unidad Gestión en Ejecución de Sanciones Penales,1,1
+115,Director de la Unidad Gestión Judicial en Materia de Ejecución de Medidas Sanciónadoras,1,1
+116,Director de la Unidad Gestión Judicial en Materia de Justicia para Adolescentes,1,1
+117,Director de Mantenimiento y Servicios,1,1
+118,Director de Mediación Privada y de Registro de Mediadores y Convenios,1,1
+119,Director de Modernización,1,1
+120,Director de Normatividad,1,1
+121,Director de Obras,1,1
+122,Director de Operación y Control,1,1
+123,Director de Operación y Control del Pago,1,1
+124,Director de Orientación Ciudadana y Genero,1,1
+125,Director de Planeación,1,1
+126,"Director de Presidencia ""A""",1,1
+127,"Director de Presidencia ""B""",1,1
+128,Director de Programación y Presupuesto,1,1
+129,Director de Protección Civil,1,1
+130,"Director de Recursos Materiales ""A""",1,1
+131,Director de Relaciones Laborales y Prestaciones,1,1
+132,Director de Seguridad y Vigilancia,1,1
+133,Director de Turno de Consignaciones Penales,1,1
+134,Director del Boletín Judicial y Estadistica,1,1
+135,Director del Centro de Convivencia Familiar Supervisada,1,1
+136,"Director del Centro de Justicia Alternativa ""A""",1,1
+137,Director del Instituto de Ciencias Forenses,1,1
+138,Director Editorial de Difusion y Eventos,1,1
+139,Director Ejecutivo de Gestión Tecnológica,1,1
+140,Director Ejecutivo de Orientación Ciudadana y Derechos Humanos,1,1
+141,Director Ejecutivo de Planeación,1,1
+142,Director General de Anales Jurisprudencia y Boletín Judicial,1,1
+143,Director General del Centro de Justicia Alternativa,1,1
+144,Director General del Instituto de Estudios Judiciales,1,1
+145,Director General Judicial,1,1
+146,Director General Jurídico,1,1
+147,Director Jurídico,1,1
+148,Director Litigioso,1,1
+149,Director para el cobro de multas judiciales,1,1
+150,Director Penal,1,1
+151,Directora de Mediación Civil y Comercial,1,1
+152,Diseñador Gráfico,1,1
+153,Educadora,1,1
+154,Electricista,1,1
+155,Elevadorista,1,1
+156,Encargada de Cocina,1,1
+157,Encargado de Actas,1,1
+158,Encargado de Amparos,1,1
+159,Encargado de Archivo y Valores,1,1
+160,Encargado de Cocina,1,1
+161,Encargado de Comedor,1,1
+162,Encargado de Mantenimiento,1,1
+163,Encargado de Seguridad,1,1
+164,Encargado de Tratamiento de Adicciones,1,1
+165,Enfermera General,1,1
+166,Especialista en Archivos,1,1
+167,Especialista En Teleinformática,1,1
+168,Estadigrafo,1,1
+169,Farmaceutico,1,1
+170,Fotografo,1,1
+171,"Fotografo ""C""",1,1
+172,"Fotografo ""D""",1,1
+173,Gestor,1,1
+174,Instructor Aerobics,1,1
+175,Instructor Coro,1,1
+176,Intendente,1,1
+177,Investigador (a) Analista,1,1
+178,Jefe de Agentes de Información,1,1
+179,Jefe de Almacén,1,1
+180,Jefe de Archivo,1,1
+181,Jefe de Área de Contabilidad,1,1
+182,Jefe de Área Pedagógica,1,1
+183,Jefe de Dibujantes,1,1
+184,Jefe de Elevadoristas,1,1
+185,Jefe de Fotógrafos,1,1
+186,Jefe de Intendentes,1,1
+187,Jefe de la Oficina de la Presidencia,1,1
+188,Jefe de Mesa,1,1
+189,Jefe de Oficina,1,1
+190,Jefe de Oficina de Sistemas de Computo,1,1
+191,Jefe de Operadores de Computadoras,1,1
+192,Jefe de Procedimientos de Amparos,1,1
+193,Jefe de Sección,1,1
+194,Jefe de Servicio de Teleinformática,1,1
+195,Jefe de Unidad de Atención Integral,1,1
+196,Jefe de Unidad Departamental,1,1
+197,Jefe de Unidad Departamental 4a Sala Familiar,1,1
+198,Jefe de Unidad Departamental 8A Sala Penal P1,1,1
+199,Jefe de Unidad Departamental 8A Sala Penal P2,1,1
+200,"Jefe de Unidad Departamental CENDI ""Cristina Pacheco""",1,1
+201,"Jefe de Unidad Departamental CENDI ""Pino Suarez""",1,1
+202,"Jefe de Unidad Departamental Centro de Justicia Alternativa ""A""",1,1
+203,"Jefe de Unidad Departamental Centro de Justicia Alternativa ""B""",1,1
+204,Jefe de Unidad Departamental de Acervo Bibliográfico Esp,1,1
+205,Jefe de Unidad Departamental de Actas,1,1
+206,Jefe de Unidad Departamental de Actas y Resoluciones,1,1
+207,Jefe de Unidad Departamental de Administración de Aplicaciones,1,1
+208,Jefe de Unidad Departamental de Administración de la Red,1,1
+209,Jefe de Unidad Departamental de Administración de Recursos Informaticos,1,1
+210,Jefe de Unidad Departamental de Administración y Control Escolar,1,1
+211,Jefe de Unidad Departamental de Analisis y Diseño,1,1
+212,Jefe de Unidad Departamental de Aplicación y Diagnostico,1,1
+213,Jefe de Unidad Departamental de Apoyo a Salas de Oralidad Penal,1,1
+214,Jefe de Unidad Departamental de Apoyo Legal,1,1
+215,Jefe de Unidad Departamental de Apoyo Legal para la Generación de Estadisticas,1,1
+216,Jefe de Unidad Departamental de Apoyo Tecnológico para la Generación de Estadisticas,1,1
+217,Jefe de Unidad Departamental de Archivo Laboral,1,1
+218,Jefe de Unidad Departamental de Asesoria Jurídica y Comité Académico,1,1
+219,Jefe de Unidad Departamental de Asistencia Técnica a Salas,1,1
+220,Jefe de Unidad Departamental de Asuntos Laborales,1,1
+221,Jefe de Unidad Departamental de Atención a Organos de Control,1,1
+222,Jefe de Unidad Departamental de Atención a Usuarios,1,1
+223,Jefe de Unidad Departamental de Atención al Público,1,1
+224,Jefe de Unidad Departamental de Atención de Amparos y Apelaciones,1,1
+225,Jefe de Unidad Departamental de Atención de Juicio Oral,1,1
+226,Jefe de Unidad Departamental de Audiencias,1,1
+227,Jefe de Unidad Departamental de Bajas y Reasignaciones,1,1
+228,Jefe de Unidad Departamental de Base de Datos,1,1
+229,Jefe de Unidad Departamental de Caja y Bancos,1,1
+230,Jefe de Unidad Departamental de Clinica Forense,1,1
+231,Jefe de Unidad Departamental de Comunicaciones Audiovisuales,1,1
+232,Jefe de Unidad Departamental de Concursos y Contratos,1,1
+233,Jefe de Unidad Departamental de Conformación de Proyectos,1,1
+234,Jefe de Unidad Departamental de Contabilidad de Ingresos y Egresos,1,1
+235,Jefe de Unidad Departamental de Control Audiovisual,1,1
+236,Jefe de Unidad Departamental de Control de Almacénes,1,1
+237,Jefe de Unidad Departamental de Control de Certificados,1,1
+238,"Jefe de Unidad Departamental de Control de Gestión ""A""",1,1
+239,"Jefe de Unidad Departamental de Control de Gestión ""B""",1,1
+240,Jefe de Unidad Departamental de Control de Infraestructura y Servidores Hosting,1,1
+241,Jefe de Unidad Departamental de Control de Ingresos y Egresos,1,1
+242,Jefe de Unidad Departamental de Control de Inventarios,1,1
+243,Jefe de Unidad Departamental de Control de Nóminas E Impuestos,1,1
+244,Jefe de Unidad Departamental de Control de Servicio de Fotocopiado,1,1
+245,Jefe de Unidad Departamental de Control Del Pago,1,1
+246,Jefe de Unidad Departamental de Control y Evaluación de Programas,1,1
+247,Jefe de Unidad Departamental de Control y Evaluación Programatica,1,1
+248,"Jefe de Unidad Departamental de Control y Gestión ""A""",1,1
+249,Jefe de Unidad Departamental de Cumplimiento de Amparos y Apelaciones,1,1
+250,Jefe de Unidad Departamental de Difusion y Vinculación Tecnológica,1,1
+251,Jefe de Unidad Departamental de Digitalización y Registro Documental,1,1
+252,Jefe de Unidad Departamental de Diseño y Desarrollo de Programas,1,1
+253,Jefe de Unidad Departamental de Documentación y Jurisprudencia,1,1
+254,Jefe de Unidad Departamental de Energía Ininterrumpida,1,1
+255,Jefe de Unidad Departamental de Estudios Salariales y de Puestos,1,1
+256,Jefe de Unidad Departamental de Evaluación,1,1
+257,Jefe de Unidad Departamental de Evaluación a Cargos Judiciales,1,1
+258,Jefe de Unidad Departamental de Eventos Socio Culturales,1,1
+259,Jefe de Unidad Departamental de Genero,1,1
+260,Jefe de Unidad Departamental de Genetica,1,1
+261,Jefe de Unidad Departamental de Gestión Administrativa del Programa de Revinculación Familiar,1,1
+262,Jefe de Unidad Departamental de Gestión de Ejecución,1,1
+263,Jefe de Unidad Departamental de Gestión de Medidas Sanciónadoras,1,1
+264,Jefe de Unidad Departamental de Gestión de Penas Traslados y Adecuación,1,1
+265,Jefe de Unidad Departamental de Gestión Judicial Penal de Segunda Instancia,1,1
+266,Jefe de Unidad Departamental de Gestión y Mejora Continua,1,1
+267,Jefe de Unidad Departamental de Identificación,1,1
+268,Jefe de Unidad Departamental de Información Publica A,1,1
+269,Jefe de Unidad Departamental de Información y Estadistica,1,1
+270,Jefe de Unidad Departamental de Inscripción y Archivo de Convenios de Mediación,1,1
+271,Jefe de Unidad Departamental de Instalación y Servicio,1,1
+272,Jefe de Unidad Departamental de Intendencia,1,1
+273,Jefe de Unidad Departamental de Investigación Judicial,1,1
+274,Jefe de Unidad Departamental de Investigación Jurídica y Enlace,1,1
+275,Jefe de Unidad Departamental de Investigación y Ensenanza,1,1
+276,Jefe de Unidad Departamental de Invitaciones Restringidas,1,1
+277,Jefe de Unidad Departamental de la Coordinación de Asesores de la Presidencia,1,1
+278,"Jefe de Unidad Departamental de la Dirección de Oflia Ptes Comun C-F ""A""",1,1
+279,"Jefe de Unidad Departamental de la Dirección de Oflia Ptes Comun C-F ""B""",1,1
+280,Jefe de Unidad Departamental de la Dirección de Orientación Ciudadana y Derechos Humanos,1,1
+281,"Jefe de Unidad Departamental de la Dirección Jurídica ""A""",1,1
+282,"Jefe de Unidad Departamental de la la Dirección del Archivo Judicial ""A""",1,1
+283,Jefe de Unidad Departamental de Laboratorio de Patologia,1,1
+284,Jefe de Unidad Departamental de Licitaciones Publicas,1,1
+285,Jefe de Unidad Departamental de Mantenimiento A Inmuebles,1,1
+286,Jefe de Unidad Departamental de Mantenimiento de Hardware y Software,1,1
+287,Jefe de Unidad Departamental de Mantenimiento de Maquinaria y Equipo,1,1
+288,Jefe de Unidad Departamental de Mantenimientos Judiciales,1,1
+289,Jefe de Unidad Departamental de Monitoreo de Medios Electronicos,1,1
+290,Jefe de Unidad Departamental de Movimientos de Personal,1,1
+291,Jefe de Unidad Departamental de Normas y Conceptos Estadisticos,1,1
+292,Jefe de Unidad Departamental de Notificación,1,1
+293,Jefe de Unidad Departamental de Notificadores,1,1
+294,"Jefe de Unidad Departamental de Obras ""A""",1,1
+295,"Jefe de Unidad Departamental de Obras ""B""",1,1
+296,Jefe de Unidad Departamental de Oficialia de Partes de la Presidencia,1,1
+297,Jefe de Unidad Departamental de Operación de Oralidad Civil,1,1
+298,Jefe de Unidad Departamental de Operación de Oralidad Penal,1,1
+299,Jefe de Unidad Departamental de Operación del C5,1,1
+300,Jefe de Unidad Departamental de Operación del Cambio,1,1
+301,Jefe de Unidad Departamental de Pagos,1,1
+302,Jefe de Unidad Departamental de Politicas y Administración de Directorio Activo,1,1
+303,Jefe de Unidad Departamental de Prestaciones Economicas,1,1
+304,Jefe de Unidad Departamental de Prestaciones Sociales,1,1
+305,Jefe de Unidad Departamental de Procesos de Nómina,1,1
+306,Jefe de Unidad Departamental de Programación,1,1
+307,Jefe de Unidad Departamental de Programación de Aplicaciones,1,1
+308,"Jefe de Unidad Departamental de Protección Civil ""A""",1,1
+309,Jefe de Unidad Departamental de Pruebas,1,1
+310,Jefe de Unidad Departamental de Publicaciones,1,1
+311,Jefe de Unidad Departamental de Recepción de Consignaciones,1,1
+312,Jefe de Unidad Departamental de Recepción y Registro,1,1
+313,Jefe de Unidad Departamental de Reclutamiento y Selección,1,1
+314,"Jefe de Unidad Departamental de Recursos Financieros ""A""",1,1
+315,"Jefe de Unidad Departamental de Recursos Financieros ""B""",1,1
+316,"Jefe de Unidad Departamental de Recursos Financieros ""C""",1,1
+317,"Jefe de Unidad Departamental de Recursos Financieros ""D""",1,1
+318,"Jefe de Unidad Departamental de Recursos Materiales ""A""",1,1
+319,"Jefe de Unidad Departamental de Recursos Materiales ""B""",1,1
+320,Jefe de Unidad Departamental de Registro de Ingresos,1,1
+321,Jefe de Unidad Departamental de Registro y Filiación,1,1
+322,Jefe de Unidad Departamental de Relaciones Interinstituciónales,1,1
+323,Jefe de Unidad Departamental de Relaciones Laborales,1,1
+324,Jefe de Unidad Departamental de Relaciones Publicas,1,1
+325,Jefe de Unidad Departamental de Remuneraciones e Impuestos,1,1
+326,Jefe de Unidad Departamental de Salas y Audiencias,1,1
+327,Jefe de Unidad Departamental de Seguimiento de Control,1,1
+328,"Jefe de Unidad Departamental de Seguridad ""A""",1,1
+329,Jefe de Unidad Departamental de Seguridad Informatica,1,1
+330,Jefe de Unidad Departamental de Servicio A Usuarios,1,1
+331,Jefe de Unidad Departamental de Servicio Medico Preventivo,1,1
+332,Jefe de Unidad Departamental de Servicio Social,1,1
+333,Jefe de Unidad Departamental de Servicios Generales y Recursos Materiales,1,1
+334,Jefe de Unidad Departamental de Sintesis y Analisis de la Información,1,1
+335,Jefe de Unidad Departamental de Sistemas Administrativos,1,1
+336,Jefe de Unidad Departamental de Sistemas Audiovisuales de Seguridad,1,1
+337,Jefe de Unidad Departamental de Soporte Oralidad Familiar,1,1
+338,Jefe de Unidad Departamental de Supervision de Servicios Contratados,1,1
+339,Jefe de Unidad Departamental de Terapia para Adultos,1,1
+340,Jefe de Unidad Departamental de Terapia para Niños y Adolescentes,1,1
+341,Jefe de Unidad Departamental de Trabajo Social,1,1
+342,Jefe de Unidad Departamental de Tramite Documental,1,1
+343,Jefe de Unidad Departamental de Transferencia Tecnológica,1,1
+344,Jefe de Unidad Departamental de Tratamiento de las Adicciones,1,1
+345,"Jefe de Unidad Departamental de Turno Consig Penal ""A""",1,1
+346,"Jefe de Unidad Departamental de Turno Consig Penal ""B""",1,1
+347,Jefe de Unidad Departamental de Verificación y Entrega de Certificados,1,1
+348,Jefe de Unidad Departamental de Vigilancia de Sustitutivos y Beneficios Penales,1,1
+349,Jefe de Unidad Departamental de Vigilancia y Cumplimiento de Medidas Sanciónadoras,1,1
+350,"Jefe de Unidad Departamental del Instituto de Estudios Judiciales ""A""",1,1
+351,"Jefe de Unidad Departamental del Instituto de Estudios Judiciales ""B""",1,1
+352,"Jefe de Unidad Departamental del Instituto de Estudios Judiciales ""C""",1,1
+353,Jefe de Unidad Departamental Jefe de Logistica de la UGA,1,1
+354,Jefe de Unidad Departamental Laboratorio de Quimica,1,1
+355,Jefe de Unidad Departamental para el cobro de multas judiciales,1,1
+356,"Jefe de Unidad Departamentalde Anales de Juriprudencia y Boletín Judicial ""A""",1,1
+357,"Jefe de Unidad Departamentalde Anales de Juriprudencia y Boletín Judicial ""B""",1,1
+358,"Jefe de Unidad Departamentalde Anales de Juriprudencia y Boletín Judicial ""C""",1,1
+359,"Jefe de Unidad Departamentalde Anales de Juriprudencia y Boletín Judicial ""D""",1,1
+360,Jefe de Vigilantes,1,1
+361,Jefe Mesa Control de Expedientes Juzgado 1A Inst,1,1
+362,Jefe Mesa Control de Expedientes Juzgado Paz,1,1
+363,Jefe Mesa Control de Expedientes Sala,1,1
+364,Jefe Unidad Departamental de Control Administrativo,1,1
+365,Jefe Unidad Departamental de Convivencia Externa,1,1
+366,Juez Civil de Cuantia Menor,1,1
+367,Juez Civil de Primera Instancia,1,1
+368,Juez de Arrendamiento Inmobiliario de Primera Instancia,1,1
+369,Juez de Delitos no Graves,1,1
+370,Juez de Ejecución de Sanciones Penales,1,1
+371,Juez en Materia Penal Sistema Procesal Acusatorio,1,1
+372,Juez Familiar de Primera Instancia,1,1
+373,Juez Justicia Para Adolescentes de Primera Instancia,1,1
+374,Juez Oral Civil-Mercantil de Primera Instancia,1,1
+375,Juez Penal de Delitos No Graves,1,1
+376,Juez Penal de Primera Instancia,1,1
+377,Juezas y Jueces de la CDMX de Primera Instancia,1,1
+378,Laboratorista,1,1
+379,Laboratorista de Fotografia,1,1
+380,Laboratorista Especializado,1,1
+381,Lavandera,1,1
+382,"Lider Coordinador de Proy ect ""A""",1,1
+383,Lider Coordinador de Proyect 'C',1,1
+384,Magistrado Civil,1,1
+385,Magistrado Familiar,1,1
+386,Magistrado Justicia Para Adolescentes,1,1
+387,Magistrado Penal,1,1
+388,Mantenimiento y Servicios,1,1
+389,Mecanico Electricista,1,1
+390,Mecanografa,1,1
+391,Mecanografa Especializada,1,1
+392,Mediador,1,1
+393,Medico Especialista,1,1
+394,Medico Especializado en Sistema de Ejecución de Penas,1,1
+395,Medico General,1,1
+396,Mensajero,1,1
+397,Mesa de Plenos,1,1
+398,Motociclista de La Oficina de Sps-360,1,1
+399,Niñera,1,1
+400,Notificador,1,1
+401,Nutriólogo,1,1
+402,Oficial de Mantenimiento,1,1
+403,Oficial de Servicios Generales,1,1
+404,Oficial Mayor,1,1
+405,Oficial Notificador,1,1
+406,Operador de Terminal de Teleproceso,1,1
+407,Operador Maquina Reproducción,1,1
+408,Orientador,1,1
+409,Pasante de Derecho,1,1
+410,Pasante de Trabajo Social,1,1
+411,Patologo Forense,1,1
+412,Pedagogo Especializado en Sistema de Ejecución de Penas,1,1
+413,Peon de Limpia,1,1
+414,Perito Forense,1,1
+415,Perito Laboratorista,1,1
+416,Perito Médico Forense,1,1
+417,Perito Odontólogo Forense,1,1
+418,Perito Químico Forense,1,1
+419,Personal de Mantenimiento,1,1
+420,Plomero,1,1
+421,Presidente del TSJ de la CDMX,1,1
+422,Primer Secretario de Acuerdos de la Presidencia y el Pleno,1,1
+423,Profesional Administrativo,1,1
+424,Profesional Dictaminador de Servicios Especializados,1,1
+425,Profesional Dictaminador de Servicios Especializados Evaluador,1,1
+426,Profesional Ejecutivo de Servicios Especializados,1,1
+427,Profesional Especializado en Procesos de Nómina,1,1
+428,Profesionista Administrativo,1,1
+429,Profesor,1,1
+430,Psicologo,1,1
+431,Psicologo Especializado,1,1
+432,Psicologo Especializado en Sistema de Ejecución de Penas,1,1
+433,Psiquiatra Especializado en Sistema de Ejecución de Penas,1,1
+434,Puericultista,1,1
+435,Químico,1,1
+436,Recepciónista,1,1
+437,Repartidor de Boletín Judicial,1,1
+438,Responsable de Control de Gestión,1,1
+439,Secretaria Adjunta del Presidente,1,1
+440,Secretaria Auxiliar de Director de Area,1,1
+441,Secretaria Auxiliar de Magistrado,1,1
+442,Secretaria Auxiliar de Presidencia,1,1
+443,Secretaria de Director de Area,1,1
+444,Secretaria de Director General,1,1
+445,Secretaria de Jefe de Departamento,1,1
+446,Secretaria de Jefe de Oficina,1,1
+447,Secretaria de Magistrado,1,1
+448,Secretaria de Secretario de Acuerdos de la Presidencia y del Pleno,1,1
+449,Secretaria de Secretario de Acuerdos de Sala,1,1
+450,Secretaria de Secretario Proyectista de Sala,1,1
+451,Secretaria de Subdirector de Area,1,1
+452,Secretaria Particular,1,1
+453,Secretaria Privada de la Presidenica,1,1
+454,Secretario Actuario de Juzgado 1A Instancia Arrendamiento Inmobiliario,1,1
+455,Secretario Actuario de Juzgado 1A Instancia Civil,1,1
+456,Secretario Actuario de Juzgado 1A Instancia Familiar,1,1
+457,Secretario Actuario de Juzgado 1A Instancia Justicia Para Adolescentes,1,1
+458,Secretario Actuario de Juzgado 1A Instancia Penal,1,1
+459,Secretario Actuario de Juzgado de 1a Instancia de Ejecución,1,1
+460,Secretario Actuario de Juzgado de Paz Civil,1,1
+461,Secretario Actuario de Juzgado de Paz Penal,1,1
+462,Secretario Actuario de Juzgado Oral Civil-Mercantil de 1a Instancia,1,1
+463,Secretario Actuario de Sala Civil,1,1
+464,Secretario Actuario de Sala Familiar,1,1
+465,Secretario Actuario de Sala Justicia Para Adolescentes,1,1
+466,Secretario Actuario de Sala Penal,1,1
+467,Secretario Auxiliar,1,1
+468,Secretario Auxiliar de Acuerdos,1,1
+469,Secretario Auxiliar de Juzgado de Proceso Oral Familiar,1,1
+470,Secretario Auxiliar de Secretario de Acuerdos de Sala,1,1
+471,Secretario Auxiliar Judicial,1,1
+472,Secretario de Acuerdos de Juzgado 1A Instancia Arrendamiento Inmobiliario,1,1
+473,Secretario de Acuerdos de Juzgado 1A Instancia Civil,1,1
+474,Secretario de Acuerdos de Juzgado 1a Instancia de Ejecución,1,1
+475,Secretario de Acuerdos de Juzgado 1A Instancia Familiar,1,1
+476,Secretario de Acuerdos de Juzgado 1A Instancia Justicia Para Adolescentes,1,1
+477,Secretario de Acuerdos de Juzgado 1A Instancia Penal,1,1
+478,Secretario de Acuerdos de Juzgado 1A Instancia Volante,1,1
+479,Secretario de Acuerdos de Juzgado de Ejecución de Sentencias,1,1
+480,Secretario de Acuerdos de Juzgado de Paz Civil,1,1
+481,Secretario de Acuerdos de Juzgado de Paz Penal,1,1
+482,Secretario de Acuerdos de Juzgado Oral Civil-Mercantil de 1a Instancia,1,1
+483,Secretario de Acuerdos de Sala Civil,1,1
+484,Secretario de Acuerdos de Sala Familiar,1,1
+485,Secretario de Acuerdos de Sala Justicia Para Adolescentes,1,1
+486,Secretario de Acuerdos de Sala Penal,1,1
+487,Secretario de Acuerdos Titular Unidad de Gestión Judicial Tipo 2,1,1
+488,Secretario Judicial de Proceso Oral Familiar,1,1
+489,Secretario Particular del Presidente TSJ,1,1
+490,Secretario Proyectista de Juzgado 1A Instancia Arrendamiento Inmobiliario,1,1
+491,Secretario Proyectista de Juzgado 1A Instancia Civil,1,1
+492,Secretario Proyectista de Juzgado 1A Instancia Familiar,1,1
+493,Secretario Proyectista de Juzgado 1A Instancia Justicia Para Adolescentes,1,1
+494,Secretario Proyectista de Juzgado 1A Instancia Penal,1,1
+495,Secretario Proyectista de Juzgado de Ejecución de Sentencias,1,1
+496,Secretario Proyectista de Juzgado de Paz Civil,1,1
+497,Secretario Proyectista de Juzgado de Paz Penal,1,1
+498,Secretario Proyectista de Sala Civil,1,1
+499,Secretario Proyectista de Sala Familiar,1,1
+500,Secretario Proyectista de Sala Justicia Para Adolescentes,1,1
+501,Secretario Proyectista de Sala Penal,1,1
+502,Secretario Técnico del Presidente,1,1
+503,Secretario(a) de Director General Judicial,1,1
+504,Sociologo Especializado en Sistema de Ejecución de Penas,1,1
+505,Subdirección de Evaluación,1,1
+506,Subdirección Técnica,1,1
+507,Subdirector Administrativo,1,1
+508,Subdirector de Administración de Riesgos,1,1
+509,Subdirector de Amparos,1,1
+510,Subdirector de Anales de Jurisprudencia y Boletín Judicial,1,1
+511,Subdirector de Anales de Jurisprudencia y Publicaciones,1,1
+512,Subdirector de Area,1,1
+513,Subdirector de Arquitectura de Sistemas,1,1
+514,Subdirector de Asuntos Civiles,1,1
+515,Subdirector de Asuntos Litigiosos,1,1
+516,Subdirector de Atención y Seguimiento a Causa,1,1
+517,Subdirector de Audiencias y Atención a Usuarios,1,1
+518,Subdirector de Comunicaciones,1,1
+519,Subdirector de Comunicaciones Procesales,1,1
+520,Subdirector de Concentración y Control de Fondos,1,1
+521,Subdirector de Contabilidad,1,1
+522,Subdirector de Control de Gestión,1,1
+523,Subdirector de Control de Infraestructura,1,1
+524,Subdirector de Control y Mantenimiento Vehicular,1,1
+525,Subdirector de Desarrollo Humano,1,1
+526,Subdirector de Ejecución de Sanciones,1,1
+527,Subdirector de Ejecución de Sistemas,1,1
+528,Subdirector de Evaluación,1,1
+529,Subdirector de Formación Judicial e Investigación,1,1
+530,Subdirector de Género,1,1
+531,Subdirector de Gestión de Proyectos,1,1
+532,Subdirector de Gestión y Trámite,1,1
+533,Subdirector de Información,1,1
+534,Subdirector de Información Pública,1,1
+535,Subdirector de Insumos,1,1
+536,Subdirector de Integración de Proyectos,1,1
+537,Subdirector de Inventarios,1,1
+538,Subdirector de Investigación y Analisis,1,1
+539,Subdirector de Investigación y Ensenanza,1,1
+540,Subdirector de Legislación y Documentación,1,1
+541,Subdirector de Mantenimiento,1,1
+542,"Subdirector de Mantenimiento y Servicios ""Plaza Juarez""",1,1
+543,"Subdirector de Obras ""A""",1,1
+544,Subdirector de Oficialia de Partes Comun,1,1
+545,"Subdirector de Oficialia Mayor ""A""",1,1
+546,Subdirector de Operación de Infraestructura,1,1
+547,Subdirector de Operación y Soporte Técnico a la Oralidad,1,1
+548,Subdirector de Operaciones de Movimientos de Personal,1,1
+549,"Subdirector de Orientación Ciudadana y Derechos Humanos ""A""",1,1
+550,Subdirector de Politica Salarial,1,1
+551,"Subdirector de Presidencia ""B""",1,1
+552,Subdirector de Prestaciones Al Personal,1,1
+553,Subdirector de Prevención de Riesgos Emergencias,1,1
+554,Subdirector de Procesos,1,1
+555,Subdirector de Programación y Evaluación,1,1
+556,Subdirector de Proveeduria y Almacénes,1,1
+557,Subdirector de Proyectos,1,1
+558,Subdirector de Proyectos Especiales,1,1
+559,"Subdirector de Recursos Financieros ""A""",1,1
+560,"Subdirector de Recursos Financieros ""B""",1,1
+561,"Subdirector de Recursos Materiales ""A""",1,1
+562,Subdirector de Registro de Personal,1,1
+563,Subdirector de Relaciones Laborales,1,1
+564,Subdirector de Relaciones Publicas,1,1
+565,Subdirector de Sala,1,1
+566,Subdirector de Seguimiento,1,1
+567,Subdirector de Seguimiento Administrativo,1,1
+568,Subdirector de Seguridad,1,1
+569,Subdirector de Servicios,1,1
+570,Subdirector de Servicios Periciales,1,1
+571,Subdirector de Supervision de Obra,1,1
+572,Subdirector de Tecnologías Audiovisuales,1,1
+573,Subdirector de Trabajo Social,1,1
+574,Subdirector de Turno de Consignaciones y Mandamientos Judiciales,1,1
+575,Subdirector de Vinculación,1,1
+576,Subdirector Del Boletín Judicial,1,1
+577,Subdirector del CECOFAM Niños Héroes y Entrega-Recepción de Niñas Niños y Adolescentes,1,1
+578,"Subdirector del Instituto de Estudios Judiciales ""A""",1,1
+579,Subdirector Editorial,1,1
+580,Subdirector Jurídica,1,1
+581,Subdirector para el cobro de multas judiciales,1,1
+582,"Subdirectora CENDI ""Cristina Pacheco""",1,1
+583,"Subdirectora Centro de Justicia Alternativa ""A""",1,1
+584,"Subdirectora Centro de Justicia Alternativa ""C""",1,1
+585,"Subdirectora de Bilblioteca ""Plaza Juarez""",1,1
+586,Subdirectora de Centro de Convivencia Familiar Supervisada,1,1
+587,Subdirectora de la Unidad de Gestión y Seguimiento,1,1
+588,"Subdirectora de Presidencia ""A""",1,1
+589,Supervisor,1,1
+590,Supervisor Administrativo,1,1
+591,Supervisor de Intendencia,1,1
+592,Supervisor de Teleinformática,1,1
+593,Supervisor Judicial de Teleinformática,1,1
+594,Supervisor Técnico,1,1
+595,Taquimecanografa,1,1
+596,Técnico,1,1
+597,Técnico de Servicios Administrativos,1,1
+598,Técnico en Mantenimiento de Maquinaria y Equipo Especializado,1,1
+599,Técnico en Procesos de Acreditación,1,1
+600,Técnico Especializado,1,1
+601,Técnico Hispatologo,1,1
+602,Técnico Investigador de Ciencias Jurídicas,1,1
+603,Técnico Investigador en Tecnologías,1,1
+604,"Técnico Necropsia ""A""",1,1
+605,Técnico Radiologo,1,1
+606,Tipografo,1,1
+607,Titular de Cendi,1,1
+608,Trabajador Social,1,1
+609,Trabajador Social Especializado de Sistema de Ejecución de Penas,1,1
+610,Trabajador(a) Social Especializado(a),1,1
+611,Trabajadora Social,1,1
+612,Verificador En Balística,1,1
+613,Vigilante,1,1

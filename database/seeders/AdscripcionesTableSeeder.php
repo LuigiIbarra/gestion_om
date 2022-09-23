@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use League\Csv\Reader;
 
 class AdscripcionesTableSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class AdscripcionesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        /*
         DB::table('tcadscripciones')->insert(['cdescripcion_adscripcion'=>'OFICINA DE LA PRESIDENCIA DEL TRIBUNAL SUPERIOR DE JUSTICIA DE LA CIUDAD DE MEXICO Y AREAS AUXILIARES','csiglas'=>'OPTSJCDMXYAA','iid_tipo_area'=>'3','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tcadscripciones')->insert(['cdescripcion_adscripcion'=>'OFICINA DEL OFICIAL MAYOR DEL TRIBUNAL SUPERIOR DE JUSTICIA DE LA CIUDAD DE MEXICO','csiglas'=>'OOFTSJCDMX','iid_tipo_area'=>'4','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tcadscripciones')->insert(['cdescripcion_adscripcion'=>'DIRECCION GENERAL DEL CENTRO DE JUSTICIA ALTERNATIVA','csiglas'=>'DGCJA','iid_tipo_area'=>'3','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
@@ -150,6 +151,28 @@ class AdscripcionesTableSeeder extends Seeder
         DB::table('tcadscripciones')->insert(['cdescripcion_adscripcion'=>'JUZGADO DE LO CIVIL 71','csiglas'=>'JC71','iid_tipo_area'=>'1','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tcadscripciones')->insert(['cdescripcion_adscripcion'=>'JUZGADO DE LO CIVIL 72','csiglas'=>'JC72','iid_tipo_area'=>'1','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tcadscripciones')->insert(['cdescripcion_adscripcion'=>'JUZGADO DE LO CIVIL 73','csiglas'=>'JC73','iid_tipo_area'=>'1','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
+        */
+        if (!ini_get("auto_detect_line_endings")) 
+        {
+            ini_set("auto_detect_line_endings", '1');     
+        }   
+
+        $readDirectory = 'database/seeders/cat_areas.csv';
+        $stream = fopen($readDirectory, 'r');
+
+        $reader = Reader::createFromStream($stream, 'r')->setHeaderOffset(0);
+        // Indicamos el índice de la fila de nombres de columnas
+        foreach ($reader as $r) {
+            DB::table('tcadscripciones')->insert([
+                'iid_adscripcion'           => $r['iid_adscripcion'],
+                'cdescripcion_adscripcion'  => utf8_encode($r['cdescripcion_adscripcion']),
+                'iid_tipo_area'           => $r['iid_tipo_area'],
+                'iestatus'                  => $r['iestatus'],
+                'iid_usuario'               => $r['iid_usuario'],
+                'created_at'                => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+          
+        }
     }
 
 }

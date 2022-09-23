@@ -87,6 +87,8 @@ class AdscripcionesController extends Controller
             //Se actualizan los datos del Puesto
             $operacion                             = "ACTUALIZADA";
             $adscripcion->cdescripcion_adscripcion = $request->descripcion_adscripcion;
+            $adscripcion->csiglas                  = $request->siglas;
+            $adscripcion->iid_tipo_area            = $request->tipo_adscripcion;
             $adscripcion->iestatus                 = 1;
         }
         $adscripcion->iid_usuario                  = auth()->user()->id;

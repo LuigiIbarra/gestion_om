@@ -17,7 +17,7 @@ class CreateTcadscripcionesTable extends Migration
             $table->increments('iid_adscripcion');
             $table->string('cdescripcion_adscripcion',300);
             $table->string('csiglas',20)->nullable();
-            $table->integer('iid_tipo_area')->default(8);
+            $table->integer('iid_tipo_area')->default(9);
             $table->integer('iestatus')->default(1);
             $table->integer('iid_usuario')->nullable();
             $table->timestamps();

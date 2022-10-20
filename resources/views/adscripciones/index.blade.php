@@ -27,7 +27,11 @@
                 <tr>
                     <td class="text-center">{{ $adscripcion['cdescripcion_adscripcion'] }}</td>
                     <td class="text-center">{{ $adscripcion['csiglas'] }}</td>
-                    <td class="text-center">{{ $adscripcion['tipoarea']['cdescripcion_tipo_area'] }}</td>
+                    @if ($adscripcion['tipoarea']['cdescripcion_tipo_area']!=null)
+                        <td class="text-center">{{ $adscripcion['tipoarea']['cdescripcion_tipo_area'] }}</td>
+                    @else
+                        <td class="text-center"></td>
+                    @endif
                     <td class="text-center col-actions">
                     @if ($adscripcion->iestatus == 1)
                             <a href="{{ url('adscripciones/editar/'.$adscripcion->iid_adscripcion) }}" data-toggle="tooltip" data-html="true" title="Actualizar">

@@ -130,7 +130,10 @@ class PersonalController extends Controller
 
     public static function buscaPuestoAdscrip(Request $request){
         $nr               = $request->nr;
-        $personal_rem     = Personal::where('cnombre_personal','like','%'.$nr.'%')->where('iestatus','=',1)->get();
+        $personal_rem     = Personal::where('cnombre_personal','like','%'.$nr.'%')
+                                    ->orWhere('cpaterno_personal','like','%'.$nr.'%')
+                                    ->orWhere('cmaterno_personal','like','%'.$nr.'%')
+                                    ->where('iestatus','=',1)->get();
         if(!$personal_rem->isEmpty()){
             $idRemitente  = $personal_rem[0]->iid_personal;
             $nombreRemtte = $personal_rem[0]->cnombre_personal.' '.$personal_rem[0]->cpaterno_personal.' '.$personal_rem[0]->cmaterno_personal;

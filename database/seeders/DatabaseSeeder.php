@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TiposDocumentosTableSeeder::class);
         $this->call(TiposAnexosTableSeeder::class);
         $this->call(TiposAsuntosTableSeeder::class);
-        $this->call(TiposAreasTableSeeder::class);
         $this->call(EstatusDocumentosTableSeeder::class);
         $this->call(PrioridadesDocumentosTableSeeder::class);
         $this->call(ImportanciaContenidosTableSeeder::class);
@@ -29,9 +28,10 @@ class DatabaseSeeder extends Seeder
         $this->call(PersonalTableSeeder::class);
         $this->call(UsuariosTableSeeder::class);
         $this->call(ParametrosTableSeeder::class);
-        */
         $this->call(PuestosTableSeeder::class);
         $this->call(AdscripcionesTableSeeder::class);
+        */
+        $this->call(TiposAreasTableSeeder::class);
 
         Model::reguard();
     }

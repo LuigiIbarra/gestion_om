@@ -26,16 +26,8 @@
             @foreach($adscripciones as $indice=>$adscripcion)
                 <tr>
                     <td class="text-center">{{ $adscripcion['cdescripcion_adscripcion'] }}</td>
-                    @if ($adscripcion['csiglas']!="")
-                        <td class="text-center">{{ $adscripcion['csiglas'] }}</td>
-                    @else
-                        <td class="text-center"></td>
-                    @endif
-                    @if ($adscripcion['tipoarea']['cdescripcion_tipo_area']!="")
-                        <td class="text-center">{{ $adscripcion['tipoarea']['cdescripcion_tipo_area'] }}</td>
-                    @else
-                        <td class="text-center"></td>
-                    @endif
+                    <td class="text-center">{{ $adscripcion['csiglas'] }}</td>
+                    <td class="text-center">{{ $adscripcion['tipoarea']['cdescripcion_tipo_area'] }}</td>
                     <td class="text-center col-actions">
                     @if ($adscripcion->iestatus == 1)
                             <a href="{{ url('adscripciones/editar/'.$adscripcion->iid_adscripcion) }}" data-toggle="tooltip" data-html="true" title="Actualizar">

@@ -27,7 +27,7 @@
                 <tr>
                     <td class="text-center">{{ $adscripcion['cdescripcion_adscripcion'] }}</td>
                     <td class="text-center">{{ $adscripcion['csiglas'] }}</td>
-                    @if ($adscripcion['tipoarea']['cdescripcion_tipo_area']!=null)
+                    @if ($adscripcion['tipoarea']['cdescripcion_tipo_area']!="")
                         <td class="text-center">{{ $adscripcion['tipoarea']['cdescripcion_tipo_area'] }}</td>
                     @else
                         <td class="text-center"></td>

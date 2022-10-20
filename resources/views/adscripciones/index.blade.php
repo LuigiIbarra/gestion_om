@@ -26,7 +26,11 @@
             @foreach($adscripciones as $indice=>$adscripcion)
                 <tr>
                     <td class="text-center">{{ $adscripcion['cdescripcion_adscripcion'] }}</td>
-                    <td class="text-center">{{ $adscripcion['csiglas'] }}</td>
+                    @if ($adscripcion['csiglas']!="")
+                        <td class="text-center">{{ $adscripcion['csiglas'] }}</td>
+                    @else
+                        <td class="text-center"></td>
+                    @endif
                     @if ($adscripcion['tipoarea']['cdescripcion_tipo_area']!="")
                         <td class="text-center">{{ $adscripcion['tipoarea']['cdescripcion_tipo_area'] }}</td>
                     @else

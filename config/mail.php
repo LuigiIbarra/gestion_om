@@ -94,7 +94,7 @@ return [
     'from' => [
         //'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         //'name' => env('MAIL_FROM_NAME', 'Example'),
-        'address' => env('MAIL_FROM_ADDRESS', 'notificaciones.sistemas@tsjcdmx.gob.mx'),
+        'address' => env('MAIL_FROM_ADDRESS', 'control.de.gestion@tsjcdmx.gob.mx'),
         'name' => env('MAIL_FROM_NAME', 'SISTEMA CONTROL DE GESTIÓN DE LA OFICIALÍA MAYOR'),
     ],
 

@@ -61,6 +61,9 @@
                                 <img src="{{ asset('bootstrap-icons-1.5.0/file-pdf-fill.svg') }}" width="18" height="18">
                             </a>
                         @endif
+                        <a href="{{ url('documentos/acuse/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Imprimir Acuse">
+                            <img src="{{ asset('bootstrap-icons-1.5.0/printer-fill.svg') }}" width="18" height="18">
+                        </a>
                         <a href="{{ url('documentos/editar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
                             <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
                         </a>

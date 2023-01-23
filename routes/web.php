@@ -34,6 +34,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('documentos/index',                      [DocumentosController::class, 'index'])->name('documentos.index');
 Route::get('documentos/nuevo',                      [DocumentosController::class, 'nuevo_documento']);
 Route::post('documentos/guardar',                   [DocumentosController::class, 'guardar_documento']);
+Route::get('documentos/acuse/{id_documento}',       [DocumentosController::class, 'acuse_documento']);
 Route::get('documentos/editar/{id_documento}',      [DocumentosController::class, 'editar_documento'])->name('documentos.editar');
 Route::post('documentos/actualizar',                [DocumentosController::class, 'actualizar_documento']);
 Route::get('documentos/inhabilitar/{id_documento}', [DocumentosController::class, 'confirmainhabilitar_documento']);

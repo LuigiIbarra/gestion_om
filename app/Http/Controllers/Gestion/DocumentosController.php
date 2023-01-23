@@ -186,6 +186,33 @@ class DocumentosController extends Controller
                          ->with('success','Documento guardado satisfactoriamente');
     }
 
+    public function acuse_documento($id_documento)
+    {
+        setlocale(LC_TIME, "spanish");  //FECHA EN ESPANIOL
+        $fecha              = date('Y-m-d');
+        $anio               = date('Y');
+        $docto              = Documento::where('iid_documento','=',$id_documento)->first();
+        $parametros         = Parametros::where('ianio','=',$anio)->first();
+        $data['documento']  = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
+        $data['parametros'] = $parametros;
+        $data['asignada']   = DestinatarioAtencion::with('documento','adscripcion')
+                                                  ->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
+        $nombreArchivo = 'acuse-'.$docto->cfolio.'_'.$fecha.'.pdf';
+
+        $html = view('documentos.creaPDF.acuse',$data)->render();
+
+        $mpdf = new Mpdf(['format' => 'letter'
+                            ,'margin_top'=>20
+                            ,'margin_bottom'=>20
+                            ,'margin_left'=>20
+                            ,'margin_right'=>20
+                        ]);
+        // Write some HTML code:
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->writeHTML($html); //imprimes la variable $html que contiene tu HTML
+        $mpdf->Output($nombreArchivo,'D');//Salida del documento  D
+    }
+
     public function editar_documento($id_documento)
     {
         $documento          = Documento::where('iid_documento','=',$id_documento)->first();

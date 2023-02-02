@@ -31,7 +31,7 @@
     
         <div class="row text-center">
             <div class="col-6">                        
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" id="btnGuardarDoc">
                     <img src="{{ asset('bootstrap-icons-1.5.0/save.svg') }}" width="18" height="18">
                     <span>&nbsp;Guardar</span>
                 </button>

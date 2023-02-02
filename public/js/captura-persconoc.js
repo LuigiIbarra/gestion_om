@@ -81,6 +81,7 @@ window.addEventListener('load', function(){
                 if(respuesta.exito == 1){
                     $('#puesto_remitente').attr("disabled", false);
                     $('#area_remitente').attr("disabled", false);
+                    $('#btnGuardarDoc').attr("disabled",false);
                     document.querySelector('#validaPersonal').innerHTML = "";
                     var selectPuesto = '<option value="'+respuesta.listaPuesto[0].iid_puesto +'">'+respuesta.listaPuesto[0].cdescripcion_puesto+'</option>';
                     var selectAdscrip;
@@ -96,6 +97,7 @@ window.addEventListener('load', function(){
                 }else{
                     $('#puesto_remitente').attr("disabled", true);
                     $('#area_remitente').attr("disabled", true);
+                    $('#btnGuardarDoc').attr("disabled",true);
                     var selectPuesto  = "<option value='0'>Escriba un Nombre...</option>";
                     var selectAdscrip = "<option value='0'>Escriba un Nombre...</option>";
                     document.querySelector('#idRemitente').value = "";

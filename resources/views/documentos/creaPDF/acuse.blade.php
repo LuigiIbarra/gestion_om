@@ -25,7 +25,7 @@
 	</head>
 	<body>
 		<form target="_blank">
-			<table style="border: 2px solid;">
+			<table>
 				<tr>
 					<td>
 						<table>
@@ -44,7 +44,9 @@
 								<td style="vertical-align: top;text-align: center;"><h4>CONTROL DE GESTIÓN DE LA OFICILÍA MAYOR</h4></td>
 								<td rowspan="2" style="text-align: left;vertical-align: top;"><img src="./images/LOGO_OM.png" width="135px"></td>
 							</tr>
+							<!--
 							<tr><td style="vertical-align: top;text-align: center;"><h3>ACUSE</h3></td></tr>
+							-->
 						</table>
 					</td>
 				</tr>
@@ -55,40 +57,123 @@
 					<td>
 						<table>
 							<tr>
-								<th>FOLIO</th><th colspan="3">CONCEPTO</th>
+								<th style="text-align: right;">Número de Folio:</th><td width="80px">{{ $documento->cfolio }}</td>
 							</tr>
 							<tr>
-								<td style="border: 2px solid; text-align: center">{{ $documento->cfolio }}</td><td colspan="3" style="border: 1px solid;">{{ $documento->casunto }}</td>
+								<th style="text-align: right;">Fecha de Captura:</th><td width="80px">{{ $documento->dfecha_recepcion }}</td>
+							</tr>
+						</table>
+						<table>
+							<tr>
+								<th width="40px">PARA:</th><td>{{ $nombreDestA->cnombre_personal.' '.$nombreDestA->cpaterno_personal.' '.$nombreDestA->cmaterno_personal }}</td>
 							</tr>
 							<tr>
-								<td></td>
-								<td style="border: 2px solid;"><h4>NÚMERO DE OFICIO</h4></td>
-								<td style="border: 1px solid;">{{ $documento->cnumero_documento }}</td>
-								<td></td>
+								<td></td><td>{{ $nombreDestA->puesto->cdescripcion_puesto}}</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td>Me permito enviar a usted:</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td style="border: 1px solid; border-collapse: collapse;">
+									<table>
+										<tr>
+											<th width="40px">Asunto:</th><td>{{ $documento->casunto }}</td>
+										</tr>
+										<tr>
+											<td><br><br><br><br>
+											</td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 							<tr>
-								<td></td>
-								<td style="border: 2px solid;"><h4>RECEPCIÓN</h4></td>
-								<td style="border: 1px solid;">{{ $documento->dfecha_recepcion }}</td>
-								<td></td>
+								<td><br>
+								</td>
 							</tr>
 							<tr>
-								<td></td>
-								<td style="border: 2px solid;"><h4>ASIGNACIÓN</h4></td>
-								<td style="border: 1px solid;">{{ $documento->dfecha_recepcion }}</td>
-								<td></td>
+								<td style="border: 1px solid; border-collapse: collapse;">
+									<table>
+										<tr>
+											<th width="40px">Procedencia:</th><td>{{ $personaRmte->adscripcion->cdescripcion_adscripcion }}</td>
+										</tr>
+										<tr>
+											<td></td><td>{{ $personaRmte->cnombre_personal.' '.$personaRmte->cpaterno_personal.' '.$personaRmte->cmaterno_personal}}</td>
+										</tr>
+										<tr>
+											<td></td><td>{{ $personaRmte->puesto->cdescripcion_puesto }}</td>
+										</tr>
+										<tr>
+											<td><br></td>
+										</tr>
+									</table>
+									<table>
+										<tr>
+											<th width="40px">Fecha del Documento:</th><td>{{ $documento->dfecha_documento }}</td>
+										</tr>
+										<tr>
+											<th style="text-align: left;">No. de Documento:</th><td>{{ $documento->cnumero_documento }}</td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 							<tr>
-								<td></td>
-								<td style="border: 2px solid;"><h4>ÁREA ASIGNADA</h4></td>
-								<td style="border: 1px solid;">{{ $asignada->adscripcion->cdescripcion_adscripcion }}</td>
-								<td></td>
+								<td><br>
+								</td>
 							</tr>
 							<tr>
-								<td></td>
-								<td style="border: 2px solid;"><h4>TIPO ARCHIVO</h4></td>
-								<td style="border: 1px solid;">DIRECCIÓN EJECUTIVA DE RECURSOS FINANCIEROS</td>
-								<td></td>
+								<td style="border: 1px solid; border-collapse: collapse;">
+									<table>
+										<tr>
+											<th width="40px">Instrucción:</th><td></td>
+										</tr>
+										<tr>
+											<td></td><td>{{ $documento->instruccion->cdescripcion_instruccion }}<br></td>
+										</tr>
+										<tr>
+											<td><br></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td><br>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<th width="40px">A T E N T A M E N T E</th><th>Observaciones del Documento:</th>
+										</tr>
+										<tr>
+											<td><br><br><br><br><br><br></td><td>{{ $documento->cobservaciones }}</td>
+										</tr>
+										<tr>
+											<th>ING. VICTOR MANUEL ZARAGOZA LARA</th><td></td>
+										</tr>
+										<tr>
+											<th>SUBDIRECTOR DE CONTROL DE GESTIÓN DE</th><td></td>
+										</tr>
+										<tr>
+											<th>LA OFICILÍA MAYOR</th><td></td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 						</table>
 					</td>

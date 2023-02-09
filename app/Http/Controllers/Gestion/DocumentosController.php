@@ -192,6 +192,11 @@ class DocumentosController extends Controller
         $fecha              = date('Y-m-d');
         $anio               = date('Y');
         $docto              = Documento::where('iid_documento','=',$id_documento)->first();
+        $destinAtt          = DestinatarioAtencion::with('adscripcion')->where('iid_documento','=',$id_documento)->first();
+        $nombreDestA        = Personal::with('puesto')->where('iid_adscripcion','=',$destinAtt->iid_adscripcion)->first();
+        $data['nombreDestA']= $nombreDestA;
+        $personaRemitente   = Personal::with('adscripcion','puesto')->where('iid_personal','=',$docto->iid_personal_remitente)->first();
+        $data['personaRmte']= $personaRemitente;
         $parametros         = Parametros::where('ianio','=',$anio)->first();
         $data['documento']  = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
         $data['parametros'] = $parametros;

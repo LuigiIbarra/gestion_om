@@ -204,17 +204,20 @@ class DocumentosController extends Controller
                                                   ->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
         $nombreArchivo = 'acuse-'.$docto->cfolio.'_'.$fecha.'.pdf';
 
-        $html = view('documentos.creaPDF.acuse',$data)->render();
+        $html  = view('documentos.creaPDF.acuse',$data)->render();
+        $htmlB = view('documentos.creaPDF.acuseb',$data)->render();
 
-        $mpdf = new Mpdf(['format' => 'letter'
+        $mpdf  = new Mpdf(['format' => 'letter'
                             ,'margin_top'=>20
                             ,'margin_bottom'=>20
                             ,'margin_left'=>20
                             ,'margin_right'=>20
-                        ]);
+                         ]);
         // Write some HTML code:
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->writeHTML($html); //imprimes la variable $html que contiene tu HTML
+        $mpdf->AddPage();
+        $mpdf->writeHTML($htmlB);
         $mpdf->Output($nombreArchivo,'D');//Salida del documento  D
     }
 

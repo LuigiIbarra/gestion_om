@@ -17,6 +17,7 @@ class EstatusDocumentosTableSeeder extends Seeder
     {
         //
         DB::table('tcestatus_documentos')->insert(['cdescripcion_estatus_documento'=>'PENDIENTE','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tcestatus_documentos')->insert(['cdescripcion_estatus_documento'=>'EN PROCESO','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tcestatus_documentos')->insert(['cdescripcion_estatus_documento'=>'CONCLUIDO','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tcestatus_documentos')->insert(['cdescripcion_estatus_documento'=>'CONOCIMIENTO','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
     }

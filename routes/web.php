@@ -39,6 +39,7 @@ Route::get('documentos/editar/{id_documento}',      [DocumentosController::class
 Route::post('documentos/actualizar',                [DocumentosController::class, 'actualizar_documento']);
 Route::get('documentos/inhabilitar/{id_documento}', [DocumentosController::class, 'confirmainhabilitar_documento']);
 Route::post('documentos/inhabilitar',               [DocumentosController::class, 'inhabilitar_documento']);
+Route::get('documentos/estadistico',               [DocumentosController::class, 'reporte_estadistico']);
 Route::post('buscaDoctoDuplicado',                  [DocumentosController::class, 'buscaDoctoDuplicado']);
 
 //Rutas de Folios Relacionados

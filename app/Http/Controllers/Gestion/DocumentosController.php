@@ -515,6 +515,31 @@ class DocumentosController extends Controller
                          ->with('success','Documento '.$operacion.' satisfactoriamente');
     }
 
+    public function reporte_estadistico()
+    {
+        setlocale(LC_TIME, "spanish");  //FECHA EN ESPANIOL
+        $fecha              = date('Y-m-d');
+        $data['fecha']      = $fecha;
+        $anio               = date('Y');
+        $data['anio']       = $anio;
+        $parametros         = Parametros::where('ianio','=',$anio)->first();
+        $data['parametros'] = $parametros;
+        $nombreArchivo = 'estadistico_'.$fecha.'.pdf';
+
+        $html  = view('documentos.creaPDF.estadistico',$data)->render();
+
+        $mpdf  = new Mpdf(['format' => 'letter'
+                            ,'margin_top'=>20
+                            ,'margin_bottom'=>20
+                            ,'margin_left'=>20
+                            ,'margin_right'=>20
+                         ]);
+        // Write some HTML code:
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->writeHTML($html); //imprimes la variable $html que contiene tu HTML
+        $mpdf->Output($nombreArchivo,'D');//Salida del documento  D
+    }
+
     public static function bitacora(string $jsonBefore,string $jsonAfter){
         $bitacora = new Bitacora();
         $bitacora->cjson_antes   = ($jsonBefore==null ? 'NEW INSERT': $jsonBefore);

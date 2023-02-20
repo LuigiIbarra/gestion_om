@@ -81,6 +81,18 @@
                             </li>
                           </ul>
                         </div>
+                        <div class="dropdown">
+                          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('bootstrap-icons-1.5.0/bar-chart-line-fill.svg') }}" width="18" height="18">
+                            Reportes
+                          </a>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="{{ url('documentos/estadistico') }}">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/graph-up.svg') }}" width="18" height="18">Estadístico Mensual
+                                </a>
+                            </li>
+                          </ul>
+                        </div>
                     @endauth
 
                     <!-- Right Side Of Navbar -->

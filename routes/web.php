@@ -85,4 +85,5 @@ Route::get('personal/editar/{id_personal}',         [PersonalController::class, 
 Route::post('personal/actualizar',                  [PersonalController::class, 'actualizar_personal']);
 Route::get('personal/inhabilitar/{id_personal}',    [PersonalController::class, 'confirmainhabilitar_personal']);
 Route::post('buscaPuestoAdscrip',                   [PersonalController::class, 'buscaPuestoAdscrip']);
+Route::post('actualizaPuestoAdscrip',               [PersonalController::class, 'actualizaPuestoAdscrip']);
 Route::post('buscaOtroNombre',                      [PersonalController::class, 'buscaOtroNombre']);

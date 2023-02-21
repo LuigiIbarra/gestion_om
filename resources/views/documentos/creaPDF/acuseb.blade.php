@@ -61,32 +61,11 @@
 							</tr>
 							<tr><td style="vertical-align: top;text-align: center;"><h3>ACUSE</h3></td></tr>
 						</table>
-					<!--
-						<table>
-							<tr>
-								<th width="40px">PARA:</th><td>{{ $nombreDestA->cnombre_personal.' '.$nombreDestA->cpaterno_personal.' '.$nombreDestA->cmaterno_personal }}</td>
-							</tr>
-							<tr>
-								<td></td><td>{{ $nombreDestA->puesto->cdescripcion_puesto }}</td>
-							</tr>
-						</table>
-					-->
 					</td>
 				</tr>
 				<tr>
 					<td><br></td>
 				</tr>
-			<!--
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td>Me permito enviar a usted:</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			-->
 				<tr>
 					<td>
 						<table>
@@ -140,9 +119,11 @@
 										<tr>
 											<th width="50%" style="text-align: left;">NOMBRE</th><th style="text-align: left;">CARGO</th>
 										</tr>
-										<tr>
-											<td>{{ $nombreDestA->cnombre_personal.' '.$nombreDestA->cpaterno_personal.' '.$nombreDestA->cmaterno_personal }}</td><td>{{ $nombreDestA->puesto->cdescripcion_puesto }}<br></td>
-										</tr>
+										@foreach($pers_destAt as $indice=>$destAten)
+											<tr>
+												<td>{{ $destAten->cnombre_personal.' '.$destAten->cpaterno_personal.' '.$destAten->cmaterno_personal }}</td><td>{{ $destAten->puesto->cdescripcion_puesto }}<br></td>
+											</tr>
+										@endforeach
 										<tr>
 											<td><br></td>
 										</tr>

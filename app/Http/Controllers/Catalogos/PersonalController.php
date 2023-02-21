@@ -133,16 +133,24 @@ class PersonalController extends Controller
         $personal_rem     = Personal::where('cnombre_personal','like','%'.$nr.'%')
                                     ->orWhere('cpaterno_personal','like','%'.$nr.'%')
                                     ->orWhere('cmaterno_personal','like','%'.$nr.'%')
+                                    ->orWhere('cnombre_personal','=',mb_strimwidth($nr,0,strpos($nr, " ")))
+                                    ->orWhere('cpaterno_personal','=',mb_strimwidth($nr,0,strpos($nr, " ")))
+                                    ->orWhere('cmaterno_personal','=',mb_strimwidth($nr,0,strpos($nr, " ")))
+                                    ->orWhere('cnombre_personal','=',mb_strimwidth($nr,strpos($nr, " ")+1,strlen($nr)))
+                                    ->orWhere('cpaterno_personal','=',mb_strimwidth($nr,strpos($nr, " ")+1,strlen($nr)))
+                                    ->orWhere('cmaterno_personal','=',mb_strimwidth($nr,strpos($nr, " ")+1,strlen($nr)))
                                     ->where('iestatus','=',1)->get();
         if(!$personal_rem->isEmpty()){
             $idRemitente  = $personal_rem[0]->iid_personal;
             $nombreRemtte = $personal_rem[0]->cnombre_personal.' '.$personal_rem[0]->cpaterno_personal.' '.$personal_rem[0]->cmaterno_personal;
+            $listaNR      = $personal_rem;
             $listaPuesto  = Puesto::where('iid_puesto','=',$personal_rem[0]->iid_puesto)->where('iestatus','=',1)->get();
             $listaAdscrip = Adscripcion::where('iid_adscripcion','=',$personal_rem[0]->iid_adscripcion)->where('iestatus','=',1)->get();
             return response()->json(
                 [
                     'idRemitente'  => $idRemitente,
                     'nombreRemtte' => $nombreRemtte,
+                    'listaNR'      => $listaNR,
                     'listaPuesto'  => $listaPuesto,
                     'listaAdscrip' => $listaAdscrip,
                     'exito'        => 1
@@ -153,9 +161,35 @@ class PersonalController extends Controller
                 [
                     'idRemitente'  => null,
                     'nombreRemtte' => null,
+                    'listaNR'      => null,
                     'listaPuesto'  => null,
                     'listaAdscrip' => null,
                     'exito'        => 0
+                ]
+            );
+        }
+    }
+
+
+    public static function actualizaPuestoAdscrip(Request $request){
+        $idrmtte            = $request->lnr;
+        $remitente          = Personal::where('iid_personal','=',$idrmtte)->get();
+        if (!$remitente->isEmpty()){
+            $puesto         = Puesto::where('iid_puesto','=',$remitente[0]->iid_puesto)->get();
+            $adscripcion    = Adscripcion::where('iid_adscripcion','=',$remitente[0]->iid_adscripcion)->get();
+            return response()->json(
+                [
+                    'puesto'        => $puesto,
+                    'adscripcion'   => $adscripcion,
+                    'exito'         => 1
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    'puesto'        => null,
+                    'adscripcion'   => null,
+                    'exito'         => 0
                 ]
             );
         }

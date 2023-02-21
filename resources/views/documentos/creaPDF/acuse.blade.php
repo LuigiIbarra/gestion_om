@@ -68,7 +68,7 @@
 								<th width="40px">PARA:</th><td>{{ $nombreDestA->cnombre_personal.' '.$nombreDestA->cpaterno_personal.' '.$nombreDestA->cmaterno_personal }}</td>
 							</tr>
 							<tr>
-								<td></td><td>{{ $nombreDestA->puesto->cdescripcion_puesto}}</td>
+								<td></td><td>{{ $nombreDestA->puesto->cdescripcion_puesto }}</td>
 							</tr>
 						</table>
 					</td>
@@ -161,7 +161,7 @@
 											<th width="40px">A T E N T A M E N T E</th><th>Observaciones del Documento:</th>
 										</tr>
 										<tr>
-											<td><br><br><br><br><br><br></td><td>{{ $documento->cobservaciones }}</td>
+											<td><br><br><br><br><br><br></td><td style="text-align: right;">{{ $documento->cobservaciones }}</td>
 										</tr>
 										<tr>
 											<th>ING. VICTOR MANUEL ZARAGOZA LARA</th><td></td>

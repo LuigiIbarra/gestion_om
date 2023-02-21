@@ -83,25 +83,27 @@ window.addEventListener('load', function(){
                     $('#area_remitente').attr("disabled", false);
                     $('#btnGuardarDoc').attr("disabled",false);
                     document.querySelector('#validaPersonal').innerHTML = "";
-                    var selectPuesto = '<option value="'+respuesta.listaPuesto[0].iid_puesto +'">'+respuesta.listaPuesto[0].cdescripcion_puesto+'</option>';
-                    var selectAdscrip;
-                    for(let i in respuesta.listaAdscrip){
-                        selectAdscrip+= '<option value="'+respuesta.listaAdscrip[i].iid_adscripcion +'">'+respuesta.listaAdscrip[i].cdescripcion_adscripcion+'</option>';
+                    var selectNR;
+                    for(let i in respuesta.listaNR){
+                        selectNR+= '<option value="'+respuesta.listaNR[i].iid_personal +'">'+respuesta.listaNR[i].cnombre_personal+' '+respuesta.listaNR[i].cpaterno_personal+' '+respuesta.listaNR[i].cmaterno_personal+'</option>';
                     }
-                    document.querySelector('#idRemitente').value = respuesta.idRemitente;
-                    document.querySelector('#nombre_remitente').value = respuesta.nombreRemtte;
+                    var selectPuesto = '<option value="'+respuesta.listaPuesto[0].iid_puesto +'">'+respuesta.listaPuesto[0].cdescripcion_puesto+'</option>';
+                    var selectAdscrip= '<option value="'+respuesta.listaAdscrip[0].iid_adscripcion +'">'+respuesta.listaAdscrip[0].cdescripcion_adscripcion+'</option>';
+                    document.querySelector('#idRemitente').value          = respuesta.idRemitente;
+                    document.querySelector('#listanr').innerHTML          = selectNR;
                     document.querySelector("#puesto_remitente").innerHTML = selectPuesto;
-                    document.querySelector("#area_remitente").innerHTML = selectAdscrip;
-                	document.querySelector('#validaPersonal').innerHTML = "";
-                	//muestraRH();
+                    document.querySelector("#area_remitente").innerHTML   = selectAdscrip;
+                	document.querySelector('#validaPersonal').innerHTML   = "";
                 }else{
                     $('#puesto_remitente').attr("disabled", true);
                     $('#area_remitente').attr("disabled", true);
                     $('#btnGuardarDoc').attr("disabled",true);
+                    var selectNR      = "<option value='0'>Escriba un Nombre...</option>";
                     var selectPuesto  = "<option value='0'>Escriba un Nombre...</option>";
                     var selectAdscrip = "<option value='0'>Escriba un Nombre...</option>";
                     document.querySelector('#idRemitente').value = "";
                     document.querySelector('#nombre_remitente').value = "";
+                    document.querySelector('#listanr').innerHTML = selectNR;
                     document.querySelector("#puesto_remitente").innerHTML = selectPuesto;
                     document.querySelector("#area_remitente").innerHTML = selectAdscrip;                   
                     var error=""; 

@@ -62,8 +62,8 @@
         <br>
         <div class="row" id="divDA_Seguimiento">
         @foreach($destinAtt as $indice=>$destAt)
-    <!--OFICIALÍA MAYOR OM, id=2-->
-            @if($destAt->iid_adscripcion==2)
+    <!--OFICIALÍA MAYOR OM, id=1027-->
+            @if($destAt->iid_adscripcion==1027)
                 <div class="col-3" id="divDAOMSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AOMSeguimModal">
                         Seguimiento OFMTSJ
@@ -72,8 +72,8 @@
                     @include('documentos.modales.datos_segOM_dest_aten')
                 </div>
             @endif
-    <!--PLANEACIÓN PL, id=12-->
-            @if($destAt->iid_adscripcion==12)
+    <!--PLANEACIÓN PL, id=229-->
+            @if($destAt->iid_adscripcion==229)
                 <div class="col-3" id="divDAPLSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#APLSeguimModal">
                         Seguimiento D E P
@@ -82,8 +82,8 @@
                     @include('documentos.modales.datos_segPL_dest_aten')
                 </div>
             @endif
-    <!--GESTIÓN TECNOLÓGICA, id=14-->
-            @if($destAt->iid_adscripcion==14)
+    <!--GESTIÓN TECNOLÓGICA, id=227-->
+            @if($destAt->iid_adscripcion==227)
                 <div class="col-3" id="divDAGTSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AGTSeguimModal">
                         Seguimiento DEGT
@@ -92,8 +92,8 @@
                     @include('documentos.modales.datos_segGT_dest_aten')
                 </div>
             @endif
-    <!--RECURSOS HUMANOS RH, id=15-->
-            @if($destAt->iid_adscripcion==15)
+    <!--RECURSOS HUMANOS RH, id=231-->
+            @if($destAt->iid_adscripcion==231)
                 <div class="col-3" id="divDARHSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ARHSeguimModal">
                         Seguimiento DERH
@@ -103,8 +103,8 @@
                 </div>
             @endif
             <br>
-    <!--OBRAS, MANTENIMIENTO Y SERVICIOS OB, id=16-->
-            @if($destAt->iid_adscripcion==16)
+    <!--OBRAS, MANTENIMIENTO Y SERVICIOS OB, id=228-->
+            @if($destAt->iid_adscripcion==228)
                 <div class="col-3" id="divDAOBSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AOBSeguimModal">
                         Seguimiento DEOMS
@@ -113,8 +113,8 @@
                     @include('documentos.modales.datos_segOB_dest_aten')
                 </div>
             @endif
-    <!--RECURSOS MAERIALES RM, id=17-->
-            @if($destAt->iid_adscripcion==17)
+    <!--RECURSOS MAERIALES RM, id=232-->
+            @if($destAt->iid_adscripcion==232)
                 <div class="col-3" id="divDARMSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ARMSeguimModal">
                         Seguimiento DERM
@@ -123,8 +123,8 @@
                     @include('documentos.modales.datos_segRM_dest_aten')
                 </div>
             @endif
-    <!--RECURSOS FINANCIEROS RF, id=18-->
-            @if($destAt->iid_adscripcion==18)
+    <!--RECURSOS FINANCIEROS RF, id=230-->
+            @if($destAt->iid_adscripcion==230)
                 <div class="col-3" id="divDARFSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ARFSeguimModal">
                         Seguimiento DERF
@@ -133,8 +133,8 @@
                     @include('documentos.modales.datos_segRF_dest_aten')
                 </div>
             @endif
-    <!--OTRO OT, id=999-->
-            @if($destAt->iid_adscripcion==999)
+    <!--OTRO OT, id=1233-->
+            @if($destAt->iid_adscripcion==1233)
                 <div class="col-3" id="divDAOTSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AOTSeguimModal">
                         Seguimiento OTRO
@@ -153,8 +153,8 @@
         <br>
         <div class="row" id="divDC_Seguimiento">
         @foreach($destinCon as $indice=>$destCn)
-    <!--OFICIALÍA MAYOR OM, id=2-->
-            @if($destCn->iid_adscripcion==2)
+    <!--OFICIALÍA MAYOR OM, id=1027-->
+            @if($destCn->iid_adscripcion==1027)
                 <div class="col-3" id="divDCOMSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#COMSeguimModal">
                         Seguimiento OFMTSJ
@@ -163,8 +163,8 @@
                     @include('documentos.modales.datos_segOM_dest_con')
                 </div>
             @endif
-    <!--PLANEACIÓN PL, id=12-->
-            @if($destCn->iid_adscripcion==12)
+    <!--PLANEACIÓN PL, id=229-->
+            @if($destCn->iid_adscripcion==229)
                 <div class="col-3" id="divDCPLSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CPLSeguimModal">
                         Seguimiento D E P
@@ -173,8 +173,8 @@
                     @include('documentos.modales.datos_segPL_dest_con')
                 </div>
             @endif
-    <!--GESTIÓN TECNOLÓGICA, id=14-->
-            @if($destCn->iid_adscripcion==14)
+    <!--GESTIÓN TECNOLÓGICA, id=227-->
+            @if($destCn->iid_adscripcion==227)
                 <div class="col-3" id="divDCGTSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CGTSeguimModal">
                         Seguimiento DEGT
@@ -183,8 +183,8 @@
                     @include('documentos.modales.datos_segGT_dest_con')
                 </div>
             @endif
-    <!--RECURSOS HUMANOS RH, id=15-->
-            @if($destCn->iid_adscripcion==15)
+    <!--RECURSOS HUMANOS RH, id=231-->
+            @if($destCn->iid_adscripcion==231)
                 <div class="col-3" id="divDCRHSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CRHSeguimModal">
                         Seguimiento DERH
@@ -194,8 +194,8 @@
                 </div>
             @endif
             <br>
-    <!--OBRAS, MANTENIMIENTO Y SERVICIOS OB, id=16-->
-            @if($destCn->iid_adscripcion==16)
+    <!--OBRAS, MANTENIMIENTO Y SERVICIOS OB, id=228-->
+            @if($destCn->iid_adscripcion==228)
                 <div class="col-3" id="divDCOBSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#COBSeguimModal">
                         Seguimiento DEOMS
@@ -204,8 +204,8 @@
                     @include('documentos.modales.datos_segOB_dest_con')
                 </div>
             @endif
-    <!--RECURSOS MAERIALES RM, id=17-->
-            @if($destCn->iid_adscripcion==17)
+    <!--RECURSOS MAERIALES RM, id=232-->
+            @if($destCn->iid_adscripcion==232)
                 <div class="col-3" id="divDCRM_Seg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CRMSeguimModal">
                         Seguimiento DERM
@@ -214,8 +214,8 @@
                     @include('documentos.modales.datos_segRM_dest_con')
                 </div>
             @endif
-    <!--RECURSOS FINANCIEROS RF, id=18-->
-            @if($destCn->iid_adscripcion==18)
+    <!--RECURSOS FINANCIEROS RF, id=230-->
+            @if($destCn->iid_adscripcion==230)
                 <div class="col-3" id="divDCRFSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CRFSeguimModal">
                         Seguimiento DERF
@@ -224,8 +224,8 @@
                     @include('documentos.modales.datos_segRF_dest_con')
                 </div>
             @endif
-    <!--OTRO OT, id=999-->
-            @if($destCn->iid_adscripcion==999)
+    <!--OTRO OT, id=1233-->
+            @if($destCn->iid_adscripcion==1233)
                 <div class="col-3" id="divDCOTSeg">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#COTSeguimModal">
                         Seguimiento OTRO

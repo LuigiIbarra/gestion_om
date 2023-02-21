@@ -50,17 +50,23 @@
                 <hr>
                 <label><b>REMITENTE</b></label>
                 <div class="row" id="divremitente">
-                    <div class="col-4" id="divnombre">
-                        <label for="nombre_remitente" class="col-form-label text-md-right">Nombre:</label>
-                        <input type="text" onkeypress="return textonly(event);" id="nombre_remitente" name="nombre_remitente" class="form-control" data-target="#nombre_remitente" value="" maxlength="50" required {{ $noeditar }}/>
+                    <div class="col-3" id="divbuscarnombre">
+                        <label for="nombre_remitente" class="col-form-label text-md-right">Buscar Nombre:</label>
+                        <input type="text" onkeypress="return textonly(event);" id="nombre_remitente" name="nombre_remitente" class="form-control" value="" maxlength="50" required {{ $noeditar }}/>
                     </div>
-                    <div class="col-4" id="divpuesto">
+                    <div class="col-3" id="divselectnombre">
+                        <label for="listanr" class="col-form-label text-md-right">Seleccionar Nombre:</label>
+                        <select class="form-control m-bot15" id="listanr" name="listanr" required {{ $noeditar }}>
+                            <option value="0">Escriba un Nombre de Remitente...</option>
+                        </select>
+                    </div>
+                    <div class="col-3" id="divpuesto">
                         <label for="puesto_remitente" class="col-form-label text-md-right">Puesto:</label>
                         <select class="form-control m-bot15" id="puesto_remitente" name="puesto_remitente" required {{ $noeditar }}>
                             <option value="">Escriba un Nombre de Remitente...</option>
                         </select>
                     </div>
-                    <div class="col-4" id="divarea">
+                    <div class="col-3" id="divarea">
                         <label for="area_remitente" class="col-form-label text-md-right">Adscripción:</label>
                         <select class="form-control m-bot15" id="area_remitente" name="area_remitente" required {{ $noeditar }}>
                             <option value="">Escriba un Nombre de Remitente...</option>

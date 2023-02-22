@@ -266,9 +266,84 @@
 								</td>
 							</tr>
 							<tr style="border: 0px solid;">
-								<td style="border: 0px solid;"><br></td>
+								<td style="border: 0px solid;"><br><br><br></td>
 							</tr>
 							<tr style="border: 0px solid;">
+								<td>
+									<table style="border: 0px solid;">
+										<tr>
+											<td width="83px" rowspan="4"></td>
+											<th colspan="13">CORRESPONDENCIA RECIBIDA POR LA OFICIALÍA MAYOR, PENDIENTES POR MES</th>
+											<td width="238px" rowspan="4"></td>
+										</tr>
+										<tr>
+											<th>ENERO</th>
+											<th>FEBRERO</th>
+											<th>MARZO</th>
+											<th>ABRIL</th>
+											<th>MAYO</th>
+											<th>JUNIO</th>
+											<th>JULIO</th>
+											<th>AGOSTO</th>
+											<th>SEPT.</th>
+											<th>OCT.</th>
+											<th>NOV.</th>
+											<th>DIC.</th>
+											<th>TOTAL</th>
+										</tr>
+										<tr>
+											<td>0</td>
+											<td>0</td>
+											<td>0</td>
+											<td>0</td>
+											<td>0</td>
+											<td>0</td>
+											<td>0</td>
+											<td>0</td>
+											<td>0</td>
+											<td>0</td>
+											<td>0</td>
+											<td>0</td>
+											<td rowspan="2">0</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="text-align: center;">1er. Trim.</td>
+											<td>0</td>
+											<td colspan="2" style="text-align: center;">2do. Trim.</td>
+											<td>0</td>
+											<td colspan="2" style="text-align: center;">3er. Trim.</td>
+											<td>0</td>
+											<td colspan="2" style="text-align: center;">4to. Trim.</td>
+											<td>0</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr style="border: 0px solid;">
+								<td style="border: 0px solid;"><br><br></td>
+							</tr>
+							<tr style="border: 0px solid;">
+								<td>
+									<table>
+										<tr>
+											<td width="245px" rowspan="3"></td>
+											<td colspan="6" style="text-align: left;">RECIBIDOS:</td>
+											<td width="50px">0</td>
+											<td width="50px">100%</td>
+											<td width="370px" rowspan="3"></td>
+										</tr>
+										<tr>
+											<td colspan="6" style="text-align: left;">CONCLUÍDOS:</td>
+											<td>0</td>
+											<td>100%</td>
+										</tr>
+										<tr>
+											<td colspan="6" style="text-align: left;">PENDIENTES:</td>
+											<td>0</td>
+											<td>100%</td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 						</table>
 					</td>

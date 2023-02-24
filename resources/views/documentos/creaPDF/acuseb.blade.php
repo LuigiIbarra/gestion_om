@@ -73,7 +73,13 @@
 								<td style="border: 1px solid; border-collapse: collapse;">
 									<table>
 										<tr>
-											<th width="40px">Asunto:</th><td>{{ $documento->casunto }}</td>
+											<th width="40px" style="vertical-align: top;">Asunto:</th>
+											<td>{{ substr($documento->casunto,0,100) }}<br>
+												{{ substr($documento->casunto,100,100) }}<br>
+												{{ substr($documento->casunto,200,100) }}<br>
+												{{ substr($documento->casunto,300,100) }}<br>
+												{{ substr($documento->casunto,400,100) }}<br>
+											</td>
 										</tr>
 										<tr>
 											<td><br><br><br><br>

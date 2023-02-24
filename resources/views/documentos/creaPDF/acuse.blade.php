@@ -92,7 +92,13 @@
 								<td style="border: 1px solid; border-collapse: collapse;">
 									<table>
 										<tr>
-											<th width="40px">Asunto:</th><td>{{ $documento->casunto }}</td>
+											<th width="40px" style="vertical-align: top;">Asunto:</th>
+											<td>{{ substr($documento->casunto,0,100) }}<br>
+												{{ substr($documento->casunto,100,100) }}<br>
+												{{ substr($documento->casunto,200,100) }}<br>
+												{{ substr($documento->casunto,300,100) }}<br>
+												{{ substr($documento->casunto,400,100) }}<br>
+											</td>
 										</tr>
 										<tr>
 											<td><br><br><br><br>
@@ -161,7 +167,13 @@
 											<th width="40px">A T E N T A M E N T E</th><th>Observaciones del Documento:</th>
 										</tr>
 										<tr>
-											<td><br><br><br><br><br><br></td><td style="text-align: right;">{{ $documento->cobservaciones }}</td>
+											<td><br><br><br><br><br><br></td>
+											<td style="text-align: right;">{{ substr($documento->cobservaciones,0,100) }}<br>
+																		   {{ substr($documento->cobservaciones,100,100) }}<br>
+																		   {{ substr($documento->cobservaciones,200,100) }}<br>
+																		   {{ substr($documento->cobservaciones,300,100) }}<br>
+																		   {{ substr($documento->cobservaciones,400,100) }}<br>
+											</td>
 										</tr>
 										<tr>
 											<th>ING. VICTOR MANUEL ZARAGOZA LARA</th><td></td>

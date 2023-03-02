@@ -72,6 +72,11 @@ class DocumentosController extends Controller
         $listDestinAtn     = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
         $listDestinConoc   = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
         $newfolio          = $parametros->iultimo_folio + 1;
+        $newfolio          = $newfolio.'-'.substr($anio,2,2);
+        $newfolio_rh       = $parametros->iultimo_folio_rh + 1;
+        $newfolio_rh       = $newfolio_rh.'-'.substr($anio,2,2).'RH';
+        $newfolio_cc       = $parametros->iultimo_folio_cc + 1;
+        $newfolio_cc       = $newfolio_cc.'-'.substr($anio,2,2).'CC';
         $destinAtt         = new DestinatarioAtencion();
         $destinCon         = new DestinatarioConocimiento();
         $folioRel          = new FolioRelacionado();
@@ -79,7 +84,7 @@ class DocumentosController extends Controller
         $noeditar          = '';
         //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '1';
-        return view('documentos.nuevo',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','parametros','newfolio','destinAtt','destinCon','folioRel','noeditar','nuevo_registro'));
+        return view('documentos.nuevo',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','parametros','newfolio','newfolio_rh','newfolio_cc','destinAtt','destinCon','folioRel','noeditar','nuevo_registro'));
     }
 
     public function guardar_documento(Request $request)
@@ -88,10 +93,23 @@ class DocumentosController extends Controller
         $anio = Date('Y');
         $documento                              = new Documento();
         $parametros                             = Parametros::where('ianio','=',$anio)->first();
-        $newfolio                               = $parametros->iultimo_folio + 1;
-        $newfolio                               = $newfolio.'-'.substr($parametros->ianio,2,2);
+        if($request->tipo_documento<=6) {
+            $newfolio                               = $parametros->iultimo_folio + 1;
+            $newfolio                               = $newfolio.'-'.substr($parametros->ianio,2,2);
+        } elseif($request->tipo_documento==7) {
+            $newfolio_cc                            = $parametros->iultimo_folio_cc + 1;
+            $newfolio_cc                            = $newfolio_cc.'-'.substr($parametros->ianio,2,2).'CC';
+        } elseif($request->tipo_documento==8) {
+            $newfolio_rh                            = $parametros->iultimo_folio_rh + 1;
+            $newfolio_rh                            = $newfolio_rh.'-'.substr($parametros->ianio,2,2).'RH';
+        }
         $jsonBefore                             = "NEW INSERT DOCUMENTO";
-        $documento->cfolio                      = $newfolio;
+        if($request->tipo_documento<=6) 
+            $documento->cfolio                  = $newfolio;
+        elseif($request->tipo_documento==7)
+            $documento->cfolio                  = $newfolio_cc;
+        elseif($request->tipo_documento==8)
+            $documento->cfolio                  = $newfolio_rh;
         $documento->dfecha_recepcion            = $request->recepcion_documento;
         $documento->cnumero_documento           = $request->numero_documento;
         $documento->dfecha_documento            = $request->fecha_documento;
@@ -135,7 +153,12 @@ class DocumentosController extends Controller
         $jsonAfter                              = json_encode($documento);
         DocumentosController::bitacora($jsonBefore,$jsonAfter);
 
-        $parametros->iultimo_folio              = $parametros->iultimo_folio + 1;
+        if($request->tipo_documento<=6) 
+            $parametros->iultimo_folio          = $parametros->iultimo_folio + 1;
+        elseif($request->tipo_documento==7)
+            $parametros->iultimo_folio_cc       = $parametros->iultimo_folio_cc + 1;
+        elseif($request->tipo_documento==8)
+            $parametros->iultimo_folio_rh       = $parametros->iultimo_folio_rh + 1;
         $parametros->save();
 
         //Folios Relacionados
@@ -161,6 +184,10 @@ class DocumentosController extends Controller
             DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '232');
         if($request->atencion18==='on')
             DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '230');
+        if($request->atencion19==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1215');
+        if($request->atencion20==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1234');
         if($request->atencion999==='on')
             DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1233');
 
@@ -179,6 +206,10 @@ class DocumentosController extends Controller
             DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '232');
         if($request->conoc18==='on')
             DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '230');
+        if($request->conoc19==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1215');
+        if($request->conoc20==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1234');
         if($request->conoc999==='on')
             DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1233');
 
@@ -401,6 +432,14 @@ class DocumentosController extends Controller
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '230', 1);
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '230', 0);
+        if($request->atencion19==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1215', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1215', 0);
+        if($request->atencion20==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1234', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1234', 0);
         if($request->atencion999==='on')
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1233', 1);
         else
@@ -435,6 +474,14 @@ class DocumentosController extends Controller
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '230', 1);
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '230', 0);
+        if($request->conoc19==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1215', 1);
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1215', 0);
+        if($request->conoc20==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1234', 1);
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1234', 0);
         if($request->conoc999==='on')
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1233', 1);
         else

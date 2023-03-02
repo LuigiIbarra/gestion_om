@@ -17,6 +17,8 @@ class CreateParametrosTable extends Migration
             $table->increments('iid_parametro');
             $table->integer('ianio');
             $table->integer('iultimo_folio');
+            $table->integer('iultimo_folio_rh');
+            $table->integer('iultimo_folio_cc');
             $table->string('cleyenda_anual_oficios', 255)->nullable();
             $table->timestamps();
         });

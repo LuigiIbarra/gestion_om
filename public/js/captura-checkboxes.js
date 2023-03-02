@@ -128,6 +128,42 @@ window.addEventListener('load', function(){
 			atencion18.checked = false;
 		}
 	}
+	function cambiaConoc19(){
+
+		var atencion19	= document.querySelector('#atencion19');
+		var conoc19     = document.querySelector('#conoc19');
+
+		if (conoc19.checked == true){
+			conoc19.checked = false;
+		}
+	}
+	function cambiaAten19(){
+
+		var atencion19  = document.querySelector('#atencion19');
+		var conoc19     = document.querySelector('#conoc19');
+
+		if (atencion19.checked == true){
+			atencion19.checked = false;
+		}
+	}
+	function cambiaConoc20(){
+
+		var atencion20	= document.querySelector('#atencion20');
+		var conoc20     = document.querySelector('#conoc20');
+
+		if (conoc20.checked == true){
+			conoc20.checked = false;
+		}
+	}
+	function cambiaAten20(){
+
+		var atencion20  = document.querySelector('#atencion20');
+		var conoc20     = document.querySelector('#conoc20');
+
+		if (atencion20.checked == true){
+			atencion20.checked = false;
+		}
+	}
 	function cambiaConoc999(){
 
 		var atencion999	= document.querySelector('#atencion999');
@@ -161,6 +197,10 @@ window.addEventListener('load', function(){
 	var conoc17		= document.querySelector('#conoc17');
 	var atencion18 	= document.querySelector('#atencion18');
 	var conoc18		= document.querySelector('#conoc18');
+	var atencion19 	= document.querySelector('#atencion19');
+	var conoc19		= document.querySelector('#conoc19');
+	var atencion20 	= document.querySelector('#atencion20');
+	var conoc20		= document.querySelector('#conoc20');
 	var atencion999	= document.querySelector('#atencion999');
 	var conoc1999	= document.querySelector('#conoc999');
     
@@ -205,6 +245,18 @@ window.addEventListener('load', function(){
     });
     conoc18.addEventListener('change', function(){
     	cambiaAten18();
+    });
+    atencion19.addEventListener('change', function(){
+    	cambiaConoc19();
+    });
+    conoc19.addEventListener('change', function(){
+    	cambiaAten19();
+    });
+    atencion20.addEventListener('change', function(){
+    	cambiaConoc20();
+    });
+    conoc20.addEventListener('change', function(){
+    	cambiaAten20();
     });
     atencion999.addEventListener('change', function(){
     	cambiaConoc999();

@@ -1,7 +1,7 @@
                 <div class="row">
                     <div class="col" id="divfolio">
                         <label for="folio_documento" class="col-form-label text-md-right">Número de Folio:</label>
-                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $newfolio.'-'.substr($parametros->ianio,2,2) }}" required readonly/>
+                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $newfolio }}" required readonly/>
                     </div>
                     <div class="col" id="divrecepcion">
                         <label for="recepcion_documento" class="col-form-label text-md-right">Fecha de Recepcion:</label>

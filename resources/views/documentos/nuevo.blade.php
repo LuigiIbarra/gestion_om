@@ -9,6 +9,8 @@
         <!--Auxiliar para el año-->
         <input type="hidden" id="anio"           name="anio"           value="{{$parametros->ianio}}"/>
         <input type="hidden" id="folio"          name="folio"          value="{{$newfolio}}"/>
+        <input type="hidden" id="folio_rh"       name="folio_rh"       value="{{$newfolio_rh}}"/>
+        <input type="hidden" id="folio_cc"       name="folio_cc"       value="{{$newfolio_cc}}"/>
         <input type="hidden" id="idRemitente"    name="idRemitente"    value=""/>
         <input type="hidden" id="idDestinatario" name="idDestinatario" value=""/>
         <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>

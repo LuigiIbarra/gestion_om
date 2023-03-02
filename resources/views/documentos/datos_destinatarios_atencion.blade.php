@@ -1,4 +1,4 @@
-                    <!--1027 OOFMTSJCDMX -->    
+                    <!--1027 OOFMTSJCDMX -->
                         <div class="col">
                             @if($nuevo_registro==1)
                                 <input type="checkbox" id="atencion2" name="atencion2">
@@ -137,6 +137,46 @@
                                 @endif
                             @endif
                             <label for="atencion18">DERF</label>
+                        </div>
+                    <!--1215 DS -->
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="atencion19" name="atencion19">
+                            @else
+                                {{$check=''}}
+                                @if($destinAtt_total>0)
+                                    @foreach($destinAtt as $indice=>$destAt)
+                                        @if($destAt->iid_adscripcion==1215)
+                                            <input type="checkbox" id="atencion19" name="atencion19" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
+                                @if($check=='')
+                                    <input type="checkbox" id="atencion19" name="atencion19" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="atencion19">DS</label>
+                        </div>
+                    <!--1234 DA -->
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="atencion20" name="atencion20">
+                            @else
+                                {{$check=''}}
+                                @if($destinAtt_total>0)
+                                    @foreach($destinAtt as $indice=>$destAt)
+                                        @if($destAt->iid_adscripcion==1234)
+                                            <input type="checkbox" id="atencion20" name="atencion20" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
+                                @if($check=='')
+                                    <input type="checkbox" id="atencion20" name="atencion20" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="atencion20">DA</label>
                         </div>
                     <!--1233 OTRO -->
                         <div class="col">

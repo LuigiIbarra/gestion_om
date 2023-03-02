@@ -3,66 +3,24 @@
 window.addEventListener('load', function(){
 
 	function muestraPersonaConocimiento() {
-		//areaRemId == 15 Dirección Ejecutiva de Recursos Humanos
-		//var areaRemId  = document.querySelector('#area_remitente').value;
-		//A solicitud del Ing. Victor Zaragoza, cambia de estatus_documento a tipo_documento
-		//var estatusId = document.querySelector('#estatus_documento').value;
-		//estatusId ==  3 Conocimiento, cambia por
-		//tipoDocId ==  7 COPIA DE CONOCIMIENTO
-		//tipoDocId ==  8 RECURSOS HUMANOS
-		/*
-		if (estatusId == 3 && areaRemId == 15) {
-			$('#divdestinatariocc').show();
-			$('#divSegmntDADC').hide();
-		} else if (estatusId == 3 && areaRemId != 15) {
-			$('#divdestinatariocc').show();
-			$('#divSegmntDADC').hide();
-		} else if (estatusId != 3 && areaRemId == 15) {
-			$('#divdestinatariocc').hide();
-			$('#divSegmntDADC').hide();
-		} else if (estatusId != 3 && areaRemId != 15) {
-			$('#divdestinatariocc').hide();
-			$('#divSegmntDADC').show();
-		}
-		*/
 		var tipoDocId  = document.querySelector('#tipo_documento').value;
 		if (tipoDocId == 7) {
 		//tipoDocId ==  7 COPIA DE CONOCIMIENTO
 			$('#divdestinatariocc').show();
 			$('#divSegmntDADC').hide();
+			$('#folio_documento').val(document.querySelector('#folio_cc').value);
 		} else if (tipoDocId == 8) {
 		//tipoDocId ==  8 RECURSOS HUMANOS
 			$('#divdestinatariocc').hide();
 			$('#divSegmntDADC').hide();
+			$('#folio_documento').val(document.querySelector('#folio_rh').value);
 		} else {
 			$('#divdestinatariocc').hide();
 			$('#divSegmntDADC').show();
+			$('#folio_documento').val(document.querySelector('#folio').value);
 		}
 	}
-	//A solicitud del Ing. Victor Zaragoza, cambia de estatus_documento a tipo_documento
-	//estatusId ==  3 Conocimiento, cambia por
-	//tipoDocId ==  7 COPIA DE CONOCIMIENTO
-	//tipoDocId ==  8 RECURSOS HUMANOS
-	/*
-	function muestraRH() {
-		var areaRemId  = document.querySelector('#area_remitente').value;
-		var estatusId  = document.querySelector('#estatus_documento').value;
-		//areaRemId == 15 Dirección Ejecutiva de Recursos Humanos
-		if (areaRemId == 15 && estatusId == 3) {
-			$('#divdestinatariocc').show();
-			$('#divSegmntDADC').hide();
-		} else if (areaRemId == 15 && estatusId != 3) {
-			$('#divdestinatariocc').hide();
-			$('#divSegmntDADC').hide();
-		} else if (areaRemId != 15 && estatusId == 3) {
-			$('#divdestinatariocc').show();
-			$('#divSegmntDADC').hide();
-		} else if (areaRemId != 15 && estatusId != 3) {
-			$('#divdestinatariocc').hide();
-			$('#divSegmntDADC').show();
-		}
-	}
-	*/
+	
 	function muestraPuestoAds(){
         $.ajaxSetup({
             headers: {
@@ -118,34 +76,10 @@ window.addEventListener('load', function(){
         });
     }
     
-    //A solicitud del Ing. Victor Zaragoza, cambia de estatus_documento a tipo_documento
-	//var areaRemite = document.querySelector('#area_remitente');
-	//var areaRemId  = document.querySelector('#area_remitente').value;
-	//var estatusDoc = document.querySelector('#estatus_documento');
-	//var estatusId  = document.querySelector('#estatus_documento').value;
 	var tipoDoc    = document.querySelector("#tipo_documento");
 	var tipoDocId  = document.querySelector('#tipo_documento').value;
 	var nombreRem  = document.querySelector('#nombre_remitente');
 
-	//estatusId ==  3 Conocimiento, cambia por
-	//tipoDocId ==  7 COPIA DE CONOCIMIENTO
-	//tipoDocId ==  8 RECURSOS HUMANOS
-	//areaRemId == 15 Dirección Ejecutiva de Recursos Humanos
-	/*
-	if (estatusId == 3 && areaRemId == 15) {
-		$('#divdestinatariocc').show();
-		$('#divSegmntDADC').hide();
-	} else if (estatusId == 3 && areaRemId != 15) {
-		$('#divdestinatariocc').show();
-		$('#divSegmntDADC').hide();
-	} else if (estatusId != 3 && areaRemId == 15) {
-		$('#divdestinatariocc').hide();
-		$('#divSegmntDADC').hide();
-	} else if (estatusId != 3 && areaRemId != 15) {
-		$('#divdestinatariocc').hide();
-		$('#divSegmntDADC').show();
-	}
-	*/
 	if (tipoDocId == 7) {
 	//tipoDocId ==  7 COPIA DE CONOCIMIENTO
 		$('#divdestinatariocc').show();
@@ -162,11 +96,6 @@ window.addEventListener('load', function(){
 	tipoDoc.addEventListener('change', function(){        
         muestraPersonaConocimiento();
     });
-    /*
-    areaRemite.addEventListener('change', function(){        
-        muestraRH();
-    });
-    */
     nombreRem.addEventListener('change', function(){
     	muestraPuestoAds();
     });

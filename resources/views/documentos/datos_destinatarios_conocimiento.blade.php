@@ -138,6 +138,46 @@
                             @endif
                             <label for="conoc18">DERF</label>
                         </div>
+                    <!--1215 DS -->
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="conoc19" name="conoc19">
+                            @else
+                                {{$check=''}}
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==1215)
+                                            <input type="checkbox" id="conoc19" name="conoc19" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
+                                @if($check=='')
+                                    <input type="checkbox" id="conoc19" name="conoc19" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="conoc19">DS</label>
+                        </div>
+                    <!--1234 DA -->
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="conoc20" name="conoc20">
+                            @else
+                                {{$check=''}}
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==1234)
+                                            <input type="checkbox" id="conoc20" name="conoc20" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
+                                @if($check=='')
+                                    <input type="checkbox" id="conoc20" name="conoc20" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="conoc20">DA</label>
+                        </div>
                     <!--1233 OTRO -->
                         <div class="col">
                             @if($nuevo_registro==1)

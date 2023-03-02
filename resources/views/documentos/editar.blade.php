@@ -11,6 +11,7 @@
         <input type="hidden" id="noeditar"       name="noeditar"       value="{{ $noeditar }}"/>
         <input type="hidden" id="idRemitente"    name="idRemitente"    value="{{ $documento->iid_personal_remitente }}"/>
         <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>
+        <input type="hidden" id="editaDocto"     name="editaDocto"     value="1"/>
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -133,6 +134,26 @@
                     @include('documentos.modales.datos_segRF_dest_aten')
                 </div>
             @endif
+    <!--DIRECCIÓN DE SEGURIDAD DS, id=1215-->
+            @if($destAt->iid_adscripcion==1215)
+                <div class="col-3" id="divDADSSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ADSSeguimModal">
+                        Seguimiento DS
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención DS -->
+                    @include('documentos.modales.datos_segDS_dest_aten')
+                </div>
+            @endif
+    <!--DIRECCIÓN ADMINISTRATIVA DA, id=1234-->
+            @if($destAt->iid_adscripcion==1234)
+                <div class="col-3" id="divDADASeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ADASeguimModal">
+                        Seguimiento DA
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención DA -->
+                    @include('documentos.modales.datos_segDA_dest_aten')
+                </div>
+            @endif
     <!--OTRO OT, id=1233-->
             @if($destAt->iid_adscripcion==1233)
                 <div class="col-3" id="divDAOTSeg">
@@ -222,6 +243,26 @@
                     </button>
                 <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERF -->
                     @include('documentos.modales.datos_segRF_dest_con')
+                </div>
+            @endif
+    <!--DIRECCIÓN DE SEGURIDAD DS, id=1215-->
+            @if($destCn->iid_adscripcion==1215)
+                <div class="col-3" id="divDCDSSeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CDSSeguimModal">
+                        Seguimiento DS
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención DS -->
+                    @include('documentos.modales.datos_segDS_dest_con')
+                </div>
+            @endif
+    <!--DIRECCIÓN ADMINISTRATIVA DA, id=1234-->
+            @if($destCn->iid_adscripcion==234)
+                <div class="col-3" id="divDCDASeg">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CDASeguimModal">
+                        Seguimiento DA
+                    </button>
+                <!-- Inputs de Modal para Seguimiento Destinatarios Atención DERF -->
+                    @include('documentos.modales.datos_segDA_dest_con')
                 </div>
             @endif
     <!--OTRO OT, id=1233-->

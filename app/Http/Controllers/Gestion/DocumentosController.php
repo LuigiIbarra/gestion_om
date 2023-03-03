@@ -190,6 +190,10 @@ class DocumentosController extends Controller
             DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1234');
         if($request->atencion999==='on')
             DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1233');
+        if($request->atencion_presidente==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1031');
+        if($request->atencion_oficialmayor==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1027');
 
         //Guardar Destinatarios para Conocimiento
         if($request->conoc2==='on')
@@ -233,8 +237,9 @@ class DocumentosController extends Controller
         $array1 = array();
         foreach($destinAtt as $destAten)
             $array1[]       = $destAten->iid_adscripcion;
-    //Arreglo auxiliar, para solamente traer los Directores Ejecutivos (531 DEP,724 DEGT,769 DEOMS,770 DERM,773 DERF,812 DERH) y el Oficial Mayor 142
-        $array2             = [142,531,724,769,770,773,812];
+    //Arreglo auxiliar, para solamente traer los Directores Ejecutivos (531 DEP,724 DEGT,769 DEOMS,770 DERM,773 DERF,812 DERH), el Oficial Mayor 142, 
+    //el Dir. de Seguridad ???, el Presidente 46 del TSJ, y el de la Dir. Administrativa del CJ ???
+        $array2             = [46,142,531,724,769,770,773,812];
     //Para poder usarla en la consulta de Personal Destinatario Atención
         $pers_destAt        = Personal::with('puesto','adscripcion')->whereIn('iid_adscripcion',$array1)
                                                                     ->whereIn('iid_personal',$array2)
@@ -444,6 +449,14 @@ class DocumentosController extends Controller
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1233', 1);
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1233', 0);
+        if($request->atencion_presidente==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 0);
+        if($request->atencion_oficialmayor==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 0);
 
         //Actualizar Destinatarios para Conocimiento
         if($request->conoc2==='on')

@@ -39,6 +39,9 @@
                             <a href="{{ url('personal/editar/'.$persona->iid_personal) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
                             </a>
+                            <a href="{{ url('personal/actualizar/'.$persona->iid_personal) }}" data-toggle="tooltip" data-html="true" title="Actualizar Puesto y Adscripción">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/pencil.svg') }}" width="18" height="18">
+                            </a>
                             <a href="{{ url('personal/inhabilitar/'.$persona->iid_personal) }}" data-toggle="tooltip" data-html="true" title="Borrar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
                             </a>

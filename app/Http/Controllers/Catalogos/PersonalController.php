@@ -109,6 +109,16 @@ class PersonalController extends Controller
                          ->with('success','Personal '.$operacion.' satisfactoriamente');
     }
 
+    public function actualizar_personal_pstoads($id_personal)
+    {
+        $personal     = Personal::where('iid_personal','=',$id_personal)->first();
+        $listPuestos  = Puesto::where('iestatus','=',1)->get();
+        $listAdscrips = Adscripcion::where('iestatus','=',1)->get();
+        //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
+        $noeditar = '';
+        return view('personal.actualizar',compact('personal','listPuestos','listAdscrips','noeditar'));
+    }
+
     //Esta misma función se utiliza para Inhabilitar/Habilitar el Personal
     public function confirmainhabilitar_personal($id_personal)
     {

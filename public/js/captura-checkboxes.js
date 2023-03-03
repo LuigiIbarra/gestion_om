@@ -182,6 +182,20 @@ window.addEventListener('load', function(){
 			atencion999.checked = false;
 		}
 	}
+	function cambiaAtenPresid(){
+		var atenpresid   = document.querySelector('#atencion_presidente');
+		var atenofmayor  = document.querySelector('#atencion_oficialmayor');
+
+		if (atenofmayor.checked == true)
+			atenofmayor.checked = false;
+	}
+	function cambiaAtenOfMayor(){
+		var atenpresid   = document.querySelector('#atencion_presidente');
+		var atenofmayor  = document.querySelector('#atencion_oficialmayor');
+
+		if (atenpresid.checked == true)
+			atenpresid.checked = false;
+	}
 
 	var atencion2   = document.querySelector('#atencion2');
 	var conoc2      = document.querySelector('#conoc2');
@@ -203,6 +217,8 @@ window.addEventListener('load', function(){
 	var conoc20		= document.querySelector('#conoc20');
 	var atencion999	= document.querySelector('#atencion999');
 	var conoc1999	= document.querySelector('#conoc999');
+	var atenpresid  = document.querySelector('#atencion_presidente');
+	var atenofmayor = document.querySelector('#atencion_oficialmayor');
     
     atencion2.addEventListener('change', function(){
     	cambiaConoc2();
@@ -263,5 +279,11 @@ window.addEventListener('load', function(){
     });
     conoc999.addEventListener('change', function(){
     	cambiaAten999();
+    });
+    atenpresid.addEventListener('change', function(){
+    	cambiaAtenPresid();
+    });
+    atenofmayor.addEventListener('change', function(){
+    	cambiaAtenOfMayor();
     });
 });

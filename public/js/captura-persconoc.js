@@ -8,15 +8,18 @@ window.addEventListener('load', function(){
 		//tipoDocId ==  7 COPIA DE CONOCIMIENTO
 			$('#divdestinatariocc').show();
 			$('#divSegmntDADC').hide();
+            $('#divRHAtencion').hide();
 			$('#folio_documento').val(document.querySelector('#folio_cc').value);
 		} else if (tipoDocId == 8) {
 		//tipoDocId ==  8 RECURSOS HUMANOS
 			$('#divdestinatariocc').hide();
 			$('#divSegmntDADC').hide();
+            $('#divRHAtencion').show();
 			$('#folio_documento').val(document.querySelector('#folio_rh').value);
 		} else {
 			$('#divdestinatariocc').hide();
 			$('#divSegmntDADC').show();
+            $('#divRHAtencion').hide();
 			$('#folio_documento').val(document.querySelector('#folio').value);
 		}
 	}
@@ -84,13 +87,19 @@ window.addEventListener('load', function(){
 	//tipoDocId ==  7 COPIA DE CONOCIMIENTO
 		$('#divdestinatariocc').show();
 		$('#divSegmntDADC').hide();
+        $('#divRHAtencion').hide();
+        $('#folio_documento').val(document.querySelector('#folio_cc').value);
 	} else if (tipoDocId == 8) {
 	//tipoDocId ==  8 RECURSOS HUMANOS
 		$('#divdestinatariocc').hide();
 		$('#divSegmntDADC').hide();
+        $('#divRHAtencion').show();
+        $('#folio_documento').val(document.querySelector('#folio_rh').value);
 	} else {
 		$('#divdestinatariocc').hide();
 		$('#divSegmntDADC').show();
+        $('#divRHAtencion').hide();
+        $('#folio_documento').val(document.querySelector('#folio').value);
 	}	
 
 	tipoDoc.addEventListener('change', function(){        

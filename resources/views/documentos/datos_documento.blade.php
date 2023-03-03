@@ -230,4 +230,9 @@
                         @include('documentos.datos_destinatarios_conocimiento')
                     </div>
                 </div>
+                <div class="row" id="divRHAtencion">
+                    <label><b>DESTINATARIO PARA ATENCIÓN DEL:</b></label>
+                <!--Checkboxes de Atención Presidente u Oficial Mayor para Documentos de RH-->
+                    @include('documentos.datos_atencion_presid_ofmayor')
+                </div>
                 <hr>

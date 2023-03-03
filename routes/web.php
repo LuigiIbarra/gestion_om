@@ -83,6 +83,7 @@ Route::get('personal/nuevo',                        [PersonalController::class, 
 Route::post('personal/guardar',                     [PersonalController::class, 'guardar_personal']);
 Route::get('personal/editar/{id_personal}',         [PersonalController::class, 'editar_personal']);
 Route::post('personal/actualizar',                  [PersonalController::class, 'actualizar_personal']);
+Route::get('personal/actualizar/{id_personal}',     [PersonalController::class, 'actualizar_personal_pstoads']);
 Route::get('personal/inhabilitar/{id_personal}',    [PersonalController::class, 'confirmainhabilitar_personal']);
 Route::post('buscaPuestoAdscrip',                   [PersonalController::class, 'buscaPuestoAdscrip']);
 Route::post('actualizaPuestoAdscrip',               [PersonalController::class, 'actualizaPuestoAdscrip']);

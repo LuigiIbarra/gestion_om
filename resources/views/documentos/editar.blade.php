@@ -57,7 +57,7 @@
         @include('pers_conoc.index')
     @endif
     <br>
-    @if($destinAtt_total>0)
+    @if($destinAtt_total>0 && $documento->iid_tipo_documento<=6)
         <hr>
         <h5 class="text-primary-sin"><b>SEGUIMIENTO DESTINATARIOS ATENCIÓN</b></h5>
         <br>

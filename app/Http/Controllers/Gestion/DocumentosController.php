@@ -166,7 +166,7 @@ class DocumentosController extends Controller
             FolioRelacionadoController::guarda_folio_relacionado($idDocumento, $request->folio_relacionado);
 
         //Destinatarios de Copia de Conocimiento
-        if($request->nombre_destinatariocc!="")
+        if($request->nombre_destinatariocc>0)
             PersonalConocimientoController::guarda_personal_conoc($idDocumento, $request->idDestinatario);
 
         //Guardar Destinatarios para Atención
@@ -282,36 +282,25 @@ class DocumentosController extends Controller
         $listTipoAnexo      = TipoAnexo::where('iestatus','=',1)->get();
         $listEstatus        = EstatusDocumento::where('iestatus','=',1)->get();
         $listPrioridad      = PrioridadDocumento::where('iestatus','=',1)->get();
-        $listPersonal       = Personal::where('iestatus','=',1)->get();
-        $remitente          = Personal::where('iid_personal','=',$documento->iid_personal_remitente)->where('iestatus','=',1)->first();
+    //Datos de Personal Remitente
+        $remitente          = Personal::with('puesto','adscripcion')->where('iid_personal','=',$documento->iid_personal_remitente)
+                                                                    ->where('iestatus','=',1)->first();
         $listPuesto         = Puesto::where('iestatus','=',1)->get();
-        $puesto             = Puesto::where('iid_puesto','=',$remitente->iid_puesto)->where('iestatus','=',1)->first();
         $listAdscripcion    = Adscripcion::where('iestatus','=',1)->get();
         $listTipoArea       = TipoArea::where('iestatus','=',1)->get();
-        $adscripcion        = Adscripcion::where('iid_adscripcion','=',$remitente->iid_adscripcion)->where('iestatus','=',1)->first();
         $listImportancia    = ImportanciaContenido::where('iestatus','=',1)->get();
         $listTema           = Tema::where('iestatus','=',1)->get();
         $listAsunto         = TipoAsunto::where('iestatus','=',1)->get();
         $listInstruccion    = Instruccion::where('iestatus','=',1)->get();
         $listDestinAtn      = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
         $listDestinConoc    = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
-    //Datos de Personal Remitente
-        $id_pers_remitente  = $documento->iid_personal_remitente;
-        $pers_remitente     = Personal::where('iid_personal','=',$id_pers_remitente)->first();
     //Datos de Personal Conocimiento
         $pers_conoc_total   = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
         if($pers_conoc_total>0) {
         //Obtener la lista de Personal con Copia de Conocimiento
-            $pers_conoc     = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
-        //Y convertirla en un arreglo
-            $array1 = array();
-            foreach($pers_conoc as $persconoc)
-                $array1[]   = $persconoc->iid_personal;
-        //Para poder usarla en la consulta de Personal con Copia de Conocimiento
-            $pers_cncmnt    = Personal::with('puesto','adscripcion')->whereIn('iid_personal',$array1)->where('iestatus','=',1)->get();
+            $pers_conoc     = PersonalConocimiento::with('personal')->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
         } else {
             $pers_conoc     = new PersonalConocimiento();
-            $pers_cncmnt    = new Personal();
         }
     //Datos de Destinatario Atención
         $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
@@ -346,7 +335,7 @@ class DocumentosController extends Controller
         $noeditar           = '';
     //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','remitente','listPuesto','puesto','listAdscripcion','listTipoArea','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc_total','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','listafolsRels','docs_rels','noeditar','nuevo_registro'));
+        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','remitente','listPuesto','listAdscripcion','listTipoArea','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_conoc_total','pers_conoc','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','listafolsRels','docs_rels','noeditar','nuevo_registro'));
     }
 
     public function actualizar_documento(Request $request)

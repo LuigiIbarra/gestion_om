@@ -50,25 +50,31 @@
                 <hr>
                 <label><b>REMITENTE</b></label>
                 <div class="row" id="divremitente">
-                    <div class="col-4" id="divnombre">
-                        <label for="nombre_remitente" class="col-form-label text-md-right">Nombre:</label>
-                        <input type="text" onkeypress="return textonly(event);" id="nombre_remitente" name="nombre_remitente" class="form-control" data-target="#nombre_remitente" value="{{$remitente->cnombre_personal.' '.$remitente->cpaterno_personal.' '.$remitente->cmaterno_personal}}" maxlength="50" required {{ $noeditar }}/>
+                    <div class="col-3" id="divbuscarnombre">
+                        <label for="nombre_remitente" class="col-form-label text-md-right">Buscar Nombre:</label>
+                        <input type="text" onkeypress="return textonly(event);" id="nombre_remitente" name="nombre_remitente" class="form-control" value="" maxlength="50" {{ $noeditar }}/>
                     </div>
-                    <div class="col-4" id="divpuesto">
+                    <div class="col-3" id="divselectnombre">
+                        <label for="listanr" class="col-form-label text-md-right">Seleccionar Nombre:</label>
+                        <select class="form-control m-bot15" id="listanr" name="listanr" required {{ $noeditar }}>
+                            <option value="{{$documento->iid_personal_remitente}}">{{$remitente->cnombre_personal.' '.$remitente->cpaterno_personal.' '.$remitente->cmaterno_personal}}</option>
+                        </select>
+                    </div>
+                    <div class="col-3" id="divpuesto">
                         <label for="puesto_remitente" class="col-form-label text-md-right">Puesto:</label>
                         <select class="form-control m-bot15" id="puesto_remitente" name="puesto_remitente" required {{ $noeditar }}>
                             <option value="">Escriba un Nombre...</option>
-                            @if($puesto->iid_puesto>0)
-                                <option value="{{$puesto->iid_puesto}}" selected>{{$puesto->cdescripcion_puesto}}</option>
+                            @if($remitente->puesto->iid_puesto>0)
+                                <option value="{{$remitente->puesto->iid_puesto}}" selected>{{$remitente->puesto->cdescripcion_puesto}}</option>
                             @endif
                         </select>
                     </div>
-                    <div class="col-4" id="divarea">
+                    <div class="col-3" id="divarea">
                         <label for="area_remitente" class="col-form-label text-md-right">Adscripción:</label>
                         <select class="form-control m-bot15" id="area_remitente" name="area_remitente" required {{ $noeditar }}>
                             <option value="">Escriba un Nombre...</option>
-                            @if($adscripcion->iid_adscripcion>0)
-                                <option value="{{$adscripcion->iid_adscripcion}}" selected>{{$adscripcion->cdescripcion_adscripcion}}</option>
+                            @if($remitente->adscripcion->iid_adscripcion>0)
+                                <option value="{{$remitente->adscripcion->iid_adscripcion}}" selected>{{$remitente->adscripcion->cdescripcion_adscripcion}}</option>
                             @endif
                         </select>
                     </div>

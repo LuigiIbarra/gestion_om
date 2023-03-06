@@ -32,10 +32,12 @@
                             <select class="form-control m-bot15" id="tipo_doc_seg" name="tipo_doc_seg" {{ $noeditar }}>
                                 <option value="">Elija un Tipo de Documento...</option>
                                 @foreach($listTipoDocumento as $indice=>$tipos_docs)
-                                    @if($tipos_docs->iid_tipo_documento==$personal_conocimiento->iid_tipo_documento)
-                                        <option value="{{$tipos_docs->iid_tipo_documento}}" selected>{{$tipos_docs->cdescripcion_tipo_documento}}</option>
-                                    @else
-                                        <option value="{{$tipos_docs->iid_tipo_documento}}">{{$tipos_docs->cdescripcion_tipo_documento}}</option>
+                                    @if($tipos_docs->iid_tipo_documento<=6)
+                                        @if($tipos_docs->iid_tipo_documento==$personal_conocimiento->iid_tipo_documento)
+                                            <option value="{{$tipos_docs->iid_tipo_documento}}" selected>{{$tipos_docs->cdescripcion_tipo_documento}}</option>
+                                        @else
+                                            <option value="{{$tipos_docs->iid_tipo_documento}}">{{$tipos_docs->cdescripcion_tipo_documento}}</option>
+                                        @endif
                                     @endif
                                 @endforeach
                             </select>

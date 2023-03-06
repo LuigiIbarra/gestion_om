@@ -2,7 +2,7 @@
 
 window.addEventListener('load', function(){
 
-	function muestraPersonaConocimiento() {
+	function muestraSeccionesTipoDoc() {
 		var tipoDocId  = document.querySelector('#tipo_documento').value;
 		if (tipoDocId == 7) {
 		//tipoDocId ==  7 COPIA DE CONOCIMIENTO
@@ -24,7 +24,7 @@ window.addEventListener('load', function(){
 		}
 	}
 	
-	function muestraPuestoAds(){
+	function muestraRemitente(){
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -103,9 +103,9 @@ window.addEventListener('load', function(){
 	}	
 
 	tipoDoc.addEventListener('change', function(){        
-        muestraPersonaConocimiento();
+        muestraSeccionesTipoDoc();
     });
     nombreRem.addEventListener('change', function(){
-    	muestraPuestoAds();
+    	muestraRemitente();
     });
 });

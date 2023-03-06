@@ -54,6 +54,8 @@ Route::get('persconoc/nuevo/{id_documento}',                [PersonalConocimient
 Route::post('persconoc/guardar',                            [PersonalConocimientoController::class, 'guardar_nuevo_persconoc']);
 Route::get('persconoc/editar/{id_documento}/{id_personal}', [PersonalConocimientoController::class, 'editar_persconoc']);
 Route::post('persconoc/seguimiento',                        [PersonalConocimientoController::class, 'seguimiento_persconoc']);
+Route::get('persconoc/inhabilitar/{id_documento}/{id_personal}', [PersonalConocimientoController::class, 'confirma_inhabilitar_persconoc']);
+Route::post('persconoc/inhabilitar',                        [PersonalConocimientoController::class, 'inhabilitar_persconoc']);
 
 //Rutas de Destinatarios Atención
 Route::post('destatencion/seguimiento',             [DestinatarioAtencionController::class, 'seguimiento']);

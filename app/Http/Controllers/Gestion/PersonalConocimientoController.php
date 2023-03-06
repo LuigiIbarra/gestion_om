@@ -96,6 +96,38 @@ class PersonalConocimientoController extends Controller
                          ->with('success','Documento actualizado con Seguimiento Destinatario de Copia de Conocimiento satisfactoriamente');
     }
 
+    public function confirma_inhabilitar_persconoc(string $idDocumento, string $idPersonal) {
+        $documento              = Documento::where('iid_documento','=',$idDocumento)->where('iestatus','=',1)->first();
+        $personal               = Personal::with('puesto','adscripcion')->where('iid_personal','=',$idPersonal)->where('iestatus','=',1)->first();
+        $personal_conocimiento  = PersonalConocimiento::where('iid_documento','=',$idDocumento)
+                                                      ->where('iid_personal','=',$idPersonal)->where('iestatus','=',1)->first();
+        $listTipoDocumento      = TipoDocumento::where('iestatus','=',1)->get();
+        $listEstatus            = EstatusDocumento::where('iestatus','=',1)->get();
+        //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
+        $noeditar               = 'disabled';
+        return view('pers_conoc.inhabilitar',compact('personal_conocimiento','documento','personal','listTipoDocumento','listEstatus','noeditar'));
+    }
+
+    public function inhabilitar_persconoc(Request $request) {
+        $personal_conocimiento  = PersonalConocimiento::where('iid_documento','=',$request->idDocumento)
+                                                      ->where('iid_personal','=',$request->idDestinatario)->where('iestatus','=',1)->first();
+        $jsonBefore             = json_encode($personal_conocimiento);
+        if ($personal_conocimiento->iestatus == 0) {
+            $operacion          = "RECUPERADO";
+            $personal_conocimiento->iestatus = 1;
+        } else {
+            $operacion          = "BORRADO";
+            $personal_conocimiento->iestatus = 0;
+        }
+        $personal_conocimiento->iid_usuario  = auth()->user()->id;
+        $personal_conocimiento->save();
+        $jsonAfter              = json_encode($personal_conocimiento);
+        DocumentosController::bitacora($jsonBefore,$jsonAfter);
+
+        return redirect()->route('documentos.editar',$request->idDocumento)
+                         ->with('success','Documento actualizado, Destinatario con Copia de Conocimiento '.$operacion.' satisfactoriamente');
+    }
+
     public static function guarda_personal_conoc(string $idDocumento, string $idPersonal){
         $personal_conocimiento                  = new PersonalConocimiento();
         $jsonBefore                             = "NEW INSERT PERSONAL_CONOCIMIENTO";

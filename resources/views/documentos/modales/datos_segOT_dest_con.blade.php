@@ -19,13 +19,17 @@
                             <input type="text" name="idOtraAdscrip"  id="idOtraAdscrip"  value="{{ $destCn->iid_otra_adscripcion }}">
                         </div>
                         <div class="row">
+                            <div class="col" id="divbuscarotrap">
+                                <label for="busca_otro_nombre" class="col-form-label text-md-right">Busca Nombre:</label>
+                                <input type="text" id="busca_otro_nombre" name="busca_otro_nombre" class="form-control" data-target="#busca_otro_nombre" value="" maxlength="100" required {{ $noeditar }} />
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col" id="divnomotrapersona">
-                                <label for="otro_nombre" class="col-form-label text-md-right">Nombre:</label>
-                                @if($destCn->otropersonal!=null)
-                                    <input type="text" id="otro_nombre" name="otro_nombre" class="form-control" data-target="#otro_nombre" value="{{ $destCn->otropersonal->cnombre_personal }}" maxlength="100" required {{ $noeditar }} />
-                                @else
-                                    <input type="text" id="otro_nombre" name="otro_nombre" class="form-control" data-target="#otro_nombre" value="" maxlength="100" required {{ $noeditar }} />
-                                @endif
+                                <label for="otro_nombre" class="col-form-label text-md-right">Selecciona Nombre:</label>
+                                <select class="form-control m-bot15" id="otro_nombre" name="otro_nombre" required {{ $noeditar }}>
+                                    <option value="">Escriba un Nombre...</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -37,8 +41,6 @@
                                     <input type="text" id="otro_paterno" name="otro_paterno" class="form-control" data-target="#otro_paterno" value="" maxlength="100" required {{ $noeditar }} />
                                 @endif
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col" id="divmatotrapersona">
                                 <label for="otro_materno" class="col-form-label text-md-right">Materno:</label>
                                 @if($destCn->otropersonal!=null)
@@ -51,11 +53,9 @@
                         <div class="row">
                             <div class="col" id="divotropuesto">
                                 <label for="otro_puesto" class="col-form-label text-md-right">Puesto:</label>
-                                @if($destCn->otropuesto!=null)
-                                    <input type="text" id="otro_puesto" name="otro_puesto" class="form-control" data-target="#otro_puesto" value="{{ $destCn->otropuesto->cdescripcion_puesto }}" maxlength="100" required {{ $noeditar }} />
-                                @else
-                                    <input type="text" id="otro_puesto" name="otro_puesto" class="form-control" data-target="#otro_puesto" value="" maxlength="100" required {{ $noeditar }} />
-                                @endif
+                                <select class="form-control m-bot15" id="otro_puesto" name="otro_puesto" required {{ $noeditar }}>
+                                    <option value="">Escriba un Nombre...</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">

@@ -207,7 +207,8 @@ class PersonalController extends Controller
 
     public static function buscaOtroNombre(Request $request){
         $on               = $request->on;
-        $otro_personal    = Personal::where('cnombre_personal','=',$on)->where('iestatus','=',1)->get();
+        $otro_personal    = Personal::where('cnombre_personal','like','%'.$on.'%')
+                                    ->where('iestatus','=',1)->get();
         if(!$otro_personal->isEmpty()){
             $idOtroPers   = $otro_personal[0]->iid_personal;
             $nombreOtroP  = $otro_personal[0]->cnombre_personal;
@@ -223,9 +224,11 @@ class PersonalController extends Controller
             return response()->json(
                 [
                     'idOtroPers'   => $idOtroPers,
+                    'otro_personal'=> $otro_personal,
                     'nombreOtroP'  => $nombreOtroP,
                     'paternoOtroP' => $paternoOtroP,
                     'maternoOtroP' => $maternoOtroP,
+                    'puestoOtroP'  => $puestoOtroP,
                     'idOtroPuesto' => $idOtroPuesto,
                     'descOtroPsto' => $descOtroPsto,
                     'idOtraAdsc'   => $idOtraAdsc,
@@ -238,9 +241,11 @@ class PersonalController extends Controller
             return response()->json(
                 [
                     'idOtroPers'   => null,
+                    'otro_personal'=> null,
                     'nombreOtroP'  => null,
                     'paternoOtroP' => null,
                     'maternoOtroP' => null,
+                    'puestoOtroP'  => null,
                     'idOtroPuesto' => null,
                     'descOtroPsto' => null,
                     'idOtraAdsc'   => null,

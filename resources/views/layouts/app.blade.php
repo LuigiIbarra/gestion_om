@@ -18,6 +18,7 @@
     <script type="text/javascript" src="{{ asset('js/captura-persconoc.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-cambiapstoads.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-cambiapstoadsdcc.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/captura-cambiaotropstoads.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-foliorel.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-destconoc.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-checkboxes.js') }}"></script>

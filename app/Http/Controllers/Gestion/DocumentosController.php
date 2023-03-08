@@ -285,6 +285,7 @@ class DocumentosController extends Controller
     //Datos de Personal Remitente
         $remitente          = Personal::with('puesto','adscripcion')->where('iid_personal','=',$documento->iid_personal_remitente)
                                                                     ->where('iestatus','=',1)->first();
+        $listPersonal       = Personal::with('puesto','adscripcion')->where('iestatus','=',1)->get();
         $listPuesto         = Puesto::where('iestatus','=',1)->get();
         $listAdscripcion    = Adscripcion::where('iestatus','=',1)->get();
         $listTipoArea       = TipoArea::where('iestatus','=',1)->get();
@@ -335,7 +336,7 @@ class DocumentosController extends Controller
         $noeditar           = '';
     //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','remitente','listPuesto','listAdscripcion','listTipoArea','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_conoc_total','pers_conoc','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','listafolsRels','docs_rels','noeditar','nuevo_registro'));
+        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','remitente','listPersonal','listPuesto','listAdscripcion','listTipoArea','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_conoc_total','pers_conoc','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','listafolsRels','docs_rels','noeditar','nuevo_registro'));
     }
 
     public function actualizar_documento(Request $request)

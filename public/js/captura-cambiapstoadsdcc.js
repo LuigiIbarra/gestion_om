@@ -22,12 +22,11 @@ window.addEventListener('load', function(){
                     $('#puesto_conocimiento').attr("disabled", false);
                     $('#area_conocimiento').attr("disabled", false);
                     $('#btnGuardarDoc').attr("disabled",false);
-                    document.querySelector('#validaPersonalDest').innerHTML = "";
                     var selectPuesto = '<option value="'+respuesta.puesto[0].iid_puesto +'">'+respuesta.puesto[0].cdescripcion_puesto+'</option>';
                     var selectAdscrip= '<option value="'+respuesta.adscripcion[0].iid_adscripcion +'">'+respuesta.adscripcion[0].cdescripcion_adscripcion+'</option>';
                     document.querySelector("#puesto_conocimiento").innerHTML = selectPuesto;
                     document.querySelector("#area_conocimiento").innerHTML   = selectAdscrip;
-                	document.querySelector('#validaPersonalDest').innerHTML   = "";
+                	document.querySelector('#validaPersonalDest').innerHTML  = "";
                 }else{
                     $('#puesto_conocimiento').attr("disabled", true);
                     $('#area_conocimiento').attr("disabled", true);
@@ -35,10 +34,10 @@ window.addEventListener('load', function(){
                     var selectPuesto  = "<option value='0'>Escriba un Nombre...</option>";
                     var selectAdscrip = "<option value='0'>Escriba un Nombre...</option>";
                     document.querySelector("#puesto_conocimiento").innerHTML = selectPuesto;
-                    document.querySelector("#area_conocimiento").innerHTML = selectAdscrip;                   
+                    document.querySelector("#area_conocimiento").innerHTML   = selectAdscrip;                   
                     var error=""; 
                     error+="<label><font style='color: red;'>*No se econtraron resultados con este Nombre.<font style='color: red;'></label><br/>"
-                    document.querySelector('#validaPersonalDest').innerHTML = error;
+                    document.querySelector('#validaPersonalDest').innerHTML  = error;
                     return false;
                 }
             },

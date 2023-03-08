@@ -22,40 +22,35 @@ window.addEventListener('load', function(){
                     for(let i in respuesta.otro_personal){
                         selectON+= '<option value="'+respuesta.otro_personal[i].iid_personal +'">'+respuesta.otro_personal[i].cnombre_personal+' '+respuesta.otro_personal[i].cpaterno_personal+' '+respuesta.otro_personal[i].cmaterno_personal+'</option>';
                     }
-                    var selectPuesto = '<option value="'+respuesta.puestoOtroP[0].iid_puesto +'">'+respuesta.puestoOtroP[0].cdescripcion_puesto+'</option>';
-                    document.querySelector('#idOtroPersonal').value   = respuesta.idOtroPers;
+                    var selectPuesto = '<option value="'+respuesta.otro_personal[0].iid_puesto +'">'+respuesta.otro_personal[0].puesto.cdescripcion_puesto+'</option>';
+                    var selectAdscrip= '<option value="'+respuesta.otro_personal[0].iid_adscripcion +'">'+respuesta.otro_personal[0].adscripcion.cdescripcion_adscripcion+'</option>';
+                    document.querySelector('#idOtroPersonal').value   = respuesta.otro_personal[0].iid_personal;
                     document.querySelector('#otro_nombre').innerHTML  = selectON;
-                    document.querySelector('#otro_paterno').value     = respuesta.paternoOtroP;
-                    document.querySelector('#otro_materno').value     = respuesta.maternoOtroP;
-                    document.querySelector('#idOtroPuesto').value     = respuesta.idOtroPuesto;
+                    document.querySelector('#idOtroPuesto').value     = respuesta.otro_personal[0].iid_puesto;
                     document.querySelector('#otro_puesto').innerHTML  = selectPuesto;
-                    document.querySelector('#idOtraAdscrip').value    = respuesta.idOtraAdsc;
-                    document.querySelector('#otra_adscripcion').value = respuesta.descOtraAdsc;
-                    document.querySelector('#tipo_adscripcion').value = respuesta.tipoOtraAdsc;
-                    $('#otro_paterno').attr("disabled", true);
-                    $('#otro_materno').attr("disabled", true);
-                    $('#otro_puesto').attr("disabled", true);
-                    $('#otra_adscripcion').attr("disabled", true);
-                    $('#tipo_adscripcion').attr("disabled", true);
+                    document.querySelector('#idOtraAdscrip').value    = respuesta.otro_personal[0].iid_adscripcion;
+                    document.querySelector('#otra_adscripcion').innerHTML = selectAdscrip;
+                    $('#divnomotrapersona').show();
+                    $('#divOtroPstoAdsc').show();
+                    $('#divnvonombre').hide();
+                    $('#divOtrosApellidos').hide();
+                    $('#divNuevoPstoAdsc').hide();
                 	var error=""; 
                     error+="<label><font style='color: red;'>*Este Nombre ya Existe en el catálogo.<font style='color: red;'></label><br/>"
                     document.querySelector('#validaOtroPersonal').innerHTML = error;
                 }else{
                 	document.querySelector('#idOtroPersonal').value   = '';
-                    document.querySelector('#otro_nombre').innerHTML  = "<option value='0'>Escriba un ...</option>";
-                    document.querySelector('#otro_paterno').value     = '';
-                    document.querySelector('#otro_materno').value     = '';
+                    document.querySelector('#otro_nombre').innerHTML  = "<option value='0'>Escriba un Nombre...</option>";
                     document.querySelector('#idOtroPuesto').value     = '';
-                    document.querySelector('#otro_puesto').innerHTML  = "<option value='0'>Escriba un ...</option>";
+                    document.querySelector('#otro_puesto').innerHTML  = "<option value='0'>Escriba un Nombre...</option>";
                     document.querySelector('#idOtraAdscrip').value    = '';
-                    document.querySelector('#otra_adscripcion').value = '';
-                    document.querySelector('#tipo_adscripcion').value = '';
-                	$('#otro_paterno').attr("disabled", false);
-                    $('#otro_materno').attr("disabled", false);
-                    $('#otro_puesto').attr("disabled", false);
-                    $('#otra_adscripcion').attr("disabled", false);
-                    $('#tipo_adscripcion').attr("disabled", false);
-                    var error=""; 
+                    document.querySelector('#otra_adscripcion').innerHTML = "<option value='0'>Escriba un Nombre...</option>";
+                    $('#divnomotrapersona').hide();
+                    $('#divOtroPstoAdsc').hide();
+                    $('#divnvonombre').show();
+                    $('#divOtrosApellidos').show();
+                    $('#divNuevoPstoAdsc').show();
+                	var error=""; 
                     error+="<label><font style='color: red;'>*No se econtraron resultados con este Nombre, capture Apellidos, Puesto, Adscripción y Tipo de Adscripción.<font style='color: red;'></label><br/>"
                     document.querySelector('#validaOtroPersonal').innerHTML = error;
                     return false;
@@ -68,6 +63,10 @@ window.addEventListener('load', function(){
 	}
 
 	var otroNombre = document.querySelector('#busca_otro_nombre');
+
+    $('#divnvonombre').hide();
+    $('#divOtrosApellidos').hide();
+    $('#divNuevoPstoAdsc').hide();
 
 	otroNombre.addEventListener('change',function(){
 		muestraOtro();

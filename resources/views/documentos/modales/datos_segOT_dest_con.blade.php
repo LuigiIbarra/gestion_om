@@ -34,10 +34,10 @@
                                 <select class="form-control m-bot15" id="otro_nombre" name="otro_nombre" required {{ $noeditar }}>
                                     <option value="">Escriba un Nombre...</option>
                                     @foreach($listPersonal as $indice=>$otropers)
-                                            @if ($otropers->iid_personal==$destCn->iid_otro_personal)
-                                                <option value="{{ $otropers->iid_personal }}" selected>{{ $otropers->cnombre_personal.' '.$otropers->cpaterno_personal.' '.$otropers->cmaterno_personal }}</option>
-                                            @endif
-                                        @endforeach
+                                        @if ($otropers->iid_personal==$destCn->iid_otro_personal)
+                                            <option value="{{ $otropers->iid_personal }}" selected>{{ $otropers->cnombre_personal.' '.$otropers->cpaterno_personal.' '.$otropers->cmaterno_personal }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

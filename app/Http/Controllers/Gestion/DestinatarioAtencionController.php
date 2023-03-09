@@ -74,17 +74,20 @@ class DestinatarioAtencionController extends Controller
         $jsonBefore                                     = json_encode($destinatario_atencion);
         $destinatario_atencion->iid_documento           = $request->id_docto;
         $destinatario_atencion->iid_adscripcion         = $request->id_area;
+        $destinatario_atencion->iid_otro_personal       = $request->idOtroPersonal;
+        $destinatario_atencion->iid_otro_puesto         = $request->idOtroPuesto;
+        $destinatario_atencion->iid_otra_adscripcion    = $request->idOtraAdscrip;
         $destinatario_atencion->cnum_docto_resp         = $request->num_doc_seguim;
         $destinatario_atencion->crespuesta              = $request->seguimiento;
         $destinatario_atencion->iid_tipo_documento      = $request->tipo_doc_seg;
         $destinatario_atencion->iid_estatus_documento   = $request->estatus_doc_seg;
         $destinatario_atencion->dfecha_concluido        = $request->fecha_seguimiento;
-        if($request->id_area=="999"){
-            if($request->idOtroPuesto==""){
+        if($request->idOtroPersonal=="" && $request->idOtroPuesto=="" && $request->idOtraAdscrip==""){
+            if($request->otro_nvo_puesto==""){
         //Guardar otro Puesto
                 $otro_puesto                                = new Puesto();
                 $jsonBeforeOtroPuesto                       = "NEW INSERT PUESTO";
-                $otro_puesto->cdescripcion_puesto           = $request->otro_puesto;
+                $otro_puesto->cdescripcion_puesto           = $request->otra_desc_puesto;
                 $otro_puesto->iestatus                      = 1;
                 $otro_puesto->iid_usuario                   = auth()->user()->id;
                 $otro_puesto->save();
@@ -92,14 +95,14 @@ class DestinatarioAtencionController extends Controller
                 PuestosController::bitacora($jsonBeforeOtroPuesto,$jsonAfterOtroPuesto);
                 $destinatario_atencion->iid_otro_puesto     = $otro_puesto->iid_puesto;
             } else {
-                $destinatario_atencion->iid_otro_puesto     = $request->idOtroPuesto;
+                $destinatario_atencion->iid_otro_puesto     = $request->otro_nvo_puesto;
             }
-            if($request->idOtraAdscrip==""){
+            if($request->otra_nva_adscripcion==""){
         //Guardar otra Adscripción
                 $otra_adscripcion                           = new Adscripcion();
                 $jsonBeforeOtraAdscrip                      = "NEW INSERT ADSCRIPCION";
-                $otra_adscripcion->cdescripcion_adscripcion = $request->otra_adscripcion;
-                $otra_adscripcion->iid_tipo_area            = $request->tipo_adscripcion;
+                $otra_adscripcion->cdescripcion_adscripcion = $request->otra_desc_adsc;
+                $otra_adscripcion->iid_tipo_area            = $request->nvo_tipo_adscripcion;
                 $otra_adscripcion->iestatus                 = 1;
                 $otra_adscripcion->iid_usuario              = auth()->user()->id;
                 $otra_adscripcion->save();
@@ -107,17 +110,23 @@ class DestinatarioAtencionController extends Controller
                 AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
                 $destinatario_atencion->iid_otra_adscripcion = $otra_adscripcion->iid_adscripcion;
             } else {
-                $destinatario_atencion->iid_otra_adscripcion = $request->idOtraAdscrip;
+                $destinatario_atencion->iid_otra_adscripcion = $request->otra_nva_adscripcion;
             }
             if($request->idOtroPersonal==""){
         //Guardar otro Personal
                 $otro_personal                              = new Personal();
                 $jsonBeforeOtroPersonal                     = "NEW INSERT PERSONAL";
-                $otro_personal->cnombre_personal            = $request->otro_nombre;
+                $otro_personal->cnombre_personal            = $request->nuevo_nombre;
                 $otro_personal->cpaterno_personal           = $request->otro_paterno;
                 $otro_personal->cmaterno_personal           = $request->otro_materno;
-                $otro_personal->iid_puesto                  = $otro_puesto->iid_puesto;
-                $otro_personal->iid_adscripcion             = $otra_adscripcion->iid_adscripcion;
+                if($request->otro_nvo_puesto=="")
+                    $otro_personal->iid_puesto              = $otro_puesto->iid_puesto;
+                else
+                    $otro_personal->iid_puesto              = $request->otro_nvo_puesto;
+                if($request->otra_nva_adscripcion=="")
+                    $otro_personal->iid_adscripcion         = $otra_adscripcion->iid_adscripcion;
+                else
+                    $otro_personal->iid_adscripcion         = $request->otra_nva_adscripcion;
                 $otro_personal->iestatus                    = 1;
                 $otro_personal->iid_usuario                 = auth()->user()->id;
                 $otro_personal->save();
@@ -127,10 +136,6 @@ class DestinatarioAtencionController extends Controller
             } else {
                 $destinatario_atencion->iid_otro_personal   = $request->idOtroPersonal;
             }
-        } else {
-            $destinatario_atencion->iid_otro_puesto     = null;
-            $destinatario_atencion->iid_otra_adscripcion = null;
-            $destinatario_atencion->iid_otro_personal   = null;
         }
 
         //Manejo del archivo PDF

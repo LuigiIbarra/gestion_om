@@ -8,9 +8,11 @@
     <div class="table-responsive">
         <div class="row">
             <div class="col col-form-label text-md-right">
+                @altaAdscripcion
                     <a href="{{ url('adscripciones/nueva') }}" data-toggle="tooltip" data-html="true" title="Nuevo">
                         + Nueva Adscripción
                     </a>
+                @endaltaAdscripcion
             </div>
         </div>
         <table class="table table-striped shadow-lg" id="MyTableAdscripciones">
@@ -30,16 +32,22 @@
                     <td class="text-center">{{ $adscripcion['tipoarea']['cdescripcion_tipo_area'] }}</td>
                     <td class="text-center col-actions">
                     @if ($adscripcion->iestatus == 1)
+                        @editaAdscripcion
                             <a href="{{ url('adscripciones/editar/'.$adscripcion->iid_adscripcion) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
                             </a>
+                        @endeditaAdscripcion
+                        @borraAdscripcion
                             <a href="{{ url('adscripciones/inhabilitar/'.$adscripcion->iid_adscripcion) }}" data-toggle="tooltip" data-html="true" title="Borrar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
                             </a>
+                        @endborraAdscripcion
                     @else
+                        @borraAdscripcion
                             <a href="{{ url('adscripciones/inhabilitar/'.$adscripcion->iid_adscripcion) }}" data-toggle="tooltip" data-html="true" title="Recuperar">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/check-lg.svg') }}" width="18" height="18">
                             </a>
+                        @endborraAdscripcion
                     @endif
                     </td>
                 </tr>

@@ -16,7 +16,7 @@ class CreateTcrolesTable extends Migration
         Schema::create('tcroles', function (Blueprint $table) {
             $table->increments('iid_rol');
             $table->string('cnombre_rol',20)->nullable();
-            $table->string('cdescripcion_rol',20)->nullable();
+            $table->string('cdescripcion_rol',50)->nullable();
             $table->integer('iestatus')->default(1);
             $table->integer('iid_usuario')->nullable();
             $table->timestamps();

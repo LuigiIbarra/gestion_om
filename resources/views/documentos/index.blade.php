@@ -10,9 +10,11 @@
             <div class="col-10 col-form-label text-right">
             </div>
             <div class="col col-form-label text-right">
+                @altaDocumento
                     <a href="{{ url('documentos/nuevo') }}" data-toggle="tooltip" data-html="true" title="Nuevo">
                         + Nuevo Documento
                     </a>
+                @endaltaDocumento
             </div>
         </div>
         <table class="table table-striped shadow-lg" id="MyTableDocumentos">
@@ -66,16 +68,22 @@
                                 <img src="{{ asset('bootstrap-icons-1.5.0/printer-fill.svg') }}" width="18" height="18">
                             </a>
                         @endif
-                        <a href="{{ url('documentos/editar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
-                            <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
-                        </a>
-                        <a href="{{ url('documentos/inhabilitar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Borrar">
-                            <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
-                        </a>
+                        @editaDocumento
+                            <a href="{{ url('documentos/editar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Actualizar">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
+                            </a>
+                        @endeditaDocumento
+                        @borraDocumento
+                            <a href="{{ url('documentos/inhabilitar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Borrar">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
+                            </a>
+                        @endborraDocumento
                     @else
-                        <a href="{{ url('documentos/inhabilitar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Recuperar">
-                            <img src="{{ asset('bootstrap-icons-1.5.0/check-lg.svg') }}" width="18" height="18">
-                        </a>
+                        @borraDocumento
+                            <a href="{{ url('documentos/inhabilitar/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Recuperar">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/check-lg.svg') }}" width="18" height="18">
+                            </a>
+                        @endborraDocumento
                     @endif
                     </td>
                 </tr>

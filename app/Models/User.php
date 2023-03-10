@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Catalogos\Permiso;
+use App\Models\Catalogos\PermisoRol;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -41,4 +44,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function rol(){
+        return $this->hasOne('App\Models\Catalogos\Rol','iid_rol','iid_rol');
+    }
+
+    public function verificaPermiso($permiso){
+        //USANDO tablas Roles, Permisos y PermisosRol
+        $id_rol       = Auth()->user()->iid_rol;
+        $id_permiso   = Permiso::where('cnombre_permiso','=',$permiso)->first();
+        $siHayPermiso = PermisoRol::where('iid_rol','=',$id_rol)->where('iid_permiso','=',$id_permiso->iid_permiso)->first();
+        if ($siHayPermiso != null)
+            return (boolean) $siHayPermiso->ipermiso; 
+        return false;//"permiso no identificado.";
+    }
 }

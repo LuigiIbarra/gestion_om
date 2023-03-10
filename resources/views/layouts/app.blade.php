@@ -54,16 +54,18 @@
                     <!-- Left Side Of Navbar -->
                     @auth
                         <div class="dropdown">
-                          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('bootstrap-icons-1.5.0/file-text.svg') }}" width="18" height="18">
-                            Documentos
-                          </a>
-                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ url('documentos/index') }}">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/search.svg') }}" width="18" height="18">Lista de Documentos
-                                </a>
-                            </li>
-                          </ul>
+                            @consultaDocumento
+                              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/file-text.svg') }}" width="18" height="18">
+                                Documentos
+                              </a>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="{{ url('documentos/index') }}">
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/search.svg') }}" width="18" height="18">Lista de Documentos
+                                    </a>
+                                </li>
+                              </ul>
+                            @endconsultaDocumento
                         </div>
                         <div class="dropdown">
                           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -71,18 +73,24 @@
                             Catálogos
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ url('puestos/index') }}">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/person-lines-fill.svg') }}" width="18" height="18">Lista de Puestos
-                                </a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url('adscripciones/index') }}">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/building.svg') }}" width="18" height="18">Lista de Adscripciones
-                                </a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url('personal/index') }}">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/people-fill.svg') }}" width="18" height="18">Lista de Personal
-                                </a>
-                            </li>
+                            @consultaPuesto
+                                <li><a class="dropdown-item" href="{{ url('puestos/index') }}">
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/person-lines-fill.svg') }}" width="18" height="18">Lista de Puestos
+                                    </a>
+                                </li>
+                            @endconsultaPuesto
+                            @consultaAdscripcion
+                                <li><a class="dropdown-item" href="{{ url('adscripciones/index') }}">
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/building.svg') }}" width="18" height="18">Lista de Adscripciones
+                                    </a>
+                                </li>
+                            @endconsultaAdscripcion
+                            @consultaPersonal
+                                <li><a class="dropdown-item" href="{{ url('personal/index') }}">
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/people-fill.svg') }}" width="18" height="18">Lista de Personal
+                                    </a>
+                                </li>
+                            @endconsultaPersonal
                           </ul>
                         </div>
                         <div class="dropdown">

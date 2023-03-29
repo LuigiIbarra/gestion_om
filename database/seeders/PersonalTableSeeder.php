@@ -21,7 +21,7 @@ class PersonalTableSeeder extends Seeder
             ini_set("auto_detect_line_endings", '1');     
         }   
 
-        $readDirectory = 'database/seeders/cat_personal.csv';
+      //$readDirectory = 'database/seeders/cat_personal.csv';
         $readDirectory = 'database/seeders/PersonalM4.csv';
         $stream = fopen($readDirectory, 'r');
 

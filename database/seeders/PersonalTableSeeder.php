@@ -22,6 +22,7 @@ class PersonalTableSeeder extends Seeder
         }   
 
         $readDirectory = 'database/seeders/cat_personal.csv';
+        $readDirectory = 'database/seeders/PersonalM4.csv';
         $stream = fopen($readDirectory, 'r');
 
         $reader = Reader::createFromStream($stream, 'r')->setHeaderOffset(0);

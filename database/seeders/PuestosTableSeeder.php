@@ -21,7 +21,8 @@ class PuestosTableSeeder extends Seeder
             ini_set("auto_detect_line_endings", '1');     
         }   
 
-        $readDirectory = 'database/seeders/cat_puestos.csv';
+      //$readDirectory = 'database/seeders/cat_puestos.csv';
+        $readDirectory = 'database/seeders/PuestosM4.csv';
         $stream = fopen($readDirectory, 'r');
 
         $reader = Reader::createFromStream($stream, 'r')->setHeaderOffset(0);

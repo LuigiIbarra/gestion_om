@@ -21,7 +21,8 @@ class AdscripcionesTableSeeder extends Seeder
             ini_set("auto_detect_line_endings", '1');     
         }   
 
-        $readDirectory = 'database/seeders/cat_areas.csv';
+      //$readDirectory = 'database/seeders/cat_areas.csv';
+        $readDirectory = 'database/seeders/AreasM4.csv';
         $stream = fopen($readDirectory, 'r');
 
         $reader = Reader::createFromStream($stream, 'r')->setHeaderOffset(0);

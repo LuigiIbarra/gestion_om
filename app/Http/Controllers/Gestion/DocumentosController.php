@@ -171,51 +171,51 @@ class DocumentosController extends Controller
 
         //Guardar Destinatarios para Atención
         if($request->atencion2==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1027');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1027');  //OM
         if($request->atencion12==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '229');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '229');   //DEP
         if($request->atencion14==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '227');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '227');   //DEGT
         if($request->atencion15==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '231');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '231');   //DERH
         if($request->atencion16==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '228');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '228');   //DEOMS
         if($request->atencion17==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '232');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '232');   //DERM
         if($request->atencion18==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '230');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '230');   //DERF
         if($request->atencion19==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1215');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1215');  //DS
         if($request->atencion20==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1234');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1354');  //DA CJPJCD
         if($request->atencion999==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1233');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1355');  //OTRA
         if($request->atencion_presidente==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1031');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1031');  //PRESIDENCIA
         if($request->atencion_oficialmayor==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1027');
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1027');  //OM
 
         //Guardar Destinatarios para Conocimiento
         if($request->conoc2==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1027');
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1027');  //OM
         if($request->conoc12==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '229');
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '229');   //DEP
         if($request->conoc14==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '227');
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '227');   //DEGT
         if($request->conoc15==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '231');
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '231');   //DERH
         if($request->conoc16==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '228');
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '228');   //DEOMS
         if($request->conoc17==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '232');
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '232');   //DERM
         if($request->conoc18==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '230');
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '230');   //DERF
         if($request->conoc19==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1215');
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1215');  //DS
         if($request->conoc20==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1234');
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1354');  //DA CJPJCD
         if($request->conoc999==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1233');
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1355');  //OTRA
 
         return redirect()->route('documentos.index')
                          ->with('success','Documento guardado satisfactoriamente');
@@ -237,9 +237,9 @@ class DocumentosController extends Controller
         $array1 = array();
         foreach($destinAtt as $destAten)
             $array1[]       = $destAten->iid_adscripcion;
-    //Arreglo auxiliar, para solamente traer los Directores Ejecutivos (531 DEP,724 DEGT,769 DEOMS,770 DERM,773 DERF,812 DERH), el Oficial Mayor 142, 
-    //el Dir. de Seguridad ???, el Presidente 46 del TSJ, y el de la Dir. Administrativa del CJ ???
-        $array2             = [46,142,531,724,769,770,773,812];
+    //Arreglo auxiliar, para solamente traer los Directores Ejecutivos (1384 DEP,1718 DEGT,1771 DEOMS,1772 DERM,1775 DERF,1822 DERH), 
+    //el Oficial Mayor 213, el Dir. de Seguridad 1860, el Presidente 62 del TSJ, y el de la Dir. Administrativa del CJ 1859
+        $array2             = [62,213,1384,1718,1771,1772,1775,1822,1859,1860];
     //Para poder usarla en la consulta de Personal Destinatario Atención
         $pers_destAt        = Personal::with('puesto','adscripcion')->whereIn('iid_adscripcion',$array1)
                                                                     ->whereIn('iid_personal',$array2)
@@ -400,95 +400,95 @@ class DocumentosController extends Controller
         
         //Actualizar Destinatarios para Atención
         if($request->atencion2==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);    //OM
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 0);
         if($request->atencion12==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '229', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '229', 1);     //DEP
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '229', 0);
         if($request->atencion14==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '227', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '227', 1);     //DEGT
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '227', 0);
         if($request->atencion15==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 1);     //DERH
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 0);
         if($request->atencion16==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '228', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '228', 1);     //DEOMS
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '228', 0);
         if($request->atencion17==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '232', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '232', 1);     //DERM
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '232', 0);
         if($request->atencion18==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '230', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '230', 1);     //DERF
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '230', 0);
         if($request->atencion19==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1215', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1215', 1);    //DS
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1215', 0);
         if($request->atencion20==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1234', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 1);    //DA CJPJCD
         else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1234', 0);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 0);
         if($request->atencion999==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1233', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1355', 1);    //OTRA
         else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1233', 0);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1355', 0);
         if($request->atencion_presidente==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 1);    //PRESIDENCIA
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 0);
         if($request->atencion_oficialmayor==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);    //OM
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 0);
 
         //Actualizar Destinatarios para Conocimiento
         if($request->conoc2==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1027', 1);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1027', 1);   //OM
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1027', 0);
         if($request->conoc12==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '229', 1);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '229', 1);    //DEP
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '229', 0);
         if($request->conoc14==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '227', 1);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '227', 1);    //DEGT
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '227', 0);
         if($request->conoc15==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '231', 1);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '231', 1);    //DERH
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '231', 0);
         if($request->conoc16==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '228', 1);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '228', 1);    //DEOMS
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '228', 0);
         if($request->conoc17==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '232', 1);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '232', 1);    //DERM
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '232', 0);
         if($request->conoc18==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '230', 1);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '230', 1);    //DERF
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '230', 0);
         if($request->conoc19==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1215', 1);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1215', 1);   //DS
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1215', 0);
         if($request->conoc20==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1234', 1);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1354', 1);   //DA CJPJCD
         else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1234', 0);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1354', 0);
         if($request->conoc999==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1233', 1);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1355', 1);   //OTRA
         else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1233', 0);
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1355', 0);
 
         return redirect()->route('documentos.index')
                          ->with('success','Documento actualizado satisfactoriamente');

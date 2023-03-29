@@ -29,14 +29,14 @@ class DatabaseSeeder extends Seeder
         $this->call(PuestosTableSeeder::class);
         $this->call(AdscripcionesTableSeeder::class);
         $this->call(PersonalTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermisosTableSeeder::class);
+        $this->call(UsuariosTableSeeder::class);
         /*
         $this->call(TiposAreasTableSeeder::class);
         $this->call(DocumentosTableSeeder::class);
         $this->call(ParametrosTableSeeder::class);
-        $this->call(RolesTableSeeder::class);
-        $this->call(PermisosTableSeeder::class);
         $this->call(PermisosRolesTableSeeder::class);
-        $this->call(UsuariosTableSeeder::class);
         */
         Model::reguard();
     }

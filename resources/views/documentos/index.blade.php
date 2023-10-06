@@ -47,13 +47,7 @@
                     <td class="text-center">{{ $documento['estatusdocumento']['cdescripcion_estatus_documento'] }}</td>
                     <td class="text-center">{{ $documento['prioridaddocumento']['cdescripcion_prioridad_documento'] }}</td>
                     @if($documento['semaforodocumento']!=null)
-                        @if($documento['semaforodocumento']['iid_semaforo']==1)
-                            <td class="text-center" style="background-color: red;">{{ $documento['semaforodocumento']['iid_semaforo'].' '.$documento['semaforodocumento']['ccolor_semaforo'] }}</td>
-                        @elseif($documento['semaforodocumento']['iid_semaforo']==2)
-                            <td class="text-center" style="background-color: green;">{{ $documento['semaforodocumento']['iid_semaforo'].' '.$documento['semaforodocumento']['ccolor_semaforo'] }}</td>
-                        @elseif($documento['semaforodocumento']['iid_semaforo']==3)
-                            <td class="text-center" style="background-color: yellow;">{{ $documento['semaforodocumento']['iid_semaforo'].' '.$documento['semaforodocumento']['ccolor_semaforo'] }}</td>
-                        @endif
+                        <td class="text-center"><img src="{{ $documento['semaforodocumento']['cruta_imagen'] }}" width="30%" height="30%"></td>
                     @else
                         <td class="text-center"></td>
                     @endif

@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         Model::unguard();
+        /*
         $this->call(TiposDocumentosTableSeeder::class);
         $this->call(TiposAnexosTableSeeder::class);
         $this->call(TiposAsuntosTableSeeder::class);
@@ -34,6 +35,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PermisosTableSeeder::class);
         $this->call(UsuariosTableSeeder::class);
         $this->call(PersonalTableSeeder::class);
+        */
+        $this->call(SemaforoTableSeeder::class);
         Model::reguard();
     }
 }

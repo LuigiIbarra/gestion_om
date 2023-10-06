@@ -51,10 +51,27 @@ window.addEventListener('load', function(){
         });
     }
 
+    function cambiaColor(){
+        var option = document.querySelector('#semaforo');
+        if (option.value == 1)
+            $('#semaforo').attr("style", 'border-width: 5px; border-color:red;');
+        if (option.value == 2)
+            $('#semaforo').attr("style", 'border-width: 5px; border-color:green;');
+        if (option.value == 3)
+            $('#semaforo').attr("style", 'border-width: 5px; border-color:yellow;');
+        if (option.value == null || option.value < 1 || option.value > 3)
+            $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+    }
+
 	var numDocto   = document.querySelector('#numero_documento');
+    var semaforo   = document.querySelector('#semaforo');
     
     numDocto.addEventListener('change', function(){
     	buscaDocDuplicado();
+    });
+
+    semaforo.addEventListener('change', function(){
+        cambiaColor();
     });
     
 });

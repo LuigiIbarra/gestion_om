@@ -20,6 +20,7 @@ use App\Models\Catalogos\TipoDocumento;
 use App\Models\Catalogos\TipoAnexo;
 use App\Models\Catalogos\EstatusDocumento;
 use App\Models\Catalogos\PrioridadDocumento;
+use App\Models\Catalogos\Semaforo;
 use App\Models\Catalogos\ImportanciaContenido;
 use App\Models\Catalogos\Tema;
 use App\Models\Catalogos\TipoAsunto;
@@ -46,9 +47,9 @@ class DocumentosController extends Controller
     {
         $folio = $request->folio;
         if ($folio != "") {
-            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cfolio','=',$folio)->where('iestatus','=',1)->get();
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cfolio','=',$folio)->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
         } else {
-            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iestatus','=',1)->get();
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
         }
         return view('documentos.index',$data);
     }
@@ -62,6 +63,7 @@ class DocumentosController extends Controller
         $listTipoAnexo     = TipoAnexo::where('iestatus','=',1)->get();
         $listEstatus       = EstatusDocumento::where('iestatus','=',1)->get();
         $listPrioridad     = PrioridadDocumento::where('iestatus','=',1)->get();
+        $listSemaforo      = Semaforo::where('iestatus','=',1)->get();
         $listPersonal      = Personal::where('iestatus','=',1)->get();
         $listPuesto        = Puesto::where('iestatus','=',1)->get();
         $listAdscripcion   = Adscripcion::where('iestatus','=',1)->get();
@@ -84,7 +86,7 @@ class DocumentosController extends Controller
         $noeditar          = '';
         //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '1';
-        return view('documentos.nuevo',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','parametros','newfolio','newfolio_rh','newfolio_cc','destinAtt','destinCon','folioRel','noeditar','nuevo_registro'));
+        return view('documentos.nuevo',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listSemaforo','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','parametros','newfolio','newfolio_rh','newfolio_cc','destinAtt','destinCon','folioRel','noeditar','nuevo_registro'));
     }
 
     public function guardar_documento(Request $request)
@@ -118,6 +120,7 @@ class DocumentosController extends Controller
         $documento->iid_personal_remitente      = $request->idRemitente;
         $documento->iid_estatus_documento       = $request->estatus_documento;
         $documento->iid_prioridad_documento     = $request->prioridad_documento;
+        $documento->iid_semaforo                = $request->semaforo;
         $documento->cnomenclatura_archivistica  = $request->nomenclatura_archivistica;
         $documento->iid_importancia_contenido   = $request->importancia_contenido;
         $documento->iid_tema                    = $request->tema;
@@ -282,6 +285,7 @@ class DocumentosController extends Controller
         $listTipoAnexo      = TipoAnexo::where('iestatus','=',1)->get();
         $listEstatus        = EstatusDocumento::where('iestatus','=',1)->get();
         $listPrioridad      = PrioridadDocumento::where('iestatus','=',1)->get();
+        $listSemaforo       = Semaforo::where('iestatus','=',1)->get();
     //Datos de Personal Remitente
         $remitente          = Personal::with('puesto','adscripcion')->where('iid_personal','=',$documento->iid_personal_remitente)
                                                                     ->where('iestatus','=',1)->first();
@@ -336,7 +340,7 @@ class DocumentosController extends Controller
         $noeditar           = '';
     //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','remitente','listPersonal','listPuesto','listAdscripcion','listTipoArea','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_conoc_total','pers_conoc','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','listafolsRels','docs_rels','noeditar','nuevo_registro'));
+        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listSemaforo','remitente','listPersonal','listPuesto','listAdscripcion','listTipoArea','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_conoc_total','pers_conoc','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','listafolsRels','docs_rels','noeditar','nuevo_registro'));
     }
 
     public function actualizar_documento(Request $request)
@@ -352,6 +356,7 @@ class DocumentosController extends Controller
         $documento->iid_personal_remitente      = $request->idRemitente;
         $documento->iid_estatus_documento       = $request->estatus_documento;
         $documento->iid_prioridad_documento     = $request->prioridad_documento;
+        $documento->iid_semaforo                = $request->semaforo;
         $documento->cnomenclatura_archivistica  = $request->nomenclatura_archivistica;
         $documento->iid_importancia_contenido   = $request->importancia_contenido;
         $documento->iid_tema                    = $request->tema;
@@ -501,6 +506,7 @@ class DocumentosController extends Controller
         $listTipoAnexo      = TipoAnexo::where('iestatus','=',1)->get();
         $listEstatus        = EstatusDocumento::where('iestatus','=',1)->get();
         $listPrioridad      = PrioridadDocumento::where('iestatus','=',1)->get();
+        $listSemaforo       = Semaforo::where('iestatus','=',1)->get();
         $listPersonal       = Personal::where('iestatus','=',1)->get();
         $remitente          = Personal::where('iid_personal','=',$documento->iid_personal_remitente)->where('iestatus','=',1)->first();
         $listPuesto         = Puesto::where('iestatus','=',1)->get();
@@ -560,7 +566,7 @@ class DocumentosController extends Controller
         $noeditar           = 'disabled';
     //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.inhabilitar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listPersonal','remitente','listPuesto','puesto','listAdscripcion','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','docs_rels','noeditar','nuevo_registro'));
+        return view('documentos.inhabilitar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listSemaforo','listPersonal','remitente','listPuesto','puesto','listAdscripcion','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','docs_rels','noeditar','nuevo_registro'));
     }
 
     public function inhabilitar_documento(Request $request) 

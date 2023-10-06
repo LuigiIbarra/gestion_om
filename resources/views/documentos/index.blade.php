@@ -20,7 +20,7 @@
         <table class="table table-striped shadow-lg" id="MyTableDocumentos">
           <thead>
             <tr>
-                <th class="text-center">Consec.</th>
+                <th class="text-center" style="display:none;">Consec.</th>
                 <th class="text-center">Folio</th>
                 <th class="text-center">Fecha de Recepción</th>
                 <th class="text-center">Número de Documento</th>
@@ -28,6 +28,7 @@
                 <th class="text-center">Remitente</th> 
                 <th class="text-center">Estatus</th> 
                 <th class="text-center">Prioridad</th> 
+                <th class="text-center">Semaforo</th>
                 <th class="text-center">Importancia</th> 
                 <th class="text-center">Tema</th> 
                 <th class="text-center">Fecha de Término</th>
@@ -37,7 +38,7 @@
           <tbody>
             @foreach($documentos as $indice=>$documento)
                 <tr>
-                    <td class="text-center">{{ $documento['iid_documento'] }}</td>
+                    <td class="text-center" style="display:none;">{{ $documento['iid_documento'] }}</td>
                     <td class="text-center">{{ $documento['cfolio'] }}</td>
                     <td class="text-center">{{ $documento['dfecha_recepcion'] }}</td>
                     <td class="text-center">{{ $documento['cnumero_documento'] }}</td>
@@ -45,6 +46,17 @@
                     <td class="text-center">{{ $documento['personalremitente']['cnombre_personal'].' '.$documento['personalremitente']['cpaterno_personal'].' '.$documento['personalremitente']['cmaterno_personal'] }}</td>
                     <td class="text-center">{{ $documento['estatusdocumento']['cdescripcion_estatus_documento'] }}</td>
                     <td class="text-center">{{ $documento['prioridaddocumento']['cdescripcion_prioridad_documento'] }}</td>
+                    @if($documento['semaforodocumento']!=null)
+                        @if($documento['semaforodocumento']['iid_semaforo']==1)
+                            <td class="text-center" style="background-color: red;">{{ $documento['semaforodocumento']['iid_semaforo'].' '.$documento['semaforodocumento']['ccolor_semaforo'] }}</td>
+                        @elseif($documento['semaforodocumento']['iid_semaforo']==2)
+                            <td class="text-center" style="background-color: green;">{{ $documento['semaforodocumento']['iid_semaforo'].' '.$documento['semaforodocumento']['ccolor_semaforo'] }}</td>
+                        @elseif($documento['semaforodocumento']['iid_semaforo']==3)
+                            <td class="text-center" style="background-color: yellow;">{{ $documento['semaforodocumento']['iid_semaforo'].' '.$documento['semaforodocumento']['ccolor_semaforo'] }}</td>
+                        @endif
+                    @else
+                        <td class="text-center"></td>
+                    @endif
                     @if($documento['importanciacontenido']!=null)
                         <td class="text-center">{{ $documento['importanciacontenido']['cdescripcion_importancia_conten'] }}</td>
                     @else

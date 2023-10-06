@@ -27,6 +27,10 @@ class Documento extends Model
         return $this->hasOne('App\Models\Catalogos\PrioridadDocumento','iid_prioridad_documento','iid_prioridad_documento');
     }
 
+    public function semaforodocumento(){
+        return $this->hasOne('App\Models\Catalogos\Semaforo','iid_semaforo','iid_semaforo');
+    }
+
     public function importanciacontenido(){
         return $this->hasOne('App\Models\Catalogos\ImportanciaContenido','iid_importancia_contenido','iid_importancia_contenido');
     }

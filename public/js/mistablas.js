@@ -72,7 +72,8 @@ $(document).ready(function() {
         numFilas,
         filas
        ],
-        buttons: botones
+        buttons: botones,
+        order: [8, 'asc']
     } );
 
     $('#MyTableFolios').DataTable( {

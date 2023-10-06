@@ -103,6 +103,19 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="col" id="divsemaforo">
+                        <label for="semaforo" class="col-form-label text-md-right">Semaforo:</label>
+                        <select class="form-control m-bot15" id="semaforo" name="semaforo" required {{ $noeditar }}>
+                            <option value="">Elija un color de Semaforo...</option>
+                            @foreach($listSemaforo as $indice=>$semaforo)
+                                @if($semaforo->iid_semaforo==$documento->iid_semaforo)
+                                    <option value="{{$semaforo->iid_semaforo}}" selected>{{$semaforo->ccolor_semaforo}}</option>
+                                @else
+                                    <option value="{{$semaforo->iid_semaforo}}">{{$semaforo->ccolor_semaforo}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="col" id="divfoliorel">
                         <label for="folio_relacionado" class="col-form-label text-md-right">Folio Relacionado:</label>
                         <input type="text" id="folio_relacionado" name="folio_relacionado" class="form-control" data-target="#folio_relacionado" value="" {{ $noeditar }}/>

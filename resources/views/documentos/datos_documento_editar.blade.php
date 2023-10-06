@@ -83,7 +83,7 @@
                 <center><div id="validaPersonal"></div></center>
                 <hr>
                 <div class="row">
-                    <div class="col-3" id="divestatus">
+                    <div class="col" id="divestatus">
                         <label for="estatus_documento" class="col-form-label text-md-right">Estatus:</label>
                         <select class="form-control m-bot15" id="estatus_documento" name="estatus_documento" required {{ $noeditar }}>
                             <option value="">Elija un Estatus...</option>
@@ -96,7 +96,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-3" id="divprioridad">
+                    <div class="col" id="divprioridad">
                         <label for="prioridad_documento" class="col-form-label text-md-right">Prioridad:</label>
                         <select class="form-control m-bot15" id="prioridad_documento" name="prioridad_documento" required {{ $noeditar }}>
                             <option value="">Elija una Prioridad...</option>
@@ -109,13 +109,26 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="col" id="divsemaforo">
+                        <label for="semaforo" class="col-form-label text-md-right">Semaforo:</label>
+                        <select class="form-control m-bot15" id="semaforo" name="semaforo" required {{ $noeditar }}>
+                            <option value="">Elija un color de Semaforo...</option>
+                            @foreach($listSemaforo as $indice=>$semaforo)
+                                @if($semaforo->iid_semaforo==$documento->iid_semaforo)
+                                    <option value="{{$semaforo->iid_semaforo}}" selected>{{$semaforo->ccolor_semaforo}}</option>
+                                @else
+                                    <option value="{{$semaforo->iid_semaforo}}">{{$semaforo->ccolor_semaforo}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                     @if($folsRels_total==0)
-                        <div class="col-3" id="divfoliorel">
+                        <div class="col" id="divfoliorel">
                             <label for="folio_relacionado" class="col-form-label text-md-right">Folio Relacionado:</label>
                             <input type="text" id="folio_relacionado" name="folio_relacionado" class="form-control" data-target="#folio_relacionado" value="" {{ $noeditar }}/>
                         </div>
                     @endif
-                    <div class="col-3" id="divnomarchs">
+                    <div class="col" id="divnomarchs">
                         <label for="nomenclatura_archivistica" class="col-form-label text-md-right">Nomenclatura Archivistica:</label>
                         <input type="text" onkeypress="return textonly(event);" id="nomenclatura_archivistica" name="nomenclatura_archivistica" class="form-control" data-target="#nomenclatura_archivistica" value="{{ $documento->cnomenclatura_archivistica }}" maxlength="100" {{ $noeditar }} />
                     </div>

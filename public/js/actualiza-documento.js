@@ -57,17 +57,6 @@ window.addEventListener('load', function(){
         });
     }
 
-    function cambiaColor(){
-        var option = document.querySelector('#semaforo');
-        if (option.value == 1)
-            $('#semaforo').attr("style", 'border-width: 5px; border-color:red;');
-        if (option.value == 2)
-            $('#semaforo').attr("style", 'border-width: 5px; border-color:green;');
-        if (option.value == 3)
-            $('#semaforo').attr("style", 'border-width: 5px; border-color:yellow;');
-        if (option.value == null || option.value < 1 || option.value > 3)
-            $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
-    }
 
 	var tipoDocId  = document.querySelector('#tipo_documento').value;
 	var editaDoc   = document.querySelector('#editaDocto').value;
@@ -83,6 +72,7 @@ window.addEventListener('load', function(){
 		tipo_documento[6].style.display="none";
 		tipo_documento[7].style.display="block";
 		tipo_documento[8].style.display="none";
+        tipo_documento[9].style.display="none";
 	}else if(tipoDocId == 8 && editaDoc == 1){
 		tipo_documento[1].style.display="none";
 		tipo_documento[2].style.display="none";
@@ -92,6 +82,7 @@ window.addEventListener('load', function(){
 		tipo_documento[6].style.display="none";
 		tipo_documento[7].style.display="none";
 		tipo_documento[8].style.display="block";
+        tipo_documento[9].style.display="none";
 	}else if(tipoDocId <= 6 && editaDoc == 1) {
 		tipo_documento[1].style.display="block";
 		tipo_documento[2].style.display="block";
@@ -101,8 +92,10 @@ window.addEventListener('load', function(){
 		tipo_documento[6].style.display="block";
 		tipo_documento[7].style.display="none";
 		tipo_documento[8].style.display="none";
+        tipo_documento[9].style.display="block";
 	}
 
+//COLOREAR BORDE SEGÚN EL COLOR DEL SEMÁFORO
     if (semaforo.value == 1)
         $('#semaforo').attr("style", 'border-width: 5px; border-color:red;');
     if (semaforo.value == 2)
@@ -115,8 +108,4 @@ window.addEventListener('load', function(){
 	nombreRem.addEventListener('change', function(){
     	muestraRemitente();
     });
-    semaforo.addEventListener('change', function(){
-        cambiaColor();
-    });
-
 });

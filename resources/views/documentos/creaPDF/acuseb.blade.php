@@ -126,9 +126,11 @@
 											<th width="50%" style="text-align: left;">NOMBRE</th><th style="text-align: left;">CARGO</th>
 										</tr>
 										@foreach($pers_destAt as $indice=>$destAten)
-											<tr>
-												<td>{{ $destAten->cnombre_personal.' '.$destAten->cpaterno_personal.' '.$destAten->cmaterno_personal }}</td><td>{{ $destAten->puesto->cdescripcion_puesto }}<br></td>
-											</tr>
+											@if ($indice==$i-1)
+												<tr>
+													<td>{{ $destAten->cnombre_personal.' '.$destAten->cpaterno_personal.' '.$destAten->cmaterno_personal }}</td><td>{{ $destAten->puesto->cdescripcion_puesto }}<br></td>
+												</tr>
+											@endif
 										@endforeach
 										<tr>
 											<td><br></td>

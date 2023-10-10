@@ -236,6 +236,7 @@ class DocumentosController extends Controller
             $destinAtt      = DestinatarioAtencion::with('adscripcion')->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
         else
             $destinAtt      = new DestinatarioAtencion();
+        $data['destinAtt_total'] = $destinAtt_total;
 //Y convertirla en un arreglo
         $array1 = array();
         foreach($destinAtt as $destAten)
@@ -262,8 +263,10 @@ class DocumentosController extends Controller
         $nombreArchivo = 'acuse-'.$docto->cfolio.'_'.$fecha.'.pdf';
 
         $html  = view('documentos.creaPDF.acuse',$data)->render();
-        $htmlB = view('documentos.creaPDF.acuseb',$data)->render();
-
+        for ($i=1; $i<=$destinAtt_total; $i++) {
+            $data['i'] = $i;
+            $htmlB[$i] = view('documentos.creaPDF.acuseb',$data)->render();
+        }
         $mpdf  = new Mpdf(['format' => 'letter'
                             ,'margin_top'=>20
                             ,'margin_bottom'=>20
@@ -273,8 +276,10 @@ class DocumentosController extends Controller
         // Write some HTML code:
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->writeHTML($html); //imprimes la variable $html que contiene tu HTML
-        $mpdf->AddPage();
-        $mpdf->writeHTML($htmlB);
+        for ($i=1; $i<=$destinAtt_total; $i++) {
+            $mpdf->AddPage();
+            $mpdf->writeHTML($htmlB[$i]);
+        }
         $mpdf->Output($nombreArchivo,'D');//Salida del documento  D
     }
 

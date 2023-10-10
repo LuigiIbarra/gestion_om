@@ -232,15 +232,17 @@ class DocumentosController extends Controller
         $docto              = Documento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
 //Datos de Destinatario Atención
         $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
+        $data['destinAtt_total'] = $destinAtt_total;
         if($destinAtt_total>0)
             $destinAtt      = DestinatarioAtencion::with('adscripcion')->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
         else
             $destinAtt      = new DestinatarioAtencion();
-        $data['destinAtt_total'] = $destinAtt_total;
 //Y convertirla en un arreglo
         $array1 = array();
-        foreach($destinAtt as $destAten)
-            $array1[]       = $destAten->iid_adscripcion;
+        if($destinAtt_total>0){
+            foreach($destinAtt as $destAten)
+                $array1[]       = $destAten->iid_adscripcion;
+        }
     //Arreglo auxiliar, para solamente traer los Directores Ejecutivos (1384 DEP,1718 DEGT,1771 DEOMS,1772 DERM,1775 DERF,1822 DERH), 
     //el Oficial Mayor 213, el Dir. de Seguridad 1860, el Presidente 62 del TSJ, y el de la Dir. Administrativa del CJ 1859
         $array2             = [62,213,1384,1718,1771,1772,1775,1822,1859,1860];
@@ -250,8 +252,12 @@ class DocumentosController extends Controller
                                                                     ->where('iestatus','=',1)->get();
         $data['pers_destAt']= $pers_destAt;
 
-        $nombreDestA        = Personal::with('puesto')->where('iid_adscripcion','=',$destinAtt[0]->iid_adscripcion)
+        if($destinAtt_total>0) {
+            $nombreDestA    = Personal::with('puesto')->where('iid_adscripcion','=',$destinAtt[0]->iid_adscripcion)
                                                       ->whereIn('iid_personal',$array2)->where('iestatus','=',1)->first();
+        } else {
+            $nombreDestA    = new Personal();
+        }
         $data['nombreDestA']= $nombreDestA;
         $personaRemitente   = Personal::with('adscripcion','puesto')->where('iid_personal','=',$docto->iid_personal_remitente)->where('iestatus','=',1)->first();
         $data['personaRmte']= $personaRemitente;

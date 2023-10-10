@@ -68,7 +68,11 @@
 								<th width="40px">PARA:</th><td>{{ $nombreDestA->cnombre_personal.' '.$nombreDestA->cpaterno_personal.' '.$nombreDestA->cmaterno_personal }}</td>
 							</tr>
 							<tr>
-								<td></td><td>{{ $nombreDestA->puesto->cdescripcion_puesto }}</td>
+								@if ($destinAtt_total>0)
+									<td></td><td>{{ $nombreDestA->puesto->cdescripcion_puesto }}</td>
+								@else
+									<td></td><td></td>
+								@endif
 							</tr>
 						</table>
 					</td>

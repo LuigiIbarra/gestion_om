@@ -57,7 +57,6 @@ window.addEventListener('load', function(){
         });
     }
 
-
 	var tipoDocId  = document.querySelector('#tipo_documento').value;
 	var editaDoc   = document.querySelector('#editaDocto').value;
 	var nombreRem  = document.querySelector('#nombre_remitente');

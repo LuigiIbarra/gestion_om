@@ -52,32 +52,6 @@ window.addEventListener('load', function(){
     }
 
 //REGLAS DE SEMÁFORO ROJO
-    //POR PUESTO
-    function reglaPstoRojo(){
-        var pstoDoc    = document.querySelector('#puesto_remitente').value;
-        if ((pstoDoc >=   69  &&  pstoDoc  <=  76) ||    //COORDINADOR(A)
-            (pstoDoc >=   84  &&  pstoDoc  <= 151) ||    //DIRECTOR(A) (EJECUTIVO/DE ÁREA)
-            (pstoDoc >=  366  &&  pstoDoc  <= 377) ||    //JUEZ(A)
-            (pstoDoc >=  384  &&  pstoDoc  <= 387) ||    //MAGISTRADO(A)
-            (pstoDoc >=  614  &&  pstoDoc  <= 621) ||    //DIRECTOR(A) (EJECUTIVO/DE ÁREA)
-            (pstoDoc >=  623  &&  pstoDoc  <= 635) ||    //DIRECTOR(A) (EJECUTIVO/DE ÁREA)
-            (pstoDoc >=  817  &&  pstoDoc  <= 823) ||    //MAGISTRADO(A) / JUEZ(A)
-            (pstoDoc ==  687  ||  pstoDoc  == 694  ||    //COORDINADOR(A)
-             pstoDoc ==  746  ||                         //COORDINADOR(A)
-             pstoDoc ==  830  ||  pstoDoc  == 832  ||    //JUEZ(A)
-             pstoDoc ==  844  ||  pstoDoc  == 847)) {    //DIRECTOR(A) (EJECUTIVO/DE ÁREA)
-            $("#semaforo option[value='2']").attr("selected", false);
-            $("#semaforo option[value='3']").attr("selected", false);
-            $("#semaforo option[value='1']").attr("selected", true);
-            $('#semaforo').attr("style", 'border-width: 5px; border-color:red;');
-        } else {
-            $("#semaforo option[value='1']").attr("selected", false);
-            $("#semaforo option[value='2']").attr("selected", false);
-            $("#semaforo option[value='3']").attr("selected", false);
-            $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
-        }
-    }
-
     //POR PRIORIDAD URGENTE
     function reglaPriorRojo() {
         var priorDoc   = document.querySelector('#prioridad_documento').value;
@@ -159,7 +133,6 @@ window.addEventListener('load', function(){
 
 	var numDocto   = document.querySelector('#numero_documento');
     var semaforo   = document.querySelector('#semaforo');
-    var remite     = document.querySelector('#listanr');
     var pstoDoc    = document.querySelector('#puesto_remitente');
     var priorDoc   = document.querySelector('#prioridad_documento');
     var fecterDoc  = document.querySelector('#fecha_termino');
@@ -175,15 +148,6 @@ window.addEventListener('load', function(){
     });
 
 //REGLAS DE SEMÁFORO ROJO
-    //POR PUESTO 
-    remite.addEventListener('change', function(){
-        reglaPstoRojo();
-    });
-    /*
-    pstoDoc.addEventListener('change', function(){
-        reglaPstoRojo();
-    });
-    */
     //POR PRIORIDAD URGENTE
     priorDoc.addEventListener('change', function(){
         reglaPriorRojo();

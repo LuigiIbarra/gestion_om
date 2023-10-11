@@ -74,7 +74,67 @@
                     </div>
                 </div>
                 <br>
+                <div class="row" id="divMarkOtro">
+                    <div class="col">
+                        <input type="checkbox" id="markOtro" name="markOtro" {{$noeditar}}>
+                        <label for="markOtro" class="col-form-label" id="linkOtroNombre">Otro Nombre</label>
+                    </div>
+                </div>
+                <div id="divotronombre" style="display:none;">
+                    <div class="row">
+                        <div class="col" id="divnewname">
+                            <label for="nuevo_nombre" class="col-form-label text-md-right">Nuevo Nombre:</label>
+                            <input type="text" id="nuevo_nombre" name="nuevo_nombre" class="form-control" data-target="#nuevo_nombre" value="" maxlength="100" {{ $noeditar }} />
+                        </div>
+                        <div class="col" id="divpatotrapersona">
+                            <label for="otro_paterno" class="col-form-label text-md-right">Paterno:</label>
+                            <input type="text" id="otro_paterno" name="otro_paterno" class="form-control" data-target="#otro_paterno" value="" maxlength="100" {{ $noeditar }} />
+                        </div>
+                        <div class="col" id="divmatotrapersona">
+                            <label for="otro_materno" class="col-form-label text-md-right">Materno:</label>
+                            <input type="text" id="otro_materno" name="otro_materno" class="form-control" data-target="#otro_materno" value="" maxlength="100" {{ $noeditar }} />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="divnvopuesto">
+                            <label for="otro_nvo_puesto" class="col-form-label text-md-right">Puesto:</label>
+                            <select class="form-control m-bot15" id="otro_nvo_puesto" name="otro_nvo_puesto" {{ $noeditar }}>
+                                <option value="">Elija un Puesto...</option>
+                                @foreach($listPuesto as $indice=>$psto)
+                                    <option value="{{$psto->iid_puesto}}">{{$psto->cdescripcion_puesto}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col" id="divnvootropuesto">
+                            <label for="otra_desc_puesto" class="col-form-label text-md-right">Nuevo Puesto:</label>
+                            <input type="text" id="otra_desc_puesto" name="otra_desc_puesto" class="form-control" data-target="#otra_desc_puesto" value="" maxlength="100" />
+                        </div>
+                        <div class="col" id="divnvaadsc">
+                            <label for="otra_nva_adscripcion" class="col-form-label text-md-right">Área/Razón Social:</label>
+                            <select class="form-control m-bot15" id="otra_nva_adscripcion" name="otra_nva_adscripcion" {{ $noeditar }}>
+                                <option value="">Elija una Adscripcion...</option>
+                                @foreach($listAdscripcion as $indice=>$adsc)
+                                    <option value="{{$adsc->iid_adscripcion}}">{{$adsc->cdescripcion_adscripcion}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col" id="divnvootraadsc">
+                            <label for="otra_desc_adsc" class="col-form-label text-md-right">Nuevo Área/Razón Social:</label>
+                            <input type="text" id="otra_desc_adsc" name="otra_desc_adsc" class="form-control" data-target="#otra_desc_adsc" value="" maxlength="100" />
+                        </div>
+                        <div class="col" id="divnvotipoadsc">
+                            <label for="nvo_tipo_adscripcion" class="col-form-label text-md-right">Tipo de Adscripción:</label>
+                            <select class="form-control m-bot15" id="nvo_tipo_adscripcion" name="nvo_tipo_adscripcion" {{ $noeditar }}>
+                                <option value="">Elija un Tipo de Adscripción...</option>
+                                @foreach($listTipoArea as $indice=>$tipo_area)
+                                    <option value="{{$tipo_area->iid_tipo_area}}">{{$tipo_area->cdescripcion_tipo_area}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <center><div id="validaPersonal"></div></center>
+                <br>
                 <hr>
                 <div class="row">
                     <div class="col" id="divestatus">

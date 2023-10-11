@@ -131,6 +131,85 @@ window.addEventListener('load', function(){
             $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
     }
 
+    function muestraOtroNombre(){
+        $('#divotronombre').toggle();
+    }
+
+    function cambiaRequeridos(){
+        if( $('#markOtro').prop('checked') ) {
+        //QUITA REQUERIDO DE LOS CAMPOS DE CAPTURA NORMAL    
+            $('#nombre_remitente').removeAttr('required');
+            $('#listanr').removeAttr('required');
+            $('#puesto_remitente').removeAttr('required');
+            $('#area_remitente').removeAttr('required');
+        //PONE REQUERIDO DE LOS CAMPOS PARA NUEVO PERSONAL
+            $('#nuevo_nombre').prop('required',true);
+            $('#otro_paterno').prop('required',true);
+            $('#otro_materno').prop('required',true);
+            $('#otro_nvo_puesto').prop('required',true);
+            $('#otra_nva_adscripcion').prop('required',true);
+        } else {
+        //PONE REQUERIDO DE LOS CAMPOS DE CAPTURA NORMAL
+            $('#nombre_remitente').prop('required',true);
+            $('#listanr').prop('required',true);
+            $('#puesto_remitente').prop('required',true);
+            $('#area_remitente').prop('required',true);
+        //QUITA REQUERIDO DE LOS CAMPOS PARA NUEVO PERSONAL
+            $('#nuevo_nombre').removeAttr('required');
+            $('#otro_paterno').removeAttr('required');
+            $('#otro_materno').removeAttr('required');
+            $('#otro_nvo_puesto').removeAttr('required');
+            $('#otra_desc_puesto').removeAttr('required');
+            $('#otra_nva_adscripcion').removeAttr('required');
+            $('#otra_desc_adsc').removeAttr('required');
+            $('#nvo_tipo_adscripcion').removeAttr('required');
+        }
+    }
+
+    function cambiaPstoReq(){
+        if (document.querySelector('#otro_nvo_puesto').value=="") {
+            $('#otro_nvo_puesto').removeAttr('required');
+            $('#otra_desc_puesto').prop('required',true);
+        } else {
+            $('#otro_nvo_puesto').prop('required',true);
+            $('#otra_desc_puesto').removeAttr('required');
+        }
+    }
+
+    function cambiaAreaReq(){
+         if (document.querySelector('#otra_nva_adscripcion').value=="") {
+            $('#otra_nva_adscripcion').removeAttr('required');
+            $('#otra_desc_adsc').prop('required',true);
+            $('#nvo_tipo_adscripcion').prop('required',true);
+         } else {
+            $('#otra_nva_adscripcion').prop('required',true);
+            $('#otra_desc_adsc').removeAttr('required');
+            $('#nvo_tipo_adscripcion').removeAttr('required');
+         }
+    }
+
+    function cambiaNewPstoReq(){
+        if (document.querySelector('#otra_desc_puesto').value!="") {
+            $('#otro_nvo_puesto').removeAttr('required');
+            $('#otra_desc_puesto').prop('required',true);
+        } else {
+            $('#otro_nvo_puesto').prop('required',true);
+            $('#otra_desc_puesto').removeAttr('required');
+        }
+    }
+
+    function cambiaNewAreaReq(){
+         if (document.querySelector('#otra_desc_adsc').value!="") {
+            $('#otra_nva_adscripcion').removeAttr('required');
+            $('#otra_desc_adsc').prop('required',true);
+            $('#nvo_tipo_adscripcion').prop('required',true);
+         } else {
+            $('#otra_nva_adscripcion').prop('required',true);
+            $('#otra_desc_adsc').removeAttr('required');
+            $('#nvo_tipo_adscripcion').removeAttr('required');
+         }
+    }
+
 	var numDocto   = document.querySelector('#numero_documento');
     var semaforo   = document.querySelector('#semaforo');
     var pstoDoc    = document.querySelector('#puesto_remitente');
@@ -138,6 +217,11 @@ window.addEventListener('load', function(){
     var fecterDoc  = document.querySelector('#fecha_termino');
     var tipoDocId  = document.querySelector('#tipo_documento');
     var statusDoc  = document.querySelector('#estatus_documento');
+    var markOtro   = document.querySelector('#markOtro');
+    var newPsto    = document.querySelector('#otro_nvo_puesto');
+    var otroNewPsto= document.querySelector('#otra_desc_puesto');
+    var newArea    = document.querySelector('#otra_nva_adscripcion');
+    var otraNewArea= document.querySelector('#otra_desc_adsc');
     
     numDocto.addEventListener('change', function(){
     	buscaDocDuplicado();
@@ -165,5 +249,22 @@ window.addEventListener('load', function(){
     //POR ESTATUS CONCLUIDO
     statusDoc.addEventListener('change', function(){
         reglaStatAmarillo()
+    });
+//APARECE Y DESAPARECE SECCIÓN OTRO NOMBRE (divotronombre)
+    markOtro.addEventListener('click', function(){
+        muestraOtroNombre();
+        cambiaRequeridos();
+    });
+    newPsto.addEventListener('change', function(){
+        cambiaPstoReq();
+    });
+    newArea.addEventListener('change', function(){
+        cambiaAreaReq();
+    });
+    otroNewPsto.addEventListener('change', function(){
+        cambiaNewPstoReq();
+    });
+    otraNewArea.addEventListener('change', function(){
+        cambiaNewAreaReq();
     });
 });

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Catalogos\PersonalController;
+use App\Http\Controllers\Catalogos\PuestosController;
+use App\Http\Controllers\Catalogos\AdscripcionesController;
 use App\Http\Controllers\Gestion\PersonalConocimientoController;
 use App\Http\Controllers\Gestion\DestinatarioAtencionController;
 use App\Http\Controllers\Gestion\DestinatarioConocimientoController;
@@ -67,6 +69,7 @@ class DocumentosController extends Controller
         $listPersonal      = Personal::where('iestatus','=',1)->get();
         $listPuesto        = Puesto::where('iestatus','=',1)->get();
         $listAdscripcion   = Adscripcion::where('iestatus','=',1)->get();
+        $listTipoArea       = TipoArea::where('iestatus','=',1)->get();
         $listImportancia   = ImportanciaContenido::where('iestatus','=',1)->get();
         $listTema          = Tema::where('iestatus','=',1)->get();
         $listAsunto        = TipoAsunto::where('iestatus','=',1)->get();
@@ -74,10 +77,13 @@ class DocumentosController extends Controller
         $listDestinAtn     = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
         $listDestinConoc   = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
         $newfolio          = $parametros->iultimo_folio + 1;
+        $newfolio          = str_pad($newfolio, 4, "0", STR_PAD_LEFT);
         $newfolio          = $newfolio.'-'.substr($anio,2,2);
         $newfolio_rh       = $parametros->iultimo_folio_rh + 1;
+        $newfolio_rh       = str_pad($newfolio_rh, 4, "0", STR_PAD_LEFT);
         $newfolio_rh       = $newfolio_rh.'-'.substr($anio,2,2).'RH';
         $newfolio_cc       = $parametros->iultimo_folio_cc + 1;
+        $newfolio_cc       = str_pad($newfolio_cc, 4, "0", STR_PAD_LEFT);
         $newfolio_cc       = $newfolio_cc.'-'.substr($anio,2,2).'CC';
         $destinAtt         = new DestinatarioAtencion();
         $destinCon         = new DestinatarioConocimiento();
@@ -86,7 +92,7 @@ class DocumentosController extends Controller
         $noeditar          = '';
         //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '1';
-        return view('documentos.nuevo',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listSemaforo','listPersonal','listPuesto','listAdscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','parametros','newfolio','newfolio_rh','newfolio_cc','destinAtt','destinCon','folioRel','noeditar','nuevo_registro'));
+        return view('documentos.nuevo',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listSemaforo','listPersonal','listPuesto','listAdscripcion','listTipoArea','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','parametros','newfolio','newfolio_rh','newfolio_cc','destinAtt','destinCon','folioRel','noeditar','nuevo_registro'));
     }
 
     public function guardar_documento(Request $request)
@@ -97,12 +103,15 @@ class DocumentosController extends Controller
         $parametros                             = Parametros::where('ianio','=',$anio)->first();
         if($request->tipo_documento<=6) {
             $newfolio                               = $parametros->iultimo_folio + 1;
+            $newfolio                               = str_pad($newfolio, 4, "0", STR_PAD_LEFT);
             $newfolio                               = $newfolio.'-'.substr($parametros->ianio,2,2);
         } elseif($request->tipo_documento==7) {
             $newfolio_cc                            = $parametros->iultimo_folio_cc + 1;
+            $newfolio_cc                            = str_pad($newfolio_cc, 4, "0", STR_PAD_LEFT);
             $newfolio_cc                            = $newfolio_cc.'-'.substr($parametros->ianio,2,2).'CC';
         } elseif($request->tipo_documento==8) {
             $newfolio_rh                            = $parametros->iultimo_folio_rh + 1;
+            $newfolio_rh                            = str_pad($newfolio_rh, 4, "0", STR_PAD_LEFT);
             $newfolio_rh                            = $newfolio_rh.'-'.substr($parametros->ianio,2,2).'RH';
         }
         $jsonBefore                             = "NEW INSERT DOCUMENTO";
@@ -117,7 +126,6 @@ class DocumentosController extends Controller
         $documento->dfecha_documento            = $request->fecha_documento;
         $documento->iid_tipo_documento          = $request->tipo_documento;
         $documento->iid_tipo_anexo              = $request->tipo_anexo;
-        $documento->iid_personal_remitente      = $request->idRemitente;
         $documento->iid_estatus_documento       = $request->estatus_documento;
         $documento->iid_prioridad_documento     = $request->prioridad_documento;
         $documento->iid_semaforo                = $request->semaforo;
@@ -129,8 +137,60 @@ class DocumentosController extends Controller
         $documento->dfecha_termino              = $request->fecha_termino;
         $documento->casunto                     = $request->asunto;
         $documento->cobservaciones              = $request->observaciones;
+//GUARDAR DATOS DE OTRO PERSONAL QUE NO ESTÉ EN EL CATÁLOGO
+        if($request->markOtro==='on') {
+        //Guardar Nuevo Puesto
+            if($request->otro_nvo_puesto=="" && $request->otra_desc_puesto!=""){
+                $nuevo_puesto                                = new Puesto();
+                $jsonBeforeNvoPuesto                         = "NEW INSERT PUESTO";
+                $nuevo_puesto->cdescripcion_puesto           = $request->otra_desc_puesto;
+                $nuevo_puesto->iestatus                      = 1;
+                $nuevo_puesto->iid_usuario                   = auth()->user()->id;
+                $nuevo_puesto->save();
+                $jsonAfterNvoPuesto                          = json_encode($nuevo_puesto);
+                PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
+            }
+        //Guardar Nueva Adscripción
+            if($request->otra_nva_adscripcion=="" && $request->otra_desc_adsc!=""){
+                $nueva_adscripcion                           = new Adscripcion();
+                $jsonBeforeOtraAdscrip                       = "NEW INSERT ADSCRIPCION";
+                $nueva_adscripcion->cdescripcion_adscripcion = $request->otra_desc_adsc;
+                $nueva_adscripcion->iid_tipo_area            = $request->nvo_tipo_adscripcion;
+                $nueva_adscripcion->iestatus                 = 1;
+                $nueva_adscripcion->iid_usuario              = auth()->user()->id;
+                $nueva_adscripcion->save();
+                $jsonAfterOtraAdscrip                        = json_encode($nueva_adscripcion);
+                AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+            }
+        //Guardar Nuevo Personal
+            if($request->nuevo_nombre!="" && $request->otro_paterno!=""){
+                $nuevo_personal                              = new Personal();
+                $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
+                $nuevo_personal->cnombre_personal            = $request->nuevo_nombre;
+                $nuevo_personal->cpaterno_personal           = $request->otro_paterno;
+                $nuevo_personal->cmaterno_personal           = $request->otro_materno;
+            //GUARDAR CLAVE DE PUESTO
+                if($request->otro_nvo_puesto=="" && $request->otra_desc_puesto!="")
+                    $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
+                else
+                    $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto;   //ID PUESTO EXISTENTE
+            //GUARDAR CLAVE DE ADSCRIPCION
+                if($request->otra_nva_adscripcion=="" && $request->otra_desc_adsc!="")
+                    $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
+                else
+                    $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion;      //ID ADSCRIP. EXISTENTE
+                $nuevo_personal->iestatus                    = 1;
+                $nuevo_personal->iid_usuario                 = auth()->user()->id;
+                $nuevo_personal->save();
+                $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
+                PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
+            }
+            $documento->iid_personal_remitente  = $nuevo_personal->iid_personal;
+        } else {
+            $documento->iid_personal_remitente  = $request->idRemitente;
+        }
 
-        //Manejo del archivo PDF
+    //Manejo del archivo PDF
         if($request->hasFile("archivo")){
             $file=$request->file("archivo");
             

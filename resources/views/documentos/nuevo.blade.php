@@ -14,6 +14,7 @@
         <input type="hidden" id="idRemitente"    name="idRemitente"    value=""/>
         <input type="hidden" id="idDestinatario" name="idDestinatario" value=""/>
         <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>
+        <input type="hidden" id="semaforoRojo"   name="semaforoRojo"   value="0"/>
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

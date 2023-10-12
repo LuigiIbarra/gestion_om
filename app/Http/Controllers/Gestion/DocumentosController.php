@@ -76,6 +76,7 @@ class DocumentosController extends Controller
         $listInstruccion   = Instruccion::where('iestatus','=',1)->get();
         $listDestinAtn     = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
         $listDestinConoc   = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
+    //CALCULAR ÚLTIMOS FOLIOS Y SUGERIRLOS EN LA CAPTURA
         $newfolio          = $parametros->iultimo_folio + 1;
         $newfolio          = str_pad($newfolio, 4, "0", STR_PAD_LEFT);
         $newfolio          = $newfolio.'-'.substr($anio,2,2);
@@ -101,6 +102,9 @@ class DocumentosController extends Controller
         $anio = Date('Y');
         $documento                              = new Documento();
         $parametros                             = Parametros::where('ianio','=',$anio)->first();
+        $jsonBefore                             = "NEW INSERT DOCUMENTO";
+    //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
+        /* 
         if($request->tipo_documento<=6) {
             $newfolio                               = $parametros->iultimo_folio + 1;
             $newfolio                               = str_pad($newfolio, 4, "0", STR_PAD_LEFT);
@@ -114,13 +118,42 @@ class DocumentosController extends Controller
             $newfolio_rh                            = str_pad($newfolio_rh, 4, "0", STR_PAD_LEFT);
             $newfolio_rh                            = $newfolio_rh.'-'.substr($parametros->ianio,2,2).'RH';
         }
-        $jsonBefore                             = "NEW INSERT DOCUMENTO";
         if($request->tipo_documento<=6) 
             $documento->cfolio                  = $newfolio;
         elseif($request->tipo_documento==7)
             $documento->cfolio                  = $newfolio_cc;
         elseif($request->tipo_documento==8)
             $documento->cfolio                  = $newfolio_rh;
+        */
+    //CAPTURA MANUAL DEL FOLIO, VALIDACIONES
+        //Revisar que no exista un Documento con el mismo Folio.
+        $ya_existe_folio                        = Documento::where('cfolio','=',$request->folio_documento)->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar a Documentos con el Folio capturado.
+        if ($ya_existe_folio==0) {
+            $documento->cfolio                  = $request->folio_documento;
+        } else {
+    //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
+            if($request->tipo_documento<=6) {
+                $newfolio                               = $parametros->iultimo_folio + 1;
+                $newfolio                               = str_pad($newfolio, 4, "0", STR_PAD_LEFT);
+                $newfolio                               = $newfolio.'-'.substr($parametros->ianio,2,2);
+            } elseif($request->tipo_documento==7) {
+                $newfolio_cc                            = $parametros->iultimo_folio_cc + 1;
+                $newfolio_cc                            = str_pad($newfolio_cc, 4, "0", STR_PAD_LEFT);
+                $newfolio_cc                            = $newfolio_cc.'-'.substr($parametros->ianio,2,2).'CC';
+            } elseif($request->tipo_documento==8) {
+                $newfolio_rh                            = $parametros->iultimo_folio_rh + 1;
+                $newfolio_rh                            = str_pad($newfolio_rh, 4, "0", STR_PAD_LEFT);
+                $newfolio_rh                            = $newfolio_rh.'-'.substr($parametros->ianio,2,2).'RH';
+            }
+            if($request->tipo_documento<=6) 
+                $documento->cfolio                  = $newfolio;
+            elseif($request->tipo_documento==7)
+                $documento->cfolio                  = $newfolio_cc;
+            elseif($request->tipo_documento==8)
+                $documento->cfolio                  = $newfolio_rh;
+        }
+    //FIN DE VALIDACIONES DE LA CAPTURA MANUAL DEL FOLIO
         $documento->dfecha_recepcion            = $request->recepcion_documento;
         $documento->cnumero_documento           = $request->numero_documento;
         $documento->dfecha_documento            = $request->fecha_documento;
@@ -142,10 +175,10 @@ class DocumentosController extends Controller
         //Guardar Nuevo Puesto
             if($request->otro_nvo_puesto=="" && $request->otra_desc_puesto!=""){
         //Revisar que no exista un puesto con la misma Descripción
-                $ya_existe                                   = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto)
+                $ya_hay_puesto                                   = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto)
                                                                      ->where('iestatus','=',1)->count();
         //Si no hay, entonces agregar al catálogo
-                if ($ya_existe==0) {
+                if ($ya_hay_puesto==0) {
                     $nuevo_puesto                                = new Puesto();
                     $jsonBeforeNvoPuesto                         = "NEW INSERT PUESTO";
                     $nuevo_puesto->cdescripcion_puesto           = $request->otra_desc_puesto;
@@ -159,10 +192,10 @@ class DocumentosController extends Controller
         //Guardar Nueva Adscripción
             if($request->otra_nva_adscripcion=="" && $request->otra_desc_adsc!=""){
         //Revisar que no exista una adscripción con la misma Descripción
-                $ya_existe                                       = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc)
+                $ya_hay_adsc                                     = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc)
                                                                               ->where('iestatus','=',1)->count();
         //Si no hay, entonces agregar al catálogo
-                if ($ya_existe==0) {
+                if ($ya_hay_adsc==0) {
                     $nueva_adscripcion                           = new Adscripcion();
                     $jsonBeforeOtraAdscrip                       = "NEW INSERT ADSCRIPCION";
                     $nueva_adscripcion->cdescripcion_adscripcion = $request->otra_desc_adsc;
@@ -177,12 +210,12 @@ class DocumentosController extends Controller
         //Guardar Nuevo Personal
             if($request->nuevo_nombre!="" && $request->otro_paterno!=""){
         //Revisar que no exista una persona con el mismo Nombre y Apellidos
-                $ya_existe                                   = Personal::where('cnombre_personal','=',$request->nuevo_nombre)
+                $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre)
                                                                        ->where('cpaterno_personal','=',$request->otro_paterno)
                                                                        ->where('cmaterno_personal','=',$request->otro_materno)
                                                                        ->where('iestatus','=',1)->count();
         //Si no hay, entonces agregar al catálogo
-                if ($ya_existe==0) {
+                if ($ya_hay_pers==0) {
                     $nuevo_personal                              = new Personal();
                     $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
                     $nuevo_personal->cnombre_personal            = $request->nuevo_nombre;
@@ -236,12 +269,38 @@ class DocumentosController extends Controller
         $jsonAfter                              = json_encode($documento);
         DocumentosController::bitacora($jsonBefore,$jsonAfter);
 
-        if($request->tipo_documento<=6) 
-            $parametros->iultimo_folio          = $parametros->iultimo_folio + 1;
-        elseif($request->tipo_documento==7)
-            $parametros->iultimo_folio_cc       = $parametros->iultimo_folio_cc + 1;
-        elseif($request->tipo_documento==8)
-            $parametros->iultimo_folio_rh       = $parametros->iultimo_folio_rh + 1;
+    //ACTUALIZAR ULTIMOS FOLIOS EN LA TABLA PARÁMETROS
+        if($request->tipo_documento<=6 || $request->tipo_documento==9) {
+            if ($request->folio_documento>$parametros->iultimo_folio) {
+                if ($ya_existe_folio==0) 
+                    $parametros->iultimo_folio    = ltrim(substr($request->folio_documento,0,4),'0');   //REGISTRO MANUAL DEL FOLIO
+                else
+                    $parametros->iultimo_folio    = $parametros->iultimo_folio + 1;     //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
+            } else {
+                if ($ya_existe_folio>0)
+                    $parametros->iultimo_folio    = $parametros->iultimo_folio + 1;     //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
+            }
+        } elseif($request->tipo_documento==7) {
+            if ($request->folio_documento>$parametros->iultimo_folio_cc) {
+                if ($ya_existe_folio==0)
+                    $parametros->iultimo_folio_cc = ltrim(substr($request->folio_documento,0,4),'0');   //REGISTRO MANUAL DEL FOLIO
+                else
+                    $parametros->iultimo_folio_cc = $parametros->iultimo_folio_cc + 1;  //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
+            } else {
+                if ($ya_existe_folio>0)
+                    $parametros->iultimo_folio    = $parametros->iultimo_folio_cc + 1;  //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
+            }
+        } elseif($request->tipo_documento==8) {
+            if ($request->folio_documento>$parametros->iultimo_folio_rh) {
+                if ($ya_existe_folio==0)
+                    $parametros->iultimo_folio_rh = ltrim(substr($request->folio_documento,0,4),'0');   //REGISTRO MANUAL DEL FOLIO
+                else
+                    $parametros->iultimo_folio_rh = $parametros->iultimo_folio_rh + 1;  //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
+            } else {
+                if ($ya_existe_folio>0)
+                    $parametros->iultimo_folio    = $parametros->iultimo_folio_rh + 1;  //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
+            }
+        }
         $parametros->save();
 
         //Folios Relacionados

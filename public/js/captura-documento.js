@@ -56,15 +56,19 @@ window.addEventListener('load', function(){
     function reglaPriorRojo() {
         var priorDoc   = document.querySelector('#prioridad_documento').value;
         if (priorDoc == 4) {
-            $("#semaforo option[value='1']").attr("selected", true);
+            $("#semaforo option[value='']").attr("selected", false);
             $("#semaforo option[value='2']").attr("selected", false);
             $("#semaforo option[value='3']").attr("selected", false);
+            $("#semaforo option[value='1']").attr("selected", true);
             $('#semaforo').attr("style", 'border-width: 5px; border-color:red;');
         } else {
-            $("#semaforo option[value='1']").attr("selected", false);
-            $("#semaforo option[value='2']").attr("selected", false);
-            $("#semaforo option[value='3']").attr("selected", false);
-            $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+            if (document.querySelector('#semaforoRojo').value==0) {
+                $("#semaforo option[value='1']").attr("selected", false);
+                $("#semaforo option[value='2']").attr("selected", false);
+                $("#semaforo option[value='3']").attr("selected", false);
+                $("#semaforo option[value='']").attr("selected", true);
+                $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+            }
         }
     }
 
@@ -72,15 +76,19 @@ window.addEventListener('load', function(){
     function reglaTermRojo() {
         var fecterDoc  = document.querySelector('#fecha_termino').value;
         if (fecterDoc != '') {
-            $("#semaforo option[value='1']").attr("selected", true);
+            $("#semaforo option[value='']").attr("selected", false);
             $("#semaforo option[value='2']").attr("selected", false);
             $("#semaforo option[value='3']").attr("selected", false);
+            $("#semaforo option[value='1']").attr("selected", true);
             $('#semaforo').attr("style", 'border-width: 5px; border-color:red;');
         } else {
-            $("#semaforo option[value='1']").attr("selected", false);
-            $("#semaforo option[value='2']").attr("selected", false);
-            $("#semaforo option[value='3']").attr("selected", false);
-            $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+            if (document.querySelector('#semaforoRojo').value==0) {
+                $("#semaforo option[value='1']").attr("selected", false);
+                $("#semaforo option[value='2']").attr("selected", false);
+                $("#semaforo option[value='3']").attr("selected", false);
+                $("#semaforo option[value='']").attr("selected", true);
+                $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+            }
         }
     }
 
@@ -88,16 +96,20 @@ window.addEventListener('load', function(){
     //POR TIPO DE DOCTO: ACUERDO PL / ACUERDO VAR /  ACUERDO FÍSICO
     function reglaTipoDocVerde(){
         var tipoDocId  = document.querySelector('#tipo_documento').value;
-        if (tipoDocId == 1 || tipoDocId == 2 || tipoDocId == 9) {   
-            $("#semaforo option[value='2']").attr("selected", true);
+        if (tipoDocId == 1 || tipoDocId == 2 || tipoDocId == 9) {
+            $("#semaforo option[value='']").attr("selected", false);
             $("#semaforo option[value='1']").attr("selected", false);
             $("#semaforo option[value='3']").attr("selected", false);
+            $("#semaforo option[value='2']").attr("selected", true);
             $('#semaforo').attr("style", 'border-width: 5px; border-color:green;');
         } else {
-            $("#semaforo option[value='1']").attr("selected", false);
-            $("#semaforo option[value='2']").attr("selected", false);
-            $("#semaforo option[value='3']").attr("selected", false);
-            $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+            if (document.querySelector('#semaforoRojo').value==0) {
+                $("#semaforo option[value='1']").attr("selected", false);
+                $("#semaforo option[value='2']").attr("selected", false);
+                $("#semaforo option[value='3']").attr("selected", false);
+                $("#semaforo option[value='']").attr("selected", true);
+                $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+            }
         }
     }
 
@@ -105,30 +117,42 @@ window.addEventListener('load', function(){
     //POR ESTATUS CONCLUIDO
     function reglaStatAmarillo(){
         var statusDoc  = document.querySelector('#estatus_documento').value;
-        if (statusDoc == 3) {    
-            $("#semaforo option[value='3']").attr("selected", true);
+        if (statusDoc == 3) {
+            $("#semaforo option[value='']").attr("selected", false);
             $("#semaforo option[value='1']").attr("selected", false);
             $("#semaforo option[value='2']").attr("selected", false);
+            $("#semaforo option[value='3']").attr("selected", true);
             $('#semaforo').attr("style", 'border-width: 5px; border-color:yellow;');
         } else {
-            $("#semaforo option[value='1']").attr("selected", false);
-            $("#semaforo option[value='2']").attr("selected", false);
-            $("#semaforo option[value='3']").attr("selected", false);
-            $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+            if (document.querySelector('#semaforoRojo').value==0) {
+                $("#semaforo option[value='1']").attr("selected", false);
+                $("#semaforo option[value='2']").attr("selected", false);
+                $("#semaforo option[value='3']").attr("selected", false);
+                $("#semaforo option[value='']").attr("selected", true);
+                $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+            }
         }
     }
 
 //TAMBIÉN SE PERMITE SELECCIONAR DIRECTAMENTE EL COLOR DEL SEMÁFORO
     function cambiaColor(){
         var option = document.querySelector('#semaforo');
-        if (option.value == 1)
+        if (option.value == 1){
             $('#semaforo').attr("style", 'border-width: 5px; border-color:red;');
-        if (option.value == 2)
+            $('#semaforoRojo').val('1');
+        }
+        if (option.value == 2){
             $('#semaforo').attr("style", 'border-width: 5px; border-color:green;');
-        if (option.value == 3)
+            $('#semaforoRojo').val('0');
+        }
+        if (option.value == 3){
             $('#semaforo').attr("style", 'border-width: 5px; border-color:yellow;');
-        if (option.value == null || option.value < 1 || option.value > 3)
+            $('#semaforoRojo').val('0');
+        }
+        if (option.value == null || option.value < 1 || option.value > 3){
             $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+            $('#semaforoRojo').val('0');
+        }
     }
 
     function muestraOtroNombre(){

@@ -66,15 +66,19 @@ window.addEventListener('load', function(){
              pstoDoc ==  746  ||                         //COORDINADOR(A)
              pstoDoc ==  830  ||  pstoDoc  == 832  ||    //JUEZ(A)
              pstoDoc ==  844  ||  pstoDoc  == 847)) {    //DIRECTOR(A) (EJECUTIVO/DE ÁREA)
+            $("#semaforo option[value='']").attr("selected", false);
             $("#semaforo option[value='2']").attr("selected", false);
             $("#semaforo option[value='3']").attr("selected", false);
             $("#semaforo option[value='1']").attr("selected", true);
             $('#semaforo').attr("style", 'border-width: 5px; border-color:red;');
+            $('#semaforoRojo').val('1');
         } else {
             $("#semaforo option[value='1']").attr("selected", false);
             $("#semaforo option[value='2']").attr("selected", false);
             $("#semaforo option[value='3']").attr("selected", false);
+            $("#semaforo option[value='']").attr("selected", true);
             $('#semaforo').attr("style", 'border-width: 1px; border-color:gray-light;');
+            $('#semaforoRojo').val('0');
         }
     }
 

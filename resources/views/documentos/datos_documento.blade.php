@@ -1,11 +1,11 @@
                 <div class="row">
                     <div class="col" id="divfolio">
                         <label for="folio_documento" class="col-form-label text-md-right">Número de Folio:</label>
-                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $newfolio }}" required />
+                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $newfolio }}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" onkeypress="return numberonly(event);" required />
                     </div>
                     <div class="col" id="divrecepcion">
                         <label for="recepcion_documento" class="col-form-label text-md-right">Fecha de Recepcion:</label>
-                        <input type="date" id="recepcion_documento" name="recepcion_documento" class="form-control" data-target="#recepcion_documento" value="{{ $documento->dfecha_recepcion }}" maxlength="10" required {{ $noeditar }}/>
+                        <input type="date" id="recepcion_documento" name="recepcion_documento" class="form-control" data-target="#recepcion_documento" value="{{ $documento->dfecha_recepcion }}" maxlength="10" required {{ $noeditar }} autofocus/>
                     </div>
                     <div class="col" id="divnumdoc">
                         <label for="numero_documento" class="col-form-label text-md-right">Número de Documento:</label>
@@ -47,6 +47,7 @@
                 </div>
                 <br>
                 <center><div id="validaDocumento"></div></center>
+                <center><div id="validaFolioDup"></div></center>
                 <hr>
                 <label><b>REMITENTE</b></label>
                 <div class="row" id="divremitente">

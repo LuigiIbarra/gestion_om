@@ -78,13 +78,13 @@ class DocumentosController extends Controller
         $listDestinConoc   = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
     //CALCULAR ÚLTIMOS FOLIOS Y SUGERIRLOS EN LA CAPTURA
         $newfolio          = $parametros->iultimo_folio + 1;
-        $newfolio          = str_pad($newfolio, 4, "0", STR_PAD_LEFT);
+        $newfolio          = str_pad($newfolio, 5, "0", STR_PAD_LEFT);
         $newfolio          = $newfolio.'-'.substr($anio,2,2);
         $newfolio_rh       = $parametros->iultimo_folio_rh + 1;
-        $newfolio_rh       = str_pad($newfolio_rh, 4, "0", STR_PAD_LEFT);
+        $newfolio_rh       = str_pad($newfolio_rh, 5, "0", STR_PAD_LEFT);
         $newfolio_rh       = $newfolio_rh.'-'.substr($anio,2,2).'RH';
         $newfolio_cc       = $parametros->iultimo_folio_cc + 1;
-        $newfolio_cc       = str_pad($newfolio_cc, 4, "0", STR_PAD_LEFT);
+        $newfolio_cc       = str_pad($newfolio_cc, 5, "0", STR_PAD_LEFT);
         $newfolio_cc       = $newfolio_cc.'-'.substr($anio,2,2).'CC';
         $destinAtt         = new DestinatarioAtencion();
         $destinCon         = new DestinatarioConocimiento();
@@ -135,15 +135,15 @@ class DocumentosController extends Controller
     //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
             if($request->tipo_documento<=6) {
                 $newfolio                               = $parametros->iultimo_folio + 1;
-                $newfolio                               = str_pad($newfolio, 4, "0", STR_PAD_LEFT);
+                $newfolio                               = str_pad($newfolio, 5, "0", STR_PAD_LEFT);
                 $newfolio                               = $newfolio.'-'.substr($parametros->ianio,2,2);
             } elseif($request->tipo_documento==7) {
                 $newfolio_cc                            = $parametros->iultimo_folio_cc + 1;
-                $newfolio_cc                            = str_pad($newfolio_cc, 4, "0", STR_PAD_LEFT);
+                $newfolio_cc                            = str_pad($newfolio_cc, 5, "0", STR_PAD_LEFT);
                 $newfolio_cc                            = $newfolio_cc.'-'.substr($parametros->ianio,2,2).'CC';
             } elseif($request->tipo_documento==8) {
                 $newfolio_rh                            = $parametros->iultimo_folio_rh + 1;
-                $newfolio_rh                            = str_pad($newfolio_rh, 4, "0", STR_PAD_LEFT);
+                $newfolio_rh                            = str_pad($newfolio_rh, 5, "0", STR_PAD_LEFT);
                 $newfolio_rh                            = $newfolio_rh.'-'.substr($parametros->ianio,2,2).'RH';
             }
             if($request->tipo_documento<=6) 
@@ -273,7 +273,7 @@ class DocumentosController extends Controller
         if($request->tipo_documento<=6 || $request->tipo_documento==9) {
             if ($request->folio_documento>$parametros->iultimo_folio) {
                 if ($ya_existe_folio==0) 
-                    $parametros->iultimo_folio    = ltrim(substr($request->folio_documento,0,4),'0');   //REGISTRO MANUAL DEL FOLIO
+                    $parametros->iultimo_folio    = ltrim(substr($request->folio_documento,0,5),'0');   //REGISTRO MANUAL DEL FOLIO
                 else
                     $parametros->iultimo_folio    = $parametros->iultimo_folio + 1;     //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
             } else {
@@ -283,7 +283,7 @@ class DocumentosController extends Controller
         } elseif($request->tipo_documento==7) {
             if ($request->folio_documento>$parametros->iultimo_folio_cc) {
                 if ($ya_existe_folio==0)
-                    $parametros->iultimo_folio_cc = ltrim(substr($request->folio_documento,0,4),'0');   //REGISTRO MANUAL DEL FOLIO
+                    $parametros->iultimo_folio_cc = ltrim(substr($request->folio_documento,0,5),'0');   //REGISTRO MANUAL DEL FOLIO
                 else
                     $parametros->iultimo_folio_cc = $parametros->iultimo_folio_cc + 1;  //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
             } else {
@@ -293,7 +293,7 @@ class DocumentosController extends Controller
         } elseif($request->tipo_documento==8) {
             if ($request->folio_documento>$parametros->iultimo_folio_rh) {
                 if ($ya_existe_folio==0)
-                    $parametros->iultimo_folio_rh = ltrim(substr($request->folio_documento,0,4),'0');   //REGISTRO MANUAL DEL FOLIO
+                    $parametros->iultimo_folio_rh = ltrim(substr($request->folio_documento,0,5),'0');   //REGISTRO MANUAL DEL FOLIO
                 else
                     $parametros->iultimo_folio_rh = $parametros->iultimo_folio_rh + 1;  //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
             } else {
@@ -772,6 +772,7 @@ class DocumentosController extends Controller
         $bitacora->save();
     }
 
+//Busca Número de Documento Duplicado
     public function buscaDoctoDuplicado(Request $request){
         $nd            = $request->nd;
         $coincidencias = Documento::where('cnumero_documento','=',$nd)->where('iestatus','=',1)->get();
@@ -789,6 +790,28 @@ class DocumentosController extends Controller
                 [
                     'nd'    => null,
                     'folio' => null,
+                    'exito' => 0
+                ]
+            );
+        }
+    }
+
+//Busca Número de Folio Duplicado
+    public function buscaFolioDuplicado(Request $request){
+        $fd            = $request->fd;
+        $coincidencias = Documento::where('cfolio','=',$fd)->where('iestatus','=',1)->get();
+        if (!$coincidencias->isEmpty()){
+            $folio     = $coincidencias[0]->cfolio;
+            return response()->json(
+                [
+                    'fd'    => $folio,
+                    'exito' => 1
+                ]
+            );
+        }else{
+            return response()->json(
+                [
+                    'fd'    => null,
                     'exito' => 0
                 ]
             );

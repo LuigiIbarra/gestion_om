@@ -13,6 +13,7 @@
         <input type="hidden" id="folio_cc"       name="folio_cc"       value="{{$newfolio_cc}}"/>
         <input type="hidden" id="idRemitente"    name="idRemitente"    value=""/>
         <input type="hidden" id="idDestinatario" name="idDestinatario" value=""/>
+        <input type="hidden" id="newFolioDup"    name="newFolioDup"    value="1"/>
         <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>
         <input type="hidden" id="semaforoRojo"   name="semaforoRojo"   value="0"/>
 

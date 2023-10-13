@@ -5,7 +5,7 @@
                     </div>
                     <div class="col" id="divrecepcion">
                         <label for="recepcion_documento" class="col-form-label text-md-right">Fecha de Recepcion:</label>
-                        <input type="date" id="recepcion_documento" name="recepcion_documento" class="form-control" data-target="#recepcion_documento" value="{{ $documento->dfecha_recepcion }}" maxlength="10" required {{ $noeditar }}/>
+                        <input type="date" id="recepcion_documento" name="recepcion_documento" class="form-control" data-target="#recepcion_documento" value="{{ $documento->dfecha_recepcion }}" maxlength="10" required {{ $noeditar }} autofocus/>
                     </div>
                     <div class="col" id="divnumdoc">
                         <label for="numero_documento" class="col-form-label text-md-right">Número de Documento:</label>

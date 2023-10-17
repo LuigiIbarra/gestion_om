@@ -62,7 +62,7 @@
                               </a>
                               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="{{ url('documentos/index') }}">
-                                    <img src="{{ asset('bootstrap-icons-1.5.0/search.svg') }}" width="18" height="18">Lista de Documentos
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/search.svg') }}" width="18" height="18"> Lista de Documentos
                                     </a>
                                 </li>
                               </ul>
@@ -70,28 +70,34 @@
                         </div>
                         <div class="dropdown">
                           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('bootstrap-icons-1.5.0/file-text.svg') }}" width="18" height="18">
+                            <img src="{{ asset('bootstrap-icons-1.5.0/file-text-fill.svg') }}" width="18" height="18">
                             Catálogos
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             @consultaPuesto
                                 <li><a class="dropdown-item" href="{{ url('puestos/index') }}">
-                                    <img src="{{ asset('bootstrap-icons-1.5.0/person-lines-fill.svg') }}" width="18" height="18">Lista de Puestos
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/person-lines-fill.svg') }}" width="18" height="18"> Lista de Puestos
                                     </a>
                                 </li>
                             @endconsultaPuesto
                             @consultaAdscripcion
                                 <li><a class="dropdown-item" href="{{ url('adscripciones/index') }}">
-                                    <img src="{{ asset('bootstrap-icons-1.5.0/building.svg') }}" width="18" height="18">Lista de Adscripciones
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/building.svg') }}" width="18" height="18"> Lista de Adscripciones
                                     </a>
                                 </li>
                             @endconsultaAdscripcion
                             @consultaPersonal
                                 <li><a class="dropdown-item" href="{{ url('personal/index') }}">
-                                    <img src="{{ asset('bootstrap-icons-1.5.0/people-fill.svg') }}" width="18" height="18">Lista de Personal
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/people-fill.svg') }}" width="18" height="18"> Lista de Personal
                                     </a>
                                 </li>
                             @endconsultaPersonal
+                            <!--
+                                <li><a class="dropdown-item" href="{{ url('documentos/completar') }}">
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/collection-play.svg') }}" width="18" height="18"> Completar Folios
+                                    </a>
+                                </li>
+                            -->
                           </ul>
                         </div>
                         <div class="dropdown">
@@ -101,7 +107,7 @@
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ url('documentos/estadistico') }}">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/graph-up.svg') }}" width="18" height="18">Estadístico Mensual
+                                <img src="{{ asset('bootstrap-icons-1.5.0/graph-up.svg') }}" width="18" height="18"> Estadístico Mensual
                                 </a>
                             </li>
                           </ul>

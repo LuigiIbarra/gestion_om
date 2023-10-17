@@ -107,15 +107,15 @@ class DocumentosController extends Controller
         /* 
         if($request->tipo_documento<=6) {
             $newfolio                               = $parametros->iultimo_folio + 1;
-            $newfolio                               = str_pad($newfolio, 4, "0", STR_PAD_LEFT);
+            $newfolio                               = str_pad($newfolio, 5, "0", STR_PAD_LEFT);
             $newfolio                               = $newfolio.'-'.substr($parametros->ianio,2,2);
         } elseif($request->tipo_documento==7) {
             $newfolio_cc                            = $parametros->iultimo_folio_cc + 1;
-            $newfolio_cc                            = str_pad($newfolio_cc, 4, "0", STR_PAD_LEFT);
+            $newfolio_cc                            = str_pad($newfolio_cc, 5, "0", STR_PAD_LEFT);
             $newfolio_cc                            = $newfolio_cc.'-'.substr($parametros->ianio,2,2).'CC';
         } elseif($request->tipo_documento==8) {
             $newfolio_rh                            = $parametros->iultimo_folio_rh + 1;
-            $newfolio_rh                            = str_pad($newfolio_rh, 4, "0", STR_PAD_LEFT);
+            $newfolio_rh                            = str_pad($newfolio_rh, 5, "0", STR_PAD_LEFT);
             $newfolio_rh                            = $newfolio_rh.'-'.substr($parametros->ianio,2,2).'RH';
         }
         if($request->tipo_documento<=6) 
@@ -408,10 +408,14 @@ class DocumentosController extends Controller
         $nombreArchivo = 'acuse-'.$docto->cfolio.'_'.$fecha.'.pdf';
 
         $html  = view('documentos.creaPDF.acuse',$data)->render();
+        $htmlB = view('documentos.creaPDF.acuseb',$data)->render();
+        //CÓDIGO PARA IMPRIMIR UN ACUSE POR PERSONA
+        /*
         for ($i=1; $i<=$destinAtt_total; $i++) {
             $data['i'] = $i;
             $htmlB[$i] = view('documentos.creaPDF.acuseb',$data)->render();
         }
+        */
         $mpdf  = new Mpdf(['format' => 'letter'
                             ,'margin_top'=>20
                             ,'margin_bottom'=>20
@@ -420,11 +424,19 @@ class DocumentosController extends Controller
                          ]);
         // Write some HTML code:
         $mpdf->SetDisplayMode('fullpage');
-        $mpdf->writeHTML($html); //imprimes la variable $html que contiene tu HTML
+        //CÓDIGO PARA IMPRIMIR UNA PAPELETA POR PERSONA
+        for ($i=1; $i<=$destinAtt_total; $i++) {
+            $mpdf->writeHTML($html); //imprimes la variable $html que contiene tu HTML
+            $mpdf->AddPage();
+        }
+        $mpdf->writeHTML($htmlB);
+        //CÓDIGO PARA IMPRIMIR UN ACUSE POR PERSONA
+        /*
         for ($i=1; $i<=$destinAtt_total; $i++) {
             $mpdf->AddPage();
             $mpdf->writeHTML($htmlB[$i]);
         }
+        */
         $mpdf->Output($nombreArchivo,'D');//Salida del documento  D
     }
 
@@ -762,6 +774,20 @@ class DocumentosController extends Controller
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->writeHTML($html); //imprimes la variable $html que contiene tu HTML
         $mpdf->Output($nombreArchivo,'D');//Salida del documento  D
+    }
+
+//Completar folios a 5 dígitos con ceros a la izquierda
+    public function completarFolios(){
+        $documentos     = Documento::where('iestatus','=',1)->get();     //Procesar todos
+        $numregs   = Documento::where('iestatus','=',1)->count();   //Contarlos
+        foreach($documentos as $docs){
+            $nf = explode('-',$docs->cfolio);
+            $fc = str_pad($nf[0],5,'0',STR_PAD_LEFT).'-'.$nf[1];
+            $docs->cfolio = $fc;
+            $docs->save();
+        }
+        $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
+        return view('documentos.index',$data);
     }
 
     public static function bitacora(string $jsonBefore,string $jsonAfter){

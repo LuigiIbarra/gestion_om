@@ -57,7 +57,7 @@
 								<th style="text-align: right;">Número de Folio:</th><td width="80px">{{ $documento->cfolio }}</td>
 							</tr>
 							<tr>
-								<th style="text-align: right;">Fecha de Captura:</th><td width="80px">{{ $documento->dfecha_recepcion }}</td>
+								<th style="text-align: right;">Fecha de Captura:</th><td width="80px">{{ date("d-m-Y", strtotime($documento->dfecha_recepcion)) }}</td>
 							</tr>
 							<tr><td style="vertical-align: top;text-align: center;"><h3>ACUSE</h3></td></tr>
 						</table>
@@ -110,7 +110,7 @@
 									</table>
 									<table>
 										<tr>
-											<th width="40px">Fecha del Documento:</th><td>{{ $documento->dfecha_documento }}</td><th style="text-align: right;">No. de Documento:</th><td>{{ $documento->cnumero_documento }}</td>
+											<th width="40px">Fecha del Documento:</th><td>{{ date("d-m-Y", strtotime($documento->dfecha_documento)) }}</td><th style="text-align: right;">No. de Documento:</th><td>{{ $documento->cnumero_documento }}</td>
 										</tr>
 									</table>
 								</td>
@@ -126,11 +126,15 @@
 											<th width="50%" style="text-align: left;">NOMBRE</th><th style="text-align: left;">CARGO</th>
 										</tr>
 										@foreach($pers_destAt as $indice=>$destAten)
+											{{-- 
 											@if ($indice==$i-1)
+											--}}
 												<tr>
 													<td>{{ $destAten->cnombre_personal.' '.$destAten->cpaterno_personal.' '.$destAten->cmaterno_personal }}</td><td>{{ $destAten->puesto->cdescripcion_puesto }}<br></td>
 												</tr>
+											{{--
 											@endif
+											--}}
 										@endforeach
 										<tr>
 											<td><br></td>

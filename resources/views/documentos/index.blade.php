@@ -40,7 +40,7 @@
                 <tr>
                     <td class="text-center" style="display:none;">{{ $documento['iid_documento'] }}</td>
                     <td class="text-center">{{ $documento['cfolio'] }}</td>
-                    <td class="text-center">{{ $documento['dfecha_recepcion'] }}</td>
+                    <td class="text-center">{{ date("d-m-Y", strtotime($documento['dfecha_recepcion'])) }}</td>
                     <td class="text-center">{{ $documento['cnumero_documento'] }}</td>
                     <td class="text-center">{{ $documento['tipodocumento']['cdescripcion_tipo_documento'] }}</td>
                     <td class="text-center">{{ $documento['personalremitente']['cnombre_personal'].' '.$documento['personalremitente']['cpaterno_personal'].' '.$documento['personalremitente']['cmaterno_personal'] }}</td>

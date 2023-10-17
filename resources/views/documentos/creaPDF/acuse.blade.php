@@ -60,7 +60,7 @@
 								<th style="text-align: right;">Número de Folio:</th><td width="80px">{{ $documento->cfolio }}</td>
 							</tr>
 							<tr>
-								<th style="text-align: right;">Fecha de Captura:</th><td width="80px">{{ $documento->dfecha_recepcion }}</td>
+								<th style="text-align: right;">Fecha de Captura:</th><td width="80px">{{ date("d-m-Y", strtotime($documento->dfecha_recepcion)) }}</td>
 							</tr>
 						</table>
 						<table>
@@ -133,7 +133,7 @@
 									</table>
 									<table>
 										<tr>
-											<th width="40px">Fecha del Documento:</th><td>{{ $documento->dfecha_documento }}</td>
+											<th width="40px">Fecha del Documento:</th><td>{{ date("d-m-Y", strtotime($documento->dfecha_documento)) }}</td>
 										</tr>
 										<tr>
 											<th style="text-align: left;">No. de Documento:</th><td>{{ $documento->cnumero_documento }}</td>

@@ -54,7 +54,7 @@
 					<td style="border: 0px solid;">
 						<table style="border: 0px solid;">
 							<tr style="border: 0px solid;">
-								<th style="border: 0px solid;">PERIODO REPORTADO DEL: 01 DE ENERO DE 2023 AL {{ $fecha }}</th>
+								<th style="border: 0px solid;">PERIODO REPORTADO DEL: 01 DE ENERO DE 2023 AL {{ strtoupper(strftime('%e de %B de %Y', strtotime($fecha))) }}</th>
 							</tr>
 						</table>
 					</td>

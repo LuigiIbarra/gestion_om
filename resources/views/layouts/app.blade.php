@@ -92,12 +92,12 @@
                                     </a>
                                 </li>
                             @endconsultaPersonal
-                            
+                            <!--
                                 <li><a class="dropdown-item" href="{{ url('documentos/completar') }}">
                                     <img src="{{ asset('bootstrap-icons-1.5.0/collection-play.svg') }}" width="18" height="18"> Completar Folios
                                     </a>
                                 </li>
-
+                                -->
                           </ul>
                         </div>
                         <div class="dropdown">

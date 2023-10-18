@@ -25,7 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ImportanciaContenidosTableSeeder::class);
         $this->call(TemasTableSeeder::class);
         $this->call(InstruccionesTableSeeder::class);
+        */
         $this->call(PuestosTableSeeder::class);
+        /*
         $this->call(AdscripcionesTableSeeder::class);
         $this->call(TiposAreasTableSeeder::class);
         $this->call(DocumentosTableSeeder::class);
@@ -35,8 +37,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PermisosTableSeeder::class);
         $this->call(UsuariosTableSeeder::class);
         $this->call(PersonalTableSeeder::class);
-        */
         $this->call(SemaforoTableSeeder::class);
+        */
         Model::reguard();
     }
 }

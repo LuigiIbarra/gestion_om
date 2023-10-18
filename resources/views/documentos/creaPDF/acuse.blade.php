@@ -64,16 +64,24 @@
 							</tr>
 						</table>
 						<table>
-							<tr>
-								<th width="40px">PARA:</th><td>{{ $nombreDestA->cnombre_personal.' '.$nombreDestA->cpaterno_personal.' '.$nombreDestA->cmaterno_personal }}</td>
-							</tr>
-							<tr>
-								@if ($destinAtt_total>0)
-									<td></td><td>{{ $nombreDestA->puesto->cdescripcion_puesto }}</td>
-								@else
-									<td></td><td></td>
+							@foreach($pers_destAt as $indice=>$destAten)
+								@if ($indice==$i-1)
+									<tr>
+										<th width="40px">PARA:</th><td>{{ $destAten->cnombre_personal.' '.$destAten->cpaterno_personal.' '.$destAten->cmaterno_personal }}</td>
+									</tr>
+									<tr>
+										{{--
+										@if ($destinAtt_total>0)
+										--}}
+										<td></td><td>{{ $destAten->puesto->cdescripcion_puesto }}</td>
+										{{--
+										@else
+											<td></td><td></td>
+										@endif
+										--}}
+									</tr>
 								@endif
-							</tr>
+							@endforeach
 						</table>
 					</td>
 				</tr>
@@ -149,10 +157,10 @@
 								<td style="border: 1px solid; border-collapse: collapse;">
 									<table>
 										<tr>
-											<th width="40px">Instrucción:</th><td></td>
+											<th width="40px">Instrucción:</th><td>{{ $documento->instruccion->cdescripcion_instruccion }}</td>
 										</tr>
 										<tr>
-											<td></td><td>{{ $documento->instruccion->cdescripcion_instruccion }}<br></td>
+											<td></td><td><br></td>
 										</tr>
 										<tr>
 											<td><br></td>

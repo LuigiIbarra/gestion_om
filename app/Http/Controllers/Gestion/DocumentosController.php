@@ -407,7 +407,11 @@ class DocumentosController extends Controller
                                                   ->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
         $nombreArchivo = 'acuse-'.$docto->cfolio.'_'.$fecha.'.pdf';
 
-        $html  = view('documentos.creaPDF.acuse',$data)->render();
+    //CÓDIGO PARA IMPRIMIR UNA PAPELETA POR PERSONA
+        for ($i=1; $i<=$destinAtt_total; $i++) {
+            $data['i'] = $i;
+            $html[$i]  = view('documentos.creaPDF.acuse',$data)->render();
+        }
         $htmlB = view('documentos.creaPDF.acuseb',$data)->render();
         //CÓDIGO PARA IMPRIMIR UN ACUSE POR PERSONA
         /*
@@ -424,9 +428,9 @@ class DocumentosController extends Controller
                          ]);
         // Write some HTML code:
         $mpdf->SetDisplayMode('fullpage');
-        //CÓDIGO PARA IMPRIMIR UNA PAPELETA POR PERSONA
+    //CÓDIGO PARA IMPRIMIR UNA PAPELETA POR PERSONA
         for ($i=1; $i<=$destinAtt_total; $i++) {
-            $mpdf->writeHTML($html); //imprimes la variable $html que contiene tu HTML
+            $mpdf->writeHTML($html[$i]); //imprimes la variable $html que contiene tu HTML
             $mpdf->AddPage();
         }
         $mpdf->writeHTML($htmlB);

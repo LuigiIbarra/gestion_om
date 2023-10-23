@@ -822,26 +822,26 @@ iid_puesto,cdescripcion_puesto,iestatus,iid_usuario
 821,Jueza del Sistema Procesal Penal Acusatorio,1,1
 822,"Jueza de la Ciudad de México ""A""",1,1
 823,Magistrado por Ministerio de Ley,1,1
-824,SECRETARIA JUDICIAL,1,1
-825,SECRETARIO PROYECTISTA DE SALA,1,1
-826,SECRETARIA PROYECTISTA DE SALA,1,1
-827,SECRETARIO JUDICIAL ,1,1
-828,SECRETARIO PROYECTISTA DE SALA CONSTITUCIONAL,1,1
-829,"SECRETARIO DE ACUERDOS DE JUZGADO ""A"" ",1,1
-830,JUEZ INTERINO,1,1
-831,"SECRETARIA DE ACUERDOS DE JUZGADO ""A"" ",1,1
-832,JUEZA INTERINA,1,1
-833,"SECRETARIA DE ACUERDOS ""B""",1,1
-834,"SECRETARIO DE ACUERDOS ""B""",1,1
-835,"SECRETARIA DE ACUERDOS DE JUZGADO ""A"" (SECRETARIA GENERAL DEL SINDICATO DE TRABAJADORES DEL TRIBUNAL SUPERIOR DE JUSTICIA DEL DISTRITO FEDERAL)",1,1
-836,"SECRETARIO DE ACUERDOS ""A""",1,1
-837,SECRETARIO INSTRUCTOR,1,1
-838,SECRETARIA INSTRUCTORA,1,1
-839,"SECRETARIA DE ACUERDOS DE JUZGADO ""B""",1,1
-840,"SECRETARIO DE ACUERDOS DE JUZGADO ""B""",1,1
-841,SECRETARIA AUXILIAR JUDICIAL,1,1
-842,SECRETARIA AUXILIAR DE JUZGADO ORAL,1,1
-843,SECRETARIO AUXILIAR DE JUZGADO ORAL,1,1
+824,Secretaria Judicial,1,1
+825,Secretario Proyectista de Sala,1,1
+826,Secretaria Proyectista de Sala,1,1
+827,Secretario Judicial,1,1
+828,Secretario Proyectista de Sala Constitucional,1,1
+829,"Secretario de Acuerdos de Juzgado ""A""",1,1
+830,Juez Interino,1,1
+831,"Secretaria de Acuerdos de Juzgado ""A""",1,1
+832,Jueza Interina,1,1
+833,"Secretaria de Acuerdos ""B""",1,1
+834,"Secretario de Acuerdos ""B""",1,1
+835,"Secretaria de Acuerdos de Juzgado ""A"" (Secretaria General del Sindicato de Trabajadores del Tribunal Superior de Justicia del Distrito Federal)",1,1
+836,"Secretario de Acuerdos ""A""",1,1
+837,Secretario Instructor,1,1
+838,Secretaria Instructora,1,1
+839,"Secretaria de Acuerdos de Juzgado ""B""",1,1
+840,"Secretario de Acuerdos de Juzgado ""B""",1,1
+841,Secretaria Auxiliar Judicial,1,1
+842,Secretaria Auxiliar de Juzgado Oral,1,1
+843,Secretario Auxiliar de Juzgado Oral,1,1
 844,Director Administrativo del Consejo de la Judicatura de la Ciudad de México,1,1
 845,Secretaria General del Consejo de la CDMX,1,1
 846,Subsecretaría de Desarrollo Institucional y Enlace,1,1
@@ -896,7 +896,7 @@ iid_puesto,cdescripcion_puesto,iestatus,iid_usuario
 895,"Secretaria Técnica de Comisión ""A""",1,1
 896,"Secretario Técnico de Comisión ""A""",1,1
 897,Directora Administrativa del Consejo de la Judicatura de la Ciudad de México,1,1
-898,Director Administrativo del Consejo de la Judicatura de la Ciudad de México,1,1
+898,Director Administrativo del Consejo de la Judicatura de la Ciudad de México,0,1
 899,Secretaria Técnica de la Comision de Administracion y Presupuesto,1,1
 900,Secretario Técnico de la Comision de Administracion y Presupuesto,1,1
 901,"Directora de Responsabilidades, Quejas, Denuncias e Inconformidades",1,1
@@ -923,3 +923,5 @@ iid_puesto,cdescripcion_puesto,iestatus,iid_usuario
 922,Contralor del Poder Judicial de la Ciudad de México,1,1
 923,Secretaria Técnica de la Comisión de Disciplina Judicial,1,1
 924,Secretario Técnico de la Comisión de Disciplina Judicial,1,1
+925,"Subdirectora de Auditoría ""A""",1,1
+926,"Subdirector de Auditoría ""A""",1,1

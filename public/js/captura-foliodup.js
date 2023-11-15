@@ -11,7 +11,7 @@ function numberonly(e){
             code = e.which;
         if(code == 37 || code == 39) return true;
             var caracter = String.fromCharCode(code);
-            var valores = /^[\b0123456789\s]$/
+            var valores = /^[\b0123456789-\s]$/
     if (valores.test(caracter)) return true;
             return false;
 }

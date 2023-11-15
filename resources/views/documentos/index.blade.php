@@ -6,6 +6,40 @@
 
 @section('panel')
     <div class="table-responsive">
+        <form method="GET" action="{{ url('/documentos/index') }}" id="formIndexMediadores">
+            @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>Corrige los errores para continuar</p>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            <div class="row">
+                <div class="col" id="divfolio">
+                    <label for="folio" class="col-form-label text-md-right">Folio:</label>
+                    <input type="text" id="folio" onkeypress="return numberonly(event);" name="folio" class="form-control" data-target="#folio" value="{{ old('folio',null) }}"/>
+                </div>
+                <div class="col" id="divdocumento">
+                    <label for="docto" class="col-form-label text-md-right">Número de Documento:</label>
+                    <input type="text" id="docto" onkeypress="return textnumber(event);" name="docto" class="form-control" data-target="#docto" value="{{ old('docto',null) }}"/>
+                </div>
+            </div>
+            <br>
+            <div class="form-group form-row text-center">
+                <div class="col-12">                        
+                    <button type="submit" class="btn btn-primary">
+                        <img src="{{ asset('bootstrap-icons-1.5.0/search.svg') }}" width="18" height="18">
+                        <span>&nbsp;Buscar</span>
+                    </button>
+                </div>
+             </div>
+        </form>
         <div class="row">
             <div class="col-10 col-form-label text-right">
             </div>

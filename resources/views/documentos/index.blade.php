@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col" id="divfolio">
                     <label for="folio" class="col-form-label text-md-right">Folio:</label>
-                    <input type="text" id="folio" onkeypress="return numberonly(event);" name="folio" class="form-control" data-target="#folio" value="{{ old('folio',null) }}"/>
+                    <input type="text" id="folio" onkeypress="return textnumber(event);" name="folio" class="form-control" data-target="#folio" value="{{ old('folio',null) }}"/>
                 </div>
                 <div class="col" id="divdocumento">
                     <label for="docto" class="col-form-label text-md-right">Número de Documento:</label>

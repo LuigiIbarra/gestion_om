@@ -50,9 +50,9 @@ class DocumentosController extends Controller
         $folio = $request->folio;
         $docto = $request->docto;
         if ($folio != "") {
-            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cfolio','=',$folio)->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cfolio','like','%'.$folio.'%')->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
         } elseif ($docto != "") {
-            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cnumero_documento','=',$docto)->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cnumero_documento','like','%'.$docto.'%')->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
         } else {
             $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iestatus','=',1)->orderBy('iid_semaforo')->latest()->take(2000)->get();
         }

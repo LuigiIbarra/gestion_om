@@ -27,7 +27,30 @@ class PersonalController extends Controller
     {
         $nombre = $request->nombre;
         if ($nombre != "") {
-            $data['personal'] = Personal::with('puesto','adscripcion')->where('cnombre_personal','like','%'.$nombre.'%')->where('iestatus','=',1)->orderBy('cnombre_personal')->get();
+        //NUEVO MÉTODO DE BÚSQUEDA
+        //Si no hay espacios, se trata de un nombre
+            if (strpos($nombre, " ") == 0 && strripos($nombre, " ") == 0) {
+                $data['personal']   = Personal::where('iestatus','=',1)
+                                          ->where('cnombre_personal','like','%'.$nombre.'%')
+                                          ->get();
+        //Si hay un espacio, se trata de un nombre y un paterno, o de dos nombres
+            } elseif (strpos($nombre, " ") == strripos($nombre, " ")) {
+                $data['personal']   = Personal::where('iestatus','=',1)
+                                          ->where('cnombre_personal','like','%'.mb_strimwidth($nombre,0,strpos($nombre, " ")).'%')
+                                          ->where('cpaterno_personal','like','%'.mb_strimwidth($nombre,strpos($nombre, " ")+1,strlen($nombre)).'%')
+                                          ->orWhere('cnombre_personal','like','%'.$nombre.'%')
+                                          ->get();
+        //Si hay dos espacios, se trata de un nombre y un paterno
+            } elseif (strpos($nombre, " ") > 0 && (strripos($nombre, " ") > strpos($nombre, " "))) {
+                $data['personal']   = Personal::where('iestatus','=',1)
+                                          ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($nombre,                       0,strpos($nombre, " ")).'%')
+                                          ->where('cpaterno_personal'  ,'like','%'.mb_strimwidth($nombre,  strpos($nombre, " ")+1,strlen($nombre)).'%')
+                                          ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($nombre,                       0,strripos($nombre, " ")).'%')
+                                          ->orWhere('cpaterno_personal','like','%'.mb_strimwidth($nombre,strripos($nombre, " ")+1,strlen($nombre)).'%')
+                                          ->get();
+            }
+
+            //$data['personal'] = Personal::with('puesto','adscripcion')->where('cnombre_personal','like','%'.$nombre.'%')->where('iestatus','=',1)->orderBy('cnombre_personal')->get();
         } else {
             $data['personal'] = Personal::with('puesto','adscripcion')->where('iestatus','=',1)->orderBy('cnombre_personal')->latest()->take(200)->get();
         }
@@ -56,10 +79,11 @@ class PersonalController extends Controller
             if ($ya_hay_pers==0) {
                 $now                            = new \DateTime();
                 $personal                       = new Personal();
-                $jsonBefore                     = "NEW INSERT PERSONAL";
+                $jsonBefore1                    = "NEW INSERT PERSONAL";
                 $personal->cnombre_personal     = $request->nombre_personal;
                 $personal->cpaterno_personal    = $request->paterno_personal;
                 $personal->cmaterno_personal    = $request->materno_personal;
+        //SI SE CAPTURA NUEVO PUESTO...
                 if ($request->nuevo_puesto!="") {
                 //Revisar que no exista un puesto con la misma Descripción
                     $ya_hay_puesto              = Puesto::where('cdescripcion_puesto','=',$request->nuevo_puesto)
@@ -68,28 +92,55 @@ class PersonalController extends Controller
                                                         ->where('iestatus','=',1)->first();
                 //Si no hay, entonces agregar al catálogo
                     if ($ya_hay_puesto==0) {
-                        $now                         = new \DateTime();
-                        $puesto                      = new Puesto();
-                        $jsonBefore                  = "NEW INSERT PUESTO";
-                        $puesto->cdescripcion_puesto = $request->descripcion_puesto;
-                        $puesto->iestatus            = 1;
-                        $puesto->iid_usuario         = auth()->user()->id;
-                        $puesto->save();
-                        $jsonAfter                   = json_encode($puesto);
-                        PuestosController::bitacora($jsonBefore,$jsonAfter);
+                        $now                             = new \DateTime();
+                        $nvo_puesto                      = new Puesto();
+                        $jsonBefore2                     = "NEW INSERT PUESTO";
+                        $nvo_puesto->cdescripcion_puesto = $request->nuevo_puesto;
+                        $nvo_puesto->iestatus            = 1;
+                        $nvo_puesto->iid_usuario         = auth()->user()->id;
+                        $nvo_puesto->save();
+                        $jsonAfter                       = json_encode($nvo_puesto);
+                        PuestosController::bitacora($jsonBefore2,$jsonAfter);
+                        $personal->iid_puesto            = $nvo_puesto->iid_puesto;
                     } else {
-                        $personal->iid_puesto        = $puesto_que_yaexiste->iid_puesto;
+                        $personal->iid_puesto            = $puesto_que_yaexiste->iid_puesto;
                     }
                 } else {
                     $personal->iid_puesto       = $request->puesto;
                 }
-                $personal->iid_adscripcion      = $request->adscripcion;
+        //SI SE CAPTURA NUEVA ADSCRIPCIÓN..
+                if ($request->nueva_adscripcion!="") {
+                //Revisar que no exista una adscripción con la misma Descripción
+                    $ya_hay_adsc                               = Adscripcion::where('cdescripcion_adscripcion','=',$request->nueva_adscripcion)
+                                                                            ->where('iestatus','=',1)->count();
+                    $adscrip_que_yaexiste                      = Adscripcion::where('cdescripcion_adscripcion','=',$request->nueva_adscripcion)
+                                                                            ->where('iestatus','=',1)->first();
+                //Si no hay, entonces agregar al catálogo
+                    if ($ya_hay_adsc==0) {
+                        $now                                        = new \DateTime();
+                        $nva_adscripcion                            = new Adscripcion();
+                        $jsonBefore3                                = "NEW INSERT ADSCRIPCION";
+                        $nva_adscripcion->cdescripcion_adscripcion  = $request->nueva_adscripcion;
+                        $nva_adscripcion->csiglas                   = "";
+                        $nva_adscripcion->iid_tipo_area             = 9;
+                        $nva_adscripcion->iestatus                  = 1;
+                        $nva_adscripcion->iid_usuario               = auth()->user()->id;
+                        $nva_adscripcion->save();
+                        $jsonAfter                                  = json_encode($nva_adscripcion);
+                        AdscripcionesController::bitacora($jsonBefore3,$jsonAfter);
+                        $personal->iid_adscripcion                  = $nva_adscripcion->iid_adscripcion;
+                    } else {
+                        $personal->iid_adscripcion                  = $adscrip_que_yaexiste->iid_adscripcion;
+                    }
+                } else {
+                    $personal->iid_adscripcion  = $request->adscripcion;
+                }
                 $personal->ccorreo_electronico  = $request->correo_electronico;
                 $personal->iestatus             = 1;
                 $personal->iid_usuario          = auth()->user()->id;
                 $personal->save();
                 $jsonAfter                      = json_encode($personal);
-                PersonalController::bitacora($jsonBefore,$jsonAfter);
+                PersonalController::bitacora($jsonBefore1,$jsonAfter);
             } else {
                 return redirect()->route('personal.nuevo')
                          ->with('success','YA EXISTE una Persona con este Nombre Guardado Previamente. Verifique.');
@@ -130,8 +181,58 @@ class PersonalController extends Controller
             $personal->cnombre_personal    = $request->nombre_personal;
             $personal->cpaterno_personal   = $request->paterno_personal;
             $personal->cmaterno_personal   = $request->materno_personal;
-            $personal->iid_puesto          = $request->puesto;
-            $personal->iid_adscripcion     = $request->adscripcion;
+    //SI SE CAPTURA NUEVO PUESTO...
+            if ($request->nuevo_puesto!="") {
+            //Revisar que no exista un puesto con la misma Descripción
+                $ya_hay_puesto              = Puesto::where('cdescripcion_puesto','=',$request->nuevo_puesto)
+                                                    ->where('iestatus','=',1)->count();
+                $puesto_que_yaexiste        = Puesto::where('cdescripcion_puesto','=',$request->nuevo_puesto)
+                                                    ->where('iestatus','=',1)->first();
+            //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_puesto==0) {
+                    $now                             = new \DateTime();
+                    $nvo_puesto                      = new Puesto();
+                    $jsonBefore2                     = "NEW INSERT PUESTO";
+                    $nvo_puesto->cdescripcion_puesto = $request->nuevo_puesto;
+                    $nvo_puesto->iestatus            = 1;
+                    $nvo_puesto->iid_usuario         = auth()->user()->id;
+                    $nvo_puesto->save();
+                    $jsonAfter                       = json_encode($nvo_puesto);
+                    PuestosController::bitacora($jsonBefore2,$jsonAfter);
+                    $personal->iid_puesto            = $nvo_puesto->iid_puesto;
+                } else {
+                    $personal->iid_puesto            = $puesto_que_yaexiste->iid_puesto;
+                }
+            } else {
+                $personal->iid_puesto       = $request->puesto;
+            }
+    //SI SE CAPTURA NUEVA ADSCRIPCIÓN..
+            if ($request->nueva_adscripcion!="") {
+            //Revisar que no exista una adscripción con la misma Descripción
+                $ya_hay_adsc                               = Adscripcion::where('cdescripcion_adscripcion','=',$request->nueva_adscripcion)
+                                                                        ->where('iestatus','=',1)->count();
+                $adscrip_que_yaexiste                      = Adscripcion::where('cdescripcion_adscripcion','=',$request->nueva_adscripcion)
+                                                                        ->where('iestatus','=',1)->first();
+            //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_adsc==0) {
+                    $now                                        = new \DateTime();
+                    $nva_adscripcion                            = new Adscripcion();
+                    $jsonBefore3                                = "NEW INSERT ADSCRIPCION";
+                    $nva_adscripcion->cdescripcion_adscripcion  = $request->nueva_adscripcion;
+                    $nva_adscripcion->csiglas                   = "";
+                    $nva_adscripcion->iid_tipo_area             = 9;
+                    $nva_adscripcion->iestatus                  = 1;
+                    $nva_adscripcion->iid_usuario               = auth()->user()->id;
+                    $nva_adscripcion->save();
+                    $jsonAfter                                  = json_encode($nva_adscripcion);
+                    AdscripcionesController::bitacora($jsonBefore3,$jsonAfter);
+                    $personal->iid_adscripcion                  = $nva_adscripcion->iid_adscripcion;
+                } else {
+                    $personal->iid_adscripcion                  = $adscrip_que_yaexiste->iid_adscripcion;
+                }
+            } else {
+                $personal->iid_adscripcion  = $request->adscripcion;
+            }
             $personal->ccorreo_electronico = $request->correo_electronico;
             $personal->iestatus            = 1;
         }
@@ -140,7 +241,7 @@ class PersonalController extends Controller
         $jsonAfter                         = json_encode($personal);
         PersonalController::bitacora($jsonBefore,$jsonAfter);
 
-        return redirect()->route('personal.index')
+        return redirect()->route('personal.editar',$personal->iid_personal)
                          ->with('success','Personal '.$operacion.' satisfactoriamente');
     }
 
@@ -163,8 +264,58 @@ class PersonalController extends Controller
         $personal->cnombre_personal     = $request->nombre_personal;
         $personal->cpaterno_personal    = $request->paterno_personal;
         $personal->cmaterno_personal    = $request->materno_personal;
-        $personal->iid_puesto           = $request->puesto;
-        $personal->iid_adscripcion      = $request->adscripcion;
+//SI SE CAPTURA NUEVO PUESTO...
+        if ($request->nuevo_puesto!="") {
+        //Revisar que no exista un puesto con la misma Descripción
+            $ya_hay_puesto              = Puesto::where('cdescripcion_puesto','=',$request->nuevo_puesto)
+                                                ->where('iestatus','=',1)->count();
+            $puesto_que_yaexiste        = Puesto::where('cdescripcion_puesto','=',$request->nuevo_puesto)
+                                                ->where('iestatus','=',1)->first();
+        //Si no hay, entonces agregar al catálogo
+            if ($ya_hay_puesto==0) {
+                $now                             = new \DateTime();
+                $nvo_puesto                      = new Puesto();
+                $jsonBefore2                     = "NEW INSERT PUESTO";
+                $nvo_puesto->cdescripcion_puesto = $request->nuevo_puesto;
+                $nvo_puesto->iestatus            = 1;
+                $nvo_puesto->iid_usuario         = auth()->user()->id;
+                $nvo_puesto->save();
+                $jsonAfter                       = json_encode($nvo_puesto);
+                PuestosController::bitacora($jsonBefore2,$jsonAfter);
+                $personal->iid_puesto            = $nvo_puesto->iid_puesto;
+            } else {
+                $personal->iid_puesto            = $puesto_que_yaexiste->iid_puesto;
+            }
+        } else {
+            $personal->iid_puesto       = $request->puesto;
+        }
+//SI SE CAPTURA NUEVA ADSCRIPCIÓN..
+        if ($request->nueva_adscripcion!="") {
+        //Revisar que no exista una adscripción con la misma Descripción
+            $ya_hay_adsc                               = Adscripcion::where('cdescripcion_adscripcion','=',$request->nueva_adscripcion)
+                                                                    ->where('iestatus','=',1)->count();
+            $adscrip_que_yaexiste                      = Adscripcion::where('cdescripcion_adscripcion','=',$request->nueva_adscripcion)
+                                                                    ->where('iestatus','=',1)->first();
+        //Si no hay, entonces agregar al catálogo
+            if ($ya_hay_adsc==0) {
+                $now                                        = new \DateTime();
+                $nva_adscripcion                            = new Adscripcion();
+                $jsonBefore3                                = "NEW INSERT ADSCRIPCION";
+                $nva_adscripcion->cdescripcion_adscripcion  = $request->nueva_adscripcion;
+                $nva_adscripcion->csiglas                   = "";
+                $nva_adscripcion->iid_tipo_area             = 9;
+                $nva_adscripcion->iestatus                  = 1;
+                $nva_adscripcion->iid_usuario               = auth()->user()->id;
+                $nva_adscripcion->save();
+                $jsonAfter                                  = json_encode($nva_adscripcion);
+                AdscripcionesController::bitacora($jsonBefore3,$jsonAfter);
+                $personal->iid_adscripcion                  = $nva_adscripcion->iid_adscripcion;
+            } else {
+                $personal->iid_adscripcion                  = $adscrip_que_yaexiste->iid_adscripcion;
+            }
+        } else {
+            $personal->iid_adscripcion  = $request->adscripcion;
+        }
         $personal->ccorreo_electronico  = $request->correo_electronico;
         $personal->iestatus             = 1;
         $personal->iid_usuario          = auth()->user()->id;
@@ -180,7 +331,7 @@ class PersonalController extends Controller
         $jsonAfter                      = json_encode($personal_anterior);
         PersonalController::bitacora($jsonBefore,$jsonAfter);
 
-        return redirect()->route('personal.index')
+        return redirect()->route('personal.editar',$personal->iid_personal)
                          ->with('success','Personal ACTUALIZADO (Puesto/Adscripción) satisfactoriamente');
     }    
 

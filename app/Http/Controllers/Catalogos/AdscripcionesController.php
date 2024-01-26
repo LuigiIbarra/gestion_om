@@ -128,4 +128,24 @@ class AdscripcionesController extends Controller
         $bitacora->iid_usuario   = auth()->user()->id;
         $bitacora->save();
     }
+
+    public static function buscaAdscripciones(Request $request) {
+        $ba             = $request->ba;
+        $listaAdscs     = Adscripcion::where('cdescripcion_adscripcion','like','%'.$ba.'%')->where('iestatus','=',1)->get();
+        if(!$listaAdscs->isEmpty()){
+            return response()->json(
+                [
+                    'listaAdscs' => $listaAdscs,
+                    'exito' => 1
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    'listaAdscs' => null,
+                    'exito' => 0
+                ]
+            );
+        }
+    }
 }

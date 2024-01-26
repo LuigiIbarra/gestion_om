@@ -25,6 +25,7 @@
     <script type="text/javascript" src="{{ asset('js/captura-checkboxes.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-otronombre.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-puesto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/captura-adscrip.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/mistablas.js') }}" ></script>
 

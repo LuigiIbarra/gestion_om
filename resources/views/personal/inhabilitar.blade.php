@@ -28,7 +28,7 @@
             </div>
         @endif
         <!--Inputs de Personal-->
-        @include('personal.datos_personal')
+        @include('personal.datos_personal_inhabilitar')
     
         <div class="row text-center">
             <div class="col-6">                        

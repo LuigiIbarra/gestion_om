@@ -93,6 +93,7 @@ Route::post('adscripciones/guardar',                [AdscripcionesController::cl
 Route::get('adscripciones/editar/{id_adsc}',        [AdscripcionesController::class, 'editar_adscripcion'])->name('adscripciones.editar');
 Route::post('adscripciones/actualizar',             [AdscripcionesController::class, 'actualizar_adscripcion']);
 Route::get('adscripciones/inhabilitar/{id_adsc}',   [AdscripcionesController::class, 'confirmainhabilitar_adscripcion']);
+Route::post('buscaAdscripciones',                    [AdscripcionesController::class, 'buscaAdscripciones']);
 
 //Rutas de Personal
 Route::get('personal/index',                        [PersonalController::class, 'index'])->name('personal.index');

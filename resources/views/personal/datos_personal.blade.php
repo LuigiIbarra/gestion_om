@@ -20,13 +20,13 @@
                     </div>
                     <div class="col" id="divbuscaradscripcion">
                         <label for="busca_adscripcion" class="col-form-label text-md-right">Buscar Adscripción:</label>
-                        <input type="text" onkeypress="return textnumber(event);" id="busca_adscripcion" name="busca_adscripcion" class="form-control" data-target="#busca_adscripcion" value="" maxlength="300" placeholder="TODAVIA NO FUNCIONA ESTA BUSQUEDA" {{ $noeditar }}/>
+                        <input type="text" onkeypress="return textnumber(event);" id="busca_adscripcion" name="busca_adscripcion" class="form-control" data-target="#busca_adscripcion" value="" maxlength="300" {{ $noeditar }}/>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col" id="divpuesto">
-                        <label for="puesto" class="col-form-label text-md-right">Puesto:</label>
+                        <label for="puesto" class="col-form-label text-md-right"><b>Puesto:</b></label>
                         <select class="form-control m-bot15" id="puesto" name="puesto" required {{ $noeditar }}>
                             <option value="">Elija un Puesto, Capture un Puesto en Buscar Puesto, o Capture un Nuevo Puesto...</option>
                             @foreach($listPuestos as $indice=>$psto)
@@ -39,7 +39,7 @@
                         </select>
                     </div>
                     <div class="col" id="divadscripcion">
-                        <label for="adscripcion" class="col-form-label text-md-right">Adscripción:</label>
+                        <label for="adscripcion" class="col-form-label text-md-right"><b>Adscripción:</b></label>
                         <select class="form-control m-bot15" id="adscripcion" name="adscripcion" required {{ $noeditar }}>
                             <option value="">Elija una Adscripción, Capture una Adscripción en Buscar Adscripción, o Capture una Nueva Adscripción...</option>
                             @foreach($listAdscrips as $indice=>$adscrip)
@@ -60,7 +60,7 @@
                     </div>
                     <div class="col" id="divnuevaadscripcion">
                         <label for="nueva_adscripcion" class="col-form-label text-md-right">Nueva Adscripción:</label>
-                        <input type="text" onkeypress="return textnumber(event);" id="nueva_adscripcion" name="nueva_adscripcion" class="form-control" data-target="#nueva_adscripcion" value="" maxlength="300" placeholder="TODAVIA NO FUNCIONA ESTA CAPTURA" {{ $noeditar }}/>
+                        <input type="text" onkeypress="return textnumber(event);" id="nueva_adscripcion" name="nueva_adscripcion" class="form-control" data-target="#nueva_adscripcion" value="" maxlength="300" {{ $noeditar }}/>
                     </div>
                 </div>
                 <br>

@@ -60,7 +60,29 @@ class PersonalController extends Controller
                 $personal->cnombre_personal     = $request->nombre_personal;
                 $personal->cpaterno_personal    = $request->paterno_personal;
                 $personal->cmaterno_personal    = $request->materno_personal;
-                $personal->iid_puesto           = $request->puesto;
+                if ($request->nuevo_puesto!="") {
+                //Revisar que no exista un puesto con la misma Descripción
+                    $ya_hay_puesto              = Puesto::where('cdescripcion_puesto','=',$request->nuevo_puesto)
+                                                        ->where('iestatus','=',1)->count();
+                    $puesto_que_yaexiste        = Puesto::where('cdescripcion_puesto','=',$request->nuevo_puesto)
+                                                        ->where('iestatus','=',1)->first();
+                //Si no hay, entonces agregar al catálogo
+                    if ($ya_hay_puesto==0) {
+                        $now                         = new \DateTime();
+                        $puesto                      = new Puesto();
+                        $jsonBefore                  = "NEW INSERT PUESTO";
+                        $puesto->cdescripcion_puesto = $request->descripcion_puesto;
+                        $puesto->iestatus            = 1;
+                        $puesto->iid_usuario         = auth()->user()->id;
+                        $puesto->save();
+                        $jsonAfter                   = json_encode($puesto);
+                        PuestosController::bitacora($jsonBefore,$jsonAfter);
+                    } else {
+                        $personal->iid_puesto        = $puesto_que_yaexiste->iid_puesto;
+                    }
+                } else {
+                    $personal->iid_puesto       = $request->puesto;
+                }
                 $personal->iid_adscripcion      = $request->adscripcion;
                 $personal->ccorreo_electronico  = $request->correo_electronico;
                 $personal->iestatus             = 1;

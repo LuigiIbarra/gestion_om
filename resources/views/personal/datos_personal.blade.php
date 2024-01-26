@@ -20,7 +20,7 @@
                     </div>
                     <div class="col" id="divbuscaradscripcion">
                         <label for="busca_adscripcion" class="col-form-label text-md-right">Buscar Adscripción:</label>
-                        <input type="text" onkeypress="return textnumber(event);" id="busca_adscripcion" name="busca_adscripcion" class="form-control" data-target="#busca_adscripcion" value="" maxlength="300" {{ $noeditar }}/>
+                        <input type="text" onkeypress="return textnumber(event);" id="busca_adscripcion" name="busca_adscripcion" class="form-control" data-target="#busca_adscripcion" value="" maxlength="300" placeholder="TODAVIA NO FUNCIONA ESTA BUSQUEDA" {{ $noeditar }}/>
                     </div>
                 </div>
                 <br>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="col" id="divnuevaadscripcion">
                         <label for="nueva_adscripcion" class="col-form-label text-md-right">Nueva Adscripción:</label>
-                        <input type="text" onkeypress="return textnumber(event);" id="nueva_adscripcion" name="nueva_adscripcion" class="form-control" data-target="#nueva_adscripcion" value="" maxlength="300" {{ $noeditar }}/>
+                        <input type="text" onkeypress="return textnumber(event);" id="nueva_adscripcion" name="nueva_adscripcion" class="form-control" data-target="#nueva_adscripcion" value="" maxlength="300" placeholder="TODAVIA NO FUNCIONA ESTA CAPTURA" {{ $noeditar }}/>
                     </div>
                 </div>
                 <br>

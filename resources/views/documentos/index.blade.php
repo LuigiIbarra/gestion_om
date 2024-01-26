@@ -6,7 +6,7 @@
 
 @section('panel')
     <div class="table-responsive">
-        <form method="GET" action="{{ url('/documentos/index') }}" id="formIndexMediadores">
+        <form method="GET" action="{{ url('/documentos/index') }}" id="formIndexDocumentos">
             @if($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <p>Corrige los errores para continuar</p>
@@ -28,6 +28,12 @@
                 <div class="col" id="divdocumento">
                     <label for="docto" class="col-form-label text-md-right">Número de Documento:</label>
                     <input type="text" id="docto" onkeypress="return textnumber(event);" name="docto" class="form-control" data-target="#docto" value="{{ old('docto',null) }}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" id="divasunto">
+                    <label for="asunto" class="col-form-label text-md-right">Asunto:</label>
+                    <input type="text" id="asunto" name="asunto" class="form-control" data-target="#asunto" value="{{ old('asunto',null) }}"/>
                 </div>
             </div>
             <br>
@@ -63,8 +69,10 @@
                 <th class="text-center">Estatus</th> 
                 <th class="text-center">Prioridad</th> 
                 <th class="text-center">Semaforo</th>
-                <th class="text-center">Importancia</th> 
+                <!--
+                <th class="text-center">Importancia</th>
                 <th class="text-center">Tema</th> 
+                -->
                 <th class="text-center">Fecha de Término</th>
                 <th class="text-center">Acciones</th>
             </tr>
@@ -75,8 +83,12 @@
                     <td class="text-center" style="display:none;">{{ $documento['iid_documento'] }}</td>
                     <td class="text-center">{{ $documento['cfolio'] }}</td>
                     <td class="text-center">{{ date("d-m-Y", strtotime($documento['dfecha_recepcion'])) }}</td>
-                    <td class="text-center">{{ $documento['cnumero_documento'] }}</td>
-                    <td class="text-center">{{ $documento['tipodocumento']['cdescripcion_tipo_documento'] }}</td>
+                    <td class="text-center"><a href="#" data-toggle="tooltip" data-html="true" title="{{$documento['casunto']}}">{{ $documento['cnumero_documento'] }}</a></td>
+                    @if ($documento['tipodocumento']!=null)
+                        <td class="text-center">{{ $documento['tipodocumento']['cdescripcion_tipo_documento'] }}</td>
+                    @else
+                        <td class="text-center"></td>
+                    @endif
                     <td class="text-center">{{ $documento['personalremitente']['cnombre_personal'].' '.$documento['personalremitente']['cpaterno_personal'].' '.$documento['personalremitente']['cmaterno_personal'] }}</td>
                     <td class="text-center">{{ $documento['estatusdocumento']['cdescripcion_estatus_documento'] }}</td>
                     <td class="text-center">{{ $documento['prioridaddocumento']['cdescripcion_prioridad_documento'] }}</td>
@@ -85,6 +97,7 @@
                     @else
                         <td class="text-center"></td>
                     @endif
+                    {{--
                     @if($documento['importanciacontenido']!=null)
                         <td class="text-center">{{ $documento['importanciacontenido']['cdescripcion_importancia_conten'] }}</td>
                     @else
@@ -95,6 +108,7 @@
                     @else
                         <td class="text-center"></td>
                     @endif
+                    --}}
                     <td class="text-center">{{ $documento['dfecha_termino'] }}</td>
                     <td class="text-center col-actions">
                     @if ($documento->iestatus == 1)

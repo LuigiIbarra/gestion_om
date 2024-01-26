@@ -51,9 +51,6 @@
 								<td style="vertical-align: top;text-align: center;"><h4>CONTROL DE GESTIÓN DE LA OFICILÍA MAYOR</h4></td>
 								<td rowspan="2" style="text-align: left;vertical-align: top;"><img src="./images/LOGO_OM.png" width="135px"></td>
 							</tr>
-							<!--
-							<tr><td style="vertical-align: top;text-align: center;"><h3>ACUSE</h3></td></tr>
-							-->
 						</table>
 					</td>
 				</tr>
@@ -69,32 +66,12 @@
 							<tr>
 								<th style="text-align: right;">Fecha de Captura:</th><td width="80px">{{ date("d-m-Y", strtotime($documento->dfecha_recepcion)) }}</td>
 							</tr>
-						</table>
-						<table>
-							@foreach($pers_destCon as $indice=>$destCon)
-								@if ($indice==$j-1)
-									<tr>
-										<th width="40px">PARA:</th><td>{{ $destCon->cnombre_personal.' '.$destCon->cpaterno_personal.' '.$destCon->cmaterno_personal }}</td>
-									</tr>
-									<tr>
-										<td></td><td>{{ $destCon->puesto->cdescripcion_puesto }}</td>
-									</tr>
-								@endif
-							@endforeach
+							<tr><td style="vertical-align: top;text-align: center;"><h3>ACUSE</h3></td></tr>
 						</table>
 					</td>
 				</tr>
 				<tr>
 					<td><br></td>
-				</tr>
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td>Me permito enviar a usted:</td>
-							</tr>
-						</table>
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -128,7 +105,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="border: 1px solid; border-collapse: collapse;">
+								<td>
 									<table>
 										<tr>
 											<th width="40px">Procedencia:</th><td>{{ $personaRmte->adscripcion->cdescripcion_adscripcion }}</td>
@@ -145,10 +122,7 @@
 									</table>
 									<table>
 										<tr>
-											<th width="40px">Fecha del Documento:</th><td>{{ date("d-m-Y", strtotime($documento->dfecha_documento)) }}</td>
-										</tr>
-										<tr>
-											<th style="text-align: left;">No. de Documento:</th><td>{{ $documento->cnumero_documento }}</td>
+											<th width="40px">Fecha del Documento:</th><td>{{ date("d-m-Y", strtotime($documento->dfecha_documento)) }}</td><th style="text-align: right;">No. de Documento:</th><td>{{ $documento->cnumero_documento }}</td>
 										</tr>
 									</table>
 								</td>
@@ -158,14 +132,21 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="border: 1px solid; border-collapse: collapse;">
+								<td>
 									<table>
 										<tr>
-											<th width="40px">Instrucción:</th><td>PARA SU CONOCIMIENTO</td>
+											<th width="50%" style="text-align: left;">NOMBRE</th><th style="text-align: left;">CARGO</th>
 										</tr>
-										<tr>
-											<td></td><td><br></td>
-										</tr>
+										@foreach($pers_destAt as $indice=>$destAten)
+											<tr>
+												<td>{{ $destAten->cnombre_personal.' '.$destAten->cpaterno_personal.' '.$destAten->cmaterno_personal }}</td><td>{{ $destAten->puesto->cdescripcion_puesto }}<br></td>
+											</tr>
+										@endforeach
+										@foreach($pers_destCon as $indice=>$destCon)
+											<tr>
+												<td>{{ $destCon->cnombre_personal.' '.$destCon->cpaterno_personal.' '.$destCon->cmaterno_personal }}</td><td>{{ $destCon->puesto->cdescripcion_puesto }}<br></td>
+											</tr>
+										@endforeach
 										<tr>
 											<td><br></td>
 										</tr>
@@ -180,25 +161,19 @@
 								<td>
 									<table>
 										<tr>
-											<th width="40px">A T E N T A M E N T E</th><th>Observaciones del Documento:</th>
+											<th>A T E N T A M E N T E</th>
 										</tr>
 										<tr>
 											<td><br><br><br><br><br><br></td>
-											<td style="text-align: right;">{{ substr($documento->cobservaciones,0,100) }}<br>
-																		   {{ substr($documento->cobservaciones,100,100) }}<br>
-																		   {{ substr($documento->cobservaciones,200,100) }}<br>
-																		   {{ substr($documento->cobservaciones,300,100) }}<br>
-																		   {{ substr($documento->cobservaciones,400,100) }}<br>
-											</td>
 										</tr>
 										<tr>
-											<th>ING. VICTOR MANUEL ZARAGOZA LARA</th><td></td>
+											<th>ING. VICTOR MANUEL ZARAGOZA LARA</th>
 										</tr>
 										<tr>
-											<th>SUBDIRECTOR DE CONTROL DE GESTIÓN DE</th><td></td>
+											<th>SUBDIRECTOR DE CONTROL DE GESTIÓN DE</th>
 										</tr>
 										<tr>
-											<th>LA OFICILÍA MAYOR</th><td></td>
+											<th>LA OFICILÍA MAYOR</th>
 										</tr>
 									</table>
 								</td>

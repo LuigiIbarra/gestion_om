@@ -25,7 +25,7 @@ window.addEventListener('load', function(){
                     var selectAdscrip= '<option value="'+respuesta.adscripcion[0].iid_adscripcion+'">'+respuesta.adscripcion[0].cdescripcion_adscripcion+'</option>';
                     document.querySelector("#otro_puesto").innerHTML        = selectPuesto;
                     document.querySelector("#otra_adscripcion").innerHTML   = selectAdscrip;
-                	document.querySelector('#validaOtroPersonal').innerHTML = "";
+                	document.querySelector('#validaOtroPersonalAC').innerHTML = "";
                 }else{
                     document.querySelector('#idOtroPersonal').value = "";
                     document.querySelector('#idOtroPuesto').value   = "";
@@ -36,7 +36,7 @@ window.addEventListener('load', function(){
                     document.querySelector("#otra_adscripcion").innerHTML   = selectAdscrip;
                     var error=""; 
                     error+="<label><font style='color: red;'>*No se econtraron resultados con este Nombre.<font style='color: red;'></label><br/>"
-                    document.querySelector('#validaOtroPersonal').innerHTML = error;
+                    document.querySelector('#validaOtroPersonalAC').innerHTML = error;
                     return false;
                 }
             },

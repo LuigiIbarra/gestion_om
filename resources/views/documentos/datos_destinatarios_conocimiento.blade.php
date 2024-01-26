@@ -1,4 +1,5 @@
                     <!--1027 OOFMTSJCDMX -->    
+                    {{--
                         <div class="col">
                             @if($nuevo_registro==1)
                                 <input type="checkbox" id="conoc2" name="conoc2">
@@ -18,6 +19,7 @@
                             @endif
                             <label for="conoc2">OOFMTSJCDMX</label>
                         </div>
+                    --}}
                     <!--229 DEP -->
                         <div class="col">
                             @if($nuevo_registro==1)
@@ -158,7 +160,7 @@
                             @endif
                             <label for="conoc19">DS</label>
                         </div>
-                    <!--1234 DA -->
+                    <!--1354 DA -->
                         <div class="col">
                             @if($nuevo_registro==1)
                                 <input type="checkbox" id="conoc20" name="conoc20">
@@ -166,7 +168,7 @@
                                 {{$check=''}}
                                 @if($destinCon_total>0)
                                     @foreach($destinCon as $indice=>$destCn)
-                                        @if($destCn->iid_adscripcion==1234)
+                                        @if($destCn->iid_adscripcion==1354)
                                             <input type="checkbox" id="conoc20" name="conoc20" checked {{$noeditar}}>
                                             {{$check=' '}}
                                         @endif
@@ -178,7 +180,27 @@
                             @endif
                             <label for="conoc20">DA</label>
                         </div>
-                    <!--1233 OTRO -->
+                    <!--1208 DGJ -->    
+                        <div class="col">
+                            @if($nuevo_registro==1)
+                                <input type="checkbox" id="conoc21" name="conoc21">
+                            @else
+                                {{$check=''}}
+                                @if($destinCon_total>0)
+                                    @foreach($destinCon as $indice=>$destCn)
+                                        @if($destCn->iid_adscripcion==1208)
+                                            <input type="checkbox" id="conoc21" name="conoc21" checked {{$noeditar}}>
+                                            {{$check=' '}}
+                                        @endif
+                                    @endforeach
+                                @endif
+                                @if($check=='')
+                                    <input type="checkbox" id="conoc21" name="conoc21" {{$noeditar}}>
+                                @endif
+                            @endif
+                            <label for="conoc21">DGJ</label>
+                        </div>
+                    <!--1355 OTRO -->
                         <div class="col">
                             @if($nuevo_registro==1)
                                 <input type="checkbox" id="conoc999" name="conoc999" {{$noeditar}}>
@@ -186,7 +208,7 @@
                                 {{$check=''}}
                                 @if($destinCon_total>0)
                                     @foreach($destinCon as $indice=>$destCn)
-                                        @if($destCn->iid_adscripcion==1233)
+                                        @if($destCn->iid_adscripcion==1355)
                                             <input type="checkbox" id="conoc999" name="conoc999" checked {{$noeditar}}>
                                             {{$check=' '}}
                                         @endif

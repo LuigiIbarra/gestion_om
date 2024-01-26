@@ -29,7 +29,8 @@ class TiposAnexosTableSeeder extends Seeder
         DB::table('tctipos_anexos')->insert(['cdescripcion_tipo_anexo'=>'MINUTA','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tctipos_anexos')->insert(['cdescripcion_tipo_anexo'=>'NINGUNO','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tctipos_anexos')->insert(['cdescripcion_tipo_anexo'=>'NOTA INFORMATIVA','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
-        DB::table('tctipos_anexos')->insert(['cdescripcion_tipo_anexo'=>'OBSEQUIO','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tctipos_anexos')->insert(['cdescripcion_tipo_anexo'=>'OBSEQUIO','iestatus'=>'0','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tctipos_anexos')->insert(['cdescripcion_tipo_anexo'=>'OFICIO','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tctipos_anexos')->insert(['cdescripcion_tipo_anexo'=>'OTRO','iestatus'=>'1','iid_usuario'=>1,'created_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
     }
 }

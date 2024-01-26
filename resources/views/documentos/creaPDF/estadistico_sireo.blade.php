@@ -61,6 +61,9 @@
 					<td style="border: 0px solid;">
 						<table style="border: 0px solid;">
 							<tr style="border: 0px solid;">
+								<th style="border: 0px solid;">OFICIOS RECIBIDOS POR SIREO</th>
+							</tr>
+							<tr style="border: 0px solid;">
 								<th style="border: 0px solid;">PERIODO REPORTADO DEL: {{ strtoupper(strftime('%e de %B de %Y', strtotime($fecha_inicial))) }} AL {{ strtoupper(strftime('%e de %B de %Y', strtotime($fecha_final))) }}</th>
 							</tr>
 						</table>
@@ -76,7 +79,7 @@
 								<td style="border: 0px solid;">
 									<table>
 										<tr>
-											<th rowspan="2">ÁREA</th><th colspan="13">PENDIENTES POR ÁREA</th><th rowspan="2">CONCLUIDOS</th><th rowspan="2">AVANCE<br>POR ÁREA (%)</th><th rowspan="2">TOTAL {{$anio_consulta}}</th>
+											<th rowspan="2">ÁREA</th><th colspan="13">DISTRIBUCIÓN DE TRABAJO POR DIRECCIÓN EJECUTIVA (ACUERDOS PENDIENTES POR MES)</th><th rowspan="2">ACUERDOS<br>CONCLUIDOS</th><th rowspan="2">AVANCE<br>POR ÁREA<br>(%)</th><th rowspan="2">TOTAL DE<br>ACUERDOS<br>{{$anio_consulta}}<br>recibidos<br>al año</th>
 										</tr>
 										<tr>
 											<th>ENERO</th>
@@ -330,7 +333,7 @@
 									<table style="border: 0px solid;">
 										<tr>
 											<td width="83px" rowspan="4"></td>
-											<th colspan="13">CORRESPONDENCIA RECIBIDA POR LA OFICIALÍA MAYOR, PENDIENTES POR MES</th>
+											<th colspan="13">ACUERDOS RECIBIDOS POR LA OFICIALÍA MAYOR, PENDIENTES POR MES</th>
 											<td width="238px" rowspan="4"></td>
 										</tr>
 										<tr>
@@ -385,13 +388,13 @@
 									<table>
 										<tr>
 											<td width="245px" rowspan="3"></td>
-											<td colspan="6" style="text-align: left;">RECIBIDOS:</td>
+											<td colspan="6" style="text-align: left;">TOTAL DE ACUERDOS RECIBIDOS:</td>
 											<td width="50px">{{$tot_pend_om + $tot_conc_om}}</td>
-											<td width="50px">100.00%</td>
+											<td width="50px">100%</td>
 											<td width="370px" rowspan="3"></td>
 										</tr>
 										<tr>
-											<td colspan="6" style="text-align: left;">CONCLUÍDOS:</td>
+											<td colspan="6" style="text-align: left;">TOTAL DE ACUERDOS CONCLUÍDOS:</td>
 											<td>{{$tot_conc_om}}</td>
 											@if(($tot_pend_om + $tot_conc_om) > 0)
 												<td>{{number_format(($tot_conc_om * 100 / ($tot_pend_om + $tot_conc_om)), 2, '.', '')}}%</td>
@@ -400,7 +403,7 @@
 											@endif
 										</tr>
 										<tr>
-											<td colspan="6" style="text-align: left;">PENDIENTES:</td>
+											<td colspan="6" style="text-align: left;">TOTAL DE ACUERDOS PENDIENTES:</td>
 											<td>{{$tot_pend_om}}</td>
 											@if(($tot_pend_om + $tot_conc_om) > 0)
 												<td>{{number_format(($tot_pend_om * 100 / ($tot_pend_om + $tot_conc_om)), 2, '.', '')}}%</td>

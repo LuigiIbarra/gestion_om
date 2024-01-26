@@ -1,7 +1,7 @@
                 <div class="row">
                     <div class="col" id="divfolio">
                         <label for="folio_documento" class="col-form-label text-md-right">Número de Folio:</label>
-                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $documento->cfolio }}" required readonly/>
+                        <input type="text" id="folio_documento" name="folio_documento" class="form-control" data-target="#folio_documento" value="{{ $documento->cfolio }}" required {{ $noeditar }}/>
                     </div>
                     <div class="col" id="divrecepcion">
                         <label for="recepcion_documento" class="col-form-label text-md-right">Fecha de Recepcion:</label>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col" id="divtipoanexo">
                         <label for="tipo_anexo" class="col-form-label text-md-right">Tipo de Anexo:</label>
-                        <select class="form-control m-bot15" name="tipo_anexo" required {{ $noeditar }}>
+                        <select class="form-control m-bot15" id="tipo_anexo" name="tipo_anexo" required {{ $noeditar }}>
                             <option value="">Elija un Tipo de Anexo...</option>
                             @foreach($listTipoAnexo as $indice=>$tipos_anexo)
                                 @if($tipos_anexo->iid_tipo_anexo==$documento->iid_tipo_anexo)
@@ -43,6 +43,19 @@
                                 @endif
                             @endforeach
                         </select>
+                    </div>
+                </div>
+                <br>
+                <div id="divotroanexo" style="display:none;">
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                        <div class="col">
+                        </div>
+                        <div class="col">
+                            <label for="otro_tipo_anexo" class="col-form-label text-md-right">Otro Tipo de Anexo:</label>
+                            <input type="text" id="otro_tipo_anexo" name="otro_tipo_anexo" class="form-control" value="{{$documento->cotro_tipo_anexo}}" maxlength="50" {{ $noeditar }}/>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -133,11 +146,20 @@
                         <input type="text" onkeypress="return textonly(event);" id="nomenclatura_archivistica" name="nomenclatura_archivistica" class="form-control" data-target="#nomenclatura_archivistica" value="{{ $documento->cnomenclatura_archivistica }}" maxlength="100" {{ $noeditar }} />
                     </div>
                 </div>
+                @if($folsRels_total>0)
+                    <hr>
+                    <h5 class="text-primary-sin"><b>Folios Relacionados</b></h5>
+                    @include('folios_rels.index')
+                @endif
                 <br>
                 <center><div id="validaFolioRel"></div></center>
                 <hr>
                 <div id="divdestinatariocc">
-                    <label><b>COPIA DE CONOCIMIENTO</b></label>
+                    @if($pers_conoc_total>0)
+                        <label><b>DESTINATARIO(S) DE COPIA DE CONOCIMIENTO</b></label>
+                        @include('pers_conoc.index')
+                    @endif
+                    <br>
                     <div class="row">
                         <div class="col-4" id="divimportancia">
                             <label for="importancia_contenido" class="col-form-label text-md-right">Importancia del Contenido:</label>
@@ -167,7 +189,7 @@
                         </div>
                         <div class="col" id="divtipoasunto">
                             <label for="tipo_asunto" class="col-form-label text-md-right">Tipo de Asunto:</label>
-                            <select class="form-control m-bot15" name="tipo_asunto" {{ $noeditar }}>
+                            <select class="form-control m-bot15" id="tipo_asunto" name="tipo_asunto" {{ $noeditar }}>
                                 <option value="">Elija un Asunto...</option>
                                 @foreach($listAsunto as $indice=>$asunto)
                                     @if($asunto->iid_tipo_asunto==$documento->iid_tipo_asunto)
@@ -179,8 +201,22 @@
                             </select>
                         </div>
                     </div>
+                    <br>
+                    <div id="divotroasunto" style="display:none;">
+                        <div class="row">
+                            <div class="col">
+                            </div>
+                            <div class="col">
+                            </div>
+                            <div class="col">
+                                <label for="otro_tipo_asunto" class="col-form-label text-md-right">Otro Tipo de Asunto:</label>
+                                <input type="text" id="otro_tipo_asunto" name="otro_tipo_asunto" class="form-control" value="{{$documento->cotro_tipo_asunto}}" maxlength="50" {{ $noeditar }}/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <br>
+                <center><div id="validaPersonalDest"></div></center>
                 <hr>
                 <div class="row">
                     <div class="col" id="divinstruccion">
@@ -202,14 +238,14 @@
                     </div>
                     <div class="col" id="divasunto">
                         <label for="asunto" class="col-form-label text-md-right">Asunto:</label>
-                        <textarea name="asunto" class="form-control" data-target="#asunto" required {{ $noeditar }}>{{ $documento->casunto }}</textarea>
+                        <textarea name="asunto" class="form-control" data-target="#asunto" maxlength="1000" required {{ $noeditar }}>{{ $documento->casunto }}</textarea>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-5" id="divobservaciones">
                         <label for="observaciones" class="col-form-label text-md-right">Observaciones:</label>
-                        <textarea name="observaciones" class="form-control" data-target="#observaciones" {{ $noeditar }}>{{ $documento->cobservaciones }}</textarea>
+                        <textarea name="observaciones" class="form-control" data-target="#observaciones" maxlength="500" {{ $noeditar }}>{{ $documento->cobservaciones }}</textarea>
                     </div>
                     <div class="col-4" id="divarchivo">
                         <label for="archivo" class="col-form-label text-md-right">Archivo Dígital:</label>
@@ -231,9 +267,22 @@
                         @include('documentos.datos_destinatarios_conocimiento')
                     </div>
                 </div>
-                <div class="row" id="divRHAtencion">
-                    <label><b>DESTINATARIO PARA ATENCIÓN DEL:</b></label>
-                <!--Checkboxes de Atención Presidente u Oficial Mayor para Documentos de RH-->
-                    @include('documentos.datos_atencion_presid_ofmayor')
+                @if ($documento->iid_tipo_documento!=8)
+                    <div class="row" id="otrapers_at_cmto" style="display:none;">
+                        @include('documentos.datos_otrapers_at_cmto_editar')
+                    </div>
+                @endif
+                <div id="divRHAtencion">
+                    <div class="row">
+                        <label><b>DESTINATARIO PARA ATENCIÓN DEL:</b></label>
+                    <!--Checkboxes de Atención Presidente u Oficial Mayor para Documentos de RH-->
+                        @include('documentos.datos_atencion_presid_ofmayor')
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <label><b>A QUIÉN SE DIRIGE:</b></label>
+                    <!--Checkboxes de Dirigido a Director Administrativo o DERH para Documentos de RH-->
+                        @include('documentos.datos_atencion_da_derh')
+                    </div>
                 </div>
                 <hr>

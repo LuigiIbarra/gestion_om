@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col" id="divsiglasadscripcion">
                         <label for="siglas" class="col-form-label text-md-right">Siglas de la Adscripcion:</label>
-                        <input type="text" onkeypress="return textonly(event);" id="siglas" name="siglas" class="form-control" data-target="#siglas" value="{{ $adscripcion->csiglas }}" maxlength="20" {{ $noeditar }}/>
+                        <input type="text" onkeypress="return textnumber(event);" id="siglas" name="siglas" class="form-control" data-target="#siglas" value="{{ $adscripcion->csiglas }}" maxlength="20" {{ $noeditar }}/>
                     </div>
                 </div>
                 <br>

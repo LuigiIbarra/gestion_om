@@ -24,6 +24,7 @@
     <script type="text/javascript" src="{{ asset('js/captura-destconoc.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-checkboxes.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/captura-otronombre.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/captura-puesto.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/mistablas.js') }}" ></script>
 
@@ -75,29 +76,61 @@
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             @consultaPuesto
-                                <li><a class="dropdown-item" href="{{ url('puestos/index') }}">
-                                    <img src="{{ asset('bootstrap-icons-1.5.0/person-lines-fill.svg') }}" width="18" height="18"> Lista de Puestos
-                                    </a>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-item" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <img src="{{ asset('bootstrap-icons-1.5.0/person-lines-fill.svg') }}" width="18" height="18"> Puestos <span class="caret"></span></a>
+                                    <ul class="dropdown-menu sub-menu">
+                                        <li><a class="dropdown-item" href="{{ url('puestos/index') }}">
+                                            <img src="{{ asset('bootstrap-icons-1.5.0/person-lines-fill.svg') }}" width="18" height="18"> Lista de Puestos
+                                            </a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ url('puestos/nuevo') }}">
+                                            <img src="{{ asset('bootstrap-icons-1.5.0/person-vcard-fill.svg') }}" width="18" height="18"> Nuevo Puesto
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             @endconsultaPuesto
                             @consultaAdscripcion
-                                <li><a class="dropdown-item" href="{{ url('adscripciones/index') }}">
-                                    <img src="{{ asset('bootstrap-icons-1.5.0/building.svg') }}" width="18" height="18"> Lista de Adscripciones
-                                    </a>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-item" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <img src="{{ asset('bootstrap-icons-1.5.0/building.svg') }}" width="18" height="18"> Adscripciones <span class="caret"></span></a>
+                                    <ul class="dropdown-menu sub-menu">
+                                        <li><a class="dropdown-item" href="{{ url('adscripciones/index') }}">
+                                            <img src="{{ asset('bootstrap-icons-1.5.0/building.svg') }}" width="18" height="18"> Lista de Adscripciones
+                                            </a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ url('adscripciones/nueva') }}">
+                                            <img src="{{ asset('bootstrap-icons-1.5.0/building-add.svg') }}" width="18" height="18"> Nueva Adscripción
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             @endconsultaAdscripcion
                             @consultaPersonal
-                                <li><a class="dropdown-item" href="{{ url('personal/index') }}">
-                                    <img src="{{ asset('bootstrap-icons-1.5.0/people-fill.svg') }}" width="18" height="18"> Lista de Personal
-                                    </a>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-item" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <img src="{{ asset('bootstrap-icons-1.5.0/people-fill.svg') }}" width="18" height="18"> Personal <span class="caret"></span></a>
+                                    <ul class="dropdown-menu sub-menu">
+                                        <li><a class="dropdown-item" href="{{ url('personal/index') }}">
+                                            <img src="{{ asset('bootstrap-icons-1.5.0/people-fill.svg') }}" width="18" height="18"> Lista de Personal
+                                            </a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ url('personal/nuevo') }}">
+                                            <img src="{{ asset('bootstrap-icons-1.5.0/person-plus-fill.svg') }}" width="18" height="18"> Nuevo Personal
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             @endconsultaPersonal
+                            {{--
                             @if(auth()->user()->iid_rol==1)
                                 <li><a class="dropdown-item" href="{{ url('documentos/completar') }}">
                                     <img src="{{ asset('bootstrap-icons-1.5.0/collection-play.svg') }}" width="18" height="18"> Completar Folios
                                     </a>
                                 </li>
                             @endif
+                            --}}
                           </ul>
                         </div>
                         <div class="dropdown">
@@ -106,8 +139,20 @@
                             Reportes
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ url('documentos/estadistico') }}">
+                            <li><a class="dropdown-item" href="{{ url('reportes/param_estadistico') }}">
                                 <img src="{{ asset('bootstrap-icons-1.5.0/graph-up.svg') }}" width="18" height="18"> Estadístico Mensual
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ url('reportes/param_sireo') }}">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/graph-up.svg') }}" width="18" height="18"> Estadístico Mensual SIREO
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ url('reportes/param_consulta') }}">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/graph-up.svg') }}" width="18" height="18"> Estadística por Área y Estatus
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ url('reportes/param_pendientes') }}">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/graph-up.svg') }}" width="18" height="18"> Informe de Asuntos Pendientes
                                 </a>
                             </li>
                           </ul>

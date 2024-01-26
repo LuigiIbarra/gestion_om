@@ -47,14 +47,17 @@ class DocumentosController extends Controller
 
     public function index(Request $request)
     {
-        $folio = $request->folio;
-        $docto = $request->docto;
+        $folio  = $request->folio;
+        $docto  = $request->docto;
+        $asunto = $request->asunto;
         if ($folio != "") {
             $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cfolio','like','%'.$folio.'%')->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
         } elseif ($docto != "") {
             $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cnumero_documento','like','%'.$docto.'%')->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
+        } elseif ($asunto != "") {
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('casunto','like','%'.$asunto.'%')->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
         } else {
-            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iestatus','=',1)->orderBy('iid_semaforo')->latest()->take(2000)->get();
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iestatus','=',1)->orderBy('iid_semaforo')->latest()->take(200)->get();
         }
         return view('documentos.index',$data);
     }
@@ -64,14 +67,14 @@ class DocumentosController extends Controller
         $documento         = new Documento();
         $anio              = Date('Y');
         $parametros        = Parametros::where('ianio','=',$anio)->first();
-        $listTipoDocumento = TipoDocumento::where('iestatus','=',1)->get();
+        $listTipoDocumento = TipoDocumento::where('iestatus','=',1)->orderBy('cdescripcion_tipo_documento')->get();
         $listTipoAnexo     = TipoAnexo::where('iestatus','=',1)->get();
         $listEstatus       = EstatusDocumento::where('iestatus','=',1)->get();
         $listPrioridad     = PrioridadDocumento::where('iestatus','=',1)->get();
         $listSemaforo      = Semaforo::where('iestatus','=',1)->get();
         $listPersonal      = Personal::where('iestatus','=',1)->get();
-        $listPuesto        = Puesto::where('iestatus','=',1)->get();
-        $listAdscripcion   = Adscripcion::where('iestatus','=',1)->get();
+        $listPuesto        = Puesto::where('iestatus','=',1)->orderBy('cdescripcion_puesto')->get();
+        $listAdscripcion   = Adscripcion::where('iestatus','=',1)->orderBy('cdescripcion_adscripcion')->get();
         $listTipoArea       = TipoArea::where('iestatus','=',1)->get();
         $listImportancia   = ImportanciaContenido::where('iestatus','=',1)->get();
         $listTema          = Tema::where('iestatus','=',1)->get();
@@ -85,10 +88,10 @@ class DocumentosController extends Controller
         $newfolio          = $newfolio.'-'.substr($anio,2,2);
         $newfolio_rh       = $parametros->iultimo_folio_rh + 1;
         $newfolio_rh       = str_pad($newfolio_rh, 5, "0", STR_PAD_LEFT);
-        $newfolio_rh       = $newfolio_rh.'-'.substr($anio,2,2).'RH';
+        $newfolio_rh       = $newfolio_rh.'-RH'.substr($anio,2,2);
         $newfolio_cc       = $parametros->iultimo_folio_cc + 1;
         $newfolio_cc       = str_pad($newfolio_cc, 5, "0", STR_PAD_LEFT);
-        $newfolio_cc       = $newfolio_cc.'-'.substr($anio,2,2).'CC';
+        $newfolio_cc       = $newfolio_cc.'-CC'.substr($anio,2,2);
         $destinAtt         = new DestinatarioAtencion();
         $destinCon         = new DestinatarioConocimiento();
         $folioRel          = new FolioRelacionado();
@@ -106,28 +109,7 @@ class DocumentosController extends Controller
         $documento                              = new Documento();
         $parametros                             = Parametros::where('ianio','=',$anio)->first();
         $jsonBefore                             = "NEW INSERT DOCUMENTO";
-    //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
-        /* 
-        if($request->tipo_documento<=6) {
-            $newfolio                               = $parametros->iultimo_folio + 1;
-            $newfolio                               = str_pad($newfolio, 5, "0", STR_PAD_LEFT);
-            $newfolio                               = $newfolio.'-'.substr($parametros->ianio,2,2);
-        } elseif($request->tipo_documento==7) {
-            $newfolio_cc                            = $parametros->iultimo_folio_cc + 1;
-            $newfolio_cc                            = str_pad($newfolio_cc, 5, "0", STR_PAD_LEFT);
-            $newfolio_cc                            = $newfolio_cc.'-'.substr($parametros->ianio,2,2).'CC';
-        } elseif($request->tipo_documento==8) {
-            $newfolio_rh                            = $parametros->iultimo_folio_rh + 1;
-            $newfolio_rh                            = str_pad($newfolio_rh, 5, "0", STR_PAD_LEFT);
-            $newfolio_rh                            = $newfolio_rh.'-'.substr($parametros->ianio,2,2).'RH';
-        }
-        if($request->tipo_documento<=6) 
-            $documento->cfolio                  = $newfolio;
-        elseif($request->tipo_documento==7)
-            $documento->cfolio                  = $newfolio_cc;
-        elseif($request->tipo_documento==8)
-            $documento->cfolio                  = $newfolio_rh;
-        */
+
     //CAPTURA MANUAL DEL FOLIO, VALIDACIONES
         //Revisar que no exista un Documento con el mismo Folio.
         $ya_existe_folio                        = Documento::where('cfolio','=',$request->folio_documento)->where('iestatus','=',1)->count();
@@ -136,20 +118,20 @@ class DocumentosController extends Controller
             $documento->cfolio                  = $request->folio_documento;
         } else {
     //REGISTRO AUTOMÁTICO DEL FOLIO, RECALCULAR ÚLTIMO FOLIO
-            if($request->tipo_documento<=6) {
+            if($request->tipo_documento<=6 || $request->tipo_documento>=9) {
                 $newfolio                               = $parametros->iultimo_folio + 1;
                 $newfolio                               = str_pad($newfolio, 5, "0", STR_PAD_LEFT);
                 $newfolio                               = $newfolio.'-'.substr($parametros->ianio,2,2);
             } elseif($request->tipo_documento==7) {
                 $newfolio_cc                            = $parametros->iultimo_folio_cc + 1;
                 $newfolio_cc                            = str_pad($newfolio_cc, 5, "0", STR_PAD_LEFT);
-                $newfolio_cc                            = $newfolio_cc.'-'.substr($parametros->ianio,2,2).'CC';
+                $newfolio_cc                            = $newfolio_cc.'-CC'.substr($parametros->ianio,2,2);
             } elseif($request->tipo_documento==8) {
                 $newfolio_rh                            = $parametros->iultimo_folio_rh + 1;
                 $newfolio_rh                            = str_pad($newfolio_rh, 5, "0", STR_PAD_LEFT);
-                $newfolio_rh                            = $newfolio_rh.'-'.substr($parametros->ianio,2,2).'RH';
+                $newfolio_rh                            = $newfolio_rh.'-RH'.substr($parametros->ianio,2,2);
             }
-            if($request->tipo_documento<=6) 
+            if($request->tipo_documento<=6 || $request->tipo_documento>=9) 
                 $documento->cfolio                  = $newfolio;
             elseif($request->tipo_documento==7)
                 $documento->cfolio                  = $newfolio_cc;
@@ -162,6 +144,7 @@ class DocumentosController extends Controller
         $documento->dfecha_documento            = $request->fecha_documento;
         $documento->iid_tipo_documento          = $request->tipo_documento;
         $documento->iid_tipo_anexo              = $request->tipo_anexo;
+        $documento->cotro_tipo_anexo            = $request->otro_tipo_anexo;
         $documento->iid_estatus_documento       = $request->estatus_documento;
         $documento->iid_prioridad_documento     = $request->prioridad_documento;
         $documento->iid_semaforo                = $request->semaforo;
@@ -169,14 +152,16 @@ class DocumentosController extends Controller
         $documento->iid_importancia_contenido   = $request->importancia_contenido;
         $documento->iid_tema                    = $request->tema;
         $documento->iid_tipo_asunto             = $request->tipo_asunto;
+        $documento->cotro_tipo_asunto           = $request->otro_tipo_asunto;
         $documento->iid_instruccion             = $request->instruccion;
         $documento->dfecha_termino              = $request->fecha_termino;
         $documento->casunto                     = $request->asunto;
         $documento->cobservaciones              = $request->observaciones;
-//GUARDAR DATOS DE OTRO PERSONAL QUE NO ESTÉ EN EL CATÁLOGO
+//GUARDAR DATOS DE OTRO PERSONAL REMITENTE QUE NO ESTÉ EN EL CATÁLOGO
         if($request->markOtro==='on') {
-        //Guardar Nuevo Puesto
-            if($request->otro_nvo_puesto=="" && $request->otra_desc_puesto!=""){
+    //Guardar Nuevo Puesto
+          //if($request->otro_nvo_puesto=="" && $request->otra_desc_puesto!=""){
+            if($request->otra_desc_puesto!=""){
         //Revisar que no exista un puesto con la misma Descripción
                 $ya_hay_puesto                                   = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto)
                                                                      ->where('iestatus','=',1)->count();
@@ -192,8 +177,9 @@ class DocumentosController extends Controller
                     PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
                 }
             }
-        //Guardar Nueva Adscripción
-            if($request->otra_nva_adscripcion=="" && $request->otra_desc_adsc!=""){
+    //Guardar Nueva Adscripción
+          //if($request->otra_nva_adscripcion=="" && $request->otra_desc_adsc!=""){
+            if($request->otra_desc_adsc!=""){
         //Revisar que no exista una adscripción con la misma Descripción
                 $ya_hay_adsc                                     = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc)
                                                                               ->where('iestatus','=',1)->count();
@@ -210,7 +196,7 @@ class DocumentosController extends Controller
                     AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
                 }
             }
-        //Guardar Nuevo Personal
+    //Guardar Nuevo Personal
             if($request->nuevo_nombre!="" && $request->otro_paterno!=""){
         //Revisar que no exista una persona con el mismo Nombre y Apellidos
                 $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre)
@@ -225,14 +211,16 @@ class DocumentosController extends Controller
                     $nuevo_personal->cpaterno_personal           = $request->otro_paterno;
                     $nuevo_personal->cmaterno_personal           = $request->otro_materno;
                 //GUARDAR CLAVE DE PUESTO
-                    if($request->otro_nvo_puesto=="" && $request->otra_desc_puesto!="")
+                  //if($request->otro_nvo_puesto=="" && $request->otra_desc_puesto!="")
+                    if($request->otra_desc_puesto!="" && $ya_hay_puesto==0)
                         $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
-                    else
+                    elseif ($request->otro_nvo_puesto!="")
                         $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto;   //ID PUESTO EXISTENTE
                 //GUARDAR CLAVE DE ADSCRIPCION
-                    if($request->otra_nva_adscripcion=="" && $request->otra_desc_adsc!="")
+                  //if($request->otra_nva_adscripcion=="" && $request->otra_desc_adsc!="")
+                    if($request->otra_desc_adsc!="" && $ya_hay_adsc==0)
                         $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
-                    else
+                    elseif ($request->otra_nva_adscripcion!="")
                         $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion;      //ID ADSCRIP. EXISTENTE
                     $nuevo_personal->iestatus                    = 1;
                     $nuevo_personal->iid_usuario                 = auth()->user()->id;
@@ -273,7 +261,7 @@ class DocumentosController extends Controller
         DocumentosController::bitacora($jsonBefore,$jsonAfter);
 
     //ACTUALIZAR ULTIMOS FOLIOS EN LA TABLA PARÁMETROS
-        if($request->tipo_documento<=6 || $request->tipo_documento==9) {
+        if($request->tipo_documento<=6 || $request->tipo_documento>=9) {
             if ($request->folio_documento>$parametros->iultimo_folio) {
                 if ($ya_existe_folio==0) 
                     $parametros->iultimo_folio    = ltrim(substr($request->folio_documento,0,5),'0');   //REGISTRO MANUAL DEL FOLIO
@@ -314,9 +302,11 @@ class DocumentosController extends Controller
         if($request->nombre_destinatariocc>0)
             PersonalConocimientoController::guarda_personal_conoc($idDocumento, $request->idDestinatario);
 
-        //Guardar Destinatarios para Atención
+    //Guardar Destinatarios para Atención
+        /*
         if($request->atencion2==='on')
             DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1027');  //OM
+        */
         if($request->atencion12==='on')
             DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '229');   //DEP
         if($request->atencion14==='on')
@@ -333,16 +323,103 @@ class DocumentosController extends Controller
             DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1215');  //DS
         if($request->atencion20==='on')
             DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1354');  //DA CJPJCD
-        if($request->atencion999==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1355');  //OTRA
-        if($request->atencion_presidente==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1031');  //PRESIDENCIA
-        if($request->atencion_oficialmayor==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1027');  //OM
+        if($request->atencion21==='on')
+            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1208');  //DGJ
+        //OTRO
+        if($request->atencion999==='on'){
+    //Guardar OTRO Personal que ya Existe en el Catálogo
+            if($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="")
+                DestinatarioAtencionController::guarda_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
+
+    //GUARDAR OTRO PERSONAL NUEVO, CON PUESTO NUEVO/YA EXISTE Y ADSCRIPCIÓN NUEVA/YA EXISTE
+    //Guardar Nuevo Puesto
+          //if($request->otro_nvo_puesto_ac=="" && $request->otra_desc_puesto_ac!=""){
+            if($request->otra_desc_puesto_ac!=""){
+        //Revisar que no exista un puesto con la misma Descripción
+                $ya_hay_puesto                                   = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto_ac)
+                                                                     ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_puesto==0) {
+                    $nuevo_puesto                                = new Puesto();
+                    $jsonBeforeNvoPuesto                         = "NEW INSERT PUESTO";
+                    $nuevo_puesto->cdescripcion_puesto           = $request->otra_desc_puesto_ac;
+                    $nuevo_puesto->iestatus                      = 1;
+                    $nuevo_puesto->iid_usuario                   = auth()->user()->id;
+                    $nuevo_puesto->save();
+                    $jsonAfterNvoPuesto                          = json_encode($nuevo_puesto);
+                    PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
+                }
+            }
+    //Guardar Nueva Adscripción
+          //if($request->otra_nva_adscripcion_ac=="" && $request->otra_desc_adsc_ac!=""){
+            if($request->otra_desc_adsc_ac!=""){
+        //Revisar que no exista una adscripción con la misma Descripción
+                $ya_hay_adsc                                     = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc_ac)
+                                                                              ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_adsc==0) {
+                    $nueva_adscripcion                           = new Adscripcion();
+                    $jsonBeforeOtraAdscrip                       = "NEW INSERT ADSCRIPCION";
+                    $nueva_adscripcion->cdescripcion_adscripcion = $request->otra_desc_adsc_ac;
+                    $nueva_adscripcion->iid_tipo_area            = $request->nvo_tipo_adscripcion_ac;
+                    $nueva_adscripcion->iestatus                 = 1;
+                    $nueva_adscripcion->iid_usuario              = auth()->user()->id;
+                    $nueva_adscripcion->save();
+                    $jsonAfterOtraAdscrip                        = json_encode($nueva_adscripcion);
+                    AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+                }
+            }
+    //Guardar Nuevo Personal
+            if($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
+        //Revisar que no exista una persona con el mismo Nombre y Apellidos
+                $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
+                                                                       ->where('cpaterno_personal','=',$request->otro_paterno_ac)
+                                                                       ->where('cmaterno_personal','=',$request->otro_materno_ac)
+                                                                       ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_pers==0) {
+                    $nuevo_personal                              = new Personal();
+                    $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
+                    $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
+                    $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
+                    $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
+                //GUARDAR CLAVE DE PUESTO
+                  //if($request->otro_nvo_puesto_ac=="" && $request->otra_desc_puesto_ac!="")
+                    if($request->otra_desc_puesto_ac!="" && $ya_hay_puesto==0)
+                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
+                    elseif ($request->otro_nvo_puesto_ac!="")
+                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;   //ID PUESTO EXISTENTE
+                //GUARDAR CLAVE DE ADSCRIPCION
+                  //if($request->otra_nva_adscripcion_ac=="" && $request->otra_desc_adsc_ac!="")
+                    if($request->otra_desc_adsc_ac!="" && $ya_hay_adsc==0)
+                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
+                    elseif ($request->otra_nva_adscripcion_ac!="")
+                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;      //ID ADSCRIP. EXISTENTE
+                    $nuevo_personal->iestatus                    = 1;
+                    $nuevo_personal->iid_usuario                 = auth()->user()->id;
+                    $nuevo_personal->save();
+                    $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
+                    PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
+                    DestinatarioAtencionController::guarda_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                }
+            }
+        }
+        if($request->tipo_documento==8) {
+            if($request->atencion_presidente==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1031');  //PRESIDENCIA
+            if($request->atencion_oficialmayor==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1027');  //OM
+            if($request->atencion_da==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1354');  //DA
+            if($request->atencion_derh==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '231');   //DERH
+        }
 
         //Guardar Destinatarios para Conocimiento
+        /*
         if($request->conoc2==='on')
             DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1027');  //OM
+        */
         if($request->conoc12==='on')
             DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '229');   //DEP
         if($request->conoc14==='on')
@@ -359,10 +436,88 @@ class DocumentosController extends Controller
             DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1215');  //DS
         if($request->conoc20==='on')
             DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1354');  //DA CJPJCD
-        if($request->conoc999==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1355');  //OTRA
+        if($request->conoc21==='on')
+            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1208');  //DGJ
+        //OTRO
+        if($request->conoc999==='on') {
+    //Guardar OTRO Personal que ya Existe en el Catálogo
+            if($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="")
+                DestinatarioConocimientoController::guarda_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
+            
+    //Guardar Nuevo Puesto
+          //if($request->otro_nvo_puesto_ac=="" && $request->otra_desc_puesto_ac!=""){
+            if($request->otra_desc_puesto_ac!=""){
+        //Revisar que no exista un puesto con la misma Descripción
+                $ya_hay_puesto                                   = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto_ac)
+                                                                     ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_puesto==0) {
+                    $nuevo_puesto                                = new Puesto();
+                    $jsonBeforeNvoPuesto                         = "NEW INSERT PUESTO";
+                    $nuevo_puesto->cdescripcion_puesto           = $request->otra_desc_puesto_ac;
+                    $nuevo_puesto->iestatus                      = 1;
+                    $nuevo_puesto->iid_usuario                   = auth()->user()->id;
+                    $nuevo_puesto->save();
+                    $jsonAfterNvoPuesto                          = json_encode($nuevo_puesto);
+                    PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
+                }
+            }
+    //Guardar Nueva Adscripción
+          //if($request->otra_nva_adscripcion_ac=="" && $request->otra_desc_adsc_ac!=""){
+            if($request->otra_desc_adsc_ac!=""){
+        //Revisar que no exista una adscripción con la misma Descripción
+                $ya_hay_adsc                                     = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc_ac)
+                                                                              ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_adsc==0) {
+                    $nueva_adscripcion                           = new Adscripcion();
+                    $jsonBeforeOtraAdscrip                       = "NEW INSERT ADSCRIPCION";
+                    $nueva_adscripcion->cdescripcion_adscripcion = $request->otra_desc_adsc_ac;
+                    $nueva_adscripcion->iid_tipo_area            = $request->nvo_tipo_adscripcion_ac;
+                    $nueva_adscripcion->iestatus                 = 1;
+                    $nueva_adscripcion->iid_usuario              = auth()->user()->id;
+                    $nueva_adscripcion->save();
+                    $jsonAfterOtraAdscrip                        = json_encode($nueva_adscripcion);
+                    AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+                }
+            }
+    //Guardar Nuevo Personal
+            if($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
+        //Revisar que no exista una persona con el mismo Nombre y Apellidos
+                $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
+                                                                       ->where('cpaterno_personal','=',$request->otro_paterno_ac)
+                                                                       ->where('cmaterno_personal','=',$request->otro_materno_ac)
+                                                                       ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_pers==0) {
+                    $nuevo_personal                              = new Personal();
+                    $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
+                    $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
+                    $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
+                    $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
+                //GUARDAR CLAVE DE PUESTO
+                    if($request->otra_desc_puesto_ac!="" && $ya_hay_puesto==0)
+                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
+                    elseif ($request->otro_nvo_puesto_ac!="")
+                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;   //ID PUESTO EXISTENTE
+                //GUARDAR CLAVE DE ADSCRIPCION
+                    if($request->otra_desc_adsc_ac!="" && $ya_hay_adsc==0)
+                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
+                    elseif ($request->otra_nva_adscripcion_ac!="")
+                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;      //ID ADSCRIP. EXISTENTE
+                    $nuevo_personal->iestatus                    = 1;
+                    $nuevo_personal->iid_usuario                 = auth()->user()->id;
+                    $nuevo_personal->save();
+                    $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
+                    PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
+                    DestinatarioConocimientoController::guarda_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                }
+            }
+        }
 
-        return redirect()->route('documentos.index')
+        //return redirect()->route('documentos.index')
+          //               ->with('success','Documento guardado satisfactoriamente');
+        return redirect()->route('documentos.editar',$idDocumento)
                          ->with('success','Documento guardado satisfactoriamente');
     }
 
@@ -373,56 +528,99 @@ class DocumentosController extends Controller
         $anio               = date('Y');
         $docto              = Documento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
 //Datos de Destinatario Atención
-        $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
+        if ($docto->iid_tipo_documento==8) {
+            $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)
+                                                      ->whereIn('iid_adscripcion',[231,1354])
+                                                      ->where('iestatus','=',1)->count();
+        } else {
+            $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)
+                                                      ->where('iestatus','=',1)->count();
+        }
         $data['destinAtt_total'] = $destinAtt_total;
-        if($destinAtt_total>0)
-            $destinAtt      = DestinatarioAtencion::with('adscripcion')->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
-        else
+        if($destinAtt_total>0) {
+            if ($docto->iid_tipo_documento==8) {
+                $destinAtt      = DestinatarioAtencion::with('adscripcion')
+                                                      ->where('iid_documento','=',$id_documento)
+                                                      ->whereIn('iid_adscripcion',[231,1354])
+                                                      ->where('iestatus','=',1)->get();
+            } else {
+                $destinAtt      = DestinatarioAtencion::with('adscripcion')
+                                                      ->where('iid_documento','=',$id_documento)
+                                                      ->where('iestatus','=',1)->get();
+            }
+            //dd($destinAtt);
+        } else {
             $destinAtt      = new DestinatarioAtencion();
+        }
 //Y convertirla en un arreglo
         $array1 = array();
-        if($destinAtt_total>0){
-            foreach($destinAtt as $destAten)
-                $array1[]       = $destAten->iid_adscripcion;
-        }
     //Arreglo auxiliar, para solamente traer los Directores Ejecutivos (1384 DEP,1718 DEGT,1771 DEOMS,1772 DERM,1775 DERF,1822 DERH), 
     //el Oficial Mayor 213, el Dir. de Seguridad 1860, el Presidente 62 del TSJ, y el de la Dir. Administrativa del CJ 1859
-        $array2             = [62,213,1384,1718,1771,1772,1775,1822,1859,1860];
+        //$array2             = [62,213,1384,1718,1771,1772,1775,1822,1859,1860];
+    //Arreglo auxiliar, para solamente traer los ID PUESTOS de los Directores Ejecutivos, DA, DS, DGJ
+        $array2             = [101,102,103,139,141,614,844,635, 146];
+        if($destinAtt_total>0){
+            foreach($destinAtt as $destAten) {
+                if ($destAten->iid_adscripcion==1355) {
+                    $array1[]   = $destAten->iid_otra_adscripcion;
+                    $array2[]   = $destAten->iid_otro_puesto;
+                } else {
+                    $array1[]   = $destAten->iid_adscripcion;
+                }
+            }
+        }
     //Para poder usarla en la consulta de Personal Destinatario Atención
         $pers_destAt        = Personal::with('puesto','adscripcion')->whereIn('iid_adscripcion',$array1)
-                                                                    ->whereIn('iid_personal',$array2)
+                                                                  //->whereIn('iid_personal',$array2)
+                                                                    ->whereIn('iid_puesto',$array2)
                                                                     ->where('iestatus','=',1)->get();
         $data['pers_destAt']= $pers_destAt;
 
-        if($destinAtt_total>0) {
-            $nombreDestA    = Personal::with('puesto')->where('iid_adscripcion','=',$destinAtt[0]->iid_adscripcion)
-                                                      ->whereIn('iid_personal',$array2)->where('iestatus','=',1)->first();
-        } else {
-            $nombreDestA    = new Personal();
+//Datos de Destinatarios Conocimiento
+        $destinCon_total    = DestinatarioConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
+        $data['destinCon_total'] = $destinCon_total;
+        if($destinCon_total>0)
+            $destinCon      = DestinatarioConocimiento::with('adscripcion')->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
+        else
+            $destinCon      = new DestinatarioConocimiento();
+//Y convertirla en un arreglo
+        $array3 = array();
+        if($destinCon_total>0){
+            foreach($destinCon as $destCon) {
+                if ($destCon->iid_adscripcion==1355) {
+                    $array3[]   = $destCon->iid_otra_adscripcion;
+                    $array2[]   = $destCon->iid_otro_puesto;
+                } else {
+                    $array3[]   = $destCon->iid_adscripcion;
+                }
+            }
         }
-        $data['nombreDestA']= $nombreDestA;
+    //Para poder usarla en la Consulta de Personal Destinatario Conocimiento
+        $pers_destCon       = Personal::with('puesto','adscripcion')->whereIn('iid_adscripcion',$array3)
+                                                                  //->whereIn('iid_personal',$array2)
+                                                                    ->whereIn('iid_puesto',$array2)
+                                                                    ->where('iestatus','=',1)->get();
+        $data['pers_destCon']= $pers_destCon;
+
+//Datos del Remitente
         $personaRemitente   = Personal::with('adscripcion','puesto')->where('iid_personal','=',$docto->iid_personal_remitente)->where('iestatus','=',1)->first();
         $data['personaRmte']= $personaRemitente;
         $parametros         = Parametros::where('ianio','=',$anio)->first();
         $data['documento']  = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
         $data['parametros'] = $parametros;
-        $data['asignada']   = DestinatarioAtencion::with('documento','adscripcion')
-                                                  ->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
         $nombreArchivo = 'acuse-'.$docto->cfolio.'_'.$fecha.'.pdf';
 
-    //CÓDIGO PARA IMPRIMIR UNA PAPELETA POR PERSONA
+    //CÓDIGO PARA GENERAR UNA PAPELETA POR PERSONA ATENCIÓN
         for ($i=1; $i<=$destinAtt_total; $i++) {
             $data['i'] = $i;
-            $html[$i]  = view('documentos.creaPDF.acuse',$data)->render();
+            $htmlA[$i] = view('documentos.creaPDF.acusea',$data)->render();
         }
-        $htmlB = view('documentos.creaPDF.acuseb',$data)->render();
-        //CÓDIGO PARA IMPRIMIR UN ACUSE POR PERSONA
-        /*
-        for ($i=1; $i<=$destinAtt_total; $i++) {
-            $data['i'] = $i;
-            $htmlB[$i] = view('documentos.creaPDF.acuseb',$data)->render();
+    //CÓDIGO PARA GENERAR UNA PAPELTA POR PERSONA CONOCIMIENTO
+        for ($j=1; $j<=$destinCon_total; $j++) {
+            $data['j'] = $j;
+            $htmlB[$j] = view('documentos.creaPDF.acuseb',$data)->render();
         }
-        */
+        $htmlC = view('documentos.creaPDF.acusec',$data)->render();
         $mpdf  = new Mpdf(['format' => 'letter'
                             ,'margin_top'=>20
                             ,'margin_bottom'=>20
@@ -431,33 +629,31 @@ class DocumentosController extends Controller
                          ]);
         // Write some HTML code:
         $mpdf->SetDisplayMode('fullpage');
-    //CÓDIGO PARA IMPRIMIR UNA PAPELETA POR PERSONA
+    //CÓDIGO PARA IMPRIMIR UNA PAPELETA POR PERSONA ATENCIÓN
         for ($i=1; $i<=$destinAtt_total; $i++) {
-            $mpdf->writeHTML($html[$i]); //imprimes la variable $html que contiene tu HTML
+            $mpdf->writeHTML($htmlA[$i]); //imprimes la variable $html que contiene tu HTML
             $mpdf->AddPage();
         }
-        $mpdf->writeHTML($htmlB);
-        //CÓDIGO PARA IMPRIMIR UN ACUSE POR PERSONA
-        /*
-        for ($i=1; $i<=$destinAtt_total; $i++) {
+    //CÓDIGO PARA IMPRIMIR UNA PAPELETA POR PERSONA CONOCIMIENTO
+        for ($j=1; $j<=$destinCon_total; $j++) {
+            $mpdf->writeHTML($htmlB[$j]); //imprimes la variable $html que contiene tu HTML
             $mpdf->AddPage();
-            $mpdf->writeHTML($htmlB[$i]);
         }
-        */
+        $mpdf->writeHTML($htmlC);
         $mpdf->Output($nombreArchivo,'D');//Salida del documento  D
     }
 
     public function editar_documento($id_documento)
     {
         $documento          = Documento::where('iid_documento','=',$id_documento)->first();
-        $listTipoDocumento  = TipoDocumento::where('iestatus','=',1)->get();
+        $listTipoDocumento  = TipoDocumento::where('iestatus','=',1)->orderBy('cdescripcion_tipo_documento')->get();
         $listTipoAnexo      = TipoAnexo::where('iestatus','=',1)->get();
         $listEstatus        = EstatusDocumento::where('iestatus','=',1)->get();
         $listPrioridad      = PrioridadDocumento::where('iestatus','=',1)->get();
         $listSemaforo       = Semaforo::where('iestatus','=',1)->get();
     //Datos de Personal Remitente
-        $remitente          = Personal::with('puesto','adscripcion')->where('iid_personal','=',$documento->iid_personal_remitente)
-                                                                    ->where('iestatus','=',1)->first();
+        $remitente          = Personal::with('puesto','adscripcion')->where('iid_personal','=',$documento->iid_personal_remitente)->first();
+                                                                    //->where('iestatus','=',1)->first();
         $listPersonal       = Personal::with('puesto','adscripcion')->where('iestatus','=',1)->get();
         $listPuesto         = Puesto::where('iestatus','=',1)->get();
         $listAdscripcion    = Adscripcion::where('iestatus','=',1)->get();
@@ -478,18 +674,80 @@ class DocumentosController extends Controller
         }
     //Datos de Destinatario Atención
         $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
-        if($destinAtt_total>0)
-            $destinAtt      = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal')
+        $otro_pers_at       = null;
+        if($destinAtt_total>0) {
+            $destinAtt      = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal','tipodocumento','estatusdocumento')
                                                   ->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->orderBy('iid_adscripcion')->get();
-        else
+            if ($documento->iid_tipo_documento==8) {
+                $otropers_at_total = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal')
+                                                    ->where('iid_documento','=',$id_documento)
+                                                    ->whereIn('iid_adscripcion',[231,1354])
+                                                    ->where('iestatus','=',1)->count();
+                if ($otropers_at_total>0) {
+                    $otro_pers_at = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal')
+                                                    ->where('iid_documento','=',$id_documento)
+                                                    ->whereIn('iid_adscripcion',[231,1354])
+                                                    ->where('iestatus','=',1)->first();
+                } else {
+                    $otro_pers_at = null;
+                }
+            } else {
+                $otropers_at_total = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal')
+                                                    ->where('iid_documento','=',$id_documento)
+                                                    ->where('iid_adscripcion','=',1355)
+                                                    ->where('iestatus','=',1)->count();
+                if ($otropers_at_total>0) {
+                    $otro_pers_at = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal')
+                                                    ->where('iid_documento','=',$id_documento)
+                                                    ->where('iid_adscripcion','=',1355)
+                                                    ->where('iestatus','=',1)->first();
+                } else {
+                    $otro_pers_at = null;
+                }
+            }
+        } else {
             $destinAtt      = new DestinatarioAtencion();
+            $otro_pers_at   = null;
+        }
+
     //Datos de Destinatario Conocimiento
         $destinCon_total    = DestinatarioConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
-        if($destinCon_total>0)
+        $otro_pers_cn       = null;
+        if($destinCon_total>0) {
             $destinCon      = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
                                                   ->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->orderBy('iid_adscripcion')->get();
-        else
+            if ($documento->iid_tipo_documento==8) {
+                $otropers_cn_total = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
+                                                        ->where('iid_documento','=',$id_documento)
+                                                        ->whereIn('iid_adscripcion',[231,1354])
+                                                        ->where('iestatus','=',1)->count();
+                if ($otropers_cn_total>0) {
+                    $otro_pers_cn = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
+                                                        ->where('iid_documento','=',$id_documento)
+                                                        ->whereIn('iid_adscripcion',[231,1354])
+                                                        ->where('iestatus','=',1)->first();
+                } else {
+                    $otro_pers_cn = null;
+                }
+            } else {
+                $otropers_cn_total = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
+                                                        ->where('iid_documento','=',$id_documento)
+                                                        ->where('iid_adscripcion','=',1355)
+                                                        ->where('iestatus','=',1)->count();
+                if ($otropers_cn_total>0) {
+                    $otro_pers_cn = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
+                                                        ->where('iid_documento','=',$id_documento)
+                                                        ->where('iid_adscripcion','=',1355)
+                                                        ->where('iestatus','=',1)->first();
+                } else {
+                    $otro_pers_cn = null;
+                }
+            }
+        } else {
             $destinCon      = new DestinatarioConocimiento();
+            $otro_pers_cn   = null;
+        }
+
     //Folio(s) Relacionado(s)
         $folsRels_total     = FolioRelacionado::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
         if ($folsRels_total>0){
@@ -509,7 +767,7 @@ class DocumentosController extends Controller
         $noeditar           = '';
     //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listSemaforo','remitente','listPersonal','listPuesto','listAdscripcion','listTipoArea','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_conoc_total','pers_conoc','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','listafolsRels','docs_rels','noeditar','nuevo_registro'));
+        return view('documentos.editar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listSemaforo','remitente','listPersonal','listPuesto','listAdscripcion','listTipoArea','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_conoc_total','pers_conoc','destinAtt','destinAtt_total','otro_pers_at','destinCon','destinCon_total','otro_pers_cn','folsRels_total','listafolsRels','docs_rels','noeditar','nuevo_registro'));
     }
 
     public function actualizar_documento(Request $request)
@@ -522,6 +780,7 @@ class DocumentosController extends Controller
         $documento->dfecha_documento            = $request->fecha_documento;
         $documento->iid_tipo_documento          = $request->tipo_documento;
         $documento->iid_tipo_anexo              = $request->tipo_anexo;
+        $documento->cotro_tipo_anexo            = $request->otro_tipo_anexo;
         $documento->iid_personal_remitente      = $request->idRemitente;
         $documento->iid_estatus_documento       = $request->estatus_documento;
         $documento->iid_prioridad_documento     = $request->prioridad_documento;
@@ -530,6 +789,7 @@ class DocumentosController extends Controller
         $documento->iid_importancia_contenido   = $request->importancia_contenido;
         $documento->iid_tema                    = $request->tema;
         $documento->iid_tipo_asunto             = $request->tipo_asunto;
+        $documento->cotro_tipo_asunto           = $request->otro_tipo_asunto;
         $documento->iid_instruccion             = $request->instruccion;
         $documento->dfecha_termino              = $request->fecha_termino;
         $documento->casunto                     = $request->asunto;
@@ -573,10 +833,12 @@ class DocumentosController extends Controller
         }
         
         //Actualizar Destinatarios para Atención
+        /*
         if($request->atencion2==='on')
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);    //OM
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 0);
+        */
         if($request->atencion12==='on')
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '229', 1);     //DEP
         else
@@ -609,6 +871,10 @@ class DocumentosController extends Controller
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 1);    //DA CJPJCD
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 0);
+        if($request->atencion21==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1208', 1);    //DGJ
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1208', 0);
         if($request->atencion999==='on')
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1355', 1);    //OTRA
         else
@@ -621,12 +887,22 @@ class DocumentosController extends Controller
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);    //OM
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 0);
+        if($request->atencion_da==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 1);  //DA
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 0);
+        if($request->atencion_derh==='on')
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 1);  //DERH
+        else
+            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 0);
 
         //Actualizar Destinatarios para Conocimiento
+        /*
         if($request->conoc2==='on')
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1027', 1);   //OM
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1027', 0);
+        */
         if($request->conoc12==='on')
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '229', 1);    //DEP
         else
@@ -659,12 +935,18 @@ class DocumentosController extends Controller
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1354', 1);   //DA CJPJCD
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1354', 0);
+        if($request->conoc21==='on')
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1208', 1);   //DGJ
+        else
+            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1208', 0);
         if($request->conoc999==='on')
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1355', 1);   //OTRA
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1355', 0);
 
-        return redirect()->route('documentos.index')
+        //return redirect()->route('documentos.index')
+                         //->with('success','Documento actualizado satisfactoriamente');
+        return redirect()->route('documentos.editar',$idDocumento)
                          ->with('success','Documento actualizado satisfactoriamente');
     }
 
@@ -756,31 +1038,6 @@ class DocumentosController extends Controller
 
         return redirect()->route('documentos.index',$request->id_documento)
                          ->with('success','Documento '.$operacion.' satisfactoriamente');
-    }
-
-    public function reporte_estadistico()
-    {
-        setlocale(LC_TIME, "spanish");  //FECHA EN ESPANIOL
-        $fecha              = date('Y-m-d');
-        $data['fecha']      = $fecha;
-        $anio               = date('Y');
-        $data['anio']       = $anio;
-        $parametros         = Parametros::where('ianio','=',$anio)->first();
-        $data['parametros'] = $parametros;
-        $nombreArchivo = 'estadistico_'.$fecha.'.pdf';
-
-        $html  = view('documentos.creaPDF.estadistico',$data)->render();
-
-        $mpdf  = new Mpdf(['format' => 'letter'
-                            ,'margin_top'=>20
-                            ,'margin_bottom'=>20
-                            ,'margin_left'=>20
-                            ,'margin_right'=>20
-                         ]);
-        // Write some HTML code:
-        $mpdf->SetDisplayMode('fullpage');
-        $mpdf->writeHTML($html); //imprimes la variable $html que contiene tu HTML
-        $mpdf->Output($nombreArchivo,'D');//Salida del documento  D
     }
 
 //Completar folios a 5 dígitos con ceros a la izquierda

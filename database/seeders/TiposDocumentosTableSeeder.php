@@ -24,5 +24,10 @@ class TiposDocumentosTableSeeder extends Seeder
         DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'NOTA INFORMATIVA','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'COPIA DE CONOCIMIENTO','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
         DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'RECURSOS HUMANOS','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'ACUERDO FÍSICO','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'ACUERDO COMT','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'ACUERDO CONSOLIDADO','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'ACUERDO ADMVO','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('tctipos_documentos')->insert(['cdescripcion_tipo_documento'=>'ACUERDO AMP','iestatus'=>'1','iid_usuario'=>1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]);
     }
 }

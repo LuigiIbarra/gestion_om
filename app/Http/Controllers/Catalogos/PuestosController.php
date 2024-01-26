@@ -25,9 +25,9 @@ class PuestosController extends Controller
     {
         $puesto = $request->puesto;
         if ($puesto != "") {
-            $data['puestos'] = Puesto::where('cdescripcion_puesto','like','%'.$puesto.'%')->where('iestatus','=',1)->get();
+            $data['puestos'] = Puesto::where('cdescripcion_puesto','like','%'.$puesto.'%')->where('iestatus','=',1)->orderBy('cdescripcion_puesto')->get();
         } else {
-            $data['puestos'] = Puesto::where('iestatus','=',1)->get();
+            $data['puestos'] = Puesto::where('iestatus','=',1)->orderBy('cdescripcion_puesto')->latest()->take(200)->get();
         }
         return view('puestos.index',$data);
     }
@@ -42,17 +42,28 @@ class PuestosController extends Controller
 
     public function guardar_puesto(Request $request)
     {
-        $now                         = new \DateTime();
-        $puesto                      = new Puesto();
-        $jsonBefore                  = "NEW INSERT PUESTO";
-        $puesto->cdescripcion_puesto = $request->descripcion_puesto;
-        $puesto->iestatus            = 1;
-        $puesto->iid_usuario         = auth()->user()->id;
-        $puesto->save();
-        $jsonAfter                   = json_encode($puesto);
-        PuestosController::bitacora($jsonBefore,$jsonAfter);
+        if ($request->descripcion_puesto!="") {
+        //Revisar que no exista un puesto con la misma Descripción
+            $ya_hay_puesto                   = Puesto::where('cdescripcion_puesto','=',$request->descripcion_puesto)
+                                                     ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+            if ($ya_hay_puesto==0) {
+                $now                         = new \DateTime();
+                $puesto                      = new Puesto();
+                $jsonBefore                  = "NEW INSERT PUESTO";
+                $puesto->cdescripcion_puesto = $request->descripcion_puesto;
+                $puesto->iestatus            = 1;
+                $puesto->iid_usuario         = auth()->user()->id;
+                $puesto->save();
+                $jsonAfter                   = json_encode($puesto);
+                PuestosController::bitacora($jsonBefore,$jsonAfter);
+            } else {
+                return redirect()->route('puestos.nuevo')
+                         ->with('success','YA EXISTE una Puesto con este Nombre Guardado Previamente. Verifique.');
+            }
+        }
 
-        return redirect()->route('puestos.index')
+        return redirect()->route('puestos.editar',$puesto->iid_puesto)
                          ->with('success','Puesto guardado satisfactoriamente');
     }
 
@@ -108,5 +119,25 @@ class PuestosController extends Controller
         $bitacora->cjson_despues = $jsonAfter;
         $bitacora->iid_usuario   = auth()->user()->id;
         $bitacora->save();
+    }
+
+    public static function buscaPuestos(Request $request) {
+        $bp             = $request->bp;
+        $listaPstos     = Puesto::where('cdescripcion_puesto','like','%'.$bp.'%')->where('iestatus','=',1)->get();
+        if(!$listaPstos->isEmpty()){
+            return response()->json(
+                [
+                    'listaPstos' => $listaPstos,
+                    'exito' => 1
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    'listaPstos' => null,
+                    'exito' => 0
+                ]
+            );
+        }
     }
 }

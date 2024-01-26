@@ -16,6 +16,9 @@
         <input type="hidden" id="newFolioDup"    name="newFolioDup"    value="1"/>
         <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>
         <input type="hidden" id="semaforoRojo"   name="semaforoRojo"   value="0"/>
+        <input type="hidden" name="idOtroPersonal" id="idOtroPersonal" value="">
+        <input type="hidden" name="idOtroPuesto"   id="idOtroPuesto"   value="">
+        <input type="hidden" name="idOtraAdscrip"  id="idOtraAdscrip"  value="">
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -41,10 +44,13 @@
                 </button>
             </div>
             <div class="col-6">
-                <button type="button" class="btn btn-primary" onClick="history.back()">
-                    <img src="{{ asset('bootstrap-icons-1.5.0/x-lg.svg') }}" width="18" height="18">
-                    <span>&nbsp;Cerrar</span>
-                </button>
+                <a href="{{ url('/documentos/index') }}">
+                <!--<button type="button" class="btn btn-primary" onClick="history.back()">-->
+                    <button type="button" class="btn btn-primary">
+                        <img src="{{ asset('bootstrap-icons-1.5.0/x-lg.svg') }}" width="18" height="18">
+                        <span>&nbsp;Cerrar</span>
+                    </button>
+                </a>
             </div>
         </div>
     </form>   

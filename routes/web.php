@@ -7,6 +7,7 @@ use App\Http\Controllers\Gestion\DestinatarioAtencionController;
 use App\Http\Controllers\Gestion\DestinatarioConocimientoController;
 use App\Http\Controllers\Gestion\FolioRelacionadoController;
 use App\Http\Controllers\Gestion\PersonalConocimientoController;
+use App\Http\Controllers\Gestion\ReportesController;
 use App\Http\Controllers\Catalogos\PuestosController;
 use App\Http\Controllers\Catalogos\AdscripcionesController;
 use App\Http\Controllers\Catalogos\PersonalController;
@@ -39,12 +40,21 @@ Route::get('documentos/editar/{id_documento}',      [DocumentosController::class
 Route::post('documentos/actualizar',                [DocumentosController::class, 'actualizar_documento']);
 Route::get('documentos/inhabilitar/{id_documento}', [DocumentosController::class, 'confirmainhabilitar_documento']);
 Route::post('documentos/inhabilitar',               [DocumentosController::class, 'inhabilitar_documento']);
-Route::get('documentos/estadistico',                [DocumentosController::class, 'reporte_estadistico']);
 Route::post('buscaDoctoDuplicado',                  [DocumentosController::class, 'buscaDoctoDuplicado']);
 //Ruta de Folios Duplicados
 Route::post('buscaFolioDuplicado',                  [DocumentosController::class, 'buscaFolioDuplicado']);
 //Ruta para Completar Folios a 5 dígitos con ceros a la izquierda
-Route::get('documentos/completar',                 [DocumentosController::class, 'completarFolios']);
+Route::get('documentos/completar',                  [DocumentosController::class, 'completarFolios']);
+
+//Rutas de Reportes
+Route::get('reportes/param_estadistico',            [ReportesController::class, 'param_estadistico']);
+Route::get('reportes/estadistico',                  [ReportesController::class, 'reporte_estadistico']);
+Route::get('reportes/param_sireo',                  [ReportesController::class, 'param_sireo']);
+Route::get('reportes/estadistico_sireo',            [ReportesController::class, 'reporte_sireo']);
+Route::get('reportes/param_consulta',               [ReportesController::class, 'param_consulta']);
+Route::get('reportes/consulta_estadistica',         [ReportesController::class, 'consulta_estadistica']);
+Route::get('reportes/param_pendientes',             [ReportesController::class, 'param_pendientes']);
+Route::get('reportes/consulta_pendientes',          [ReportesController::class, 'consulta_pendientes']);
 
 //Rutas de Folios Relacionados
 Route::get('folios/nuevo/{id_documento}',           [FolioRelacionadoController::class, 'nuevo_folio']);
@@ -69,27 +79,32 @@ Route::post('destconoc/seguimiento',                [DestinatarioConocimientoCon
 
 //Rutas de Puestos
 Route::get('puestos/index',                         [PuestosController::class, 'index'])->name('puestos.index');
-Route::get('puestos/nuevo',                         [PuestosController::class, 'nuevo_puesto']);
+Route::get('puestos/nuevo',                         [PuestosController::class, 'nuevo_puesto'])->name('puestos.nuevo');
 Route::post('puestos/guardar',                      [PuestosController::class, 'guardar_puesto']);
-Route::get('puestos/editar/{id_puesto}',            [PuestosController::class, 'editar_puesto']);
+Route::get('puestos/editar/{id_puesto}',            [PuestosController::class, 'editar_puesto'])->name('puestos.editar');
 Route::post('puestos/actualizar',                   [PuestosController::class, 'actualizar_puesto']);
 Route::get('puestos/inhabilitar/{id_puesto}',       [PuestosController::class, 'confirmainhabilitar_puesto']);
+Route::post('buscaPuestos',                         [PuestosController::class, 'buscaPuestos']);
 
 //Rutas de Adscripciones
 Route::get('adscripciones/index',                   [AdscripcionesController::class, 'index'])->name('adscripciones.index');
-Route::get('adscripciones/nueva',                   [AdscripcionesController::class, 'nueva_adscripcion']);
+Route::get('adscripciones/nueva',                   [AdscripcionesController::class, 'nueva_adscripcion'])->name('adscripciones.nueva');
 Route::post('adscripciones/guardar',                [AdscripcionesController::class, 'guardar_adscripcion']);
-Route::get('adscripciones/editar/{id_adsc}',        [AdscripcionesController::class, 'editar_adscripcion']);
+Route::get('adscripciones/editar/{id_adsc}',        [AdscripcionesController::class, 'editar_adscripcion'])->name('adscripciones.editar');
 Route::post('adscripciones/actualizar',             [AdscripcionesController::class, 'actualizar_adscripcion']);
 Route::get('adscripciones/inhabilitar/{id_adsc}',   [AdscripcionesController::class, 'confirmainhabilitar_adscripcion']);
 
 //Rutas de Personal
 Route::get('personal/index',                        [PersonalController::class, 'index'])->name('personal.index');
-Route::get('personal/nuevo',                        [PersonalController::class, 'nuevo_personal']);
+Route::get('personal/nuevo',                        [PersonalController::class, 'nuevo_personal'])->name('personal.nuevo');
 Route::post('personal/guardar',                     [PersonalController::class, 'guardar_personal']);
-Route::get('personal/editar/{id_personal}',         [PersonalController::class, 'editar_personal']);
+//CORRECCIÓN DE DATOS
+Route::get('personal/editar/{id_personal}',         [PersonalController::class, 'editar_personal'])->name('personal.editar');
 Route::post('personal/actualizar',                  [PersonalController::class, 'actualizar_personal']);
+//ACTUALIZAR PUESTO Y ADSCRIPCIÓN, CREANDO UN NUEVO REGISTRO.
 Route::get('personal/actualizar/{id_personal}',     [PersonalController::class, 'actualizar_personal_pstoads']);
+Route::post('personal/act_psto_adsc',               [PersonalController::class, 'actualizar_psto_adsc']);
+//BORRAR / RECUPERAR
 Route::get('personal/inhabilitar/{id_personal}',    [PersonalController::class, 'confirmainhabilitar_personal']);
 Route::post('buscaPuestoAdscrip',                   [PersonalController::class, 'buscaPuestoAdscrip']);
 Route::post('actualizaPuestoAdscrip',               [PersonalController::class, 'actualizaPuestoAdscrip']);

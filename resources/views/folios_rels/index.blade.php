@@ -20,7 +20,7 @@
           <tbody>
             @foreach($docs_rels as $indice=>$folio_rel)
                 <tr>
-                    <td class="text-center">{{ $folio_rel['cfolio'].'BIS' }}</td>
+                    <td class="text-center">{{ $folio_rel['cfolio'] }}</td>
                     <td class="text-center">{{ $folio_rel['dfecha_recepcion'] }}</td>
                     <td class="text-center">{{ $folio_rel['cnumero_documento'] }}</td>
                     <td class="text-center">{{ $folio_rel['dfecha_termino'] }}</td>                    

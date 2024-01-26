@@ -34,9 +34,12 @@
                 </button>
             </div>
             <div class="col-6">
-                <button type="button" class="btn btn-primary" onClick="history.back()">
-                    <img src="{{ asset('bootstrap-icons-1.5.0/x-lg.svg') }}" width="18" height="18">
-                    <span>&nbsp;Cerrar</span>
+                <a href="{{ url('/personal/index') }}">
+                    <!--<button type="button" class="btn btn-primary" onClick="history.back()">-->
+                    <button type="button" class="btn btn-primary">
+                        <img src="{{ asset('bootstrap-icons-1.5.0/x-lg.svg') }}" width="18" height="18">
+                        <span>&nbsp;Cerrar</span>
+                    </button>
                 </button>
             </div>
         </div>

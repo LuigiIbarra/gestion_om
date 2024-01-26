@@ -166,6 +166,21 @@ class DestinatarioConocimientoController extends Controller
                          ->with('success','Seguimiento Conocimiento guardado satisfactoriamente.');
     }
 
+    public function guarda_otra_persona(string $idDocumento, string $otro_puesto_ac, string $otra_adscripcion_ac, string $otro_personal_ac){
+        $destinatario_conocimiento                      = new DestinatarioConocimiento();
+        $jsonBefore                                     = "NEW INSERT ADSCRIPCION_CONOCIMIENTO";
+        $destinatario_conocimiento->iid_documento       = $idDocumento;
+        $destinatario_conocimiento->iid_adscripcion     = 1355;
+        $destinatario_conocimiento->iid_otro_personal   = $otro_personal_ac;
+        $destinatario_conocimiento->iid_otro_puesto     = $otro_puesto_ac;
+        $destinatario_conocimiento->iid_otra_adscripcion= $otra_adscripcion_ac;
+        $destinatario_conocimiento->iestatus            = 1;
+        $destinatario_conocimiento->iid_usuario         = auth()->user()->id;
+        $destinatario_conocimiento->save();
+        $jsonAfter                                      = json_encode($destinatario_conocimiento);
+        DestinatarioConocimientoController::bitacora($jsonBefore,$jsonAfter);
+    }
+
     public static function bitacora(string $jsonBefore,string $jsonAfter){
         $bitacora = new Bitacora();
         $bitacora->cjson_antes   = ($jsonBefore==null ? 'NEW INSERT': $jsonBefore);

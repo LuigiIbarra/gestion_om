@@ -18,6 +18,7 @@
                             <input type="text" name="idOtroPuesto"   id="idOtroPuesto"   value="{{ $destCn->iid_otro_puesto }}">
                             <input type="text" name="idOtraAdscrip"  id="idOtraAdscrip"  value="{{ $destCn->iid_otra_adscripcion }}">
                         </div>
+                    <!--
                         <div class="row">
                             <div class="col-6" id="divbuscarotrap">
                                 <label for="busca_otro_nombre" class="col-form-label text-md-right">Busca Nombre:</label>
@@ -125,6 +126,7 @@
                         <center><div id="validaOtroPersonal"></div></center>
                         <hr>
                         <label><b>Seguimiento</b></label>
+                    -->
                         @include('documentos.datos_modal_conocimiento')
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

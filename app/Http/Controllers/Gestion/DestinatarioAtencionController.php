@@ -50,7 +50,7 @@ class DestinatarioAtencionController extends Controller
     //Sí el estatus es igual la checked, no se actualiza el registro
             if($destinatario_atencion->iestatus==$checked)
                 return;
-            $jsonBefore                         = json_encode($destinatario_atencion);                                                      
+            $jsonBefore                         = "ACTUALIZA ADSCRIPCIÓN DE DESTINATARIO ATENCIÓN ".json_encode($destinatario_atencion);
         } else {
     //No hay y el checked es 0, no guardamos registro
             if($checked==0)
@@ -71,7 +71,7 @@ class DestinatarioAtencionController extends Controller
     //Actualizar SEGUIMIENTO Destinatarios para Atención
     public function seguimiento(Request $request){
         $destinatario_atencion                          = DestinatarioAtencion::where('iid_destinatario_atencion','=',$request->id_dest_at)->first();
-        $jsonBefore                                     = json_encode($destinatario_atencion);
+        $jsonBefore                                     = "SEGUIMIENTO DESTINATARIO ATENCIÓN ".json_encode($destinatario_atencion);
         $destinatario_atencion->iid_documento           = $request->id_docto;
         $destinatario_atencion->iid_adscripcion         = $request->id_area;
         $destinatario_atencion->iid_otro_personal       = $request->idOtroPersonal;
@@ -173,6 +173,20 @@ class DestinatarioAtencionController extends Controller
         $jsonBefore                                 = "NEW INSERT ADSCRIPCION_ATENCION";
         $destinatario_atencion->iid_documento       = $idDocumento;
         $destinatario_atencion->iid_adscripcion     = 1355;
+        $destinatario_atencion->iid_otro_personal   = $otro_personal_ac;
+        $destinatario_atencion->iid_otro_puesto     = $otro_puesto_ac;
+        $destinatario_atencion->iid_otra_adscripcion= $otra_adscripcion_ac;
+        $destinatario_atencion->iestatus            = 1;
+        $destinatario_atencion->iid_usuario         = auth()->user()->id;
+        $destinatario_atencion->save();
+        $jsonAfter                                  = json_encode($destinatario_atencion);
+        DestinatarioAtencionController::bitacora($jsonBefore,$jsonAfter);
+    }
+
+    public function actualiza_otra_persona(string $idDocumento, string $otro_puesto_ac, string $otra_adscripcion_ac, string $otro_personal_ac){
+        $destinatario_atencion                      = DestinatarioAtencion::where('iid_documento','=',$idDocumento)
+                                                                          ->where('iid_adscripcion','=',1355)->where('iestatus','=',1)->first();
+        $jsonBefore                                 = "ACTUALIZA OTRA PERSONA DESTINATARIO ATENCIÓN ".json_encode($destinatario_atencion);
         $destinatario_atencion->iid_otro_personal   = $otro_personal_ac;
         $destinatario_atencion->iid_otro_puesto     = $otro_puesto_ac;
         $destinatario_atencion->iid_otra_adscripcion= $otra_adscripcion_ac;

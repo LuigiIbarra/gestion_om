@@ -773,7 +773,7 @@ class DocumentosController extends Controller
     public function actualizar_documento(Request $request)
     {
         $documento                              = Documento::where('iid_documento','=',$request->id_documento)->first();
-        $jsonBefore                             = json_encode($documento);
+        $jsonBefore                             = "ACTUALIZA DOCUMENTO ".json_encode($documento);
         $idDocumento                            = $request->id_documento;
         $documento->dfecha_recepcion            = $request->recepcion_documento;
         $documento->cnumero_documento           = $request->numero_documento;
@@ -875,9 +875,84 @@ class DocumentosController extends Controller
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1208', 1);    //DGJ
         else
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1208', 0);
-        if($request->atencion999==='on')
+        if($request->atencion999==='on') {
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1355', 1);    //OTRA
-        else
+    //Guardar OTRO Personal que ya Existe en el Catálogo
+            if($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="")
+                DestinatarioAtencionController::actualiza_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
+
+    //GUARDAR OTRO PERSONAL NUEVO, CON PUESTO NUEVO/YA EXISTE Y ADSCRIPCIÓN NUEVA/YA EXISTE
+    //Guardar Nuevo Puesto
+            if($request->otra_desc_puesto_ac!=""){
+        //Revisar que no exista un puesto con la misma Descripción
+                $ya_hay_puesto                                   = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto_ac)
+                                                                     ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_puesto==0) {
+                    $nuevo_puesto                                = new Puesto();
+                    $jsonBeforeNvoPuesto                         = "NEW INSERT PUESTO";
+                    $nuevo_puesto->cdescripcion_puesto           = $request->otra_desc_puesto_ac;
+                    $nuevo_puesto->iestatus                      = 1;
+                    $nuevo_puesto->iid_usuario                   = auth()->user()->id;
+                    $nuevo_puesto->save();
+                    $jsonAfterNvoPuesto                          = json_encode($nuevo_puesto);
+                    PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
+                }
+            }
+    //Guardar Nueva Adscripción
+          //if($request->otra_nva_adscripcion_ac=="" && $request->otra_desc_adsc_ac!=""){
+            if($request->otra_desc_adsc_ac!=""){
+        //Revisar que no exista una adscripción con la misma Descripción
+                $ya_hay_adsc                                     = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc_ac)
+                                                                              ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_adsc==0) {
+                    $nueva_adscripcion                           = new Adscripcion();
+                    $jsonBeforeOtraAdscrip                       = "NEW INSERT ADSCRIPCION";
+                    $nueva_adscripcion->cdescripcion_adscripcion = $request->otra_desc_adsc_ac;
+                    $nueva_adscripcion->iid_tipo_area            = $request->nvo_tipo_adscripcion_ac;
+                    $nueva_adscripcion->iestatus                 = 1;
+                    $nueva_adscripcion->iid_usuario              = auth()->user()->id;
+                    $nueva_adscripcion->save();
+                    $jsonAfterOtraAdscrip                        = json_encode($nueva_adscripcion);
+                    AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+                }
+            }
+    //Guardar Nuevo Personal
+            if($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
+        //Revisar que no exista una persona con el mismo Nombre y Apellidos
+                $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
+                                                                       ->where('cpaterno_personal','=',$request->otro_paterno_ac)
+                                                                       ->where('cmaterno_personal','=',$request->otro_materno_ac)
+                                                                       ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_pers==0) {
+                    $nuevo_personal                              = new Personal();
+                    $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
+                    $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
+                    $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
+                    $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
+                //GUARDAR CLAVE DE PUESTO
+                  //if($request->otro_nvo_puesto_ac=="" && $request->otra_desc_puesto_ac!="")
+                    if($request->otra_desc_puesto_ac!="" && $ya_hay_puesto==0)
+                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
+                    elseif ($request->otro_nvo_puesto_ac!="")
+                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;   //ID PUESTO EXISTENTE
+                //GUARDAR CLAVE DE ADSCRIPCION
+                  //if($request->otra_nva_adscripcion_ac=="" && $request->otra_desc_adsc_ac!="")
+                    if($request->otra_desc_adsc_ac!="" && $ya_hay_adsc==0)
+                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
+                    elseif ($request->otra_nva_adscripcion_ac!="")
+                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;      //ID ADSCRIP. EXISTENTE
+                    $nuevo_personal->iestatus                    = 1;
+                    $nuevo_personal->iid_usuario                 = auth()->user()->id;
+                    $nuevo_personal->save();
+                    $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
+                    PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
+                    DestinatarioAtencionController::actualiza_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                }
+            }
+        } else 
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1355', 0);
         if($request->atencion_presidente==='on')
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 1);    //PRESIDENCIA
@@ -939,9 +1014,82 @@ class DocumentosController extends Controller
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1208', 1);   //DGJ
         else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1208', 0);
-        if($request->conoc999==='on')
+        if($request->conoc999==='on') {
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1355', 1);   //OTRA
-        else
+    //Guardar OTRO Personal que ya Existe en el Catálogo
+            if($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="")
+                DestinatarioConocimientoController::actualiza_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
+            
+    //Guardar Nuevo Puesto
+          //if($request->otro_nvo_puesto_ac=="" && $request->otra_desc_puesto_ac!=""){
+            if($request->otra_desc_puesto_ac!=""){
+        //Revisar que no exista un puesto con la misma Descripción
+                $ya_hay_puesto                                   = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto_ac)
+                                                                     ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_puesto==0) {
+                    $nuevo_puesto                                = new Puesto();
+                    $jsonBeforeNvoPuesto                         = "NEW INSERT PUESTO";
+                    $nuevo_puesto->cdescripcion_puesto           = $request->otra_desc_puesto_ac;
+                    $nuevo_puesto->iestatus                      = 1;
+                    $nuevo_puesto->iid_usuario                   = auth()->user()->id;
+                    $nuevo_puesto->save();
+                    $jsonAfterNvoPuesto                          = json_encode($nuevo_puesto);
+                    PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
+                }
+            }
+    //Guardar Nueva Adscripción
+          //if($request->otra_nva_adscripcion_ac=="" && $request->otra_desc_adsc_ac!=""){
+            if($request->otra_desc_adsc_ac!=""){
+        //Revisar que no exista una adscripción con la misma Descripción
+                $ya_hay_adsc                                     = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc_ac)
+                                                                              ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_adsc==0) {
+                    $nueva_adscripcion                           = new Adscripcion();
+                    $jsonBeforeOtraAdscrip                       = "NEW INSERT ADSCRIPCION";
+                    $nueva_adscripcion->cdescripcion_adscripcion = $request->otra_desc_adsc_ac;
+                    $nueva_adscripcion->iid_tipo_area            = $request->nvo_tipo_adscripcion_ac;
+                    $nueva_adscripcion->iestatus                 = 1;
+                    $nueva_adscripcion->iid_usuario              = auth()->user()->id;
+                    $nueva_adscripcion->save();
+                    $jsonAfterOtraAdscrip                        = json_encode($nueva_adscripcion);
+                    AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+                }
+            }
+    //Guardar Nuevo Personal
+            if($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
+        //Revisar que no exista una persona con el mismo Nombre y Apellidos
+                $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
+                                                                       ->where('cpaterno_personal','=',$request->otro_paterno_ac)
+                                                                       ->where('cmaterno_personal','=',$request->otro_materno_ac)
+                                                                       ->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar al catálogo
+                if ($ya_hay_pers==0) {
+                    $nuevo_personal                              = new Personal();
+                    $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
+                    $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
+                    $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
+                    $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
+                //GUARDAR CLAVE DE PUESTO
+                    if($request->otra_desc_puesto_ac!="" && $ya_hay_puesto==0)
+                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
+                    elseif ($request->otro_nvo_puesto_ac!="")
+                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;   //ID PUESTO EXISTENTE
+                //GUARDAR CLAVE DE ADSCRIPCION
+                    if($request->otra_desc_adsc_ac!="" && $ya_hay_adsc==0)
+                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
+                    elseif ($request->otra_nva_adscripcion_ac!="")
+                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;      //ID ADSCRIP. EXISTENTE
+                    $nuevo_personal->iestatus                    = 1;
+                    $nuevo_personal->iid_usuario                 = auth()->user()->id;
+                    $nuevo_personal->save();
+                    $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
+                    PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
+                    DestinatarioConocimientoController::actualiza_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                }
+            }            
+        } else
             DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1355', 0);
 
         //return redirect()->route('documentos.index')
@@ -1023,14 +1171,14 @@ class DocumentosController extends Controller
     public function inhabilitar_documento(Request $request) 
     {
         $documento               = Documento::where('iid_documento','=',$request->id_documento)->first();
-        $jsonBefore              = json_encode($documento);
         if ($documento->iestatus == 0) {
-            $operacion               = "RECUPERADO";
+            $operacion           = "RECUPERADO";
             $documento->iestatus = 1;
         } else {
-            $operacion               = "BORRADO";
+            $operacion           = "BORRADO";
             $documento->iestatus = 0;
         }
+        $jsonBefore              = "DOCUMENTO ".$operacion." ".json_encode($documento);
         $documento->iid_usuario  = auth()->user()->id;
         $documento->save();
         $jsonAfter               = json_encode($documento);

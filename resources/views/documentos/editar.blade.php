@@ -12,6 +12,20 @@
         <input type="hidden" id="idRemitente"    name="idRemitente"    value="{{ $documento->iid_personal_remitente }}"/>
         <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>
         <input type="hidden" id="editaDocto"     name="editaDocto"     value="1"/>
+        <input type="hidden" id="semaforoRojo"   name="semaforoRojo"   value="0"/>
+        @if ($otro_pers_at!=null && $destinAtt_total>0 && $otro_pers_at->iid_adscripcion==1355)
+            <input type="hidden" name="idOtroPersonal" id="idOtroPersonal" value="{{ $otro_pers_at->iid_otro_personal }}">
+            <input type="hidden" name="idOtroPuesto"   id="idOtroPuesto"   value="{{ $otro_pers_at->iid_otro_puesto }}">
+            <input type="hidden" name="idOtraAdscrip"  id="idOtraAdscrip"  value="{{ $otro_pers_at->iid_otra_adscripcion }}">
+        @elseif ($otro_pers_cn!=null && $destinCon_total>0 && $otro_pers_cn->iid_adscripcion==1355)
+            <input type="hidden" name="idOtroPersonal" id="idOtroPersonal" value="{{ $otro_pers_cn->iid_otro_personal }}">
+            <input type="hidden" name="idOtroPuesto"   id="idOtroPuesto"   value="{{ $otro_pers_cn->iid_otro_puesto }}">
+            <input type="hidden" name="idOtraAdscrip"  id="idOtraAdscrip"  value="{{ $otro_pers_cn->iid_otra_adscripcion }}">
+        @else
+            <input type="hidden" name="idOtroPersonal" id="idOtroPersonal" value="">
+            <input type="hidden" name="idOtroPuesto"   id="idOtroPuesto"   value="">
+            <input type="hidden" name="idOtraAdscrip"  id="idOtraAdscrip"  value="">
+        @endif
 
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

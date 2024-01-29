@@ -50,7 +50,7 @@ class DestinatarioConocimientoController extends Controller
     //Sí el estatus es igual la checked, no se actualiza el registro
             if($destinatario_conocimiento->iestatus==$checked)
                 return;
-            $jsonBefore                             = json_encode($destinatario_conocimiento);                                                      
+            $jsonBefore                             = "ACTUALIZA ADSCRIPCIÓN DE DESTINATARIO CONOCIMIENTO ".json_encode($destinatario_conocimiento);                                                      
         } else {
     //No hay y el checked es 0, no guardamos registro
             if($checked==0)
@@ -71,7 +71,7 @@ class DestinatarioConocimientoController extends Controller
     //Actualizar SEGUIMIENTO Destinatarios para Conocimiento
     public function seguimiento(Request $request){
         $destinatario_conocimiento                        = DestinatarioConocimiento::where('iid_destinatario_conocimiento','=',$request->id_dest_cn)->first();
-        $jsonBefore                                       = json_encode($destinatario_conocimiento);
+        $jsonBefore                                       = "SEGUIMIENTO DESTINATARIO CONOCIMIENTO ".json_encode($destinatario_conocimiento);
         $destinatario_conocimiento->iid_documento         = $request->id_docto;
         $destinatario_conocimiento->iid_adscripcion       = $request->id_area;
         $destinatario_conocimiento->iid_otro_personal     = $request->idOtroPersonal;
@@ -178,6 +178,20 @@ class DestinatarioConocimientoController extends Controller
         $destinatario_conocimiento->iid_usuario         = auth()->user()->id;
         $destinatario_conocimiento->save();
         $jsonAfter                                      = json_encode($destinatario_conocimiento);
+        DestinatarioConocimientoController::bitacora($jsonBefore,$jsonAfter);
+    }
+
+    public function actualiza_otra_persona(string $idDocumento, string $otro_puesto_ac, string $otra_adscripcion_ac, string $otro_personal_ac){
+        $destinatario_atencion                      = DestinatarioConocimiento::where('iid_documento','=',$idDocumento)
+                                                                              ->where('iid_adscripcion','=',1355)->where('iestatus','=',1)->first();
+        $jsonBefore                                 = "ACTUALIZA OTRA PERSONA DESTINATARIO CONOCIMIENTO ".json_encode($destinatario_atencion);
+        $destinatario_atencion->iid_otro_personal   = $otro_personal_ac;
+        $destinatario_atencion->iid_otro_puesto     = $otro_puesto_ac;
+        $destinatario_atencion->iid_otra_adscripcion= $otra_adscripcion_ac;
+        $destinatario_atencion->iestatus            = 1;
+        $destinatario_atencion->iid_usuario         = auth()->user()->id;
+        $destinatario_atencion->save();
+        $jsonAfter                                  = json_encode($destinatario_atencion);
         DestinatarioConocimientoController::bitacora($jsonBefore,$jsonAfter);
     }
 

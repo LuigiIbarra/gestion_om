@@ -1,6 +1,34 @@
+<!--Buscar Nombre en el Catálogo de Personal -->
+    <label><b>Buscar en el Catálogo de Personal</b></label>
+    <div class="row">
+        <div class="col-3" id="divbuscarnombrecc">
+            <label for="busca_otro_nombre" class="col-form-label text-md-right"><b>Buscar Nombre:</b></label>
+            <input type="text" onkeypress="return textonly(event);" id="busca_otro_nombre" name="busca_otro_nombre" class="form-control" value="" maxlength="100" {{ $noeditar }}/>
+        </div>
+        <div class="col-3" id="divnombre">
+            <label for="otro_nombre" class="col-form-label text-md-right">Seleccionar Nombre:</label>
+            <select class="form-control m-bot15" id="otro_nombre" name="otro_nombre" required {{ $noeditar }}>
+                <option value="0">Escriba un Nombre en Buscar Nombre...</option>
+            </select>
+        </div>
+        <div class="col-3" id="divpuesto">
+            <label for="otro_puesto" class="col-form-label text-md-right">Puesto:</label>
+            <select class="form-control m-bot15" id="otro_puesto" name="otro_puesto" {{ $noeditar }}>
+                <option value="">Escriba un Nombre en Buscar Nombre...</option>
+            </select>
+        </div>
+        <div class="col-3" id="divarea">
+            <label for="otra_adscripcion" class="col-form-label text-md-right">Adscripción:</label>
+            <select class="form-control m-bot15" id="otra_adscripcion" name="otra_adscripcion" {{ $noeditar }}>
+                <option value="">Escriba un Nombre en Buscar Nombre...</option>
+            </select>
+        </div>
+    </div>
+    <br>
+<!--Capturar nuevo Nombre (Nombre/Paterno/Materno) con Puesto/Nuevo Puesto y Adscripción/Nueva Adscripción y agregarlos a los catálogos correspondientes -->
     <div class="row">
         <div class="col" id="divnewnameac">
-            <label for="nuevo_nombre_ac" class="col-form-label text-md-right">Nuevo Nombre:</label>
+            <label for="nuevo_nombre_ac" class="col-form-label text-md-right"><b>Nuevo Nombre:</b></label>
             @if ($otro_pers_at!=null)
                 @if ($destinAtt_total>0 && $otro_pers_at->iid_adscripcion==1355)
                     @if ($otro_pers_at->otropersonal!=null)
@@ -101,7 +129,7 @@
             </select>
         </div>
         <div class="col" id="divnvootropuestoac">
-            <label for="otra_desc_puesto_ac" class="col-form-label text-md-right">Nuevo Puesto:</label>
+            <label for="otra_desc_puesto_ac" class="col-form-label text-md-right"><b>Nuevo Puesto:</b></label>
             <input type="text" id="otra_desc_puesto_ac" name="otra_desc_puesto_ac" class="form-control" data-target="#otra_desc_puesto_ac" value="" maxlength="100" />
         </div>
         <div class="col" id="divnvaadscac">
@@ -138,7 +166,7 @@
             </select>
         </div>
         <div class="col" id="divnvootraadscac">
-            <label for="otra_desc_adsc_ac" class="col-form-label text-md-right">Nuevo Área/Razón Social:</label>
+            <label for="otra_desc_adsc_ac" class="col-form-label text-md-right"><b>Nuevo Área/Razón Social:</b></label>
             <input type="text" id="otra_desc_adsc_ac" name="otra_desc_adsc_ac" class="form-control" data-target="#otra_desc_adsc_ac" value="" maxlength="100" />
         </div>
         <div class="col" id="divnvotipoadscac">

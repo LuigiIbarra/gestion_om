@@ -164,7 +164,7 @@ class DocumentosController extends Controller
             if($request->otra_desc_puesto!=""){
         //Revisar que no exista un puesto con la misma Descripción
                 $ya_hay_puesto                                   = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto)
-                                                                     ->where('iestatus','=',1)->count();
+                                                                         ->where('iestatus','=',1)->count();
         //Si no hay, entonces agregar al catálogo
                 if ($ya_hay_puesto==0) {
                     $nuevo_puesto                                = new Puesto();
@@ -175,6 +175,9 @@ class DocumentosController extends Controller
                     $nuevo_puesto->save();
                     $jsonAfterNvoPuesto                          = json_encode($nuevo_puesto);
                     PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
+                } else {
+                    $puesto_existente                            = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto)
+                                                                         ->where('iestatus','=',1)->first();
                 }
             }
     //Guardar Nueva Adscripción
@@ -194,6 +197,9 @@ class DocumentosController extends Controller
                     $nueva_adscripcion->save();
                     $jsonAfterOtraAdscrip                        = json_encode($nueva_adscripcion);
                     AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+                } else {
+                    $adscripcion_existente                       = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc)
+                                                                              ->where('iestatus','=',1)->first();
                 }
             }
     //Guardar Nuevo Personal
@@ -211,17 +217,19 @@ class DocumentosController extends Controller
                     $nuevo_personal->cpaterno_personal           = $request->otro_paterno;
                     $nuevo_personal->cmaterno_personal           = $request->otro_materno;
                 //GUARDAR CLAVE DE PUESTO
-                  //if($request->otro_nvo_puesto=="" && $request->otra_desc_puesto!="")
                     if($request->otra_desc_puesto!="" && $ya_hay_puesto==0)
-                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
+                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;       //ID PUESTO NUEVO
+                    elseif($request->otra_desc_puesto!="" && $ya_hay_puesto>=1)
+                        $nuevo_personal->iid_puesto              = $puesto_existente->iid_puesto;   //ID PUESTO EXISTENTE
                     elseif ($request->otro_nvo_puesto!="")
-                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto;   //ID PUESTO EXISTENTE
+                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto;       //ID PUESTO EXISTENTE DE LA LISTA
                 //GUARDAR CLAVE DE ADSCRIPCION
-                  //if($request->otra_nva_adscripcion=="" && $request->otra_desc_adsc!="")
                     if($request->otra_desc_adsc!="" && $ya_hay_adsc==0)
-                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
+                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion;     //ID ADSCRIP. NUEVA
+                    elseif($request->otra_desc_adsc!="" && $ya_hay_adsc>=1)
+                        $nuevo_personal->iid_adscripcion         = $adscripcion_existente->iid_adscripcion; //ID ADSCRIP. EXISTENTE
                     elseif ($request->otra_nva_adscripcion!="")
-                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion;      //ID ADSCRIP. EXISTENTE
+                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion;          //ID ADSCRIP. EXISTENTE DE LA LISTA
                     $nuevo_personal->iestatus                    = 1;
                     $nuevo_personal->iid_usuario                 = auth()->user()->id;
                     $nuevo_personal->save();
@@ -348,6 +356,9 @@ class DocumentosController extends Controller
                     $nuevo_puesto->save();
                     $jsonAfterNvoPuesto                          = json_encode($nuevo_puesto);
                     PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
+                } else {
+                    $puesto_existente_ac                         = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto_ac)
+                                                                         ->where('iestatus','=',1)->first();
                 }
             }
     //Guardar Nueva Adscripción
@@ -367,6 +378,9 @@ class DocumentosController extends Controller
                     $nueva_adscripcion->save();
                     $jsonAfterOtraAdscrip                        = json_encode($nueva_adscripcion);
                     AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+                } else {
+                    $adscripcion_existente_ac                    = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc_ac)
+                                                                              ->where('iestatus','=',1)->first();
                 }
             }
     //Guardar Nuevo Personal
@@ -384,17 +398,19 @@ class DocumentosController extends Controller
                     $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
                     $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
                 //GUARDAR CLAVE DE PUESTO
-                  //if($request->otro_nvo_puesto_ac=="" && $request->otra_desc_puesto_ac!="")
                     if($request->otra_desc_puesto_ac!="" && $ya_hay_puesto==0)
-                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
+                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;           //ID PUESTO NUEVO
+                    elseif($request->otra_desc_puesto_ac!="" && $ya_hay_puesto>=1)
+                        $nuevo_personal->iid_puesto              = $puesto_existente_ac->iid_puesto;    //ID PUESTO EXISTENTE
                     elseif ($request->otro_nvo_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;   //ID PUESTO EXISTENTE
+                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
                 //GUARDAR CLAVE DE ADSCRIPCION
-                  //if($request->otra_nva_adscripcion_ac=="" && $request->otra_desc_adsc_ac!="")
                     if($request->otra_desc_adsc_ac!="" && $ya_hay_adsc==0)
-                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
+                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion;         //ID ADSCRIP. NUEVA
+                    elseif($request->otra_desc_adsc_ac!="" && $ya_hay_adsc>=1)
+                        $nuevo_personal->iid_adscripcion         = $adscripcion_existente_ac->iid_adscripcion;  //ID ADSCRIP. EXISTENTE
                     elseif ($request->otra_nva_adscripcion_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;      //ID ADSCRIP. EXISTENTE
+                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;           //ID ADSCRIP. EXISTENTE DE LA LISTA
                     $nuevo_personal->iestatus                    = 1;
                     $nuevo_personal->iid_usuario                 = auth()->user()->id;
                     $nuevo_personal->save();
@@ -460,6 +476,9 @@ class DocumentosController extends Controller
                     $nuevo_puesto->save();
                     $jsonAfterNvoPuesto                          = json_encode($nuevo_puesto);
                     PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
+                } else {
+                    $puesto_existente_ac                         = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto_ac)
+                                                                         ->where('iestatus','=',1)->first();
                 }
             }
     //Guardar Nueva Adscripción
@@ -479,6 +498,9 @@ class DocumentosController extends Controller
                     $nueva_adscripcion->save();
                     $jsonAfterOtraAdscrip                        = json_encode($nueva_adscripcion);
                     AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+                } else {
+                    $adscripcion_existente_ac                    = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc_ac)
+                                                                              ->where('iestatus','=',1)->first();
                 }
             }
     //Guardar Nuevo Personal
@@ -497,14 +519,18 @@ class DocumentosController extends Controller
                     $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
                 //GUARDAR CLAVE DE PUESTO
                     if($request->otra_desc_puesto_ac!="" && $ya_hay_puesto==0)
-                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
+                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;           //ID PUESTO NUEVO
+                    elseif($request->otra_desc_puesto_ac!="" && $ya_hay_puesto>=1)
+                        $nuevo_personal->iid_puesto              = $puesto_existente_ac->iid_puesto;    //ID PUESTO EXISTENTE
                     elseif ($request->otro_nvo_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;   //ID PUESTO EXISTENTE
+                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
                 //GUARDAR CLAVE DE ADSCRIPCION
                     if($request->otra_desc_adsc_ac!="" && $ya_hay_adsc==0)
-                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
+                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion;         //ID ADSCRIP. NUEVA
+                    elseif($request->otra_desc_adsc_ac!="" && $ya_hay_adsc>=1)
+                        $nuevo_personal->iid_adscripcion         = $adscripcion_existente_ac->iid_adscripcion;  //ID ADSCRIP. EXISTENTE
                     elseif ($request->otra_nva_adscripcion_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;      //ID ADSCRIP. EXISTENTE
+                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;           //ID ADSCRIP. EXISTENTE DE LA LISTA
                     $nuevo_personal->iestatus                    = 1;
                     $nuevo_personal->iid_usuario                 = auth()->user()->id;
                     $nuevo_personal->save();
@@ -775,6 +801,15 @@ class DocumentosController extends Controller
         $documento                              = Documento::where('iid_documento','=',$request->id_documento)->first();
         $jsonBefore                             = "ACTUALIZA DOCUMENTO ".json_encode($documento);
         $idDocumento                            = $request->id_documento;
+    //CAPTURA MANUAL DEL FOLIO, VALIDACIONES
+        //Revisar que no exista un Documento con el mismo Folio.
+        $ya_existe_folio                        = Documento::where('cfolio','=',$request->folio_documento)->where('iestatus','=',1)->count();
+        //Si no hay, entonces agregar a Documentos con el Folio capturado.
+        if ($ya_existe_folio==0) 
+            $documento->cfolio                  = $request->folio_documento;
+        else 
+            $documento->cfolio                  = $request->folio_actual;
+    //FIN DE VALIDACIONES DE LA CAPTURA MANUAL DEL FOLIO
         $documento->dfecha_recepcion            = $request->recepcion_documento;
         $documento->cnumero_documento           = $request->numero_documento;
         $documento->dfecha_documento            = $request->fecha_documento;
@@ -897,6 +932,9 @@ class DocumentosController extends Controller
                     $nuevo_puesto->save();
                     $jsonAfterNvoPuesto                          = json_encode($nuevo_puesto);
                     PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
+                } else {
+                    $puesto_existente_ac                         = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto_ac)
+                                                                         ->where('iestatus','=',1)->first();
                 }
             }
     //Guardar Nueva Adscripción
@@ -916,6 +954,9 @@ class DocumentosController extends Controller
                     $nueva_adscripcion->save();
                     $jsonAfterOtraAdscrip                        = json_encode($nueva_adscripcion);
                     AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+                } else {
+                    $adscripcion_existente_ac                    = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc_ac)
+                                                                              ->where('iestatus','=',1)->first();
                 }
             }
     //Guardar Nuevo Personal
@@ -933,17 +974,19 @@ class DocumentosController extends Controller
                     $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
                     $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
                 //GUARDAR CLAVE DE PUESTO
-                  //if($request->otro_nvo_puesto_ac=="" && $request->otra_desc_puesto_ac!="")
                     if($request->otra_desc_puesto_ac!="" && $ya_hay_puesto==0)
-                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
+                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;           //ID PUESTO NUEVO
+                    elseif($request->otra_desc_puesto_ac!="" && $ya_hay_puesto>=1)
+                        $nuevo_personal->iid_puesto              = $puesto_existente_ac->iid_puesto;    //ID PUESTO EXISTENTE
                     elseif ($request->otro_nvo_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;   //ID PUESTO EXISTENTE
+                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
                 //GUARDAR CLAVE DE ADSCRIPCION
-                  //if($request->otra_nva_adscripcion_ac=="" && $request->otra_desc_adsc_ac!="")
                     if($request->otra_desc_adsc_ac!="" && $ya_hay_adsc==0)
-                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
+                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion;         //ID ADSCRIP. NUEVA
+                    elseif($request->otra_desc_adsc_ac!="" && $ya_hay_adsc>=1)
+                        $nuevo_personal->iid_adscripcion         = $adscripcion_existente_ac->iid_adscripcion;  //ID ADSCRIP. EXISTENTE
                     elseif ($request->otra_nva_adscripcion_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;      //ID ADSCRIP. EXISTENTE
+                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;           //ID ADSCRIP. EXISTENTE DE LA LISTA
                     $nuevo_personal->iestatus                    = 1;
                     $nuevo_personal->iid_usuario                 = auth()->user()->id;
                     $nuevo_personal->save();
@@ -1036,6 +1079,9 @@ class DocumentosController extends Controller
                     $nuevo_puesto->save();
                     $jsonAfterNvoPuesto                          = json_encode($nuevo_puesto);
                     PuestosController::bitacora($jsonBeforeNvoPuesto,$jsonAfterNvoPuesto);
+                } else {
+                    $puesto_existente_ac                         = Puesto::where('cdescripcion_puesto','=',$request->otra_desc_puesto_ac)
+                                                                         ->where('iestatus','=',1)->first();
                 }
             }
     //Guardar Nueva Adscripción
@@ -1055,6 +1101,9 @@ class DocumentosController extends Controller
                     $nueva_adscripcion->save();
                     $jsonAfterOtraAdscrip                        = json_encode($nueva_adscripcion);
                     AdscripcionesController::bitacora($jsonBeforeOtraAdscrip,$jsonAfterOtraAdscrip);
+                } else {
+                    $adscripcion_existente_ac                    = Adscripcion::where('cdescripcion_adscripcion','=',$request->otra_desc_adsc_ac)
+                                                                              ->where('iestatus','=',1)->first();
                 }
             }
     //Guardar Nuevo Personal
@@ -1073,14 +1122,18 @@ class DocumentosController extends Controller
                     $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
                 //GUARDAR CLAVE DE PUESTO
                     if($request->otra_desc_puesto_ac!="" && $ya_hay_puesto==0)
-                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;   //ID PUESTO NUEVO
+                        $nuevo_personal->iid_puesto              = $nuevo_puesto->iid_puesto;           //ID PUESTO NUEVO
+                    elseif($request->otra_desc_puesto_ac!="" && $ya_hay_puesto>=1)
+                        $nuevo_personal->iid_puesto              = $puesto_existente_ac->iid_puesto;    //ID PUESTO EXISTENTE
                     elseif ($request->otro_nvo_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;   //ID PUESTO EXISTENTE
+                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
                 //GUARDAR CLAVE DE ADSCRIPCION
                     if($request->otra_desc_adsc_ac!="" && $ya_hay_adsc==0)
-                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion; //ID ADSCRIP. NUEVA
+                        $nuevo_personal->iid_adscripcion         = $nueva_adscripcion->iid_adscripcion;         //ID ADSCRIP. NUEVA
+                    elseif($request->otra_desc_adsc_ac!="" && $ya_hay_adsc>=1)
+                        $nuevo_personal->iid_adscripcion         = $adscripcion_existente_ac->iid_adscripcion;  //ID ADSCRIP. EXISTENTE
                     elseif ($request->otra_nva_adscripcion_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;      //ID ADSCRIP. EXISTENTE
+                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;           //ID ADSCRIP. EXISTENTE DE LA LISTA
                     $nuevo_personal->iestatus                    = 1;
                     $nuevo_personal->iid_usuario                 = auth()->user()->id;
                     $nuevo_personal->save();

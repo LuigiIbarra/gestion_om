@@ -13,6 +13,7 @@
         <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>
         <input type="hidden" id="editaDocto"     name="editaDocto"     value="1"/>
         <input type="hidden" id="semaforoRojo"   name="semaforoRojo"   value="0"/>
+        <input type="hidden" id="folio_actual"   name="folio_actual"   value="{{ $documento->cfolio }}"/>
         @if ($otro_pers_at!=null && $destinAtt_total>0 && $otro_pers_at->iid_adscripcion==1355)
             <input type="hidden" name="idOtroPersonal" id="idOtroPersonal" value="{{ $otro_pers_at->iid_otro_personal }}">
             <input type="hidden" name="idOtroPuesto"   id="idOtroPuesto"   value="{{ $otro_pers_at->iid_otro_puesto }}">

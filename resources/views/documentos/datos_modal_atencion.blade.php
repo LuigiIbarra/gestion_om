@@ -39,7 +39,7 @@
                         <div class="row">
                             <div class="col" id="divsegmnt">
                                 <label for="seguimiento" class="col-form-label text-md-right">Seguimiento:</label>
-                                <textarea id="seguimiento" name="seguimiento" class="form-control" data-target="#seguimiento" {{ $noeditar }}>{{ $destAt->crespuesta }}</textarea>
+                                <textarea id="seguimiento" name="seguimiento" class="form-control" data-target="#seguimiento" maxlength="500" {{ $noeditar }}>{{ $destAt->crespuesta }}</textarea>
                             </div>
                         </div>
                         <div class="row">

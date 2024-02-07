@@ -29,7 +29,7 @@ function textnumber(e){
         if(code == 37 || code == 39) return true;
        
             var caracter = String.fromCharCode(code);
-            var valores = /^[\ba-zA-ZñÑáéíóúÁÉÍÓÚ0123456789-\s]$/;
+            var valores = /^[\ba-zA-ZñÑáéíóúÁÉÍÓÚ0123456789/-\s]$/;
     if (valores.test(caracter)) return true;
             return false;
 }

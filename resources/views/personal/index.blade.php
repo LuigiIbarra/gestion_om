@@ -63,8 +63,16 @@
                     <td class="text-center">{{ $persona['cnombre_personal'] }}</td>
                     <td class="text-center">{{ $persona['cpaterno_personal'] }}</td>
                     <td class="text-center">{{ $persona['cmaterno_personal'] }}</td>
-                    <td class="text-center">{{ $persona['puesto']['cdescripcion_puesto'] }}</td>
-                    <td class="text-center">{{ $persona['adscripcion']['cdescripcion_adscripcion'] }}</td>
+                    @if ($persona['puesto']!=null)
+                        <td class="text-center">{{ $persona['puesto']['cdescripcion_puesto'] }}</td>
+                    @else
+                        <td class="text-center"></td>
+                    @endif
+                    @if ($persona['adscripcion']!=null)
+                        <td class="text-center">{{ $persona['adscripcion']['cdescripcion_adscripcion'] }}</td>
+                    @else
+                        <td class="text-center"></td>
+                    @endif
                     <td class="text-center">{{ $persona['ccorreo_electronico'] }}</td>
                     <td class="text-center col-actions">
                     @if ($persona->iestatus == 1)

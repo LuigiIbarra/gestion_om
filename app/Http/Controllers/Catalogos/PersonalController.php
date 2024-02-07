@@ -27,32 +27,15 @@ class PersonalController extends Controller
     {
         $nombre = $request->nombre;
         if ($nombre != "") {
-        //NUEVO MÉTODO DE BÚSQUEDA
-        //Si no hay espacios, se trata de un nombre
-            if (strpos($nombre, " ") == 0 && strripos($nombre, " ") == 0) {
-                $data['personal']   = Personal::with('puesto','adscripcion')->where('iestatus','=',1)
-                                          ->where('cnombre_personal','like','%'.$nombre.'%')
-                                          ->get();
-        //Si hay un espacio, se trata de un nombre y un paterno, o de dos nombres
-            } elseif (strpos($nombre, " ") == strripos($nombre, " ")) {
-                $data['personal']   = Personal::with('puesto','adscripcion')->where('iestatus','=',1)
-                                          ->where('cnombre_personal','like','%'.mb_strimwidth($nombre,0,strpos($nombre, " ")).'%')
-                                          ->where('cpaterno_personal','like','%'.mb_strimwidth($nombre,strpos($nombre, " ")+1,strlen($nombre)).'%')
-                                          ->orWhere('cnombre_personal','like','%'.$nombre.'%')
-                                          ->get();
-        //Si hay dos espacios, se trata de un nombre y un paterno
-            } elseif (strpos($nombre, " ") > 0 && (strripos($nombre, " ") > strpos($nombre, " "))) {
-                $data['personal']   = Personal::with('puesto','adscripcion')->where('iestatus','=',1)
-                                          ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($nombre,                       0,strpos($nombre, " ")).'%')
-                                          ->where('cpaterno_personal'  ,'like','%'.mb_strimwidth($nombre,  strpos($nombre, " ")+1,strlen($nombre)).'%')
-                                          ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($nombre,                       0,strripos($nombre, " ")).'%')
-                                          ->orWhere('cpaterno_personal','like','%'.mb_strimwidth($nombre,strripos($nombre, " ")+1,strlen($nombre)).'%')
-                                          ->get();
-            }
-
-            //$data['personal'] = Personal::with('puesto','adscripcion')->where('cnombre_personal','like','%'.$nombre.'%')->where('iestatus','=',1)->orderBy('cnombre_personal')->get();
+            $data['personal'] = PersonalController::algoritmo_busca_persona($nombre);
         } else {
-            $data['personal'] = Personal::with('puesto','adscripcion')->where('iestatus','=',1)->orderBy('cnombre_personal')->latest()->take(200)->get();
+            $data['personal'] = DB::table('tcpersonal as pers')
+                                  ->Join('tcpuestos as pst','pers.iid_puesto','=','pst.iid_puesto')
+                                  ->Join('tcadscripciones as adsc','pers.iid_adscripcion','=','adsc.iid_adscripcion')
+                                  ->select('pers.*','pst.*','adsc.*')
+                                  ->where('pers.iestatus','=',1)
+                                  ->orderBy('pers.cnombre_personal')->take(200)->get();
+                                  //->latest()->take(200)->get();
         }
         return view('personal.index',$data);
     }
@@ -346,6 +329,64 @@ class PersonalController extends Controller
         return view('personal.inhabilitar',compact('personal','listPuestos','listAdscrips','noeditar'));
     }
 
+//NUEVO MÉTODO DE BÚSQUEDA
+    public static function algoritmo_busca_persona(string $nombre) {
+    //Si no hay espacios, se trata de un nombre
+        if (strpos($nombre, " ") == 0 && strripos($nombre, " ") == 0) {
+            /*
+            $data['personal']   = Personal::with('puesto','adscripcion')->where('iestatus','=',1)
+                                      ->where('cnombre_personal','like','%'.$nombre.'%')
+                                      ->get();
+                                      */
+            $personal           = DB::table('tcpersonal as pers')
+                                    ->Join('tcpuestos as pst','pers.iid_puesto','=','pst.iid_puesto')
+                                    ->Join('tcadscripciones as adsc','pers.iid_adscripcion','=','adsc.iid_adscripcion')
+                                    ->select('pers.*','pst.*','adsc.*')
+                                    ->where('pers.iestatus','=',1)
+                                    ->where('pers.cnombre_personal','like','%'.$nombre.'%')
+                                    ->get();
+    //Si hay un espacio, se trata de un nombre y un paterno, o de dos nombres
+        } elseif (strpos($nombre, " ") == strripos($nombre, " ")) {
+            /*
+            $data['personal']   = Personal::with('puesto','adscripcion')->where('iestatus','=',1)
+                                      ->where('cnombre_personal','like','%'.mb_strimwidth($nombre,0,strpos($nombre, " ")).'%')
+                                      ->where('cpaterno_personal','like','%'.mb_strimwidth($nombre,strpos($nombre, " ")+1,strlen($nombre)).'%')
+                                      ->orWhere('cnombre_personal','like','%'.$nombre.'%')
+                                      ->get();
+                                      */
+            $personal           = DB::table('tcpersonal as pers')
+                                    ->Join('tcpuestos as pst','pers.iid_puesto','=','pst.iid_puesto')
+                                    ->Join('tcadscripciones as adsc','pers.iid_adscripcion','=','adsc.iid_adscripcion')
+                                    ->select('pers.*','pst.*','adsc.*')
+                                    ->where('pers.iestatus','=',1)
+                                    ->where('pers.cnombre_personal','like','%'.mb_strimwidth($nombre,0,strpos($nombre, " ")).'%')
+                                    ->where('pers.cpaterno_personal','like','%'.mb_strimwidth($nombre,strpos($nombre, " ")+1,strlen($nombre)).'%')
+                                    ->orWhere('pers.cnombre_personal','like','%'.$nombre.'%')
+                                    ->get();
+    //Si hay dos espacios, se trata de un nombre y un paterno
+        } elseif (strpos($nombre, " ") > 0 && (strripos($nombre, " ") > strpos($nombre, " "))) {
+            /*
+            $data['personal']   = Personal::with('puesto','adscripcion')->where('iestatus','=',1)
+                                      ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($nombre,                       0,strpos($nombre, " ")).'%')
+                                      ->where('cpaterno_personal'  ,'like','%'.mb_strimwidth($nombre,  strpos($nombre, " ")+1,strlen($nombre)).'%')
+                                      ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($nombre,                       0,strripos($nombre, " ")).'%')
+                                      ->orWhere('cpaterno_personal','like','%'.mb_strimwidth($nombre,strripos($nombre, " ")+1,strlen($nombre)).'%')
+                                      ->get();
+                                      */
+            $personal           = DB::table('tcpersonal as pers')
+                                    ->Join('tcpuestos as pst','pers.iid_puesto','=','pst.iid_puesto')
+                                    ->Join('tcadscripciones as adsc','pers.iid_adscripcion','=','adsc.iid_adscripcion')
+                                    ->select('pers.*','pst.*','adsc.*')
+                                    ->where('pers.iestatus','=',1)
+                                    ->where('pers.cnombre_personal' ,'like','%'.mb_strimwidth($nombre,                       0,strpos($nombre, " ")).'%')
+                                    ->where('pers.cpaterno_personal','like','%'.mb_strimwidth($nombre,  strpos($nombre, " ")+1,strlen($nombre)).'%')
+                                    ->where('pers.cnombre_personal' ,'like','%'.mb_strimwidth($nombre,                       0,strripos($nombre, " ")).'%')
+                                    ->orWhere('pers.cpaterno_personal','like','%'.mb_strimwidth($nombre,strripos($nombre, " ")+1,strlen($nombre)).'%')
+                                    ->get();
+        }
+        return $personal;
+    }
+
     public static function bitacora(string $jsonBefore,string $jsonAfter){
         $bitacora = new Bitacora();
         $bitacora->cjson_antes   = ($jsonBefore==null ? 'NEW INSERT': $jsonBefore);
@@ -356,42 +397,7 @@ class PersonalController extends Controller
 
     public static function buscaPuestoAdscrip(Request $request){
         $nr               = $request->nr;
-        /*
-        $personal_rem     = Personal::where('iestatus','=',1)
-                                    ->where('cnombre_personal','like','%'.$nr.'%')
-                                    ->orWhere('cpaterno_personal','like','%'.$nr.'%')
-                                    ->orWhere('cmaterno_personal','like','%'.$nr.'%')
-                                    ->orWhere('cnombre_personal','=',mb_strimwidth($nr,0,strpos($nr, " ")))
-                                    ->orWhere('cpaterno_personal','=',mb_strimwidth($nr,0,strpos($nr, " ")))
-                                    ->orWhere('cmaterno_personal','=',mb_strimwidth($nr,0,strpos($nr, " ")))
-                                    ->orWhere('cnombre_personal','=',mb_strimwidth($nr,strpos($nr, " ")+1,strlen($nr)))
-                                    ->orWhere('cpaterno_personal','=',mb_strimwidth($nr,strpos($nr, " ")+1,strlen($nr)))
-                                    ->orWhere('cmaterno_personal','=',mb_strimwidth($nr,strpos($nr, " ")+1,strlen($nr)))
-                                    ->get();
-                                    */
-    //NUEVO MÉTODO DE BÚSQUEDA
-    //Si no hay espacios, se trata de un nombre
-        if (strpos($nr, " ") == 0 && strripos($nr, " ") == 0) {
-            $personal_rem   = Personal::where('iestatus','=',1)
-                                      ->where('cnombre_personal','like','%'.$nr.'%')
-                                      ->get();
-    //Si hay un espacio, se trata de un nombre y un paterno, o de dos nombres
-        } elseif (strpos($nr, " ") == strripos($nr, " ")) {
-            $personal_rem   = Personal::where('iestatus','=',1)
-                                      ->where('cnombre_personal','like','%'.mb_strimwidth($nr,0,strpos($nr, " ")).'%')
-                                      ->where('cpaterno_personal','like','%'.mb_strimwidth($nr,strpos($nr, " ")+1,strlen($nr)).'%')
-                                      ->orWhere('cnombre_personal','like','%'.$nr.'%')
-                                      ->get();
-    //Si hay dos espacios, se trata de un nombre y un paterno
-        } elseif (strpos($nr, " ") > 0 && (strripos($nr, " ") > strpos($nr, " "))) {
-            $personal_rem   = Personal::where('iestatus','=',1)
-                                      ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($nr,                   0,strpos($nr, " ")).'%')
-                                      ->where('cpaterno_personal'  ,'like','%'.mb_strimwidth($nr,  strpos($nr, " ")+1,strlen($nr)).'%')
-                                      ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($nr,                   0,strripos($nr, " ")).'%')
-                                      ->orWhere('cpaterno_personal','like','%'.mb_strimwidth($nr,strripos($nr, " ")+1,strlen($nr)).'%')
-                                      ->get();
-        }
-
+        $personal_rem     = PersonalController::algoritmo_busca_persona($nr);
         if(!$personal_rem->isEmpty() && $personal_rem[0]->iestatus==1){
             $idRemitente  = $personal_rem[0]->iid_personal;
             $nombreRemtte = $personal_rem[0]->cnombre_personal.' '.$personal_rem[0]->cpaterno_personal.' '.$personal_rem[0]->cmaterno_personal;
@@ -449,26 +455,11 @@ class PersonalController extends Controller
 
     public static function buscaOtroNombre(Request $request){
         $on               = $request->on;
-
-    //BÚSQUEDA ORIGINAL, el usuario reporta que no funciona como espera
-        /*
-        $otro_personal    = Personal::with('puesto','adscripcion')
-                                        ->where('iestatus','=',1)
-                                        ->where('cnombre_personal'.' '.'cpaterno_personal'.' '.'cmaterno_personal','like','%'.$on.'%')
-                                        ->orWhere('cpaterno_personal','like','%'.$on.'%')
-                                        ->orWhere('cmaterno_personal','like','%'.$on.'%')
-                                        ->orWhere('cnombre_personal','like','%'.mb_strimwidth($on,0,strpos($on, " ")).'%')
-                                        ->orWhere('cnombre_personal','=',mb_strimwidth($on,0,strpos($on, " ")))
-                                        ->orWhere('cpaterno_personal','=',mb_strimwidth($on,0,strpos($on, " ")))
-                                        ->orWhere('cmaterno_personal','=',mb_strimwidth($on,0,strpos($on, " ")))
-                                        ->orWhere('cnombre_personal','=',mb_strimwidth($on,strpos($on, " ")+1,strlen($on)))
-                                        ->orWhere('cpaterno_personal','like','%'.mb_strimwidth($on,strpos($on, " ")+1,strlen($on)).'%')
-                                        ->orWhere('cmaterno_personal','=',mb_strimwidth($on,strpos($on, " ")+1,strlen($on)))
-                                        ->get();
-                                        */
+        //$otro_personal    = PersonalController::algoritmo_busca_persona($on);
 
     //NUEVO MÉTODO DE BÚSQUEDA
     //Si no hay espacios, se trata de un nombre
+        
         if (strpos($on, " ") == 0 && strripos($on, " ") == 0) {
             $otro_personal    = Personal::with('puesto','adscripcion')
                                         ->where('iestatus','=',1)

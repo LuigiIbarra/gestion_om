@@ -459,12 +459,20 @@ class PersonalController extends Controller
 
     //NUEVO MÉTODO DE BÚSQUEDA
     //Si no hay espacios, se trata de un nombre
-        
         if (strpos($on, " ") == 0 && strripos($on, " ") == 0) {
             $otro_personal    = Personal::with('puesto','adscripcion')
                                         ->where('iestatus','=',1)
                                         ->where('cnombre_personal','like','%'.$on.'%')
                                         ->get();
+            /*
+            $otro_personal    = DB::table('tcpersonal as pers')
+                                    ->Join('tcpuestos as pst','pers.iid_puesto','=','pst.iid_puesto')
+                                    ->Join('tcadscripciones as adsc','pers.iid_adscripcion','=','adsc.iid_adscripcion')
+                                    ->select('pers.*','pst.*','adsc.*')
+                                    ->where('pers.iestatus','=',1)
+                                    ->where('pers.cnombre_personal','like','%'.$on.'%')
+                                    ->get();
+                                        */
     //Si hay un espacio, se trata de un nombre y un paterno, o de dos nombres
         } elseif (strpos($on, " ") == strripos($on, " ")) {
             $otro_personal    = Personal::with('puesto','adscripcion')
@@ -473,6 +481,17 @@ class PersonalController extends Controller
                                         ->where('cpaterno_personal','like','%'.mb_strimwidth($on,strpos($on, " ")+1,strlen($on)).'%')
                                         ->orWhere('cnombre_personal','like','%'.$on.'%')
                                         ->get();
+            /*
+            $otro_personal    = DB::table('tcpersonal as pers')
+                                    ->Join('tcpuestos as pst','pers.iid_puesto','=','pst.iid_puesto')
+                                    ->Join('tcadscripciones as adsc','pers.iid_adscripcion','=','adsc.iid_adscripcion')
+                                    ->select('pers.*','pst.*','adsc.*')
+                                    ->where('pers.iestatus','=',1)
+                                    ->where('pers.cnombre_personal'  ,'like','%'.mb_strimwidth($on,0,strpos($on, " ")).'%')
+                                    ->where('pers.cpaterno_personal' ,'like','%'.mb_strimwidth($on,strpos($on, " ")+1,strlen($on)).'%')
+                                    ->orWhere('pers.cnombre_personal','like','%'.$on.'%')
+                                    ->get();
+                                        */
     //Si hay dos espacios, se trata de un nombre y un paterno
         } elseif (strpos($on, " ") > 0 && (strripos($on, " ") > strpos($on, " "))) {
             $otro_personal    = Personal::with('puesto','adscripcion')
@@ -482,6 +501,18 @@ class PersonalController extends Controller
                                         ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($on,                   0,strripos($on, " ")).'%')
                                         ->orWhere('cpaterno_personal','like','%'.mb_strimwidth($on,strripos($on, " ")+1,strlen($on)).'%')
                                         ->get();
+            /*
+            $otro_personal    = DB::table('tcpersonal as pers')
+                                    ->Join('tcpuestos as pst','pers.iid_puesto','=','pst.iid_puesto')
+                                    ->Join('tcadscripciones as adsc','pers.iid_adscripcion','=','adsc.iid_adscripcion')
+                                    ->select('pers.*','pst.*','adsc.*')
+                                    ->where('pers.iestatus','=',1)
+                                    ->where('pers.cnombre_personal'   ,'like','%'.mb_strimwidth($on,                   0,strpos($on, " ")).'%')
+                                    ->where('pers.cpaterno_personal'  ,'like','%'.mb_strimwidth($on,  strpos($on, " ")+1,strlen($on)).'%')
+                                    ->where('pers.cnombre_personal'   ,'like','%'.mb_strimwidth($on,                   0,strripos($on, " ")).'%')
+                                    ->orWhere('pers.cpaterno_personal','like','%'.mb_strimwidth($on,strripos($on, " ")+1,strlen($on)).'%')
+                                    ->get();
+                                        */
         }
 
         if(!$otro_personal->isEmpty() && $otro_personal[0]->iestatus==1){

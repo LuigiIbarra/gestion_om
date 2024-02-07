@@ -30,19 +30,19 @@ class PersonalController extends Controller
         //NUEVO MÉTODO DE BÚSQUEDA
         //Si no hay espacios, se trata de un nombre
             if (strpos($nombre, " ") == 0 && strripos($nombre, " ") == 0) {
-                $data['personal']   = Personal::where('iestatus','=',1)
+                $data['personal']   = Personal::with('puesto','adscripcion')->where('iestatus','=',1)
                                           ->where('cnombre_personal','like','%'.$nombre.'%')
                                           ->get();
         //Si hay un espacio, se trata de un nombre y un paterno, o de dos nombres
             } elseif (strpos($nombre, " ") == strripos($nombre, " ")) {
-                $data['personal']   = Personal::where('iestatus','=',1)
+                $data['personal']   = Personal::with('puesto','adscripcion')->where('iestatus','=',1)
                                           ->where('cnombre_personal','like','%'.mb_strimwidth($nombre,0,strpos($nombre, " ")).'%')
                                           ->where('cpaterno_personal','like','%'.mb_strimwidth($nombre,strpos($nombre, " ")+1,strlen($nombre)).'%')
                                           ->orWhere('cnombre_personal','like','%'.$nombre.'%')
                                           ->get();
         //Si hay dos espacios, se trata de un nombre y un paterno
             } elseif (strpos($nombre, " ") > 0 && (strripos($nombre, " ") > strpos($nombre, " "))) {
-                $data['personal']   = Personal::where('iestatus','=',1)
+                $data['personal']   = Personal::with('puesto','adscripcion')->where('iestatus','=',1)
                                           ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($nombre,                       0,strpos($nombre, " ")).'%')
                                           ->where('cpaterno_personal'  ,'like','%'.mb_strimwidth($nombre,  strpos($nombre, " ")+1,strlen($nombre)).'%')
                                           ->where('cnombre_personal'   ,'like','%'.mb_strimwidth($nombre,                       0,strripos($nombre, " ")).'%')

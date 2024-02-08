@@ -292,12 +292,12 @@
                     <!--Checkboxes de Destinatarios Conocimiento-->
                         @include('documentos.datos_destinatarios_conocimiento')
                     </div>
+                    @if ($documento->iid_tipo_documento!=8)
+                        <div class="row" id="otrapers_at_cmto" style="display:none;">
+                            @include('documentos.datos_otrapers_at_cmto_editar')
+                        </div>
+                    @endif
                 </div>
-                @if ($documento->iid_tipo_documento!=8)
-                    <div class="row" id="otrapers_at_cmto" style="display:none;">
-                        @include('documentos.datos_otrapers_at_cmto_editar')
-                    </div>
-                @endif
                 <div id="divRHAtencion">
                     <div class="row">
                         <label><b>DESTINATARIO PARA ATENCIÓN DEL:</b></label>

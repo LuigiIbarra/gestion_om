@@ -131,8 +131,6 @@ window.addEventListener('load', function(){
          }
     }
 
-
-
 //APARECE Y DESAPARECE SECCIÓN OTRO TIPO ANEXO (divotroanexo)
     function toggleOtroAnexo(){
         if (document.querySelector('#tipo_anexo').value==16)
@@ -140,6 +138,7 @@ window.addEventListener('load', function(){
         else
             $('#divotroanexo').hide();
     }
+
 //APARECE Y DESAPARECE SECCIÓN OTRO TIPO ASUNTO (divotroasunto)
     function toggleOtroAsunto(){
         if (document.querySelector('#tipo_asunto').value==11)
@@ -232,8 +231,6 @@ window.addEventListener('load', function(){
         $('#otrapers_at_cmto').show();
     else
         $('#otrapers_at_cmto').hide();
-
-
 
 	nombreRem.addEventListener('change', function(){
     	muestraRemitente();

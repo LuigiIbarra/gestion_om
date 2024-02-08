@@ -10,6 +10,7 @@
         <input type="hidden" id="id_documento"   name="id_documento"   value="{{ $documento->iid_documento }}"/>
         <input type="hidden" id="noeditar"       name="noeditar"       value="{{ $noeditar }}"/>
         <input type="hidden" id="idRemitente"    name="idRemitente"    value="{{ $documento->iid_personal_remitente }}"/>
+        <input type="hidden" id="idDestinatario" name="idDestinatario" value=""/>
         <input type="hidden" id="newFolioRel"    name="newFolioRel"    value="0"/>
         <input type="hidden" id="editaDocto"     name="editaDocto"     value="1"/>
         <input type="hidden" id="semaforoRojo"   name="semaforoRojo"   value="0"/>

@@ -30,13 +30,6 @@ window.addEventListener('load', function(){
                     document.querySelector('#otro_puesto').innerHTML  = selectPuesto;
                     document.querySelector('#idOtraAdscrip').value    = respuesta.otro_personal[0].iid_adscripcion;
                     document.querySelector('#otra_adscripcion').innerHTML = selectAdscrip;
-                    /*
-                    $('#divnomotrapersona').show();
-                    $('#divOtroPstoAdsc').show();
-                    $('#divnvonombre').hide();
-                    $('#divOtrosApellidos').hide();
-                    $('#divNuevoPstoAdsc').hide();
-                    */
                 	var error=""; 
                     error+="<label><font style='color: red;'>*Este Nombre ya Existe en el catálogo.<font style='color: red;'></label><br/>"
                     document.querySelector('#validaOtroPersonalAC').innerHTML = error;
@@ -47,13 +40,6 @@ window.addEventListener('load', function(){
                     document.querySelector('#otro_puesto').innerHTML  = "<option value='0'>Escriba un Nombre...</option>";
                     document.querySelector('#idOtraAdscrip').value    = '';
                     document.querySelector('#otra_adscripcion').innerHTML = "<option value='0'>Escriba un Nombre...</option>";
-                    /*
-                    $('#divnomotrapersona').hide();
-                    $('#divOtroPstoAdsc').hide();
-                    $('#divnvonombre').show();
-                    $('#divOtrosApellidos').show();
-                    $('#divNuevoPstoAdsc').show();
-                    */
                 	var error=""; 
                     error+="<label><font style='color: red;'>*No se econtraron resultados con este Nombre, capture Apellidos, Puesto, Adscripción y Tipo de Adscripción.<font style='color: red;'></label><br/>"
                     document.querySelector('#validaOtroPersonalAC').innerHTML = error;
@@ -67,12 +53,6 @@ window.addEventListener('load', function(){
 	}
 
 	var otroNombre = document.querySelector('#busca_otro_nombre');
-
-    /*
-    $('#divnvonombre').hide();
-    $('#divOtrosApellidos').hide();
-    $('#divNuevoPstoAdsc').hide();
-    */
 
 	otroNombre.addEventListener('change',function(){
 		muestraOtro();

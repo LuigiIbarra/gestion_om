@@ -740,13 +740,8 @@ class DocumentosController extends Controller
             FolioRelacionadoController::guarda_folio_relacionado($idDocumento, $request->folio_relacionado);
 
         //Destinatarios de Copia de Conocimiento
-        $totPersAnt                             = PersonalConocimiento::where('iid_documento','=',$idDocumento)->where('iestatus','=',1)->count();
-        if($totPersAnt>0){
-            $PersonalAnt                        = PersonalConocimiento::where('iid_documento','=',$idDocumento)->where('iestatus','=',1)->first();
-            $idPersonalAnt                      = $PersonalAnt->iid_personal;
-        } else {
-            $idPersonalAnt                      = 0;
-        }
+        if($request->nombre_destinatariocc>0)
+            PersonalConocimientoController::guarda_personal_conoc($idDocumento, $request->idDestinatario);
         
         //Actualizar Destinatarios para Atención
         /*

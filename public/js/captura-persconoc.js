@@ -82,7 +82,7 @@ window.addEventListener('load', function(){
 	var tipoDoc    = document.querySelector("#tipo_documento");
 	var tipoDocId  = document.querySelector('#tipo_documento').value;
 	var nombreRem  = document.querySelector('#nombre_remitente');
-
+    
 	if (tipoDocId == 7) {
 	//tipoDocId ==  7 COPIA DE CONOCIMIENTO
 		$('#divdestinatariocc').show();

@@ -224,8 +224,13 @@ class PersonalController extends Controller
         $jsonAfter                         = json_encode($personal);
         PersonalController::bitacora($jsonBefore,$jsonAfter);
 
-        return redirect()->route('personal.editar',$personal->iid_personal)
-                         ->with('success','Personal '.$operacion.' satisfactoriamente');
+        if ($operacion=="BORRADO") {
+            return redirect()->route('personal.index')
+                             ->with('success','Personal '.$operacion.' satisfactoriamente');
+        } else {
+            return redirect()->route('personal.editar',$personal->iid_personal)
+                             ->with('success','Personal '.$operacion.' satisfactoriamente');
+        }
     }
 
     public function actualizar_personal_pstoads($id_personal)
@@ -341,7 +346,7 @@ class PersonalController extends Controller
             $personal           = DB::table('tcpersonal as pers')
                                     ->Join('tcpuestos as pst','pers.iid_puesto','=','pst.iid_puesto')
                                     ->Join('tcadscripciones as adsc','pers.iid_adscripcion','=','adsc.iid_adscripcion')
-                                    ->select('pers.*','pst.*','adsc.*')
+                                    ->select('pers.*','pst.iid_puesto','pst.cdescripcion_puesto','adsc.iid_adscripcion','adsc.cdescripcion_adscripcion')
                                     ->where('pers.iestatus','=',1)
                                     ->where('pers.cnombre_personal','like','%'.$nombre.'%')
                                     ->get();
@@ -357,7 +362,7 @@ class PersonalController extends Controller
             $personal           = DB::table('tcpersonal as pers')
                                     ->Join('tcpuestos as pst','pers.iid_puesto','=','pst.iid_puesto')
                                     ->Join('tcadscripciones as adsc','pers.iid_adscripcion','=','adsc.iid_adscripcion')
-                                    ->select('pers.*','pst.*','adsc.*')
+                                    ->select('pers.*','pst.iid_puesto','pst.cdescripcion_puesto','adsc.iid_adscripcion','adsc.cdescripcion_adscripcion')
                                     ->where('pers.iestatus','=',1)
                                     ->where('pers.cnombre_personal','like','%'.mb_strimwidth($nombre,0,strpos($nombre, " ")).'%')
                                     ->where('pers.cpaterno_personal','like','%'.mb_strimwidth($nombre,strpos($nombre, " ")+1,strlen($nombre)).'%')
@@ -376,7 +381,7 @@ class PersonalController extends Controller
             $personal           = DB::table('tcpersonal as pers')
                                     ->Join('tcpuestos as pst','pers.iid_puesto','=','pst.iid_puesto')
                                     ->Join('tcadscripciones as adsc','pers.iid_adscripcion','=','adsc.iid_adscripcion')
-                                    ->select('pers.*','pst.*','adsc.*')
+                                    ->select('pers.*','pst.iid_puesto','pst.cdescripcion_puesto','adsc.iid_adscripcion','adsc.cdescripcion_adscripcion')
                                     ->where('pers.iestatus','=',1)
                                     ->where('pers.cnombre_personal' ,'like','%'.mb_strimwidth($nombre,                       0,strpos($nombre, " ")).'%')
                                     ->where('pers.cpaterno_personal','like','%'.mb_strimwidth($nombre,  strpos($nombre, " ")+1,strlen($nombre)).'%')

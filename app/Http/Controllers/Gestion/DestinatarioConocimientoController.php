@@ -50,7 +50,7 @@ class DestinatarioConocimientoController extends Controller
     //Sí el estatus es igual la checked, no se actualiza el registro
             if($destinatario_conocimiento->iestatus==$checked)
                 return;
-            $jsonBefore                             = "ACTUALIZA ADSCRIPCIÓN DE DESTINATARIO CONOCIMIENTO ".json_encode($destinatario_conocimiento);                                                      
+            $jsonBefore                             = "ACTUALIZA ADSCRIPCIÓN DE DESTINATARIO CONOCIMIENTO ".json_encode($destinatario_conocimiento);
         } else {
     //No hay y el checked es 0, no guardamos registro
             if($checked==0)

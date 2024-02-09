@@ -835,22 +835,24 @@ class DocumentosController extends Controller
             }
         } else 
             DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1355', 0);
-        if($request->atencion_presidente==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 1);    //PRESIDENCIA
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 0);
-        if($request->atencion_oficialmayor==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);    //OM
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 0);
-        if($request->atencion_da==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 1);  //DA
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 0);
-        if($request->atencion_derh==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 1);  //DERH
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 0);
+        if($request->tipo_documento==8) {
+            if($request->atencion_presidente==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 1);    //PRESIDENCIA
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 0);
+            if($request->atencion_oficialmayor==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);    //OM
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 0);
+            if($request->atencion_da==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 1);  //DA
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 0);
+            if($request->atencion_derh==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 1);  //DERH
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 0);
+        }
 
         //Actualizar Destinatarios para Conocimiento
         /*

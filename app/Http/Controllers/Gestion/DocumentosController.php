@@ -269,74 +269,77 @@ class DocumentosController extends Controller
         if($request->nombre_destinatariocc>0)
             PersonalConocimientoController::guarda_personal_conoc($idDocumento, $request->idDestinatario);
 
+
+        if ($request->tipo_documento<=6 || $request->tipo_documento>=9) {
     //Guardar Destinatarios para ATENCIÓN
-        /*
-        if($request->atencion2==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1027');  //OM
-        */
-        if($request->atencion12==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '229');   //DEP
-        if($request->atencion14==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '227');   //DEGT
-        if($request->atencion15==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '231');   //DERH
-        if($request->atencion16==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '228');   //DEOMS
-        if($request->atencion17==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '232');   //DERM
-        if($request->atencion18==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '230');   //DERF
-        if($request->atencion19==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1215');  //DS
-        if($request->atencion20==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1354');  //DA CJPJCD
-        if($request->atencion21==='on')
-            DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1208');  //DGJ
-        //OTRO
-        if($request->atencion999==='on'){
+            /*
+            if($request->atencion2==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1027');  //OM
+            */
+            if($request->atencion12==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '229');   //DEP
+            if($request->atencion14==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '227');   //DEGT
+            if($request->atencion15==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '231');   //DERH
+            if($request->atencion16==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '228');   //DEOMS
+            if($request->atencion17==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '232');   //DERM
+            if($request->atencion18==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '230');   //DERF
+            if($request->atencion19==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1215');  //DS
+            if($request->atencion20==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1354');  //DA CJPJCD
+            if($request->atencion21==='on')
+                DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '1208');  //DGJ
+            //OTRO
+            if($request->atencion999==='on'){
     //Guardar OTRO Personal que ya Existe en el Catálogo
-            if (($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="") && 
-            ($request->nuevo_nombre_ac=="" && $request->otro_paterno_ac=="" && $request->otra_desc_puesto_ac=="" && 
-            $request->otra_desc_adsc_ac=="" && $request->nvo_tipo_adscripcion_ac==""))
-                DestinatarioAtencionController::guarda_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
+                if (($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="") && 
+                ($request->nuevo_nombre_ac=="" && $request->otro_paterno_ac=="" && $request->otra_desc_puesto_ac=="" && 
+                $request->otra_desc_adsc_ac=="" && $request->nvo_tipo_adscripcion_ac==""))
+                    DestinatarioAtencionController::guarda_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
 
     //GUARDAR OTRO PERSONAL NUEVO, CON PUESTO NUEVO/YA EXISTE Y ADSCRIPCIÓN NUEVA/YA EXISTE
     //Guardar Nuevo Puesto
-            if ($request->otra_desc_puesto_ac!="")
-                $idPuesto_ac = DocumentosController::busca_puesto($request->otra_desc_puesto_ac);
+                if ($request->otra_desc_puesto_ac!="")
+                    $idPuesto_ac = DocumentosController::busca_puesto($request->otra_desc_puesto_ac);
     //Guardar Nueva Adscripción
-            if ($request->otra_desc_adsc_ac!="" && $request->nvo_tipo_adscripcion_ac!="")
-                $idAdscrip_ac= DocumentosController::busca_adscripcion($request->otra_desc_adsc_ac, $request->nvo_tipo_adscripcion_ac);
+                if ($request->otra_desc_adsc_ac!="" && $request->nvo_tipo_adscripcion_ac!="")
+                    $idAdscrip_ac= DocumentosController::busca_adscripcion($request->otra_desc_adsc_ac, $request->nvo_tipo_adscripcion_ac);
     //Guardar Nuevo Personal
-            if ($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
-        //Revisar que no exista una persona con el mismo Nombre y Apellidos
-                $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
-                                                                       ->where('cpaterno_personal','=',$request->otro_paterno_ac)
-                                                                       ->where('cmaterno_personal','=',$request->otro_materno_ac)
-                                                                       ->where('iestatus','=',1)->count();
-        //Si no hay, entonces agregar al catálogo
-                if ($ya_hay_pers==0) {
-                    $nuevo_personal                              = new Personal();
-                    $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
-                    $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
-                    $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
-                    $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
-                //GUARDAR CLAVE DE PUESTO
-                    if($request->otra_desc_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $idPuesto_ac;                        //ID PUESTO NUEVO/EXISTENTE EN BD
-                    elseif ($request->otro_nvo_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
-                //GUARDAR CLAVE DE ADSCRIPCION
-                    if($request->otra_desc_adsc_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $idAdscrip_ac;                       //ID ADSCRIP. NUEVA/EXISTENTE EN BD
-                    elseif ($request->otra_nva_adscripcion_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;   //ID ADSCRIP. EXISTENTE DE LA LISTA
-                    $nuevo_personal->iestatus                    = 1;
-                    $nuevo_personal->iid_usuario                 = auth()->user()->id;
-                    $nuevo_personal->save();
-                    $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
-                    PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
-                    DestinatarioAtencionController::guarda_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                if ($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
+            //Revisar que no exista una persona con el mismo Nombre y Apellidos
+                    $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
+                                                                           ->where('cpaterno_personal','=',$request->otro_paterno_ac)
+                                                                           ->where('cmaterno_personal','=',$request->otro_materno_ac)
+                                                                           ->where('iestatus','=',1)->count();
+            //Si no hay, entonces agregar al catálogo
+                    if ($ya_hay_pers==0) {
+                        $nuevo_personal                              = new Personal();
+                        $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
+                        $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
+                        $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
+                        $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
+                    //GUARDAR CLAVE DE PUESTO
+                        if($request->otra_desc_puesto_ac!="")
+                            $nuevo_personal->iid_puesto              = $idPuesto_ac;                        //ID PUESTO NUEVO/EXISTENTE EN BD
+                        elseif ($request->otro_nvo_puesto_ac!="")
+                            $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
+                    //GUARDAR CLAVE DE ADSCRIPCION
+                        if($request->otra_desc_adsc_ac!="")
+                            $nuevo_personal->iid_adscripcion         = $idAdscrip_ac;                       //ID ADSCRIP. NUEVA/EXISTENTE EN BD
+                        elseif ($request->otra_nva_adscripcion_ac!="")
+                            $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;   //ID ADSCRIP. EXISTENTE DE LA LISTA
+                        $nuevo_personal->iestatus                    = 1;
+                        $nuevo_personal->iid_usuario                 = auth()->user()->id;
+                        $nuevo_personal->save();
+                        $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
+                        PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
+                        DestinatarioAtencionController::guarda_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                    }
                 }
             }
         }
@@ -351,73 +354,75 @@ class DocumentosController extends Controller
                 DestinatarioAtencionController::guarda_adscrip_atencion($idDocumento, '231');   //DERH
         }
 
-        //Guardar Destinatarios para Conocimiento
-        /*
-        if($request->conoc2==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1027');  //OM
-        */
-        if($request->conoc12==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '229');   //DEP
-        if($request->conoc14==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '227');   //DEGT
-        if($request->conoc15==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '231');   //DERH
-        if($request->conoc16==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '228');   //DEOMS
-        if($request->conoc17==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '232');   //DERM
-        if($request->conoc18==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '230');   //DERF
-        if($request->conoc19==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1215');  //DS
-        if($request->conoc20==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1354');  //DA CJPJCD
-        if($request->conoc21==='on')
-            DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1208');  //DGJ
-        //OTRO
-        if($request->conoc999==='on') {
+        if ($request->tipo_documento<=6 || $request->tipo_documento>=9) {
+    //Guardar Destinatarios para Conocimiento
+            /*
+            if($request->conoc2==='on')
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1027');  //OM
+            */
+            if($request->conoc12==='on')
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '229');   //DEP
+            if($request->conoc14==='on')
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '227');   //DEGT
+            if($request->conoc15==='on')
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '231');   //DERH
+            if($request->conoc16==='on')
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '228');   //DEOMS
+            if($request->conoc17==='on')
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '232');   //DERM
+            if($request->conoc18==='on')
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '230');   //DERF
+            if($request->conoc19==='on')
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1215');  //DS
+            if($request->conoc20==='on')
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1354');  //DA CJPJCD
+            if($request->conoc21==='on')
+                DestinatarioConocimientoController::guarda_adscrip_conoc($idDocumento, '1208');  //DGJ
+            //OTRO
+            if($request->conoc999==='on') {
     //Guardar OTRO Personal que ya Existe en el Catálogo
-            if (($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="") &&
-            ($request->nuevo_nombre_ac=="" && $request->otro_paterno_ac=="" && $request->otra_desc_puesto_ac=="" && 
-            $request->otra_desc_adsc_ac=="" && $request->nvo_tipo_adscripcion_ac==""))
-                DestinatarioConocimientoController::guarda_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
+                if (($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="") &&
+                ($request->nuevo_nombre_ac=="" && $request->otro_paterno_ac=="" && $request->otra_desc_puesto_ac=="" && 
+                $request->otra_desc_adsc_ac=="" && $request->nvo_tipo_adscripcion_ac==""))
+                    DestinatarioConocimientoController::guarda_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
             
     //Guardar Nuevo Puesto
-            if ($request->otra_desc_puesto_ac!="")
-                $idPuesto_ac = DocumentosController::busca_puesto($request->otra_desc_puesto_ac);
+                if ($request->otra_desc_puesto_ac!="")
+                    $idPuesto_ac = DocumentosController::busca_puesto($request->otra_desc_puesto_ac);
     //Guardar Nueva Adscripción
-            if ($request->otra_desc_adsc_ac!="" && $request->nvo_tipo_adscripcion_ac!="")
-                $idAdscrip_ac= DocumentosController::busca_adscripcion($request->otra_desc_adsc_ac, $request->nvo_tipo_adscripcion_ac);
+                if ($request->otra_desc_adsc_ac!="" && $request->nvo_tipo_adscripcion_ac!="")
+                    $idAdscrip_ac= DocumentosController::busca_adscripcion($request->otra_desc_adsc_ac, $request->nvo_tipo_adscripcion_ac);
     //Guardar Nuevo Personal
-            if ($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
+                if ($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
         //Revisar que no exista una persona con el mismo Nombre y Apellidos
-                $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
-                                                                       ->where('cpaterno_personal','=',$request->otro_paterno_ac)
-                                                                       ->where('cmaterno_personal','=',$request->otro_materno_ac)
-                                                                       ->where('iestatus','=',1)->count();
+                    $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
+                                                                           ->where('cpaterno_personal','=',$request->otro_paterno_ac)
+                                                                           ->where('cmaterno_personal','=',$request->otro_materno_ac)
+                                                                           ->where('iestatus','=',1)->count();
         //Si no hay, entonces agregar al catálogo
-                if ($ya_hay_pers==0) {
-                    $nuevo_personal                              = new Personal();
-                    $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
-                    $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
-                    $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
-                    $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
+                    if ($ya_hay_pers==0) {
+                        $nuevo_personal                              = new Personal();
+                        $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
+                        $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
+                        $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
+                        $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
                 //GUARDAR CLAVE DE PUESTO
-                    if ($request->otra_desc_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $idPuesto_ac;                        //ID PUESTO NUEVO/EXISTENTE EN BD
-                    elseif ($request->otro_nvo_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
+                        if ($request->otra_desc_puesto_ac!="")
+                            $nuevo_personal->iid_puesto              = $idPuesto_ac;                        //ID PUESTO NUEVO/EXISTENTE EN BD
+                        elseif ($request->otro_nvo_puesto_ac!="")
+                            $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
                 //GUARDAR CLAVE DE ADSCRIPCION
-                    if ($request->otra_desc_adsc_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $idAdscrip_ac;                       //ID ADSCRIP. NUEVA/EXISTENTE EN BD
-                    elseif ($request->otra_nva_adscripcion_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;   //ID ADSCRIP. EXISTENTE DE LA LISTA
-                    $nuevo_personal->iestatus                    = 1;
-                    $nuevo_personal->iid_usuario                 = auth()->user()->id;
-                    $nuevo_personal->save();
-                    $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
-                    PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
-                    DestinatarioConocimientoController::guarda_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                        if ($request->otra_desc_adsc_ac!="")
+                            $nuevo_personal->iid_adscripcion         = $idAdscrip_ac;                       //ID ADSCRIP. NUEVA/EXISTENTE EN BD
+                        elseif ($request->otra_nva_adscripcion_ac!="")
+                            $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;   //ID ADSCRIP. EXISTENTE DE LA LISTA
+                        $nuevo_personal->iestatus                    = 1;
+                        $nuevo_personal->iid_usuario                 = auth()->user()->id;
+                        $nuevo_personal->save();
+                        $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
+                        PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
+                        DestinatarioConocimientoController::guarda_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                    }
                 }
             }
         }
@@ -742,99 +747,101 @@ class DocumentosController extends Controller
         //Destinatarios de Copia de Conocimiento
         if($request->nombre_destinatariocc>0)
             PersonalConocimientoController::guarda_personal_conoc($idDocumento, $request->idDestinatario);
-        
-        //Actualizar Destinatarios para Atención
-        /*
-        if($request->atencion2==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);    //OM
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 0);
-        */
-        if($request->atencion12==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '229', 1);     //DEP
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '229', 0);
-        if($request->atencion14==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '227', 1);     //DEGT
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '227', 0);
-        if($request->atencion15==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 1);     //DERH
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 0);
-        if($request->atencion16==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '228', 1);     //DEOMS
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '228', 0);
-        if($request->atencion17==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '232', 1);     //DERM
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '232', 0);
-        if($request->atencion18==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '230', 1);     //DERF
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '230', 0);
-        if($request->atencion19==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1215', 1);    //DS
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1215', 0);
-        if($request->atencion20==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 1);    //DA CJPJCD
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 0);
-        if($request->atencion21==='on')
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1208', 1);    //DGJ
-        else
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1208', 0);
-        if($request->atencion999==='on') {
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1355', 1);    //OTRA
+
+        if ($request->tipo_documento<=6 || $request->tipo_documento>=9) {        
+    //Actualizar Destinatarios para Atención
+            /*
+            if($request->atencion2==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 1);    //OM
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1027', 0);
+            */
+            if($request->atencion12==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '229', 1);     //DEP
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '229', 0);
+            if($request->atencion14==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '227', 1);     //DEGT
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '227', 0);
+            if($request->atencion15==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 1);     //DERH
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 0);
+            if($request->atencion16==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '228', 1);     //DEOMS
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '228', 0);
+            if($request->atencion17==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '232', 1);     //DERM
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '232', 0);
+            if($request->atencion18==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '230', 1);     //DERF
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '230', 0);
+            if($request->atencion19==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1215', 1);    //DS
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1215', 0);
+            if($request->atencion20==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 1);    //DA CJPJCD
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1354', 0);
+            if($request->atencion21==='on')
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1208', 1);    //DGJ
+            else
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1208', 0);
+            if($request->atencion999==='on') {
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1355', 1);    //OTRA
     //Guardar OTRO Personal que ya Existe en el Catálogo
-            if (($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="") &&
-            ($request->nuevo_nombre_ac=="" && $request->otro_paterno_ac=="" && $request->otra_desc_puesto_ac=="" && 
-            $request->otra_desc_adsc_ac=="" && $request->nvo_tipo_adscripcion_ac==""))
-                DestinatarioAtencionController::actualiza_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
+                if (($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="") &&
+                ($request->nuevo_nombre_ac=="" && $request->otro_paterno_ac=="" && $request->otra_desc_puesto_ac=="" && 
+                $request->otra_desc_adsc_ac=="" && $request->nvo_tipo_adscripcion_ac==""))
+                    DestinatarioAtencionController::actualiza_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
 
     //GUARDAR OTRO PERSONAL NUEVO, CON PUESTO NUEVO/YA EXISTE Y ADSCRIPCIÓN NUEVA/YA EXISTE
     //Guardar Nuevo Puesto
-            if ($request->otra_desc_puesto_ac!="")
-                $idPuesto_ac = DocumentosController::busca_puesto($request->otra_desc_puesto_ac);
+                if ($request->otra_desc_puesto_ac!="")
+                    $idPuesto_ac = DocumentosController::busca_puesto($request->otra_desc_puesto_ac);
     //Guardar Nueva Adscripción
-            if ($request->otra_desc_adsc_ac!="" && $request->nvo_tipo_adscripcion_ac!="")
-                $idAdscrip_ac= DocumentosController::busca_adscripcion($request->otra_desc_adsc_ac, $request->nvo_tipo_adscripcion_ac);
+                if ($request->otra_desc_adsc_ac!="" && $request->nvo_tipo_adscripcion_ac!="")
+                    $idAdscrip_ac= DocumentosController::busca_adscripcion($request->otra_desc_adsc_ac, $request->nvo_tipo_adscripcion_ac);
     //Guardar Nuevo Personal
-            if ($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
+                if ($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
         //Revisar que no exista una persona con el mismo Nombre y Apellidos
-                $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
-                                                                       ->where('cpaterno_personal','=',$request->otro_paterno_ac)
-                                                                       ->where('cmaterno_personal','=',$request->otro_materno_ac)
-                                                                       ->where('iestatus','=',1)->count();
+                    $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
+                                                                           ->where('cpaterno_personal','=',$request->otro_paterno_ac)
+                                                                           ->where('cmaterno_personal','=',$request->otro_materno_ac)
+                                                                           ->where('iestatus','=',1)->count();
         //Si no hay, entonces agregar al catálogo
-                if ($ya_hay_pers==0) {
-                    $nuevo_personal                              = new Personal();
-                    $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
-                    $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
-                    $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
-                    $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
+                    if ($ya_hay_pers==0) {
+                        $nuevo_personal                              = new Personal();
+                        $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
+                        $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
+                        $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
+                        $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
                 //GUARDAR CLAVE DE PUESTO
-                    if($request->otra_desc_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $idPuesto_ac;                        //ID PUESTO NUEVO/EXISTENTE EN BD
-                    elseif ($request->otro_nvo_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
+                        if($request->otra_desc_puesto_ac!="")
+                            $nuevo_personal->iid_puesto              = $idPuesto_ac;                        //ID PUESTO NUEVO/EXISTENTE EN BD
+                        elseif ($request->otro_nvo_puesto_ac!="")
+                            $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
                 //GUARDAR CLAVE DE ADSCRIPCION
-                    if ($request->otra_desc_adsc_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $idAdscrip_ac;                       //ID ADSCRIP. NUEVA/EXISTENTE EN BD
-                    elseif ($request->otra_nva_adscripcion_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;   //ID ADSCRIP. EXISTENTE DE LA LISTA
-                    $nuevo_personal->iestatus                    = 1;
-                    $nuevo_personal->iid_usuario                 = auth()->user()->id;
-                    $nuevo_personal->save();
-                    $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
-                    PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
-                    DestinatarioAtencionController::actualiza_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                        if ($request->otra_desc_adsc_ac!="")
+                            $nuevo_personal->iid_adscripcion         = $idAdscrip_ac;                       //ID ADSCRIP. NUEVA/EXISTENTE EN BD
+                        elseif ($request->otra_nva_adscripcion_ac!="")
+                            $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;   //ID ADSCRIP. EXISTENTE DE LA LISTA
+                        $nuevo_personal->iestatus                    = 1;
+                        $nuevo_personal->iid_usuario                 = auth()->user()->id;
+                        $nuevo_personal->save();
+                        $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
+                        PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
+                        DestinatarioAtencionController::actualiza_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                    }
                 }
-            }
-        } else 
-            DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1355', 0);
+            } else 
+                DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1355', 0);
+        }
         if($request->tipo_documento==8) {
             if($request->atencion_presidente==='on')
                 DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '1031', 1);    //PRESIDENCIA
@@ -853,98 +860,99 @@ class DocumentosController extends Controller
             else
                 DestinatarioAtencionController::actualiza_adscrip_atencion($idDocumento, '231', 0);
         }
-
-        //Actualizar Destinatarios para Conocimiento
-        /*
-        if($request->conoc2==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1027', 1);   //OM
-        else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1027', 0);
-        */
-        if($request->conoc12==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '229', 1);    //DEP
-        else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '229', 0);
-        if($request->conoc14==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '227', 1);    //DEGT
-        else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '227', 0);
-        if($request->conoc15==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '231', 1);    //DERH
-        else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '231', 0);
-        if($request->conoc16==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '228', 1);    //DEOMS
-        else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '228', 0);
-        if($request->conoc17==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '232', 1);    //DERM
-        else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '232', 0);
-        if($request->conoc18==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '230', 1);    //DERF
-        else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '230', 0);
-        if($request->conoc19==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1215', 1);   //DS
-        else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1215', 0);
-        if($request->conoc20==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1354', 1);   //DA CJPJCD
-        else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1354', 0);
-        if($request->conoc21==='on')
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1208', 1);   //DGJ
-        else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1208', 0);
-        if($request->conoc999==='on') {
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1355', 1);   //OTRA
+        if ($request->tipo_documento<=6 || $request->tipo_documento>=9) {
+            //Actualizar Destinatarios para Conocimiento
+            /*
+            if($request->conoc2==='on')
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1027', 1);   //OM
+            else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1027', 0);
+            */
+            if($request->conoc12==='on')
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '229', 1);    //DEP
+            else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '229', 0);
+            if($request->conoc14==='on')
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '227', 1);    //DEGT
+            else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '227', 0);
+            if($request->conoc15==='on')
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '231', 1);    //DERH
+            else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '231', 0);
+            if($request->conoc16==='on')
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '228', 1);    //DEOMS
+            else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '228', 0);
+            if($request->conoc17==='on')
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '232', 1);    //DERM
+            else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '232', 0);
+            if($request->conoc18==='on')
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '230', 1);    //DERF
+            else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '230', 0);
+            if($request->conoc19==='on')
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1215', 1);   //DS
+            else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1215', 0);
+            if($request->conoc20==='on')
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1354', 1);   //DA CJPJCD
+            else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1354', 0);
+            if($request->conoc21==='on')
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1208', 1);   //DGJ
+            else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1208', 0);
+            if($request->conoc999==='on') {
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1355', 1);   //OTRA
     //Guardar OTRO Personal que ya Existe en el Catálogo
-            if (($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="") &&
-            ($request->nuevo_nombre_ac=="" && $request->otro_paterno_ac=="" && $request->otra_desc_puesto_ac=="" && 
-            $request->otra_desc_adsc_ac=="" && $request->nvo_tipo_adscripcion_ac==""))
-                DestinatarioConocimientoController::actualiza_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
+                if (($request->idOtroPersonal!="" && $request->idOtroPuesto!="" && $request->idOtraAdscrip!="") &&
+                ($request->nuevo_nombre_ac=="" && $request->otro_paterno_ac=="" && $request->otra_desc_puesto_ac=="" && 
+                $request->otra_desc_adsc_ac=="" && $request->nvo_tipo_adscripcion_ac==""))
+                    DestinatarioConocimientoController::actualiza_otra_persona($idDocumento,$request->idOtroPuesto,$request->idOtraAdscrip,$request->idOtroPersonal);
             
     //Guardar Nuevo Puesto
-            if ($request->otra_desc_puesto_ac!="")
-                $idPuesto_ac = DocumentosController::busca_puesto($request->otra_desc_puesto_ac);
+                if ($request->otra_desc_puesto_ac!="")
+                    $idPuesto_ac = DocumentosController::busca_puesto($request->otra_desc_puesto_ac);
     //Guardar Nueva Adscripción
-            if ($request->otra_desc_adsc_ac!="" && $request->nvo_tipo_adscripcion_ac!="")
-                $idAdscrip_ac= DocumentosController::busca_adscripcion($request->otra_desc_adsc_ac, $request->nvo_tipo_adscripcion_ac);
+                if ($request->otra_desc_adsc_ac!="" && $request->nvo_tipo_adscripcion_ac!="")
+                    $idAdscrip_ac= DocumentosController::busca_adscripcion($request->otra_desc_adsc_ac, $request->nvo_tipo_adscripcion_ac);
     //Guardar Nuevo Personal
-            if ($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
+                if ($request->nuevo_nombre_ac!="" && $request->otro_paterno_ac!=""){
         //Revisar que no exista una persona con el mismo Nombre y Apellidos
-                $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
-                                                                       ->where('cpaterno_personal','=',$request->otro_paterno_ac)
-                                                                       ->where('cmaterno_personal','=',$request->otro_materno_ac)
-                                                                       ->where('iestatus','=',1)->count();
+                    $ya_hay_pers                                     = Personal::where('cnombre_personal','=',$request->nuevo_nombre_ac)
+                                                                           ->where('cpaterno_personal','=',$request->otro_paterno_ac)
+                                                                           ->where('cmaterno_personal','=',$request->otro_materno_ac)
+                                                                           ->where('iestatus','=',1)->count();
         //Si no hay, entonces agregar al catálogo
-                if ($ya_hay_pers==0) {
-                    $nuevo_personal                              = new Personal();
-                    $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
-                    $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
-                    $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
-                    $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
-                //GUARDAR CLAVE DE PUESTO
-                    if($request->otra_desc_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $idPuesto_ac;                        //ID PUESTO NUEVO/EXISTENTE EN BD
-                    elseif ($request->otro_nvo_puesto_ac!="")
-                        $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
-                //GUARDAR CLAVE DE ADSCRIPCION
-                    if ($request->otra_desc_adsc_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $idAdscrip_ac;                       //ID ADSCRIP. NUEVA/EXISTENTE EN BD
-                    elseif ($request->otra_nva_adscripcion_ac!="")
-                        $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;   //ID ADSCRIP. EXISTENTE DE LA LISTA
-                    $nuevo_personal->iestatus                    = 1;
-                    $nuevo_personal->iid_usuario                 = auth()->user()->id;
-                    $nuevo_personal->save();
-                    $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
-                    PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
-                    DestinatarioConocimientoController::actualiza_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                    if ($ya_hay_pers==0) {
+                        $nuevo_personal                              = new Personal();
+                        $jsonBeforeNvoPersonal                       = "NEW INSERT PERSONAL";
+                        $nuevo_personal->cnombre_personal            = $request->nuevo_nombre_ac;
+                        $nuevo_personal->cpaterno_personal           = $request->otro_paterno_ac;
+                        $nuevo_personal->cmaterno_personal           = $request->otro_materno_ac;
+                    //GUARDAR CLAVE DE PUESTO
+                        if($request->otra_desc_puesto_ac!="")
+                            $nuevo_personal->iid_puesto              = $idPuesto_ac;                        //ID PUESTO NUEVO/EXISTENTE EN BD
+                        elseif ($request->otro_nvo_puesto_ac!="")
+                            $nuevo_personal->iid_puesto              = $request->otro_nvo_puesto_ac;        //ID PUESTO EXISTENTE DE LA LISTA
+                    //GUARDAR CLAVE DE ADSCRIPCION
+                        if ($request->otra_desc_adsc_ac!="")
+                            $nuevo_personal->iid_adscripcion         = $idAdscrip_ac;                       //ID ADSCRIP. NUEVA/EXISTENTE EN BD
+                        elseif ($request->otra_nva_adscripcion_ac!="")
+                            $nuevo_personal->iid_adscripcion         = $request->otra_nva_adscripcion_ac;   //ID ADSCRIP. EXISTENTE DE LA LISTA
+                        $nuevo_personal->iestatus                    = 1;
+                        $nuevo_personal->iid_usuario                 = auth()->user()->id;
+                        $nuevo_personal->save();
+                        $jsonAfterNvoPersonal                        = json_encode($nuevo_personal);
+                        PersonalController::bitacora($jsonBeforeNvoPersonal,$jsonAfterNvoPersonal);
+                        DestinatarioConocimientoController::actualiza_otra_persona($idDocumento,$nuevo_personal->iid_puesto,$nuevo_personal->iid_adscripcion,$nuevo_personal->iid_personal);
+                    }
                 }
-            }            
-        } else
-            DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1355', 0);
+            } else
+                DestinatarioConocimientoController::actualiza_adscrip_conoc($idDocumento, '1355', 0);
+        }
 
         //return redirect()->route('documentos.index')
                          //->with('success','Documento actualizado satisfactoriamente');

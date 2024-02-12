@@ -64,7 +64,7 @@
                     <div class="row">
                         <div class="col-4" id="divsegmnt">
                             <label for="seguimiento" class="col-form-label text-md-right">Seguimiento:</label>
-                            <textarea id="seguimiento" name="seguimiento" class="form-control" data-target="#seguimiento" {{ $noeditar }}>{{ $personal_conocimiento->cseguimiento }}</textarea>
+                            <textarea id="seguimiento" name="seguimiento" class="form-control" data-target="#seguimiento" maxlength="500" {{ $noeditar }}>{{ $personal_conocimiento->cseguimiento }}</textarea>
                         </div>
                         <div class="col-4" id="divsegarchivo">
                             <label for="archivo_seguim" class="col-form-label text-md-right">Archivo Dígital:</label>

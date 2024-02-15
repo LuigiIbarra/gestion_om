@@ -34,6 +34,9 @@ use App\Models\Gestion\PersonalConocimiento;
 use App\Models\Gestion\FolioRelacionado;
 use App\Models\Gestion\Bitacora;
 
+use App\Exports\Excel\DocumentosExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Mpdf\Mpdf;
 
 use \stdClass;
@@ -1164,5 +1167,9 @@ class DocumentosController extends Controller
                                                                       ->where('iestatus','=',1)->first();
             return $adscripcion_existente->iid_adscripcion;
         }
+    }
+
+    public function export(){
+        return Excel::download(new DocumentosExport, 'Documentos.xlsx');
     }
 }

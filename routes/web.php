@@ -45,6 +45,7 @@ Route::post('buscaDoctoDuplicado',                  [DocumentosController::class
 Route::post('buscaFolioDuplicado',                  [DocumentosController::class, 'buscaFolioDuplicado']);
 //Ruta para Completar Folios a 5 dígitos con ceros a la izquierda
 Route::get('documentos/completar',                  [DocumentosController::class, 'completarFolios']);
+Route::get('documentos/exportar',                   [DocumentosController::class, 'export']);
 
 //Rutas de Reportes
 Route::get('reportes/param_estadistico',            [ReportesController::class, 'param_estadistico']);

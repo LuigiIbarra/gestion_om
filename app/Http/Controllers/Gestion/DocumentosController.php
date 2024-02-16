@@ -50,17 +50,97 @@ class DocumentosController extends Controller
 
     public function index(Request $request)
     {
-        $folio  = $request->folio;
-        $docto  = $request->docto;
-        $asunto = $request->asunto;
-        if ($folio != "") {
-            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cfolio','like','%'.$folio.'%')->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
+        $folio   = $request->folio;
+        $docto   = $request->docto;
+        $asunto  = $request->asunto;
+        $asunto2 = $request->asunto2;
+        $nombre  = $request->nombre;
+        $cargo   = $request->cargo;
+        if ($asunto != "" && $asunto2 != ""){
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento',
+                'importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion',
+                'destinatarioconocimiento')
+                ->Join('tcpersonal as p','tadocumentos.iid_personal_remitente','=','p.iid_personal')
+                ->where('casunto','like','%'.$asunto.'%')
+                ->where('casunto','like','%'.$asunto2.'%')
+                ->where('p.iestatus','=',1)
+                ->where('tadocumentos.iestatus','=',1)->orderBy('iid_semaforo')->get();
+        } elseif ($asunto != "" && $nombre != "") {
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento',
+                'importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion',
+                'destinatarioconocimiento')
+                ->Join('tcpersonal as p','tadocumentos.iid_personal_remitente','=','p.iid_personal')
+                ->where('casunto','like','%'.$asunto.'%')
+                ->where('p.cnombre_personal','like','%'.$nombre.'%')
+                ->where('p.iestatus','=',1)
+                ->where('tadocumentos.iestatus','=',1)->orderBy('iid_semaforo')->get();
+        } elseif ($asunto != "" && $cargo != "") {
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento',
+                'importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion',
+                'destinatarioconocimiento')
+                ->Join('tcpersonal as p','tadocumentos.iid_personal_remitente','=','p.iid_personal')
+                ->Join('tcpuestos as pst','p.iid_puesto','=','pst.iid_puesto')
+                ->where('casunto','like','%'.$asunto.'%')
+                ->where('pst.cdescripcion_puesto','like','%'.$cargo.'%')
+                ->where('p.iestatus','=',1)
+                ->where('tadocumentos.iestatus','=',1)->orderBy('iid_semaforo')->get();
+        } elseif ($asunto != "" && $docto != "") {
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento',
+                'importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion',
+                'destinatarioconocimiento')
+                ->Join('tcpersonal as p','tadocumentos.iid_personal_remitente','=','p.iid_personal')
+                ->where('casunto','like','%'.$asunto.'%')
+                ->where('cnumero_documento','like','%'.$docto.'%')
+                ->where('p.iestatus','=',1)
+                ->where('tadocumentos.iestatus','=',1)->orderBy('iid_semaforo')->get();
+        } elseif ($cargo != "") {
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento',
+                'importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion',
+                'destinatarioconocimiento')
+                ->Join('tcpersonal as p','tadocumentos.iid_personal_remitente','=','p.iid_personal')
+                ->Join('tcpuestos as pst','p.iid_puesto','=','pst.iid_puesto')
+                ->where('pst.cdescripcion_puesto','like','%'.$cargo.'%')
+                ->where('p.iestatus','=',1)
+                ->where('tadocumentos.iestatus','=',1)->orderBy('iid_semaforo')->get();
+        } elseif ($nombre != "") {
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento',
+                'importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion',
+                'destinatarioconocimiento')
+                ->Join('tcpersonal as p','tadocumentos.iid_personal_remitente','=','p.iid_personal')
+                ->where('p.cnombre_personal','like','%'.$nombre.'%')
+                ->where('p.iestatus','=',1)
+                ->where('tadocumentos.iestatus','=',1)->orderBy('iid_semaforo')->get();
+        } elseif ($folio != "") {
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento',
+                'importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion',
+                'destinatarioconocimiento')
+                ->Join('tcpersonal as p','tadocumentos.iid_personal_remitente','=','p.iid_personal')
+                ->where('cfolio','like','%'.$folio.'%')
+                ->where('p.iestatus','=',1)
+                ->where('tadocumentos.iestatus','=',1)->orderBy('iid_semaforo')->get();
         } elseif ($docto != "") {
-            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('cnumero_documento','like','%'.$docto.'%')->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
-        } elseif ($asunto != "") {
-            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('casunto','like','%'.$asunto.'%')->where('iestatus','=',1)->orderBy('iid_semaforo')->get();
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento',
+                'importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion',
+                'destinatarioconocimiento')
+                ->Join('tcpersonal as p','tadocumentos.iid_personal_remitente','=','p.iid_personal')
+                ->where('cnumero_documento','like','%'.$docto.'%')
+                ->where('p.iestatus','=',1)
+                ->where('tadocumentos.iestatus','=',1)->orderBy('iid_semaforo')->get();
+        } elseif ($asunto != "" && $asunto2 == "") {
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento',
+                'importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion',
+                'destinatarioconocimiento')
+                ->Join('tcpersonal as p','tadocumentos.iid_personal_remitente','=','p.iid_personal')
+                ->where('casunto','like','%'.$asunto.'%')
+                ->where('p.iestatus','=',1)
+                ->where('tadocumentos.iestatus','=',1)->orderBy('iid_semaforo')->get();
         } else {
-            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento','importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion','destinatarioconocimiento')->where('iestatus','=',1)->orderBy('iid_semaforo')->latest()->take(200)->get();
+            $data['documentos'] = Documento::with('tipodocumento','tipoanexo','estatusdocumento','prioridaddocumento','semaforodocumento',
+                'importanciacontenido','tema','tipoasunto','instruccion','personalremitente','personalconocimiento','destinatarioatencion',
+                'destinatarioconocimiento')
+                ->Join('tcpersonal as p','tadocumentos.iid_personal_remitente','=','p.iid_personal')
+                ->where('p.iestatus','=',1)
+                ->where('tadocumentos.iestatus','=',1)->orderBy('iid_semaforo')->take(200)->get();
         }
         return view('documentos.index',$data);
     }

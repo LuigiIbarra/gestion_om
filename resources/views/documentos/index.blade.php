@@ -21,19 +21,33 @@
                 </div>
             @endif
             <div class="row">
-                <div class="col" id="divfolio">
+                <div class="col-6" id="divfolio">
                     <label for="folio" class="col-form-label text-md-right">Folio:</label>
                     <input type="text" id="folio" onkeypress="return textnumber(event);" name="folio" class="form-control" data-target="#folio" value="{{ old('folio',null) }}"/>
                 </div>
-                <div class="col" id="divdocumento">
-                    <label for="docto" class="col-form-label text-md-right">Número de Documento:</label>
+                <div class="col-6" id="divdocumento">
+                    <label for="docto" class="col-form-label text-md-right">Número de Oficio:</label>
                     <input type="text" id="docto" onkeypress="return textnumber(event);" name="docto" class="form-control" data-target="#docto" value="{{ old('docto',null) }}"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6" id="divasunto">
-                    <label for="asunto" class="col-form-label text-md-right">Asunto:</label>
+                    <label for="asunto" class="col-form-label text-md-right">Asunto 1:</label>
                     <input type="text" id="asunto" name="asunto" class="form-control" data-target="#asunto" value="{{ old('asunto',null) }}"/>
+                </div>
+                <div class="col-6" id="divasunto2">
+                    <label for="asunto2" class="col-form-label text-md-right">Y Asunto 2:</label>
+                    <input type="text" id="asunto2" name="asunto2" class="form-control" data-target="#asunto2" value="{{ old('asunto',null) }}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" id="divnombre">
+                    <label for="nombre" class="col-form-label text-md-right">Nombre:</label>
+                    <input type="text" id="nombre" onkeypress="return textonly(event);" name="nombre" class="form-control" data-target="#nombre" value="{{ old('nombre',null) }}"/>
+                </div>
+                <div class="col-6" id="divcargo">
+                    <label for="cargo" class="col-form-label text-md-right">Cargo:</label>
+                    <input type="text" id="cargo" onkeypress="return textnumber(event);" name="cargo" class="form-control" data-target="#cargo" value="{{ old('cargo',null) }}"/>
                 </div>
             </div>
             <br>

@@ -1169,7 +1169,12 @@ class DocumentosController extends Controller
         }
     }
 
-    public function export(){
-        return Excel::download(new DocumentosExport, 'Documentos.xlsx');
+    public function export(Request $request){
+        $dtfecha_inicial        = DateTime::createFromFormat('d-m-Y', '01-01-'.$request->anio_consulta);
+        $fechaInicio            = $dtfecha_inicial->format("Y-m-d");
+        $dtfecha_final          = DateTime::createFromFormat('d-m-Y', '31-12-'.$request->anio_consulta);
+        $fechaFin               = $dtfecha_final->format("Y-m-d");
+
+        return Excel::download(new DocumentosExport($fechaInicio,$fechaFin), 'Documentos.xlsx');
     }
 }

@@ -27,6 +27,12 @@ class DocumentosExport implements FromCollection,WithHeadings
     /**
     * @return \Illuminate\Support\Collection
     */
+    public function __construct(string $fechaInicio, string $fechaFin)
+    {
+        $this->fechaInicio  = $fechaInicio;
+        $this->fechaFin     = $fechaFin;
+    }
+
     public function headings():array
     {
         return [
@@ -102,8 +108,12 @@ class DocumentosExport implements FromCollection,WithHeadings
                         ->Join('tcinstrucciones as ins',        'd.iid_instruccion',        '=','ins.iid_instruccion')
                         ->Join('tcsemaforo as s',               'd.iid_semaforo',           '=','s.iid_semaforo')
                         ->Join('users as u',                    'd.iid_usuario',            '=','u.id')
-                        ->select('d.iid_documento','d.cfolio','d.dfecha_recepcion','d.cnumero_documento','d.dfecha_documento','td.cdescripcion_tipo_documento','ta.cdescripcion_tipo_anexo','p.cnombre_personal','p.cpaterno_personal','p.cmaterno_personal','pst.cdescripcion_puesto','adsc.cdescripcion_adscripcion','ed.cdescripcion_estatus_documento','pd.cdescripcion_prioridad_documento','ins.cdescripcion_instruccion','s.ccolor_semaforo','d.dfecha_termino','d.casunto','u.name')
-                        ->where('d.iestatus','=',1)->get();
+                        ->select('d.iid_documento','d.cfolio','d.dfecha_recepcion','d.cnumero_documento','d.dfecha_documento',
+                            'td.cdescripcion_tipo_documento','ta.cdescripcion_tipo_anexo','p.cnombre_personal','p.cpaterno_personal',
+                            'p.cmaterno_personal','pst.cdescripcion_puesto','adsc.cdescripcion_adscripcion','ed.cdescripcion_estatus_documento',
+                            'pd.cdescripcion_prioridad_documento','ins.cdescripcion_instruccion','s.ccolor_semaforo','d.dfecha_termino',
+                            'd.casunto','u.name')
+                        ->where('d.iestatus','=',1)->whereBetween('d.dfecha_recepcion',[$this->fechaInicio,$this->fechaFin])->get();
         return $documentos;
     }
 }

@@ -156,8 +156,8 @@
                                 <img src="{{ asset('bootstrap-icons-1.5.0/graph-up.svg') }}" width="18" height="18"> Informe de Asuntos Pendientes
                                 </a>
                             </li>
-                            <li><a class="dropdown-item" href="{{ url('documentos/exportar') }}">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/table.svg') }}" width="18" height="18"> Exportación a Excel 2024
+                            <li><a class="dropdown-item" href="{{ url('reportes/param_exportar') }}">
+                                <img src="{{ asset('bootstrap-icons-1.5.0/table.svg') }}" width="18" height="18"> Exportación a Excel
                                 </a>
                             </li>
                           </ul>

@@ -722,6 +722,11 @@ class ReportesController extends Controller
         $mpdf->Output($nombreArchivo,'D');//Salida del documento  D
     }
 
+    public function param_exportar()
+    {
+        return view('documentos.creaPDF.param_exportar');
+    }
+
     public static function cuenta_documentos($area,$fi,$ff,$status)
     {
         $contador = Documento::join('tadestinatarios_atencion','tadestinatarios_atencion.iid_documento','=','tadocumentos.iid_documento')

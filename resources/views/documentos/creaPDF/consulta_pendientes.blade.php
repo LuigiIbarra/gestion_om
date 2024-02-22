@@ -95,7 +95,13 @@
 												<td>{{ strftime('%d/%m/%Y', strtotime($pndt->dfecha_recepcion)) }}</td>
 												<td>{{ $pndt->cfolio }}</td>
 												<td>{{ $pndt->cnumero_documento }}</td>
-												<td>{{ $pndt->personalremitente->cnombre_personal.' '.$pndt->personalremitente->cpaterno_personal.' '.$pndt->personalremitente->cmaterno_personal.',' }}<br>{{ $pndt->cdescripcion_puesto }}</td>
+												<td>{{ $pndt->personalremitente->cnombre_personal.' '.$pndt->personalremitente->cpaterno_personal.' '.$pndt->personalremitente->cmaterno_personal.',' }}<br>{{ substr($pndt->cdescripcion_puesto,0,50) }}
+																										@if(strlen($pndt->cdescripcion_puesto)>50)
+																											<br>{{ substr($pndt->cdescripcion_puesto,50,50) }}
+																										@endif
+																										@if(strlen($pndt->cdescripcion_puesto)>100)
+																											<br>{{ substr($pndt->cdescripcion_puesto,100,50) }}
+																										@endif</td>
 												<td>{{ substr($pndt->casunto,0,50) }}
 													@if(strlen($pndt->casunto)>50)
 														<br>{{ substr($pndt->casunto,50,50) }}

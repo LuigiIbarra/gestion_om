@@ -54,6 +54,7 @@
 							</tr>
 							<tr style="border: 0px solid;">
 								<th style="border: 0px solid;">PERIODO REPORTADO DEL: {{ strtoupper(strftime('%e de %B de %Y', strtotime($fecha_inicial))) }} AL {{ strtoupper(strftime('%e de %B de %Y', strtotime($fecha_final))) }}</th>
+								<td style="border: 0px solid; text-align: right;">Página {{ $i }} de {{ $total_paginas }}<br></td>
 							</tr>
 						</table>
 					</td>
@@ -74,10 +75,10 @@
 						</table>
 					</td>
 				</tr>
-				--}}
 				<tr style="border: 0px solid;">
 					<td style="border: 0px solid; text-align: right;">Página {{ $i }} de {{ $total_paginas }}<br></td>
 				</tr>
+				--}}
 				<tr style="border: 0px solid;">
 					<td style="border: 0px solid;">
 						<table style="border: 0px solid;">

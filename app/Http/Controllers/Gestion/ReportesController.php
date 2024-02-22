@@ -700,14 +700,33 @@ class ReportesController extends Controller
         $data['fecha_inicial']  = $request->fecha_inicial;
         $data['fecha_final']    = $request->fecha_final;
 
-        $data['pendientes']     = Documento::with('personalremitente')
+        $total_registros        = Documento::with('personalremitente')
                                            ->join('tcpersonal','tadocumentos.iid_personal_remitente', '=', 'tcpersonal.iid_personal')
                                            ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')
                                            ->where('iid_estatus_documento','=',1)
                                            ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
-                                           ->where('tadocumentos.iestatus','=',1)->get();
+                                           ->where('tadocumentos.iestatus','=',1)->count();
+        $salto_registros        = 5;
+        $data['salto_registros']= $salto_registros;
+        if(fmod($total_registros, $salto_registros)==0.0)
+            $total_paginas          = intdiv($total_registros, $salto_registros);
+        else
+            $total_paginas          = intdiv($total_registros, $salto_registros) + 1;
+        $salto_paginas          = 0;
 
-        $html  = view('documentos.creaPDF.consulta_pendientes',$data)->render();
+        for($i=1; $i<=$total_paginas; $i++) {
+            $data['i']              = $i;
+            $data['salto_paginas']  = $salto_paginas;
+            $data['total_paginas']  = $total_paginas;
+            $data['pendientes']     = Documento::with('personalremitente')
+                                               ->join('tcpersonal','tadocumentos.iid_personal_remitente', '=', 'tcpersonal.iid_personal')
+                                               ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')
+                                               ->where('iid_estatus_documento','=',1)
+                                               ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
+                                               ->where('tadocumentos.iestatus','=',1)->skip($salto_paginas)->take($salto_registros)->get();
+            $html[$i]               = view('documentos.creaPDF.consulta_pendientes',$data)->render();
+            $salto_paginas          = $salto_paginas + $salto_registros;
+        }
 
         $mpdf  = new Mpdf(['format' => 'letter'
                             ,'orientation'=>'L'
@@ -718,7 +737,11 @@ class ReportesController extends Controller
                          ]);
         // Write some HTML code:
         $mpdf->SetDisplayMode('fullpage');
-        $mpdf->writeHTML($html); //imprimes la variable $html que contiene tu HTML
+        for($i=1; $i<=$total_paginas; $i++) {
+            $mpdf->writeHTML($html[$i]); //imprimes la variable $html que contiene tu HTML
+            if ($i < $total_paginas)
+                $mpdf->AddPage();
+        }
         $mpdf->Output($nombreArchivo,'D');//Salida del documento  D
     }
 

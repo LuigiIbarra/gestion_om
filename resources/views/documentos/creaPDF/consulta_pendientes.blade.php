@@ -67,7 +67,7 @@
 					</td>
 				</tr>
 				<tr style="border: 0px solid;">
-					<td style="border: 0px solid;"><br></td>
+					<td style="border: 0px solid; text-align: right;">Página {{ $i }} de {{ $total_paginas }}<br></td>
 				</tr>
 				<tr style="border: 0px solid;">
 					<td style="border: 0px solid;">
@@ -78,10 +78,10 @@
 										<tr>
 											<th>No.</th><th>Fecha</th><th>Folio</th><th>Oficio</th><th>Remitente</th><th>Asunto</th>
 										</tr>
-										{{ $i = 1; }}
+										{{ $j = $salto_paginas + 1; }}
 										@foreach($pendientes as $indice=>$pndt)
 											<tr>
-												<th>{{ $i }}</th>
+												<th>{{ $j }}</th>
 												<td>{{ strftime('%d/%m/%Y', strtotime($pndt->dfecha_recepcion)) }}</td>
 												<td>{{ $pndt->cfolio }}</td>
 												<td>{{ $pndt->cnumero_documento }}</td>
@@ -116,7 +116,7 @@
 													@endif
 												</td>
 											</tr>
-											{{ $i = $i + 1; }}
+											{{ $j = $j + 1; }}
 										@endforeach
 									</table>
 								</td>

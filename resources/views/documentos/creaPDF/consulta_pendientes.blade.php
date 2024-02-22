@@ -121,9 +121,11 @@
 													@if(strlen($pndt->casunto)>400)
 														<br>{{ substr($pndt->casunto,400,50) }}
 													@endif
+													{{--
 													@if(strlen($pndt->casunto)>450)
 														<br>{{ substr($pndt->casunto,450,50) }}
 													@endif
+													--}}
 												</td>
 											</tr>
 											{{ $j = $j + 1; }}

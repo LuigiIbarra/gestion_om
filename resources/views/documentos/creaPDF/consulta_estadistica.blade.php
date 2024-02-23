@@ -24,6 +24,7 @@
 		</style>
 	</head>
 	<body>
+		<?php setlocale(LC_TIME, 'es_ES','es_ES.utf8'); ?>
 		<form target="_blank">
 			<table style="border: 0px solid;">
 				<tr style="border: 0px solid;">

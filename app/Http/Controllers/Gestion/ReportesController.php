@@ -695,15 +695,36 @@ class ReportesController extends Controller
         $data['anio']           = $anio;
         $parametros             = Parametros::where('ianio','=',$anio)->first();
         $data['parametros']     = $parametros;
-        $nombreArchivo          = 'consulta_estadistica_'.$fecha.'.pdf';
+        $nombreArchivo          = 'consulta_pendientes_'.$fecha.'.pdf';
         
         $data['fecha_inicial']  = $request->fecha_inicial;
         $data['fecha_final']    = $request->fecha_final;
-
+        switch ($request->solicitud_de) {
+            case 1:
+                $solic_de       = 'Magistrad';
+                break;
+            case 2:
+                $solic_de       = 'Juez';
+                break;
+            case 3:
+                $solic_de       = 'Consejer';
+                break;
+            case 4:
+                $solic_de       = 'Director';
+                break;
+            case 5:
+                $solic_de       = 'Coordinador';
+                break;
+        }
+        $solicitudes_de         = Puesto::where('cdescripcion_puesto','like',$solic_de.'%')->where('iestatus','=',1)->get();
+        foreach($solicitudes_de as $sol_de)
+            $array_solic_de[]   = $sol_de->iid_puesto;
+        //dd($array_solic_de);
         $total_registros        = Documento::with('personalremitente')
                                            ->join('tcpersonal','tadocumentos.iid_personal_remitente', '=', 'tcpersonal.iid_personal')
                                            ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')
                                            ->where('iid_estatus_documento','=',1)
+                                           ->whereIn('tcpersonal.iid_puesto',$array_solic_de)
                                            ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                            ->where('tadocumentos.iestatus','=',1)->count();
         $salto_registros        = 5;
@@ -722,6 +743,7 @@ class ReportesController extends Controller
                                                ->join('tcpersonal','tadocumentos.iid_personal_remitente', '=', 'tcpersonal.iid_personal')
                                                ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')
                                                ->where('iid_estatus_documento','=',1)
+                                               ->whereIn('tcpersonal.iid_puesto',$array_solic_de)
                                                ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                ->where('tadocumentos.iestatus','=',1)->skip($salto_paginas)->take($salto_registros)->get();
             $html[$i]               = view('documentos.creaPDF.consulta_pendientes',$data)->render();

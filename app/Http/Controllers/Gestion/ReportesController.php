@@ -703,18 +703,23 @@ class ReportesController extends Controller
             switch ($request->solicitud_de) {
                 case 1:
                     $solic_de       = 'Magistrad';
+                    $data['titulo'] = ', SOLICITUDES DE MAGISTRADOS';
                     break;
                 case 2:
                     $solic_de       = 'Juez';
+                    $data['titulo'] = ', SOLICITUDES DE JUECES';
                     break;
                 case 3:
                     $solic_de       = 'Consejer';
+                    $data['titulo'] = ', SOLICITUDES DE CONSEJEROS';
                     break;
                 case 4:
                     $solic_de       = 'Director';
+                    $data['titulo'] = ', SOLICITUDES DE DIRECTORES';
                     break;
                 case 5:
                     $solic_de       = 'Coordinador';
+                    $data['titulo'] = ', SOLICITUDES DE COORDINADORES';
                     break;
             }
             $solicitudes_de         = Puesto::where('cdescripcion_puesto','like',$solic_de.'%')->where('iestatus','=',1)->get();
@@ -728,6 +733,7 @@ class ReportesController extends Controller
                                                ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                ->where('tadocumentos.iestatus','=',1)->count();
         } else {
+            $data['titulo']         = ', SOLICITUDES DE TODOS';
             $total_registros        = Documento::with('personalremitente')
                                                ->join('tcpersonal','tadocumentos.iid_personal_remitente', '=', 'tcpersonal.iid_personal')
                                                ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')

@@ -50,7 +50,7 @@
 								<td rowspan="2" style="border: 0px solid;text-align: left;vertical-align: top;"><img src="./images/LOGO_OM.png" width="135px"></td>
 							</tr>
 							<tr style="border: 0px solid;">
-								<th style="border: 0px solid;">INFORME DE ASUNTOS PENDIENTES</th>
+								<th style="border: 0px solid;">INFORME DE ASUNTOS PENDIENTES{{ $titulo }}</th>
 							</tr>
 							<tr style="border: 0px solid;">
 								<th style="border: 0px solid;">PERIODO REPORTADO DEL: {{ strtoupper(strftime('%e de %B de %Y', strtotime($fecha_inicial))) }} AL {{ strtoupper(strftime('%e de %B de %Y', strtotime($fecha_final))) }}</th>
@@ -59,26 +59,6 @@
 						</table>
 					</td>
 				</tr>
-				{{--
-				<tr style="border: 0px solid;">
-					<td style="border: 0px solid;"><br></td>
-				</tr>
-				<tr style="border: 0px solid;">
-					<td style="border: 0px solid;">
-						<table style="border: 0px solid;">
-							<tr style="border: 0px solid;">
-								<th style="border: 0px solid;">INFORME DE ASUNTOS PENDIENTES</th>
-							</tr>
-							<tr style="border: 0px solid;">
-								<th style="border: 0px solid;">PERIODO REPORTADO DEL: {{ strtoupper(strftime('%e de %B de %Y', strtotime($fecha_inicial))) }} AL {{ strtoupper(strftime('%e de %B de %Y', strtotime($fecha_final))) }}</th>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr style="border: 0px solid;">
-					<td style="border: 0px solid; text-align: right;">Página {{ $i }} de {{ $total_paginas }}<br></td>
-				</tr>
-				--}}
 				<tr style="border: 0px solid;">
 					<td style="border: 0px solid;">
 						<table style="border: 0px solid;">

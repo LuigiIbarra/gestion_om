@@ -733,7 +733,7 @@ class ReportesController extends Controller
                                                ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                ->where('tadocumentos.iestatus','=',1)->count();
         } else {
-            $data['titulo']         = ', SOLICITUDES DE TODOS';
+            $data['titulo']         = '';
             $total_registros        = Documento::with('personalremitente')
                                                ->join('tcpersonal','tadocumentos.iid_personal_remitente', '=', 'tcpersonal.iid_personal')
                                                ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')

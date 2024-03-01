@@ -699,7 +699,45 @@ class ReportesController extends Controller
         
         $data['fecha_inicial']  = $request->fecha_inicial;
         $data['fecha_final']    = $request->fecha_final;
-        if ($request->solicitud_de > 0) {
+        $data['solicitud_a']    = 0;
+        if ($request->solicitud_a > 0) {
+            switch ($request->solicitud_a) {
+                case 227:
+                    $data['titulo'] = ', SOLICITUDES A GESTIÓN TECNOLÓGICA';
+                    break;
+                case 228:
+                    $data['titulo'] = ', SOLICITUDES A OBRAS, MANT. Y SERVICIOS';
+                    break;
+                case 229:
+                    $data['titulo'] = ', SOLICITUDES A PLANEACIÓN';
+                    break;
+                case 230:
+                    $data['titulo'] = ', SOLICITUDES A RECURSOS FINANCIEROS';
+                    break;
+                case 231:
+                    $data['titulo'] = ', SOLICITUDES A RECURSOS HUMANOS';
+                    break;
+                case 232:
+                    $data['titulo'] = ', SOLICITUDES A RECURSOS MATERIALES';
+                    break;
+                case 1215:
+                    $data['titulo'] = ', SOLICITUDES A SEGURIDAD';
+                    break;
+                case 1354:
+                    $data['titulo'] = ', SOLICITUDES A DIR. ADMINISTRATIVA';
+                    break;
+            }
+            $data['solicitud_a']    = $request->solicitud_a;
+            $total_registros        = DB::table('tadocumentos as d')
+                                            ->join('tcpersonal as p','d.iid_personal_remitente', '=', 'p.iid_personal')
+                                            ->join('tcpuestos as pst','p.iid_puesto', '=', 'pst.iid_puesto')
+                                            ->join('tadestinatarios_atencion as da','d.iid_documento','=','da.iid_documento')
+                                            ->where('d.iid_estatus_documento','=',1)
+                                            ->where('da.iid_adscripcion','=',$request->solicitud_a)       //SOLICITUD A
+                                            ->where('da.iestatus','=',1)
+                                            ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
+                                            ->where('d.iestatus','=',1)->count();
+        } elseif ($request->solicitud_de > 0) {
             switch ($request->solicitud_de) {
                 case 1:
                     $solic_de       = 'Magistrad';
@@ -728,8 +766,8 @@ class ReportesController extends Controller
             $total_registros        = Documento::with('personalremitente')
                                                ->join('tcpersonal','tadocumentos.iid_personal_remitente', '=', 'tcpersonal.iid_personal')
                                                ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')
-                                               ->where('iid_estatus_documento','=',1)
-                                               ->whereIn('tcpersonal.iid_puesto',$array_solic_de)
+                                               ->where('tadocumentos.iid_estatus_documento','=',1)
+                                               ->whereIn('tcpersonal.iid_puesto',$array_solic_de)                               //SOLICITUD DE
                                                ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                ->where('tadocumentos.iestatus','=',1)->count();
         } else {
@@ -737,9 +775,13 @@ class ReportesController extends Controller
             $total_registros        = Documento::with('personalremitente')
                                                ->join('tcpersonal','tadocumentos.iid_personal_remitente', '=', 'tcpersonal.iid_personal')
                                                ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')
-                                               ->where('iid_estatus_documento','=',1)
+                                               ->where('tadocumentos.iid_estatus_documento','=',1)
                                                ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                ->where('tadocumentos.iestatus','=',1)->count();
+        }
+        if ($total_registros==0) {
+            return redirect()->route('reportes.param_pendientes')
+                         ->with('success','NO HAY INFORMACIÓN PARA ESTOS PARÁMETROS, PRUEBE CON OTROS.');
         }
         $salto_registros        = 5;
         $data['salto_registros']= $salto_registros;
@@ -753,19 +795,29 @@ class ReportesController extends Controller
             $data['i']              = $i;
             $data['salto_paginas']  = $salto_paginas;
             $data['total_paginas']  = $total_paginas;
-            if ($request->solicitud_de > 0) {
+            if ($request->solicitud_a > 0) {
+                $data['pendientes']     = DB::table('tadocumentos as d')
+                                            ->join('tcpersonal as p','d.iid_personal_remitente', '=', 'p.iid_personal')
+                                            ->join('tcpuestos as pst','p.iid_puesto', '=', 'pst.iid_puesto')
+                                            ->join('tadestinatarios_atencion as da','d.iid_documento','=','da.iid_documento')
+                                            ->where('d.iid_estatus_documento','=',1)
+                                            ->where('da.iid_adscripcion','=',$request->solicitud_a)       //SOLICITUD A
+                                            ->where('da.iestatus','=',1)
+                                            ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
+                                            ->where('d.iestatus','=',1)->skip($salto_paginas)->take($salto_registros)->get();
+            } elseif ($request->solicitud_de > 0) {
                 $data['pendientes']     = Documento::with('personalremitente')
                                                    ->join('tcpersonal','tadocumentos.iid_personal_remitente', '=', 'tcpersonal.iid_personal')
                                                    ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')
-                                                   ->where('iid_estatus_documento','=',1)
-                                                   ->whereIn('tcpersonal.iid_puesto',$array_solic_de)
+                                                   ->where('tadocumentos.iid_estatus_documento','=',1)
+                                                   ->whereIn('tcpersonal.iid_puesto',$array_solic_de)                               //SOLICITUD DE
                                                    ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                    ->where('tadocumentos.iestatus','=',1)->skip($salto_paginas)->take($salto_registros)->get();
             } else {
                 $data['pendientes']     = Documento::with('personalremitente')
                                                    ->join('tcpersonal','tadocumentos.iid_personal_remitente', '=', 'tcpersonal.iid_personal')
                                                    ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')
-                                                   ->where('iid_estatus_documento','=',1)
+                                                   ->where('tadocumentos.iid_estatus_documento','=',1)
                                                    ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                    ->where('tadocumentos.iestatus','=',1)->skip($salto_paginas)->take($salto_registros)->get();
             }

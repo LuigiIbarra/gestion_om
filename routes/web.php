@@ -54,7 +54,7 @@ Route::get('reportes/param_sireo',                  [ReportesController::class, 
 Route::get('reportes/estadistico_sireo',            [ReportesController::class, 'reporte_sireo']);
 Route::get('reportes/param_consulta',               [ReportesController::class, 'param_consulta']);
 Route::get('reportes/consulta_estadistica',         [ReportesController::class, 'consulta_estadistica']);
-Route::get('reportes/param_pendientes',             [ReportesController::class, 'param_pendientes']);
+Route::get('reportes/param_pendientes',             [ReportesController::class, 'param_pendientes'])->name('reportes.param_pendientes');
 Route::get('reportes/consulta_pendientes',          [ReportesController::class, 'consulta_pendientes']);
 Route::get('reportes/param_exportar',               [ReportesController::class, 'param_exportar']);
 

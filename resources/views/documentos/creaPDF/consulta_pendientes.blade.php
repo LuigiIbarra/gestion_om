@@ -75,13 +75,23 @@
 												<td>{{ strftime('%d/%m/%Y', strtotime($pndt->dfecha_recepcion)) }}</td>
 												<td>{{ $pndt->cfolio }}</td>
 												<td>{{ $pndt->cnumero_documento }}</td>
-												<td>{{ $pndt->personalremitente->cnombre_personal.' '.$pndt->personalremitente->cpaterno_personal.' '.$pndt->personalremitente->cmaterno_personal.',' }}<br>{{ substr($pndt->cdescripcion_puesto,0,44) }}
+												@if ($solicitud_a > 0)
+													<td>{{ $pndt->cnombre_personal.' '.$pndt->cpaterno_personal.' '.$pndt->cmaterno_personal.',' }}<br>{{ substr($pndt->cdescripcion_puesto,0,44) }}
 																										@if(strlen($pndt->cdescripcion_puesto)>44)
 																											<br>{{ substr($pndt->cdescripcion_puesto,44,44) }}
 																										@endif
 																										@if(strlen($pndt->cdescripcion_puesto)>88)
 																											<br>{{ substr($pndt->cdescripcion_puesto,88,44) }}
 																										@endif</td>
+												@else
+													<td>{{ $pndt->personalremitente->cnombre_personal.' '.$pndt->personalremitente->cpaterno_personal.' '.$pndt->personalremitente->cmaterno_personal.',' }}<br>{{ substr($pndt->cdescripcion_puesto,0,44) }}
+																										@if(strlen($pndt->cdescripcion_puesto)>44)
+																											<br>{{ substr($pndt->cdescripcion_puesto,44,44) }}
+																										@endif
+																										@if(strlen($pndt->cdescripcion_puesto)>88)
+																											<br>{{ substr($pndt->cdescripcion_puesto,88,44) }}
+																										@endif</td>
+												@endif
 												<td>{{ substr($pndt->casunto,0,50) }}
 													@if(strlen($pndt->casunto)>50)
 														<br>{{ substr($pndt->casunto,50,50) }}

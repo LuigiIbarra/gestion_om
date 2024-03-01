@@ -26,6 +26,7 @@
             <div class="col-2">
                 <label for="solicitud_a" class="col-form-label text-md-right">Solicitudes a:</label>
                 <select class="form-control m-bot15" name="solicitud_a" id="solicitud_a">
+                    <option value="0">Elija una opción...</option>
                     <option value="231">Recursos Humanos</option>
                     <option value="230">Recursos Financieros</option>
                     <option value="232">Recursos Materiales</option>
@@ -39,6 +40,7 @@
             <div class="col-2">
                 <label for="solicitud_de" class="col-form-label text-md-right">Solicitudes de:</label>
                 <select class="form-control m-bot15" name="solicitud_de" id="solicitud_de">
+                    <option value="0">Elija una opción...</option>
                     <option value="1">Magistrados</option>
                     <option value="2">Jueces</option>
                     <option value="3">Consejeros</option>
@@ -49,6 +51,7 @@
             <div class="col-2">
                 <label for="correspon_a" class="col-form-label text-md-right">Correspondencia a:</label>
                 <select class="form-control m-bot15" name="correspon_a" id="correspon_a">
+                    <option value="0">Elija una opción...</option>
                     <option value="1">Información Pública y Estadística</option>
                     <option value="2">Centro de Justicia Alternativa</option>
                     <option value="3">INCIFO</option>

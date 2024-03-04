@@ -52,15 +52,15 @@
                 <label for="correspon_a" class="col-form-label text-md-right">Correspondencia a:</label>
                 <select class="form-control m-bot15" name="correspon_a" id="correspon_a">
                     <option value="0">Elija una opción...</option>
-                    <option value="1">Información Pública y Estadística</option>
-                    <option value="2">Centro de Justicia Alternativa</option>
-                    <option value="3">INCIFO</option>
-                    <option value="4">Instituto de Estudios Judiciales</option>
-                    <option value="5">Anales de Jurisprudencia y Boletín Judicial</option>
-                    <option value="6">Archivo Judicial</option>
-                    <option value="7">Apoyo Judicial</option>
-                    <option value="8">Orientación y Derechos Humanos</option>
-                    <option value="8">Dir. G. Jurídica</option>
+                    <option value="1055">Información Pública y Estadística</option>
+                    <option value="236">Centro de Justicia Alternativa</option>
+                    <option value="247">INCIFO</option>
+                    <option value="237">Instituto de Estudios Judiciales</option>
+                    <option value="234">Anales de Jurisprudencia y Boletín Judicial</option>
+                    <option value="221">Archivo Judicial</option>
+                    <option value="180">Apoyo Judicial</option>
+                    <option value="240">Orientación y Derechos Humanos</option>
+                    <option value="1208">Dir. G. Jurídica</option>
                 </select>
             </div>
         </div>

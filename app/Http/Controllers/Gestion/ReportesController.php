@@ -854,7 +854,7 @@ class ReportesController extends Controller
             } elseif ($request->correspon_a > 0) {
                 $data['pendientes']     = DB::table('tadocumentos as d')
                                             ->join('tcpersonal as p','d.iid_personal_remitente', '=', 'p.iid_personal')
-                                            ->join('tcpuestos as pst','p.iid_puesto', '=', 'pst.iid_puesto')
+                                            //->join('tcpuestos as pst','p.iid_puesto', '=', 'pst.iid_puesto')
                                             ->where('d.iid_estatus_documento','=',1)
                                             ->where('p.iid_adscripcion','=',$request->correpon_a)       //CORRESPONDENCIA A
                                             ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])

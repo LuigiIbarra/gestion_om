@@ -771,7 +771,7 @@ class ReportesController extends Controller
                                                ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                ->where('tadocumentos.iestatus','=',1)->count();
         } elseif ($request->correspon_a > 0) {
-            switch ($request->correpon_a) {
+            switch ($request->correspon_a) {
                 case 180:
                     $data['titulo'] = ', CORRESPONDIENCIA A APOYO JUDICIAL';
                     break;
@@ -815,6 +815,7 @@ class ReportesController extends Controller
                                                ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                ->where('tadocumentos.iestatus','=',1)->count();
         }
+            dd($data['titulo']);
         if ($total_registros==0) {
             return redirect()->route('reportes.param_pendientes')
                          ->with('success','NO HAY INFORMACIÓN PARA ESTOS PARÁMETROS, PRUEBE CON OTROS.');

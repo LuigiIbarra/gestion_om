@@ -817,7 +817,7 @@ class ReportesController extends Controller
                                                ->join('tcpuestos','tcpersonal.iid_puesto', '=', 'tcpuestos.iid_puesto')
                                                ->join('tcadscripciones','tcpersonal.iid_adscripcion','=','tcadscripciones.iid_adscripcion')
                                                ->where('tadocumentos.iid_estatus_documento','=',1)
-                                               ->where('tcpersonal.iid_puesto','=',$request->correpon_a)    //CORRESPONDENCIA A
+                                               ->where('tcpersonal.iid_adscripcion','=',$request->correpon_a)    //CORRESPONDENCIA A
                                                ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                ->where('tadocumentos.iestatus','=',1)->count();
         } else {

@@ -829,7 +829,7 @@ class ReportesController extends Controller
                                                ->whereBetween('dfecha_recepcion',[$request->fecha_inicial,$request->fecha_final])
                                                ->where('tadocumentos.iestatus','=',1)->count();
         }
-        dd($total_registros);
+        //dd($total_registros);
         if ($total_registros==0) {
             return redirect()->route('reportes.param_pendientes')
                          ->with('success','NO HAY INFORMACIÓN PARA ESTOS PARÁMETROS, PRUEBE CON OTROS.');

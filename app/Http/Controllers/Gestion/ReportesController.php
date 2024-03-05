@@ -700,6 +700,7 @@ class ReportesController extends Controller
         $data['fecha_inicial']  = $request->fecha_inicial;
         $data['fecha_final']    = $request->fecha_final;
         $data['solicitud_a']    = 0;
+        $data['correspon_a']    = 0;
         if ($request->solicitud_a > 0) {
             switch ($request->solicitud_a) {
                 case 227:

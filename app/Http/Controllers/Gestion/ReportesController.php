@@ -800,6 +800,7 @@ class ReportesController extends Controller
                     $data['titulo'] = ', CORRESPONDIENCIA A DIR. GRAL. JURÍDICA';
                     break;
             }
+            $data['correspon_a']    = $request->correspon_a;
             $total_registros        = DB::table('tadocumentos as d')
                                             ->join('tcpersonal as p','d.iid_personal_remitente', '=', 'p.iid_personal')
                                             ->where('d.iid_estatus_documento','=',1)

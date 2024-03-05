@@ -75,7 +75,7 @@
 												<td>{{ strftime('%d/%m/%Y', strtotime($pndt->dfecha_recepcion)) }}</td>
 												<td>{{ $pndt->cfolio }}</td>
 												<td>{{ $pndt->cnumero_documento }}</td>
-												@if ($solicitud_a > 0)
+												@if ($solicitud_a > 0 || $correspon_a > 0)
 													<td>{{ $pndt->cnombre_personal.' '.$pndt->cpaterno_personal.' '.$pndt->cmaterno_personal.',' }}<br>{{ substr($pndt->cdescripcion_puesto,0,44) }}
 																										@if(strlen($pndt->cdescripcion_puesto)>44)
 																											<br>{{ substr($pndt->cdescripcion_puesto,44,44) }}

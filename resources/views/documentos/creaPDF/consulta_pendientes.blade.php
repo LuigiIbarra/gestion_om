@@ -83,7 +83,7 @@
 																										@if(strlen($pndt->cdescripcion_puesto)>88)
 																											<br>{{ substr($pndt->cdescripcion_puesto,88,44) }}
 																										@endif</td>
-												@else if ($correspon_a > 0)
+												@elseif ($correspon_a > 0)
 													<td>{{ $pndt->cnombre_personal.' '.$pndt->cpaterno_personal.' '.$pndt->cmaterno_personal.',' }}</td>
 												@else
 													<td>{{ $pndt->personalremitente->cnombre_personal.' '.$pndt->personalremitente->cpaterno_personal.' '.$pndt->personalremitente->cmaterno_personal.',' }}<br>{{ substr($pndt->cdescripcion_puesto,0,44) }}

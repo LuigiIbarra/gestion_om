@@ -57,6 +57,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     @auth
+                    @if(Auth::user()->iestatus==1)
                         <div class="dropdown">
                             @consultaDocumento
                               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -133,6 +134,12 @@
                                 </li>
                             @endif
                             --}}
+                            @if(auth()->user()->iid_rol<=2)
+                                <li><a class="dropdown-item" href="{{ url('usuarios/index') }}">
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/people.svg') }}" width="18" height="18"> Lista de Usuarios
+                                    </a>
+                                </li>
+                            @endif
                           </ul>
                         </div>
                         <div class="dropdown">
@@ -163,6 +170,7 @@
                             </li>
                           </ul>
                         </div>
+                    @endif
                     @endauth
 
                     <!-- Right Side Of Navbar -->

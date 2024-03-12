@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('iid_rol')->default(2);
             $table->rememberToken();
+            $table->integer('iestatus')->default(1);
+            $table->integer('iid_usuario')->default(1);
             $table->timestamps();
         });
     }

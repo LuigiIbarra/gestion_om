@@ -11,6 +11,7 @@ use App\Http\Controllers\Gestion\ReportesController;
 use App\Http\Controllers\Catalogos\PuestosController;
 use App\Http\Controllers\Catalogos\AdscripcionesController;
 use App\Http\Controllers\Catalogos\PersonalController;
+use App\Http\Controllers\Catalogos\UsuariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,7 +96,7 @@ Route::post('adscripciones/guardar',                [AdscripcionesController::cl
 Route::get('adscripciones/editar/{id_adsc}',        [AdscripcionesController::class, 'editar_adscripcion'])->name('adscripciones.editar');
 Route::post('adscripciones/actualizar',             [AdscripcionesController::class, 'actualizar_adscripcion']);
 Route::get('adscripciones/inhabilitar/{id_adsc}',   [AdscripcionesController::class, 'confirmainhabilitar_adscripcion']);
-Route::post('buscaAdscripciones',                    [AdscripcionesController::class, 'buscaAdscripciones']);
+Route::post('buscaAdscripciones',                   [AdscripcionesController::class, 'buscaAdscripciones']);
 
 //Rutas de Personal
 Route::get('personal/index',                        [PersonalController::class, 'index'])->name('personal.index');
@@ -112,3 +113,9 @@ Route::get('personal/inhabilitar/{id_personal}',    [PersonalController::class, 
 Route::post('buscaPuestoAdscrip',                   [PersonalController::class, 'buscaPuestoAdscrip']);
 Route::post('actualizaPuestoAdscrip',               [PersonalController::class, 'actualizaPuestoAdscrip']);
 Route::post('buscaOtroNombre',                      [PersonalController::class, 'buscaOtroNombre']);
+
+//Rutas de Usuarios
+Route::get('usuarios/index',                        [UsuariosController::class, 'index'])->name('usuarios.index');
+Route::get('usuarios/editar/{id_usuario}',          [UsuariosController::class, 'editar_usuario'])->name('usuarios.editar');
+Route::post('usuarios/actualizar',                  [UsuariosController::class, 'actualizar_usuario']);
+Route::get('usuarios/inhabilitar/{id_usuario}',     [UsuariosController::class, 'confirmainhabilitar_usuario']);

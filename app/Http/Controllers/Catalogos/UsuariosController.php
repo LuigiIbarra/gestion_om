@@ -53,9 +53,11 @@ class UsuariosController extends Controller
         if ($request->noeditar == "disabled") {
             if ($usuario->iestatus == 0) {
                 $operacion                 = "RECUPERADO";
+                $usuario->password         = bcrypt('12345678');
                 $usuario->iestatus         = 1;
             } else {
                 $operacion                 = "BORRADO";
+                $usuario->password         = bcrypt('87654321');
                 $usuario->iestatus         = 0;
             }
         } else {

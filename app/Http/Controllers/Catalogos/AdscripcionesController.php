@@ -63,7 +63,7 @@ class AdscripcionesController extends Controller
                 AdscripcionesController::bitacora($jsonBefore,$jsonAfter);
             } else {
                 return redirect()->route('adscripciones.nueva')
-                             ->with('success','YA EXISTE una Adscripción con este Nombre Guardado Previamente. Verifique.');
+                             ->with('danger','YA EXISTE una Adscripción con este Nombre Guardado Previamente. Verifique.');
             }
         }
 

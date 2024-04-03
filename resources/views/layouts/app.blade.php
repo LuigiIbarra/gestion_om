@@ -232,6 +232,18 @@
                                 <p>{{ $message }}</p>
                             </div>
                         @endif
+                        @if ($message = Session::get('warning'))
+                            <div class="alert alert-warning">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('danger'))
+                            <div class="alert alert-danger">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
                         @yield('panel')
                     </div>
                 </div>

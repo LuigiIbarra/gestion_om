@@ -126,7 +126,7 @@ class PersonalController extends Controller
                 PersonalController::bitacora($jsonBefore1,$jsonAfter);
             } else {
                 return redirect()->route('personal.nuevo')
-                         ->with('success','YA EXISTE una Persona con este Nombre Guardado Previamente. Verifique.');
+                         ->with('danger','YA EXISTE una Persona con este Nombre Guardado Previamente. Verifique.');
             }
         }
 

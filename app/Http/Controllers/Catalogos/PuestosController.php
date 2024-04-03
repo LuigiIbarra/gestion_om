@@ -59,7 +59,7 @@ class PuestosController extends Controller
                 PuestosController::bitacora($jsonBefore,$jsonAfter);
             } else {
                 return redirect()->route('puestos.nuevo')
-                         ->with('success','YA EXISTE una Puesto con este Nombre Guardado Previamente. Verifique.');
+                         ->with('success','YA EXISTE un Puesto con este Nombre Guardado Previamente. Verifique.');
             }
         }
 

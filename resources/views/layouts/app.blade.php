@@ -87,10 +87,12 @@
                                             <img src="{{ asset('bootstrap-icons-1.5.0/person-lines-fill.svg') }}" width="18" height="18"> Lista de Puestos
                                             </a>
                                         </li>
-                                        <li><a class="dropdown-item" href="{{ url('puestos/nuevo') }}">
-                                            <img src="{{ asset('bootstrap-icons-1.5.0/person-vcard-fill.svg') }}" width="18" height="18"> Nuevo Puesto
-                                            </a>
-                                        </li>
+                                        @altaPuesto
+                                            <li><a class="dropdown-item" href="{{ url('puestos/nuevo') }}">
+                                                <img src="{{ asset('bootstrap-icons-1.5.0/person-vcard-fill.svg') }}" width="18" height="18"> Nuevo Puesto
+                                                </a>
+                                            </li>
+                                        @endaltaPuesto
                                     </ul>
                                 </li>
                             @endconsultaPuesto
@@ -103,10 +105,12 @@
                                             <img src="{{ asset('bootstrap-icons-1.5.0/building.svg') }}" width="18" height="18"> Lista de Adscripciones
                                             </a>
                                         </li>
-                                        <li><a class="dropdown-item" href="{{ url('adscripciones/nueva') }}">
-                                            <img src="{{ asset('bootstrap-icons-1.5.0/building-add.svg') }}" width="18" height="18"> Nueva Adscripción
-                                            </a>
-                                        </li>
+                                        @altaAdscripcion
+                                            <li><a class="dropdown-item" href="{{ url('adscripciones/nueva') }}">
+                                                <img src="{{ asset('bootstrap-icons-1.5.0/building-add.svg') }}" width="18" height="18"> Nueva Adscripción
+                                                </a>
+                                            </li>
+                                        @endaltaAdscripcion
                                     </ul>
                                 </li>
                             @endconsultaAdscripcion
@@ -119,10 +123,12 @@
                                             <img src="{{ asset('bootstrap-icons-1.5.0/people-fill.svg') }}" width="18" height="18"> Lista de Personal
                                             </a>
                                         </li>
-                                        <li><a class="dropdown-item" href="{{ url('personal/nuevo') }}">
-                                            <img src="{{ asset('bootstrap-icons-1.5.0/person-plus-fill.svg') }}" width="18" height="18"> Nuevo Personal
-                                            </a>
-                                        </li>
+                                        @altaPersonal
+                                            <li><a class="dropdown-item" href="{{ url('personal/nuevo') }}">
+                                                <img src="{{ asset('bootstrap-icons-1.5.0/person-plus-fill.svg') }}" width="18" height="18"> Nuevo Personal
+                                                </a>
+                                            </li>
+                                        @endaltaPersonal
                                     </ul>
                                 </li>
                             @endconsultaPersonal

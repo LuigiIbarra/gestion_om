@@ -38,7 +38,7 @@ class FolioRelacionadoController extends Controller
                                                                  ->where('iestatus','=',1)->count();
         if($ya_existe>0){
             return redirect()->route('documentos.editar',$request->idDocumento)
-                             ->with('success','Este Folio Relacionado ya estaba registrado.');;
+                             ->with('danger','Este Folio Relacionado ya estaba registrado.');;
         } else {
             $folio_relacionado                     = new FolioRelacionado();
             $jsonBefore                            = "NEW INSERT FOLIO_RELACIONADO";

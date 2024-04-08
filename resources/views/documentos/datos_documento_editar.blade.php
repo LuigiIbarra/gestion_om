@@ -274,7 +274,7 @@
                         <textarea name="observaciones" class="form-control" data-target="#observaciones" maxlength="500" {{ $noeditar }}>{{ $documento->cobservaciones }}</textarea>
                     </div>
                     <div class="col-4" id="divarchivo">
-                        <label for="archivo" class="col-form-label text-md-right">Archivo Dígital:</label>
+                        <label for="archivo" class="col-form-label text-md-right">Archivo Digital:</label>
                         <input type="file" id="archivo" name="archivo" class="form-control" data-target="#archivo" {{ $noeditar }}/>
                         <a href="{{url('pdf/'.substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4))}}" title="Ver PDF" target="_blank">{{substr($documento->cruta_archivo_documento,strrpos($documento->cruta_archivo_documento,'pdf/')+4)}}</a>
                     </div>

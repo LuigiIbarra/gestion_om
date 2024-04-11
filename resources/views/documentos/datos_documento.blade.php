@@ -132,8 +132,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col" id="divnvootraadsc">
-                            <label for="otra_desc_adsc" class="col-form-label text-md-right">Nuevo Área/Razón Social:</label>
+                        <div class="col" id="divnvaotraadsc">
+                            <label for="otra_desc_adsc" class="col-form-label text-md-right">Nueva Área/Razón Social:</label>
                             <input type="text" id="otra_desc_adsc" name="otra_desc_adsc" class="form-control" data-target="#otra_desc_adsc" value="" maxlength="100" />
                         </div>
                         <div class="col" id="divnvotipoadsc">

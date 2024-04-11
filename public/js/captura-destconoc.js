@@ -44,7 +44,7 @@ window.addEventListener('load', function(){
                     document.querySelector("#puesto_conocimiento").innerHTML = selectPuesto;
                     document.querySelector("#area_conocimiento").innerHTML = selectAdscrip;                   
                     var error=""; 
-                    error+="<label><font style='color: red;'>*No se econtraron resultados con este Nombre.<font style='color: red;'></label><br/>"
+                    error+="<label><font style='color: red;'>*No se encontraron resultados con este Nombre.<font style='color: red;'></label><br/>"
                     document.querySelector('#validaPersonalDest').innerHTML = error;
                     return false;
                 }

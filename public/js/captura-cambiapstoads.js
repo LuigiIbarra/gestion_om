@@ -38,7 +38,7 @@ window.addEventListener('load', function(){
                     document.querySelector("#puesto_remitente").innerHTML = selectPuesto;
                     document.querySelector("#area_remitente").innerHTML   = selectAdscrip;                   
                     var error=""; 
-                    error+="<label><font style='color: red;'>*No se econtraron resultados con este Nombre.<font style='color: red;'></label><br/>"
+                    error+="<label><font style='color: red;'>*No se encontraron resultados con este Nombre.<font style='color: red;'></label><br/>"
                     document.querySelector('#validaPersonal').innerHTML   = error;
                     return false;
                 }

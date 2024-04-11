@@ -42,7 +42,7 @@ window.addEventListener('load', function(){
                         document.querySelector('#fr_area_remitte').value = "";
                     }
                     var error=""; 
-                    error+="<label><font style='color: red;'>*No se econtraron resultados con este Folio.<font style='color: red;'></label><br/>"
+                    error+="<label><font style='color: red;'>*No se encontraron resultados con este Folio.<font style='color: red;'></label><br/>"
         			document.querySelector('#validaFolioRel').innerHTML = error;
                     return false;
         		}

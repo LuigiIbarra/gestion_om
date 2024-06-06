@@ -62,16 +62,18 @@
                     <td class="text-center">{{ $usuario->rol->cnombre_rol }}</td>
                     <td class="text-center col-actions">
                     @if ($usuario->iestatus == 1)
-                        @editaPersonal
-                            <a href="{{ url('usuarios/editar/'.$usuario->id) }}" data-toggle="tooltip" data-html="true" title="Corrección de datos">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
-                            </a>
-                        @endeditaPersonal
-                        @borraPersonal
-                            <a href="{{ url('usuarios/inhabilitar/'.$usuario->id) }}" data-toggle="tooltip" data-html="true" title="Borrar">
-                                <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
-                            </a>
-                        @endborraPersonal
+                        @if ($usuario->iid_rol>=2 || auth()->user()->iid_rol==1)
+                            @editaPersonal
+                                <a href="{{ url('usuarios/editar/'.$usuario->id) }}" data-toggle="tooltip" data-html="true" title="Corrección de datos">
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/pencil-fill.svg') }}" width="18" height="18">
+                                </a>
+                            @endeditaPersonal
+                            @borraPersonal
+                                <a href="{{ url('usuarios/inhabilitar/'.$usuario->id) }}" data-toggle="tooltip" data-html="true" title="Borrar">
+                                    <img src="{{ asset('bootstrap-icons-1.5.0/trash-fill.svg') }}" width="18" height="18">
+                                </a>
+                            @endborraPersonal
+                        @endif
                     @else
                         @borraPersonal
                             <a href="{{ url('usuarios/inhabilitar/'.$usuario->id) }}" data-toggle="tooltip" data-html="true" title="Recuperar">

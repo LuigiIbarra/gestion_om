@@ -2,9 +2,11 @@
     <div class="table-responsive">
         <div class="row">
             <div class="col col-form-label text-md-right">
-                <a href="{{ url('persconoc/nuevo/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Nuevo">
-                    + Nuevo Destinatario de Copia de Conocimiento
-                </a>
+                @if ($noeditar=="")
+                    <a href="{{ url('persconoc/nuevo/'.$documento->iid_documento) }}" data-toggle="tooltip" data-html="true" title="Nuevo">
+                        + Nuevo Destinatario de Copia de Conocimiento
+                    </a>
+                @endif
             </div>
         </div>
         <table class="table table-striped shadow-lg" id="MyTablePersConoc">

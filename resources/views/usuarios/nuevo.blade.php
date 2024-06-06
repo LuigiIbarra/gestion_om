@@ -22,7 +22,7 @@
                 </button>
             </div>
         @endif
-        <!--Inputs de Personal-->
+        <!--Inputs de Usuario-->
         @include('usuarios.datos_usuario')
         <div class="row" id="divpassword">
             <label for="password" class="col-form-label text-md-right">{{ __('Password') }}</label>

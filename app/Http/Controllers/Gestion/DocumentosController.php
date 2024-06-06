@@ -1043,59 +1043,117 @@ class DocumentosController extends Controller
                          ->with('success','Documento actualizado satisfactoriamente');
     }
 
-    public function confirmainhabilitar_documento($id_documento)
+
+public function confirmainhabilitar_documento($id_documento)
     {
         $documento          = Documento::where('iid_documento','=',$id_documento)->first();
-        $listTipoDocumento  = TipoDocumento::where('iestatus','=',1)->get();
+        $listTipoDocumento  = TipoDocumento::where('iestatus','=',1)->orderBy('cdescripcion_tipo_documento')->get();
         $listTipoAnexo      = TipoAnexo::where('iestatus','=',1)->get();
         $listEstatus        = EstatusDocumento::where('iestatus','=',1)->get();
         $listPrioridad      = PrioridadDocumento::where('iestatus','=',1)->get();
         $listSemaforo       = Semaforo::where('iestatus','=',1)->get();
-        $listPersonal       = Personal::where('iestatus','=',1)->get();
-        $remitente          = Personal::where('iid_personal','=',$documento->iid_personal_remitente)->where('iestatus','=',1)->first();
+    //Datos de Personal Remitente
+        $remitente          = Personal::with('puesto','adscripcion')->where('iid_personal','=',$documento->iid_personal_remitente)->first();
+                                                                    //->where('iestatus','=',1)->first();
+        $listPersonal       = Personal::with('puesto','adscripcion')->where('iestatus','=',1)->get();
         $listPuesto         = Puesto::where('iestatus','=',1)->get();
-        $puesto             = Puesto::where('iid_puesto','=',$remitente->iid_puesto)->where('iestatus','=',1)->first();
         $listAdscripcion    = Adscripcion::where('iestatus','=',1)->get();
-        $adscripcion        = Adscripcion::where('iid_adscripcion','=',$remitente->iid_adscripcion)->where('iestatus','=',1)->first();
+        $listTipoArea       = TipoArea::where('iestatus','=',1)->get();
         $listImportancia    = ImportanciaContenido::where('iestatus','=',1)->get();
         $listTema           = Tema::where('iestatus','=',1)->get();
         $listAsunto         = TipoAsunto::where('iestatus','=',1)->get();
         $listInstruccion    = Instruccion::where('iestatus','=',1)->get();
         $listDestinAtn      = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
         $listDestinConoc    = Adscripcion::where('iid_tipo_area','=',4)->where('iestatus','=',1)->get();
-    //Datos de Personal Remitente
-        $id_pers_remitente  = $documento->iid_personal_remitente;
-        $pers_remitente     = Personal::where('iid_personal','=',$id_pers_remitente)->first();
     //Datos de Personal Conocimiento
         $pers_conoc_total   = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
         if($pers_conoc_total>0) {
-            $pers_conoc     = PersonalConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->first();
-            $pers_cncmnt    = Personal::where('iid_personal','=',$pers_conoc->iid_personal)->where('iestatus','=',1)->first();
+        //Obtener la lista de Personal con Copia de Conocimiento
+            $pers_conoc     = PersonalConocimiento::with('personal')->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
         } else {
             $pers_conoc     = new PersonalConocimiento();
-            $pers_cncmnt    = new Personal();
         }
     //Datos de Destinatario Atención
         $destinAtt_total    = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
-        if($destinAtt_total>0)
-            $destinAtt      = DestinatarioAtencion::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
-        else
+        $otro_pers_at       = null;
+        if($destinAtt_total>0) {
+            $destinAtt      = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal','tipodocumento','estatusdocumento')
+                                                  ->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->orderBy('iid_adscripcion')->get();
+            if ($documento->iid_tipo_documento==8) {
+                $otropers_at_total = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal')
+                                                    ->where('iid_documento','=',$id_documento)
+                                                    ->whereIn('iid_adscripcion',[231,1354])
+                                                    ->where('iestatus','=',1)->count();
+                if ($otropers_at_total>0) {
+                    $otro_pers_at = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal')
+                                                    ->where('iid_documento','=',$id_documento)
+                                                    ->whereIn('iid_adscripcion',[231,1354])
+                                                    ->where('iestatus','=',1)->first();
+                } else {
+                    $otro_pers_at = null;
+                }
+            } else {
+                $otropers_at_total = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal')
+                                                    ->where('iid_documento','=',$id_documento)
+                                                    ->where('iid_adscripcion','=',1355)
+                                                    ->where('iestatus','=',1)->count();
+                if ($otropers_at_total>0) {
+                    $otro_pers_at = DestinatarioAtencion::with('otraadscripcion','otropuesto','otropersonal')
+                                                    ->where('iid_documento','=',$id_documento)
+                                                    ->where('iid_adscripcion','=',1355)
+                                                    ->where('iestatus','=',1)->first();
+                } else {
+                    $otro_pers_at = null;
+                }
+            }
+        } else {
             $destinAtt      = new DestinatarioAtencion();
+            $otro_pers_at   = null;
+        }
+
     //Datos de Destinatario Conocimiento
         $destinCon_total    = DestinatarioConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
-        if($destinCon_total>0)
-            $destinCon      = DestinatarioConocimiento::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
-        else
+        $otro_pers_cn       = null;
+        if($destinCon_total>0) {
+            $destinCon      = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
+                                                  ->where('iid_documento','=',$id_documento)->where('iestatus','=',1)->orderBy('iid_adscripcion')->get();
+            if ($documento->iid_tipo_documento==8) {
+                $otropers_cn_total = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
+                                                        ->where('iid_documento','=',$id_documento)
+                                                        ->whereIn('iid_adscripcion',[231,1354])
+                                                        ->where('iestatus','=',1)->count();
+                if ($otropers_cn_total>0) {
+                    $otro_pers_cn = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
+                                                        ->where('iid_documento','=',$id_documento)
+                                                        ->whereIn('iid_adscripcion',[231,1354])
+                                                        ->where('iestatus','=',1)->first();
+                } else {
+                    $otro_pers_cn = null;
+                }
+            } else {
+                $otropers_cn_total = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
+                                                        ->where('iid_documento','=',$id_documento)
+                                                        ->where('iid_adscripcion','=',1355)
+                                                        ->where('iestatus','=',1)->count();
+                if ($otropers_cn_total>0) {
+                    $otro_pers_cn = DestinatarioConocimiento::with('otraadscripcion','otropuesto','otropersonal')
+                                                        ->where('iid_documento','=',$id_documento)
+                                                        ->where('iid_adscripcion','=',1355)
+                                                        ->where('iestatus','=',1)->first();
+                } else {
+                    $otro_pers_cn = null;
+                }
+            }
+        } else {
             $destinCon      = new DestinatarioConocimiento();
+            $otro_pers_cn   = null;
+        }
+
     //Folio(s) Relacionado(s)
         $folsRels_total     = FolioRelacionado::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->count();
         if ($folsRels_total>0){
         //Obtener la lista de Folios Relacionados
-            $listafolsRels  = DB::table('tafolios_relacionados')
-                                ->select('cfolio_relacionado')
-                                ->where('iid_documento','=',$id_documento)
-                                ->where('iestatus','=',1)
-                                ->orderBy('cfolio_relacionado')->get();
+            $listafolsRels  = FolioRelacionado::where('iid_documento','=',$id_documento)->where('iestatus','=',1)->get();
         //Y convertirla en un arreglo
             $array1 = array();
             foreach($listafolsRels as $folrel)
@@ -1110,7 +1168,7 @@ class DocumentosController extends Controller
         $noeditar           = 'disabled';
     //Auxiliar para que pinte Checkboxes, si nuevo_registro=1, entonces van sin checkear
         $nuevo_registro     = '0';
-        return view('documentos.inhabilitar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listSemaforo','listPersonal','remitente','listPuesto','puesto','listAdscripcion','adscripcion','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_remitente','pers_conoc','pers_cncmnt','destinAtt','destinAtt_total','destinCon','destinCon_total','folsRels_total','docs_rels','noeditar','nuevo_registro'));
+        return view('documentos.inhabilitar',compact('documento','listTipoDocumento','listTipoAnexo','listEstatus','listPrioridad','listSemaforo','remitente','listPersonal','listPuesto','listAdscripcion','listTipoArea','listImportancia','listTema','listAsunto','listInstruccion','listDestinAtn','listDestinConoc','pers_conoc_total','pers_conoc','destinAtt','destinAtt_total','otro_pers_at','destinCon','destinCon_total','otro_pers_cn','folsRels_total','listafolsRels','docs_rels','noeditar','nuevo_registro'));
     }
 
     public function inhabilitar_documento(Request $request) 

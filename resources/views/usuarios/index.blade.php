@@ -38,7 +38,11 @@
         </form>
         <div class="row">
             <div class="col col-form-label text-md-right">
-                
+                @if(auth()->user()->iid_rol<=2)
+                    <a href="{{ url('usuarios/nuevo') }}" data-toggle="tooltip" data-html="true" title="Nuevo Usuario">
+                        + Nuevo Usuario
+                    </a>
+                @endif
             </div>
         </div>
         <table class="table table-striped shadow-lg" id="MyTablePersonal">

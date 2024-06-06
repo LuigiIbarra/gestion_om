@@ -141,10 +141,19 @@
                             @endif
                             --}}
                             @if(auth()->user()->iid_rol<=2)
-                                <li><a class="dropdown-item" href="{{ url('usuarios/index') }}">
-                                    <img src="{{ asset('bootstrap-icons-1.5.0/people.svg') }}" width="18" height="18"> Lista de Usuarios
-                                    </a>
-                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-item" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <img src="{{ asset('bootstrap-icons-1.5.0/people.svg') }}" width="18" height="18"> Usuarios <span class="caret"></span></a>
+                                    <ul class="dropdown-menu sub-menu">
+                                        <li><a class="dropdown-item" href="{{ url('usuarios/index') }}">
+                                            <img src="{{ asset('bootstrap-icons-1.5.0/people.svg') }}" width="18" height="18"> Lista de Usuarios
+                                            </a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ url('usuarios/nuevo') }}">
+                                            <img src="{{ asset('bootstrap-icons-1.5.0/person-plus.svg') }}" width="18" height="18"> Nuevo Usuario
+                                            </a>
+                                        </li>
+                                    </ul>
                             @endif
                           </ul>
                         </div>
@@ -188,12 +197,13 @@
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
+                            {{--
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+                            --}}
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

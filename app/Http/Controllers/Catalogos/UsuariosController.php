@@ -35,6 +35,42 @@ class UsuariosController extends Controller
         return view('usuarios.index',$data);
     }
 
+    public function nuevo_usuario()
+    {
+        $usuario      = new User();
+        $listRoles    = Rol::where('iid_rol','>=',2)->where('iestatus','=',1)->get();
+        //Auxiliar para indicar campos deshabilitados (disabled), ''=habilitados
+        $noeditar     = '';
+        return view('usuarios.nuevo',compact('usuario','listRoles','noeditar'));
+    }
+
+    public function guardar_usuario(Request $request)
+    {
+        //Revisar que no exista una persona con el mismo Nombre y/o Correo Electrónico
+        $ya_hay_user                       = User::where('name', '=',$request->nombre_usuario)
+                                                 ->orWhere('email','=',$request->correo_electronico)
+                                                 ->where('iestatus','=',1)->count();
+        if ($ya_hay_user==0) {
+            $now                               = new \DateTime();
+            $usuario                           = new User();
+            $jsonBefore                        = 'NUEVO USUARIO';
+            $usuario->name                     = $request->nombre_usuario;
+            $usuario->email                    = $request->correo_electronico;
+            $usuario->iid_rol                  = $request->rol;
+            $usuario->password                 = bcrypt($request->password);
+            $usuario->iestatus                 = 1;
+            $usuario->iid_usuario              = auth()->user()->id;
+            $usuario->save();
+            $jsonAfter                         = json_encode($usuario);
+            UsuariosController::bitacora($jsonBefore,$jsonAfter);
+            return redirect()->route('usuarios.index')
+                     ->with('success','Nuevo Usuario guardado satisfactoriamente.');
+        } else {
+            return redirect()->route('usuarios.nuevo')
+                     ->with('danger','YA EXISTE un Usuario con este Nombre y/o Correo Electrónico Guardado Previamente. Verifique.');
+        }
+    }
+
     public function editar_usuario($id_usuario)
     {
         $usuario      = User::with('rol')->where('id','=',$id_usuario)->first();

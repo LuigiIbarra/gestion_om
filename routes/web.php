@@ -116,6 +116,8 @@ Route::post('buscaOtroNombre',                      [PersonalController::class, 
 
 //Rutas de Usuarios
 Route::get('usuarios/index',                        [UsuariosController::class, 'index'])->name('usuarios.index');
+Route::get('usuarios/nuevo',                        [UsuariosController::class, 'nuevo_usuario'])->name('usuarios.nuevo');
+Route::post('usuarios/guardar',                     [UsuariosController::class, 'guardar_usuario']);
 Route::get('usuarios/editar/{id_usuario}',          [UsuariosController::class, 'editar_usuario'])->name('usuarios.editar');
 Route::post('usuarios/actualizar',                  [UsuariosController::class, 'actualizar_usuario']);
 Route::get('usuarios/inhabilitar/{id_usuario}',     [UsuariosController::class, 'confirmainhabilitar_usuario']);

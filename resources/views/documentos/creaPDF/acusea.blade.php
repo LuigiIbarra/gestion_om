@@ -34,12 +34,12 @@
 								<td style="vertical-align: top;text-align: center;"><h3>PODER JUDICIAL DE LA CIUDAD DE MÉXICO</h3></td>
 								<td width="100px" style="text-align: right;font-size: 8px;font-style: italic;">
 									{{ mb_strimwidth($parametros->cleyenda_anual_oficios, 0, 52) }} <br> 
-									@if (str_len($parametros->cleyenda_anual_oficios)>52) {
+									@if (str_len($parametros->cleyenda_anual_oficios)>52) 
 										{{ mb_strimwidth($parametros->cleyenda_anual_oficios, 52,
 															strlen ( $parametros->cleyenda_anual_oficios )
 														) 
 										}} 
-									}
+									@endif
 								</td>
 							</tr>
 							<tr>

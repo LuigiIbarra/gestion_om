@@ -32,7 +32,7 @@
 							<tr>
 								<td rowspan="3" style="text-align: left;vertical-align: top;" width="150px"><img src="./images/LOGO_PJ.jpg" width="150px"></td>
 								<td style="vertical-align: top;text-align: center;"><h3>PODER JUDICIAL DE LA CIUDAD DE MÉXICO</h3></td>
-								{{--
+								{{!--
 								<td width="100px" style="text-align: right;font-size: 8px;font-style: italic;">
 									{{ mb_strimwidth($parametros->cleyenda_anual_oficios, 0, strpos ( $parametros->cleyenda_anual_oficios, ",")) }} <br> 
 									{{ mb_strimwidth($parametros->cleyenda_anual_oficios, 
